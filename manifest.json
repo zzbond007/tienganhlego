@@ -1,0 +1,19 @@
+{
+  "name": "LEGO English Builder",
+  "short_name": "LEGO English",
+  "description": "Học tiếng Anh từ vựng & giao tiếp cho bé 9 tuổi bằng cách xây dựng Thế giới LEGO. Offline 100%.",
+  "lang": "vi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F1F5F9",
+  "theme_color": "#E3000B",
+  "categories": ["education", "kids"],
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

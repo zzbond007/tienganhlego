@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>LEGO English Builder</title>
+  <meta name="description" content="Học tiếng Anh từ vựng & giao tiếp cho bé 9 tuổi bằng cách xây dựng Thế giới LEGO. Chạy offline, không quảng cáo.">
+  <meta name="theme-color" content="#E3000B">
+
+  <!-- PWA / iPadOS Safari -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LEGO English">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+
+  <!-- Fonts (được Service Worker cache lại để dùng offline; có font dự phòng nếu chưa tải được) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"><span></span><span></span></div>
+        <div class="brand-text">
+          <strong>LEGO English Builder</strong>
+          <small>Học tiếng Anh – Xây thế giới LEGO</small>
+        </div>
+      </div>
+      <div class="wallet">
+        <button class="chip chip-stud" data-action="go" data-screen="locker" aria-label="LEGO Studs">
+          <i class="stud-icon" aria-hidden="true"></i><b id="studCount">0</b><small>Studs</small>
+        </button>
+        <button class="chip chip-gold" data-action="go" data-screen="diorama" aria-label="Gold Bricks">
+          <i class="gold-icon" aria-hidden="true"></i><b id="goldCount">0</b><small>Gold</small>
+        </button>
+        <button class="chip chip-avatar" data-action="go" data-screen="locker" aria-label="My Minifigure" id="avatarChip"></button>
+      </div>
+    </header>
+
+    <nav class="dock" aria-label="Main">
+      <button class="dock-btn" data-action="go" data-screen="map">
+        <span class="dock-ico">🌍</span><span class="dock-en">World Map</span><span class="dock-vi">Bản đồ</span>
+      </button>
+      <button class="dock-btn" data-action="go" data-screen="workshop">
+        <span class="dock-ico">🧱</span><span class="dock-en">Workshop</span><span class="dock-vi">Xưởng lắp</span>
+      </button>
+      <button class="dock-btn" data-action="go" data-screen="diorama">
+        <span class="dock-ico">🏙️</span><span class="dock-en">My World</span><span class="dock-vi">Sa bàn</span>
+      </button>
+      <button class="dock-btn" data-action="go" data-screen="locker">
+        <span class="dock-ico">🧑‍🚀</span><span class="dock-en">Minifig</span><span class="dock-vi">Tủ đồ</span>
+      </button>
+      <button class="dock-btn" data-action="go" data-screen="parent">
+        <span class="dock-ico">🔒</span><span class="dock-en">Parents</span><span class="dock-vi">Bố mẹ</span>
+      </button>
+    </nav>
+
+    <main id="screen" class="screen" tabindex="-1"></main>
+  </div>
+
+  <!-- Bài học / Bảo trì: lớp phủ toàn màn hình -->
+  <section id="overlay" class="overlay" hidden></section>
+
+  <!-- Hộp thoại -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <div id="fx" class="fx-layer" aria-hidden="true"></div>
+
+  <!-- Màn hình chào: cú chạm đầu tiên mở khóa âm thanh trên iPad -->
+  <div id="splash" class="splash">
+    <div class="splash-card">
+      <div class="splash-bricks" aria-hidden="true">
+        <span class="sb r"></span><span class="sb y"></span><span class="sb b"></span><span class="sb g"></span>
+      </div>
+      <h1>LEGO English Builder</h1>
+      <p class="splash-vi">Học tiếng Anh – Nhận mảnh ghép – Xây Thế giới LEGO của riêng con!</p>
+      <button id="startBtn" class="brick-btn btn-red btn-xl" type="button">
+        <span class="en">Tap to Start!</span><small class="vi">Chạm để bắt đầu</small>
+      </button>
+      <p class="splash-note">🔊 Bật loa để nghe giọng đọc tiếng Anh nhé.</p>
+    </div>
+  </div>
+
+  <noscript><p style="padding:24px;font-family:sans-serif">Ứng dụng cần bật JavaScript.</p></noscript>
+
+  <script src="./js/audio.js"></script>
+  <script src="./js/db.js"></script>
+  <script src="./js/lego-svg.js"></script>
+  <script src="./js/curriculum.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
