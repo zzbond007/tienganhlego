@@ -1,0 +1,389 @@
+/* =========================================================
+   db.js – Lưu trữ Local-First
+   - IndexedDB (kho chính) + localStorage (cấu hình nhanh & bản sao dự phòng)
+   - Spaced Repetition 1-3-7-14-30 ngày
+   - Sao lưu / Khôi phục bằng file JSON hoặc Mã Chuyển Máy (Base64)
+   ========================================================= */
+(function (global) {
+  'use strict';
+
+  const DB_NAME = 'lego-english-builder';
+  const DB_STORE = 'kv';
+  const STATE_KEY = 'state';
+  const LS_STATE = 'leb-state-mirror';
+  const LS_SETTINGS = 'leb-settings';
+  const CODE_PREFIX = 'LEB1:';
+  const DAY = 24 * 60 * 60 * 1000;
+  const SRS_INTERVALS = [1, 3, 7, 14, 30]; // ngày
+  const PARTS_PER_SET = 12;
+
+  function todayKey(d = new Date()) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dd}`;
+  }
+
+  /** Mốc đầu ngày (để ôn tập theo ngày, không theo giờ). */
+  function startOfDay(ts) {
+    const d = new Date(ts);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime();
+  }
+
+  function defaults() {
+    return {
+      version: 1,
+      createdAt: Date.now(),
+      profile: { name: 'Builder' },
+      studs: 30,
+      goldBricks: 0,
+      lessons: {},          // { z1l1: { done, stars, accuracy, plays, completedAt } }
+      parts: {},            // { z1: [0..2 x12] } 0=khóa, 1=đã mở (trong khay), 2=đã lắp
+      words: {},            // { wordId: { stage, due, correct, wrong, learnedAt, lastReview } }
+      mistakes: {},         // { key: { text, vi, count, last } }
+      daily: {},            // { 'YYYY-MM-DD': giây học }
+      avatar: { hat: 'cap-red', face: 'smile', torso: 'torso-red', legs: 'legs-blue', acc: 'none' },
+      owned: ['none-hat', 'cap-red', 'hair-brown', 'smile', 'grin', 'torso-red', 'torso-blue', 'legs-blue', 'legs-black', 'none'],
+      polished: {},         // { z1: timestamp lần bảo trì gần nhất }
+      settings: {
+        accent: 'en-US',
+        rate: 0.9,
+        sfx: true,
+        book: 'none',       // 'none' | 'gs4'
+        schoolUnit: 1,
+        micMode: 'auto'     // 'auto' | 'fallback'
+      }
+    };
+  }
+
+  /* ---------- IndexedDB tối giản ---------- */
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (!global.indexedDB) { reject(new Error('no-idb')); return; }
+      let req;
+      try { req = indexedDB.open(DB_NAME, 1); } catch (e) { reject(e); return; }
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(DB_STORE)) db.createObjectStore(DB_STORE);
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+      req.onblocked = () => reject(new Error('blocked'));
+    });
+  }
+
+  function idbGet(db, key) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, 'readonly');
+      const r = tx.objectStore(DB_STORE).get(key);
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
+    });
+  }
+
+  function idbPut(db, key, value) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, 'readwrite');
+      tx.objectStore(DB_STORE).put(value, key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error);
+    });
+  }
+
+  function lsGet(key) {
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch (e) { return null; }
+  }
+  function lsSet(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* đầy bộ nhớ / chế độ riêng tư */ }
+  }
+
+  /** Gộp dữ liệu đã lưu với cấu trúc mặc định (an toàn khi nâng cấp phiên bản). */
+  function merge(base, saved) {
+    if (!saved || typeof saved !== 'object') return base;
+    const out = Object.assign({}, base, saved);
+    out.profile = Object.assign({}, base.profile, saved.profile || {});
+    out.avatar = Object.assign({}, base.avatar, saved.avatar || {});
+    out.settings = Object.assign({}, base.settings, saved.settings || {});
+    ['lessons', 'parts', 'words', 'mistakes', 'daily', 'polished'].forEach((k) => {
+      out[k] = Object.assign({}, saved[k] || {});
+    });
+    out.owned = Array.from(new Set([].concat(base.owned, Array.isArray(saved.owned) ? saved.owned : [])));
+    out.studs = Math.max(0, Number(saved.studs) || 0);
+    out.goldBricks = Math.max(0, Number(saved.goldBricks) || 0);
+    return out;
+  }
+
+  function utf8ToB64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }
+  function b64ToUtf8(b64) {
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  const Store = {
+    state: defaults(),
+    _db: null,
+    _saveTimer: null,
+    listeners: [],
+    SRS_INTERVALS,
+    PARTS_PER_SET,
+    DAY,
+    todayKey,
+
+    async load() {
+      // Cấu hình nhanh từ localStorage (có ngay, kể cả khi IDB chậm)
+      const quick = lsGet(LS_SETTINGS);
+      let saved = null;
+      try {
+        this._db = await openDB();
+        saved = await idbGet(this._db, STATE_KEY);
+      } catch (e) {
+        this._db = null;
+      }
+      if (!saved) saved = lsGet(LS_STATE);
+      this.state = merge(defaults(), saved);
+      if (quick) this.state.settings = Object.assign(this.state.settings, quick);
+      return this.state;
+    },
+
+    onChange(fn) { this.listeners.push(fn); },
+    _emit() { this.listeners.forEach((fn) => { try { fn(this.state); } catch (e) { /* */ } }); },
+
+    save() {
+      this._emit();
+      clearTimeout(this._saveTimer);
+      this._saveTimer = setTimeout(() => this.saveNow(), 250);
+    },
+
+    async saveNow() {
+      clearTimeout(this._saveTimer);
+      const snapshot = JSON.parse(JSON.stringify(this.state));
+      lsSet(LS_SETTINGS, snapshot.settings);
+      lsSet(LS_STATE, snapshot);
+      if (this._db) {
+        try { await idbPut(this._db, STATE_KEY, snapshot); } catch (e) { /* đã có bản sao localStorage */ }
+      }
+    },
+
+    /* ---------- Ví thưởng ---------- */
+    addStuds(n) { this.state.studs = Math.max(0, this.state.studs + Math.round(n)); this.save(); },
+    spendStuds(n) {
+      if (this.state.studs < n) return false;
+      this.state.studs -= n; this.save(); return true;
+    },
+    addGold(n) { this.state.goldBricks = Math.max(0, this.state.goldBricks + Math.round(n)); this.save(); },
+
+    /* ---------- Bài học ---------- */
+    lesson(id) { return this.state.lessons[id] || null; },
+    isLessonDone(id) { return !!(this.state.lessons[id] && this.state.lessons[id].done); },
+    completeLesson(id, { stars = 1, accuracy = 0 } = {}) {
+      const prev = this.state.lessons[id] || { plays: 0, stars: 0 };
+      const firstTime = !prev.done;
+      this.state.lessons[id] = {
+        done: true,
+        stars: Math.max(prev.stars || 0, stars),
+        accuracy: Math.max(prev.accuracy || 0, accuracy),
+        plays: (prev.plays || 0) + 1,
+        completedAt: prev.completedAt || Date.now(),
+        lastPlayed: Date.now()
+      };
+      this.save();
+      return firstTime;
+    },
+    lessonsDoneCount() { return Object.values(this.state.lessons).filter((l) => l.done).length; },
+
+    /* ---------- Mảnh ghép mô hình ---------- */
+    parts(zoneId) {
+      if (!this.state.parts[zoneId]) this.state.parts[zoneId] = new Array(PARTS_PER_SET).fill(0);
+      return this.state.parts[zoneId];
+    },
+    unlockParts(zoneId, idxs) {
+      const p = this.parts(zoneId);
+      const newly = [];
+      idxs.forEach((i) => { if (p[i] === 0) { p[i] = 1; newly.push(i); } });
+      this.save();
+      return newly;
+    },
+    assemblePart(zoneId, idx) {
+      const p = this.parts(zoneId);
+      if (p[idx] !== 1) return false;
+      p[idx] = 2;
+      this.save();
+      return true;
+    },
+    zoneProgress(zoneId) {
+      const p = this.parts(zoneId);
+      return {
+        assembled: p.filter((x) => x === 2).length,
+        unlocked: p.filter((x) => x >= 1).length,
+        ready: p.filter((x) => x === 1).length,
+        total: p.length,
+        complete: p.every((x) => x === 2)
+      };
+    },
+    totalReadyParts() {
+      return Object.keys(this.state.parts).reduce((s, z) => s + this.state.parts[z].filter((x) => x === 1).length, 0);
+    },
+
+    /* ---------- Từ vựng & Spaced Repetition ---------- */
+    word(id) { return this.state.words[id] || null; },
+
+    /** Ghi nhận trả lời trong bài học (thống kê, không đổi lịch ôn). */
+    recordAnswer(wordId, correct) {
+      const w = this.state.words[wordId] || { stage: 0, due: 0, correct: 0, wrong: 0 };
+      if (correct) w.correct++; else w.wrong++;
+      this.state.words[wordId] = w;
+      this.save();
+    },
+
+    /** Khi hoàn thành bài: từ mới bước vào lịch ôn – ôn lần 1 sau 1 ngày. */
+    learnWord(wordId) {
+      const w = this.state.words[wordId] || { stage: 0, due: 0, correct: 0, wrong: 0 };
+      if (!w.stage) {
+        w.stage = 1;
+        w.learnedAt = Date.now();
+        w.due = startOfDay(Date.now()) + SRS_INTERVALS[0] * DAY;
+      }
+      this.state.words[wordId] = w;
+      this.save();
+    },
+
+    /** Trạm bảo trì: đúng → lên bậc (3, 7, 14, 30 ngày); sai → lùi 1 bậc, ôn lại sau 1 ngày. */
+    reviewWord(wordId, correct) {
+      const w = this.state.words[wordId];
+      if (!w || !w.stage) return;
+      const now = Date.now();
+      if (correct) {
+        w.correct++;
+        w.stage = Math.min(SRS_INTERVALS.length + 1, w.stage + 1);
+        const interval = SRS_INTERVALS[Math.min(w.stage - 1, SRS_INTERVALS.length - 1)];
+        w.due = startOfDay(now) + interval * DAY;
+      } else {
+        w.wrong++;
+        w.stage = Math.max(1, w.stage - 1);
+        w.due = startOfDay(now) + SRS_INTERVALS[0] * DAY;
+      }
+      w.lastReview = now;
+      this.save();
+    },
+
+    isDue(wordId, now = Date.now()) {
+      const w = this.state.words[wordId];
+      return !!(w && w.stage && w.due <= now);
+    },
+
+    dueWordIds(now = Date.now()) {
+      return Object.keys(this.state.words).filter((id) => this.isDue(id, now));
+    },
+
+    learnedWordIds() { return Object.keys(this.state.words).filter((id) => this.state.words[id].stage > 0); },
+    masteredWordIds() { return Object.keys(this.state.words).filter((id) => this.state.words[id].stage >= 4); },
+
+    /** Lịch ôn sắp tới: { 'YYYY-MM-DD': [wordId...] } trong N ngày. */
+    upcoming(days = 7) {
+      const out = {};
+      const end = startOfDay(Date.now()) + (days + 1) * DAY;
+      Object.keys(this.state.words).forEach((id) => {
+        const w = this.state.words[id];
+        if (!w.stage || w.due >= end) return;
+        const key = w.due <= Date.now() ? todayKey() : todayKey(new Date(w.due));
+        (out[key] = out[key] || []).push(id);
+      });
+      return out;
+    },
+
+    polish(zoneId) { this.state.polished[zoneId] = Date.now(); this.save(); },
+
+    /* ---------- Lỗi hay gặp ---------- */
+    addMistake(key, text, vi) {
+      const m = this.state.mistakes[key] || { text, vi: vi || '', count: 0 };
+      m.count++; m.last = Date.now(); m.text = text; if (vi) m.vi = vi;
+      this.state.mistakes[key] = m;
+      this.save();
+    },
+    topMistakes(n = 15) {
+      return Object.entries(this.state.mistakes)
+        .map(([key, m]) => Object.assign({ key }, m))
+        .sort((a, b) => b.count - a.count || b.last - a.last)
+        .slice(0, n);
+    },
+    clearMistakes() { this.state.mistakes = {}; this.save(); },
+
+    /* ---------- Thời gian học ---------- */
+    addSeconds(sec) {
+      const k = todayKey();
+      this.state.daily[k] = (this.state.daily[k] || 0) + sec;
+      this.save();
+    },
+    lastDays(n = 7) {
+      const out = [];
+      for (let i = n - 1; i >= 0; i--) {
+        const d = new Date(); d.setDate(d.getDate() - i);
+        const k = todayKey(d);
+        out.push({ key: k, date: d, seconds: this.state.daily[k] || 0 });
+      }
+      return out;
+    },
+    totalSeconds() { return Object.values(this.state.daily).reduce((a, b) => a + b, 0); },
+
+    /* ---------- Nhân vật ---------- */
+    owns(itemId) { return this.state.owned.indexOf(itemId) !== -1; },
+    buy(itemId, price) {
+      if (this.owns(itemId)) return true;
+      if (!this.spendStuds(price)) return false;
+      this.state.owned.push(itemId);
+      this.save();
+      return true;
+    },
+    equip(slot, itemId) { this.state.avatar[slot] = itemId; this.save(); },
+
+    /* ---------- Sao lưu / Khôi phục ---------- */
+    exportObject() {
+      return { app: 'lego-english-builder', exportedAt: new Date().toISOString(), data: JSON.parse(JSON.stringify(this.state)) };
+    },
+    exportJSON() { return JSON.stringify(this.exportObject(), null, 2); },
+
+    validate(obj) {
+      const data = obj && obj.app === 'lego-english-builder' ? obj.data : obj;
+      if (!data || typeof data !== 'object') throw new Error('Dữ liệu không hợp lệ');
+      if (typeof data.lessons !== 'object' || typeof data.words !== 'object') throw new Error('Thiếu dữ liệu bài học/từ vựng');
+      return data;
+    },
+
+    async importObject(obj) {
+      const data = this.validate(obj);
+      this.state = merge(defaults(), data);
+      await this.saveNow();
+      this._emit();
+    },
+
+    async importJSON(text) { return this.importObject(JSON.parse(text)); },
+
+    toCode() { return CODE_PREFIX + utf8ToB64(JSON.stringify(this.exportObject())); },
+
+    async fromCode(code) {
+      const raw = String(code || '').trim().replace(/\s+/g, '');
+      if (raw.indexOf(CODE_PREFIX) !== 0) throw new Error('Mã không đúng định dạng (phải bắt đầu bằng LEB1:)');
+      const json = b64ToUtf8(raw.slice(CODE_PREFIX.length));
+      return this.importObject(JSON.parse(json));
+    },
+
+    async reset() {
+      const keepSettings = this.state.settings;
+      this.state = defaults();
+      this.state.settings = keepSettings;
+      await this.saveNow();
+      this._emit();
+    }
+  };
+
+  global.Store = Store;
+})(window);
