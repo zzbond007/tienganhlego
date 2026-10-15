@@ -47,6 +47,7 @@
       owned: ['none-hat', 'cap-red', 'hair-brown', 'smile', 'grin', 'torso-red', 'torso-blue', 'legs-blue', 'legs-black', 'none'],
       polished: {},         // { z1: timestamp lần bảo trì gần nhất }
       mysteries: {},        // { z1: { done, stars, at } } – LEGO Mystery Mission
+      gym: {},              // { 'YYYY-MM-DD': số lượt Listening & Speaking Gym }
       snow: {},             // { z1l1: 3 } – tầng Snowball cao nhất đã lắp (1..3)
       branches: {},         // { 'z1l1:cb': ['yes','no'] } – các hướng hội thoại bé đã thử
       customUnits: [],      // [{ id: 'c1', addedAt, data: {...JSON bố mẹ nhập} }]
@@ -110,7 +111,7 @@
     out.profile = Object.assign({}, base.profile, saved.profile || {});
     out.avatar = Object.assign({}, base.avatar, saved.avatar || {});
     out.settings = Object.assign({}, base.settings, saved.settings || {});
-    ['lessons', 'parts', 'words', 'mistakes', 'daily', 'polished', 'mysteries', 'snow', 'branches'].forEach((k) => {
+    ['lessons', 'parts', 'words', 'mistakes', 'daily', 'polished', 'mysteries', 'snow', 'branches', 'gym'].forEach((k) => {
       out[k] = Object.assign({}, saved[k] || {});
     });
     out.customUnits = Array.isArray(saved.customUnits)
@@ -397,6 +398,8 @@
       return out;
     },
     totalSeconds() { return Object.values(this.state.daily).reduce((a, b) => a + b, 0); },
+    gymToday() { return this.state.gym[todayKey()] || 0; },
+    recordGym() { const k = todayKey(); this.state.gym[k] = (this.state.gym[k] || 0) + 1; this.save(); },
     /** Số ngày học liên tiếp (tính đến hôm nay, hoặc hôm qua nếu hôm nay chưa học). */
     streakDays() {
       let count = 0;

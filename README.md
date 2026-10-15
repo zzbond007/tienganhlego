@@ -16,6 +16,24 @@ Học xong mỗi bài → nhận mảnh ghép → lắp Bộ Mô Hình LEGO → 
 | Ôn tập SRS 1-3-7-14-30 ngày | Ánh xạ 20 Unit SGK *Tiếng Anh 4 Global Success* |
 | 30 thử thách Snowball 3 tầng | 60 hội thoại rẽ nhánh · 10 LEGO Mystery Mission |
 
+## Lộ trình 9 tháng (36 tuần)
+
+Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Tháng 7–9 · 📘 SGK & Kho bài**. Mỗi tuần là một Vùng đất
+(3 bài + 1 Mystery Mission), nhóm theo tháng; Xưởng lắp, Sa bàn và Hộ chiếu dùng chung thanh chọn này.
+
+| Gói dữ liệu | Nội dung | Trạng thái |
+|---|---|---|
+| `js/curriculum-stage1.js` | Tuần 1–12: thói quen tự lập, ngôi nhà, việc nhà, gia đình, lớp học, môn học, sân chơi & cờ vua, ứng xử lịch sự, món Việt, siêu thị, 5 giác quan, sức khỏe | ✅ 36 bài · 180 từ |
+| `js/curriculum-stage2.js` | Tuần 13–24: khoa học tự nhiên hằng ngày | ⏳ |
+| `js/curriculum-stage3.js` | Tuần 25–36: giao tiếp tự tin & thế giới | ⏳ |
+
+Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
+**🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold).
+10 Vùng đất gốc nằm ở tab **📘 SGK & Kho bài**; School Sync hỗ trợ cả *Tiếng Anh 3* và *Tiếng Anh 4 Global Success*.
+
+Gói giai đoạn tự đăng ký bằng `window.CurriculumStages.push({ stage, zones })` và phải nạp trước `js/curriculum.js`
+(thêm thẻ `<script>` trong `index.html` và đường dẫn vào `CORE_ASSETS` của `sw.js`).
+
 ## Cơ chế sư phạm chuyên sâu (Expert ESL Add-on)
 
 1. **Color-Coded Brick Grammar** – gạch chữ (Bước 1 & Bước 4) luôn mang màu theo chức năng câu:
@@ -87,7 +105,8 @@ js/db.js        IndexedDB + localStorage, SRS, sao lưu JSON / Mã Chuyển Máy
 js/lego-svg.js  Gạch LEGO, 10 mô hình (+ mô hình chung cho bài tùy chỉnh), Minifigure, túi mù, sa bàn
 js/grammar.js   Color-Coded Brick Grammar – đoán vai trò ngữ pháp của từng viên gạch
 js/expert-data.js Snowball 3 tầng, hội thoại rẽ nhánh (30 bài), 10 LEGO Mystery Mission
-js/curriculum.js Dữ liệu 10 vùng đất, Comic, ánh xạ SGK, chuẩn hóa & đăng ký Vùng đất tùy chỉnh
+js/curriculum-stage1.js Lộ trình 9 tháng – Giai đoạn 1 (Tuần 1–12)
+js/curriculum.js Dữ liệu 10 vùng đất gốc, Comic, ánh xạ SGK Lớp 3 & 4, chuẩn hóa & đăng ký Vùng đất
 js/custom-units.js Custom Unit Importer: kiểm tra JSON, tự bổ sung phần thiếu, Prompt mẫu cho AI
 js/app.js       Điều hướng, bài học 6 bước, xưởng lắp, sa bàn, tủ đồ, hộ chiếu, mystery, góc bố mẹ
 icons/          Icon PWA (PNG + SVG)

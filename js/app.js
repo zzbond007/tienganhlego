@@ -168,8 +168,8 @@
 
   /* ---------- Trạng thái bài học ---------- */
   function lessonUnlocked(zone, idx) { return idx === 0 || S.isLessonDone(zone.lessons[idx - 1].id); }
-  function findNextLesson() {
-    for (const z of ZONES) {
+  function findNextLesson(zones) {
+    for (const z of (zones || ZONES)) {
       for (let i = 0; i < z.lessons.length; i++) {
         if (!S.isLessonDone(z.lessons[i].id) && lessonUnlocked(z, i)) return z.lessons[i];
       }
@@ -318,42 +318,130 @@
   /* =========================================================
      MÀN HÌNH 1: BẢN ĐỒ THẾ GIỚI
      ========================================================= */
-  function renderMap() {
-    const st = S.state;
-    const next = findNextLesson();
-    const due = S.dueWordIds().filter((id) => WORDS[id]).length;
-    const book = st.settings.book;
-    const lessonsDone = S.lessonsDoneCount();
+  /* ---------- Lộ trình 9 Tháng: Giai đoạn đang chọn & thanh chọn ---------- */
+  function curStage() {
+    const v = S.state.settings.roadmap;
+    return CUR.STAGES.some((x) => String(x.id) === String(v)) ? (v === 'sgk' ? 'sgk' : Number(v)) : 1;
+  }
+  function stageZones(stage) { return CUR.zonesOf(stage === undefined ? curStage() : stage); }
+  function stageInfo(stage) { return CUR.STAGES.find((x) => String(x.id) === String(stage === undefined ? curStage() : stage)); }
+  function zoneLabel(z, idx) { return z.week ? 'W' + z.week : z.custom ? z.icon : String(idx + 1); }
 
-    let school = '';
-    if (book === 'gs4') {
-      const units = SCHOOL_BOOKS.gs4.units;
-      const cur = units.find((u) => u.unit === Number(st.settings.schoolUnit)) || units[0];
-      const L = window.Curriculum.lesson(cur.lesson);
-      const Z = window.Curriculum.zone(L.zoneId);
-      school = `<div class="card school-panel studs-top">
-        <div class="school-row">
-          <button class="toggle on" data-action="toggle-school" aria-label="Học Cùng Lớp 4"></button>
-          <label>📘 School Sync – Học Cùng Lớp 4<small class="vi" style="display:block;font-size:13px">${esc(SCHOOL_BOOKS.gs4.name)}</small></label>
-          <select class="select-lg" data-change="school-unit" aria-label="Unit">
-            ${units.map((u) => `<option value="${u.unit}"${u.unit === cur.unit ? ' selected' : ''}>Unit ${u.unit}: ${esc(u.title)}</option>`).join('')}
-          </select>
-        </div>
-        <div class="school-result">
-          <span class="pill blue">Unit ${cur.unit} → Zone ${Z.id.slice(1)} · ${esc(L.title)}</span>
-          <span class="vi">Ôn đúng chủ đề tuần này trên lớp: <b>${esc(L.titleVi)}</b></span>
-          <button class="brick-btn btn-blue btn-sm" data-action="start-lesson" data-lesson="${L.id}" data-force="1">${bi('▶ Practise now', 'Ôn ngay')}</button>
-        </div>
-      </div>`;
-    } else {
-      school = `<div class="card school-panel studs-top"><div class="school-row">
-        <button class="toggle" data-action="toggle-school" aria-label="Học Cùng Lớp 4"></button>
-        <label>📘 School Sync – Học Cùng Lớp 4<small class="vi" style="display:block;font-size:13px">Bật để chọn đúng Unit sách Tiếng Anh 4 Global Success bé đang học trên lớp.</small></label>
+  function stageTabsHTML() {
+    const cur = String(curStage());
+    return `<div class="stage-tabs" role="tablist" aria-label="Lộ trình 9 tháng">${CUR.STAGES.map((st) => {
+      const zs = CUR.zonesOf(st.id);
+      const total = zs.reduce((a, z) => a + z.lessons.length, 0);
+      const done = zs.reduce((a, z) => a + z.lessons.filter((l) => S.isLessonDone(l.id)).length, 0);
+      return `<button class="stage-tab${String(st.id) === cur ? ' active' : ''}" role="tab" aria-selected="${String(st.id) === cur}" data-action="stage-tab" data-stage="${st.id}" title="${esc(st.vi)}">
+        <span class="st-ico">${st.icon}</span><span class="st-txt"><b>${esc(st.short)}</b><small>${zs.length ? `${done}/${total} bài` : 'Sắp ra mắt'}</small></span>
+        ${total ? `<i class="st-bar"><i style="width:${Math.round((done / total) * 100)}%"></i></i>` : ''}
+      </button>`;
+    }).join('')}</div>`;
+  }
+
+  function comingSoonHTML() {
+    const st = stageInfo();
+    return `<div class="card coming-soon studs-top"><div style="font-size:54px">${st.icon}🚧</div>
+      <h3>${esc(st.vi)}</h3><p class="vi">Giai đoạn này đang được xây dựng – các Vùng đất mới sẽ xuất hiện ở đây trong bản cập nhật tiếp theo. Trong lúc chờ, con học tiếp ở các tab khác nhé!</p></div>`;
+  }
+
+  /** Các Unit SGK đang có bài LEGO tương ứng. */
+  function bookUnits(book) {
+    const B = SCHOOL_BOOKS[book];
+    return B ? B.units.filter((u) => CUR.lesson(u.lesson)) : [];
+  }
+
+  function schoolPanelHTML() {
+    const st = S.state;
+    const book = SCHOOL_BOOKS[st.settings.book] ? st.settings.book : 'none';
+    if (book === 'none') {
+      return `<div class="card school-panel studs-top"><div class="school-row">
+        <button class="toggle" data-action="toggle-school" aria-label="Học cùng SGK"></button>
+        <label>📘 School Sync – Học cùng SGK<small class="vi" style="display:block;font-size:13px">Bật để chọn đúng Unit sách Tiếng Anh 3 hoặc Tiếng Anh 4 Global Success bé đang học trên lớp.</small></label>
       </div></div>`;
     }
+    const units = bookUnits(book);
+    const cur = units.find((u) => u.unit === Number(st.settings.schoolUnit)) || units[0];
+    const L = cur && CUR.lesson(cur.lesson);
+    const Z = L && CUR.zone(L.zoneId);
+    return `<div class="card school-panel studs-top">
+      <div class="school-row">
+        <button class="toggle on" data-action="toggle-school" aria-label="Học cùng SGK"></button>
+        <label>📘 School Sync – Học cùng SGK</label>
+        <select class="select-lg" data-change="school-book" aria-label="Book">
+          ${Object.keys(SCHOOL_BOOKS).map((k) => `<option value="${k}"${k === book ? ' selected' : ''}>${esc(SCHOOL_BOOKS[k].name)}</option>`).join('')}
+        </select>
+        <select class="select-lg" data-change="school-unit" aria-label="Unit">
+          ${units.map((u) => `<option value="${u.unit}"${cur && u.unit === cur.unit ? ' selected' : ''}>Unit ${u.unit}: ${esc(u.title)}</option>`).join('')}
+        </select>
+      </div>
+      ${L ? `<div class="school-result">
+        <span class="pill blue">Unit ${cur.unit} → ${Z.week ? 'Week ' + Z.week : esc(Z.short || Z.name)} · ${esc(L.title)}</span>
+        <span class="vi">Ôn đúng chủ đề tuần này trên lớp: <b>${esc(L.titleVi)}</b></span>
+        <button class="brick-btn btn-blue btn-sm" data-action="start-lesson" data-lesson="${L.id}" data-force="1">${bi('▶ Practise now', 'Ôn ngay')}</button>
+      </div>` : ''}
+    </div>`;
+  }
+
+  function zoneCardHTML(z, idx, schoolLesson) {
+    const prog = S.zoneProgress(z.id);
+    const doneL = z.lessons.filter((l) => S.isLessonDone(l.id)).length;
+    const dueN = zoneDueIds(z.id).length;
+    const isSchool = schoolLesson && schoolLesson.zoneId === z.id;
+    const mys = S.mystery(z.id);
+    return `<button class="zone-card${z.custom ? ' custom' : ''}" data-action="open-zone" data-zone="${z.id}" style="${zoneStyle(z)}">
+      <div class="zone-top"><div class="zone-num${z.week ? ' wk' : ''}">${zoneLabel(z, idx)}</div><div><h3>${esc(z.name)}</h3><small>${esc(z.vi)}</small></div></div>
+      <div class="zone-thumb">
+        ${dueN ? `<span class="badge-due">🔧 ${dueN}</span>` : ''}
+        ${isSchool ? '<span class="badge-due badge-school">📘 Unit</span>' : ''}
+        ${z.custom ? '<span class="badge-due badge-custom">✏️ Custom</span>' : ''}
+        ${mys && mys.done ? '<span class="badge-due badge-mystery done">🕵️ ✓</span>' : mysteryOpen(z) ? '<span class="badge-due badge-mystery">🕵️ !</span>' : ''}
+        ${LG.renderModel(z.id, S.parts(z.id))}
+      </div>
+      <div class="zone-meta">
+        <div class="zone-topic">${z.icon} ${esc(z.topic)}<span class="vi">${esc(z.topicVi)}</span></div>
+        <div class="brick-meter">${Array.from({ length: 12 }, (_, k) => `<i class="${k < prog.unlocked ? 'on' : ''}"></i>`).join('')}</div>
+        <div class="zone-stats"><span>🧱 ${prog.unlocked}/12 Bricks</span><span>⭐ ${doneL}/${z.lessons.length}</span></div>
+      </div>
+    </button>`;
+  }
+
+  function renderMap() {
+    const st = S.state;
+    const stage = curStage();
+    const zones = stageZones();
+    const next = findNextLesson(zones) || findNextLesson();
+    const due = S.dueWordIds().filter((id) => WORDS[id]).length;
+    const lessonsDone = S.lessonsDoneCount();
+    const book = SCHOOL_BOOKS[st.settings.book] ? st.settings.book : null;
+    const sUnit = book && bookUnits(book).find((u) => u.unit === Number(st.settings.schoolUnit));
+    const schoolLesson = sUnit ? CUR.lesson(sUnit.lesson) : null;
+    const info = stageInfo();
 
     const hour = new Date().getHours();
     const greet = hour < 12 ? ['Good morning', 'Chào buổi sáng'] : hour < 18 ? ['Good afternoon', 'Chào buổi chiều'] : ['Good evening', 'Chào buổi tối'];
+
+    let grid;
+    if (!zones.length) grid = comingSoonHTML();
+    else if (stage !== 'sgk') {
+      // Nhóm theo Tháng (4 tuần / tháng)
+      const months = [];
+      zones.forEach((z) => {
+        const m = z.month || 0;
+        let g = months.find((x) => x.m === m);
+        if (!g) { g = { m, title: z.monthTitle || '', titleVi: z.monthTitleVi || '', zones: [] }; months.push(g); }
+        g.zones.push(z);
+      });
+      grid = months.map((g) => `<h4 class="month-title"><span class="month-num">${g.m ? 'Tháng ' + g.m : ''}</span>${esc(g.title)}<small class="vi">${esc(g.titleVi)}</small></h4>
+        <div class="zone-grid">${g.zones.map((z, i) => zoneCardHTML(z, i, schoolLesson)).join('')}</div>`).join('');
+    } else {
+      const classic = zones.filter((z) => !z.custom), custom = zones.filter((z) => z.custom);
+      grid = `<h4 class="month-title"><span class="month-num">Lớp 4</span>Classic LEGO Zones<small class="vi">10 Vùng đất gốc theo chương trình Lớp 4 / Movers–Flyers (nối với SGK Tiếng Anh 4)</small></h4>
+        <div class="zone-grid">${classic.map((z, i) => zoneCardHTML(z, i, schoolLesson)).join('')}</div>
+        ${custom.length ? `<h4 class="month-title"><span class="month-num">✏️</span>Custom Units<small class="vi">Bài học bố mẹ nhập theo SGK của con</small></h4>
+        <div class="zone-grid">${custom.map((z, i) => zoneCardHTML(z, i, schoolLesson)).join('')}</div>` : ''}`;
+    }
 
     screenEl.innerHTML = `<div class="screen-inner">
       <div class="card hero studs-top">
@@ -366,38 +454,16 @@
         <div class="hero-actions">
           ${next ? `<button class="brick-btn btn-red" data-action="start-lesson" data-lesson="${next.id}">${bi('▶ Next lesson: ' + esc(next.title), 'Bài tiếp theo: ' + esc(next.titleVi))}</button>`
             : `<button class="brick-btn btn-green" data-action="go" data-screen="diorama">${bi('🏆 All lessons done!', 'Đã học hết – xem Sa bàn')}</button>`}
+          <button class="brick-btn btn-purple" data-action="gym">${bi('🎧 Listening & Speaking Gym', `Luyện Nghe – Nói mỗi ngày (3 phút)${S.gymToday() ? ' · hôm nay: ' + S.gymToday() + ' lượt' : ''}`)}</button>
           ${due ? `<button class="brick-btn btn-orange" data-action="review" data-zone="">${bi(`🔧 Tune-up time (${due})`, `Trạm bảo trì: ${due} từ cần ôn`)}</button>` : ''}
-          ${(() => { const mz = ZONES.find((z) => mysteryOpen(z) && !(S.mystery(z.id) || {}).done); return mz ? `<button class="brick-btn btn-purple" data-action="mystery" data-zone="${mz.id}">${bi('🕵️ Mystery Mission!', 'Nhiệm vụ thám tử: ' + esc(mz.short || mz.name))}</button>` : ''; })()}
+          ${(() => { const mz = ZONES.find((z) => mysteryOpen(z) && !(S.mystery(z.id) || {}).done); return mz ? `<button class="brick-btn btn-yellow" data-action="mystery" data-zone="${mz.id}">${bi('🕵️ Mystery Mission!', 'Nhiệm vụ thám tử: ' + esc(mz.short || mz.name))}</button>` : ''; })()}
           ${S.totalReadyParts() ? `<button class="brick-btn btn-blue" data-action="go" data-screen="workshop">${bi(`🧱 ${S.totalReadyParts()} parts to build`, 'Mảnh ghép đang chờ lắp')}</button>` : ''}
         </div>
       </div>
-      ${school}
-      <h3 class="section-title">🌍 LEGO World Map <span class="vi">Bản đồ ${ZONES.length} Vùng đất LEGO – chạm vào vùng đất để học${ZONES.length > BUILTIN_COUNT ? ' (✏️ = bài bố mẹ nhập)' : ''}</span></h3>
-      <div class="zone-grid">
-        ${ZONES.map((z, zi) => {
-          const prog = S.zoneProgress(z.id);
-          const doneL = z.lessons.filter((l) => S.isLessonDone(l.id)).length;
-          const dueN = zoneDueIds(z.id).length;
-          const schoolHere = book === 'gs4' && (SCHOOL_BOOKS.gs4.units.find((u) => u.unit === Number(st.settings.schoolUnit)) || {}).lesson;
-          const isSchool = schoolHere && schoolHere.indexOf(z.id + 'l') === 0;
-          const mys = S.mystery(z.id);
-          return `<button class="zone-card${z.custom ? ' custom' : ''}" data-action="open-zone" data-zone="${z.id}" style="${zoneStyle(z)}">
-            <div class="zone-top"><div class="zone-num">${z.custom ? z.icon : zi + 1}</div><div><h3>${esc(z.name)}</h3><small>${esc(z.vi)}</small></div></div>
-            <div class="zone-thumb">
-              ${dueN ? `<span class="badge-due">🔧 ${dueN}</span>` : ''}
-              ${isSchool ? '<span class="badge-due badge-school">📘 Unit</span>' : ''}
-              ${z.custom ? '<span class="badge-due badge-custom">✏️ Custom</span>' : ''}
-              ${mys && mys.done ? '<span class="badge-due badge-mystery done">🕵️ ✓</span>' : mysteryOpen(z) ? '<span class="badge-due badge-mystery">🕵️ !</span>' : ''}
-              ${LG.renderModel(z.id, S.parts(z.id))}
-            </div>
-            <div class="zone-meta">
-              <div class="zone-topic">${z.icon} ${esc(z.topic)}<span class="vi">${esc(z.topicVi)}</span></div>
-              <div class="brick-meter">${Array.from({ length: 12 }, (_, k) => `<i class="${k < prog.unlocked ? 'on' : ''}"></i>`).join('')}</div>
-              <div class="zone-stats"><span>🧱 ${prog.unlocked}/12 Bricks</span><span>⭐ ${doneL}/${z.lessons.length}</span></div>
-            </div>
-          </button>`;
-        }).join('')}
-      </div>
+      ${stageTabsHTML()}
+      ${stage === 'sgk' || book ? schoolPanelHTML() : ''}
+      <h3 class="section-title">${info.icon} ${esc(info.en)} <span class="vi">${esc(info.vi)} – chạm vào Vùng đất để học</span></h3>
+      ${grid}
     </div>`;
   }
 
@@ -409,7 +475,7 @@
     const mys = S.mystery(zoneId);
     const mOpen = mysteryOpen(z);
     openModal(`<div style="${zoneStyle(z)}">
-      <div class="zone-sheet-head"><div class="zone-num">${z.custom ? z.icon : ZONES.indexOf(z) + 1}</div>
+      <div class="zone-sheet-head"><div class="zone-num">${zoneLabel(z, CUR.zonesOf(z.stage).indexOf(z))}</div>
         <div><h3>${esc(z.name)}</h3><span class="vi">${esc(z.vi)} · ${esc(z.topicVi)}</span></div></div>
       <p style="font-weight:800;margin-bottom:14px">🎁 ${esc(m.name)} <span class="vi">– ${esc(m.vi)} (${prog.assembled}/12 đã lắp)</span></p>
       <div class="lesson-list">
@@ -448,7 +514,12 @@
      MÀN HÌNH 2: XƯỞNG LẮP RÁP
      ========================================================= */
   function renderWorkshop() {
-    if (!zoneById(App.wsZone)) App.wsZone = 'z1';
+    const zones = stageZones();
+    if (!zones.length) {
+      screenEl.innerHTML = `<div class="screen-inner"><div class="screen-head"><div><h2>🧱 Brick Workshop</h2><span class="vi">Xưởng lắp ráp</span></div></div>${stageTabsHTML()}${comingSoonHTML()}</div>`;
+      return;
+    }
+    if (!zones.some((z) => z.id === App.wsZone)) App.wsZone = (zones.find((z) => S.zoneProgress(z.id).ready) || zones[0]).id;
     const zid = App.wsZone;
     const z = window.Curriculum.zone(zid);
     const m = LG.MODELS[zid];
@@ -456,9 +527,10 @@
     const next = z.lessons.find((l, i) => !S.isLessonDone(l.id) && lessonUnlocked(z, i));
     screenEl.innerHTML = `<div class="screen-inner">
       <div class="screen-head"><div><h2>🧱 Brick Workshop</h2><span class="vi">Xưởng lắp ráp – Sách hướng dẫn lắp từng bước (Building Instructions)</span></div></div>
-      <div class="zone-chips">${ZONES.map((zz, i) => {
+      ${stageTabsHTML()}
+      <div class="zone-chips">${zones.map((zz, i) => {
         const p = S.zoneProgress(zz.id);
-        return `<button class="zone-chip${zz.id === zid ? ' active' : ''}" style="${zoneStyle(zz)}" data-action="ws-zone" data-zone="${zz.id}"><i></i>${zz.custom ? '✏️' : i + 1 + '.'} ${esc(zz.short)} <span class="cnt">${p.assembled}/12${p.ready ? ' · 🧰' + p.ready : ''}</span></button>`;
+        return `<button class="zone-chip${zz.id === zid ? ' active' : ''}" style="${zoneStyle(zz)}" data-action="ws-zone" data-zone="${zz.id}"><i></i>${zz.custom ? '✏️' : zoneLabel(zz, i) + '.'} ${esc(zz.short)} <span class="cnt">${p.assembled}/12${p.ready ? ' · 🧰' + p.ready : ''}</span></button>`;
       }).join('')}</div>
       <div class="ws-title"><div><h3>${esc(m.name)}</h3><span class="vi">${esc(m.vi)} · ${prog.assembled}/12 mảnh đã lắp</span></div>
         ${prog.complete ? '<span class="pill green">✅ Complete – Hoàn thành!</span>' : ''}</div>
@@ -507,14 +579,16 @@
     ZONES.forEach((z) => { states[z.id] = S.parts(z.id); dusty[z.id] = zoneDueIds(z.id).length > 0; });
     const built = ZONES.filter((z) => S.zoneProgress(z.id).complete).length;
     const dueTotal = S.dueWordIds().filter((id) => WORDS[id]).length;
+    const zones = stageZones();
     screenEl.innerHTML = `<div class="screen-inner">
       <div class="screen-head"><div><h2>🏙️ My LEGO World</h2><span class="vi">Sa bàn Thế giới LEGO của bé – chạm vào mô hình hoặc nhân vật để nghe nói chuyện!</span></div>
         <div class="btn-row"><span class="pill green">🏆 ${built}/${ZONES.length} sets</span><span class="pill yellow">🥇 ${S.state.goldBricks} Gold</span></div></div>
       ${dueTotal ? `<div class="card studs-top" style="--stud-c:#FFEDD5;background:#FFF7ED;box-shadow:0 6px 0 #FED7AA;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
           <span style="font-size:36px">🔧</span><div style="flex:1;min-width:200px"><b class="en" style="font-size:20px">Some models are dusty!</b><br><span class="vi">Có ${dueTotal} từ đến hạn ôn (1-3-7-14-30 ngày). Chạm vào mô hình có cờ lê 🔧 để siết ốc, lau bụi và nhận Gạch Vàng!</span></div>
           <button class="brick-btn btn-orange" data-action="review" data-zone="">${bi('🔧 Fix all', 'Bảo trì ngay')}</button></div>` : ''}
-      <div class="dio-wrap" id="dioWrap">${LG.renderDiorama({ zones: ZONES.slice(0, BUILTIN_COUNT), states, dusty, avatar: S.state.avatar, name: S.state.profile.name })}</div>
-      <div class="dio-legend">${ZONES.map((z) => {
+      ${stageTabsHTML()}
+      ${zones.length ? `<div class="dio-wrap" id="dioWrap">${LG.renderDiorama({ zones: zones.slice(0, 14), states, dusty, avatar: S.state.avatar, name: S.state.profile.name })}</div>` : comingSoonHTML()}
+      <div class="dio-legend">${zones.map((z) => {
         const p = S.zoneProgress(z.id), d = zoneDueIds(z.id).length;
         return `<div class="card item" style="${zoneStyle(z)}"><span class="dot"></span><div style="flex:1"><b>${esc(z.short)}</b><small>${p.complete ? '✅ Complete' : `🧱 ${p.assembled}/12 built`}${d ? ` · 🔧 ${d} due` : ''}</small></div>
           ${d ? `<button class="brick-btn btn-orange btn-sm" data-action="review" data-zone="${z.id}">🔧</button>` : p.ready ? `<button class="brick-btn btn-blue btn-sm" data-action="ws-open" data-zone="${z.id}">🧱</button>` : ''}</div>`;
@@ -522,6 +596,7 @@
     </div>`;
 
     const wrap = $('#dioWrap');
+    if (!wrap) return;
     wrap.addEventListener('click', (e) => {
       const fig = e.target.closest('.dio-fig');
       if (fig) {
@@ -669,7 +744,8 @@
     const supers = Object.values(st.snow).filter((v) => v >= 3).length;
     const passNo = 'LEB-' + String(st.createdAt || 0).slice(-6);
 
-    const stampHTML = ZONES.map((z, zi) => {
+    const zones = stageZones();
+    const stampHTML = zones.map((z, zi) => {
       const done = zoneDone(z);
       const doneL = z.lessons.filter((l) => S.isLessonDone(l.id)).length;
       const mys = (S.mystery(z.id) || {}).done;
@@ -685,7 +761,7 @@
       </button>`;
     }).join('');
 
-    const zonesHTML = ZONES.map((z) => {
+    const zonesHTML = zones.map((z) => {
       const words = [];
       z.lessons.forEach((l) => l.words.forEach((w) => words.push(w)));
       const got = words.filter((w) => S.wordBox(w.id) > 0);
@@ -715,8 +791,9 @@
         </div>
       </div>
 
+      ${stageTabsHTML()}
       <h3 class="section-title">🏅 Zone Stamps <span class="vi">Con dấu Vùng đất – học xong cả vùng để đóng dấu; 🕵️ = đã phá án Mystery, ⭐ = câu Super Builder</span></h3>
-      <div class="stamp-grid">${stampHTML}</div>
+      <div class="stamp-grid">${stampHTML || comingSoonHTML()}</div>
 
       <h3 class="section-title">🧱 Brick Collection <span class="vi">Ôn đúng lịch ở Trạm bảo trì 🔧 để nâng cấp gạch: Nhựa → Bạc → Vàng → Kim Cương</span></h3>
       <div class="tier-bar">
@@ -808,7 +885,7 @@
           <div class="setting-row"><label>Tốc độ đọc<small>Speech speed</small></label><select class="select-lg" data-change="rate">${[[0.75, 'Chậm – Slow'], [0.9, 'Vừa – Normal'], [1, 'Nhanh – Natural']].map(([v, t]) => `<option value="${v}"${Number(st.settings.rate) === v ? ' selected' : ''}>${t}</option>`).join('')}</select></div>
           <div class="setting-row"><label>Hiệu ứng âm thanh<small>Brick click & fanfare</small></label><button class="toggle${st.settings.sfx !== false ? ' on' : ''}" data-action="toggle-sfx" aria-label="SFX"></button></div>
           <div class="setting-row"><label>Chế độ luyện nói<small>${Listener.supported ? 'Trình duyệt có hỗ trợ nhận diện giọng nói' : 'Trình duyệt không hỗ trợ nhận diện – dùng Ghi âm & Chọn câu'}</small></label><select class="select-lg" data-change="micMode"><option value="auto"${st.settings.micMode === 'auto' ? ' selected' : ''}>🎙️ Tự động (Micro chấm điểm)</option><option value="fallback"${st.settings.micMode === 'fallback' ? ' selected' : ''}>🎤 Ghi âm nghe lại + Chọn câu</option></select></div>
-          <div class="setting-row"><label>Bộ sách Lớp 4<small>School book</small></label><select class="select-lg" data-change="book"><option value="none"${book === 'none' ? ' selected' : ''}>Không – học theo Vùng đất</option><option value="gs4"${book === 'gs4' ? ' selected' : ''}>Tiếng Anh 4 – Global Success</option></select></div>
+          <div class="setting-row"><label>Bộ sách trên lớp<small>School book</small></label><select class="select-lg" data-change="book"><option value="none"${!SCHOOL_BOOKS[book] ? ' selected' : ''}>Không – học theo Lộ trình</option>${Object.keys(SCHOOL_BOOKS).map((k) => `<option value="${k}"${book === k ? ' selected' : ''}>${esc(SCHOOL_BOOKS[k].name)}</option>`).join('')}</select></div>
           <div class="setting-row"><label>Thử giọng đọc<small>Test voice</small></label><button class="brick-btn btn-blue btn-sm" data-action="say-text" data-text="Hello! I'm your LEGO English buddy. Let's build together!">🔊 Test</button></div>
         </div>
         <div class="card p-section"><h3>💾 Sao lưu & Chuyển máy</h3><span class="vi">Đồng bộ giữa iPad và máy tính bằng file JSON hoặc Mã Chuyển Máy</span>
@@ -866,9 +943,9 @@
         </div>
       </div>
 
-      ${book === 'gs4' ? `<h3 class="section-title">📘 Học Cùng Lớp 4 – ${esc(SCHOOL_BOOKS.gs4.name)} <span class="vi">Mỗi Unit trên lớp được nối với bài LEGO có chủ đề & mẫu câu gần nhất</span></h3>
+      ${SCHOOL_BOOKS[book] ? `<h3 class="section-title">📘 Học cùng SGK – ${esc(SCHOOL_BOOKS[book].name)} <span class="vi">Mỗi Unit trên lớp được nối với bài LEGO có chủ đề & mẫu câu gần nhất</span></h3>
         <div class="card" style="overflow-x:auto"><table class="map-table"><thead><tr><th>Unit SGK</th><th>Bài học LEGO</th><th>Trạng thái</th><th></th></tr></thead><tbody>
-          ${SCHOOL_BOOKS.gs4.units.map((u) => { const L = window.Curriculum.lesson(u.lesson); const Z = window.Curriculum.zone(L.zoneId); return `<tr><td><b>Unit ${u.unit}</b>: ${esc(u.title)}</td><td>Zone ${Z.id.slice(1)} · ${esc(L.title)}<br><small class="vi">${esc(L.titleVi)}</small></td><td>${S.isLessonDone(L.id) ? starsHTML(S.lesson(L.id).stars) : '—'}</td><td><button class="brick-btn btn-blue btn-sm" data-action="start-lesson" data-lesson="${L.id}" data-force="1">▶</button></td></tr>`; }).join('')}
+          ${bookUnits(book).map((u) => { const L = CUR.lesson(u.lesson); const Z = CUR.zone(L.zoneId); return `<tr><td><b>Unit ${u.unit}</b>: ${esc(u.title)}</td><td>${Z.week ? 'Week ' + Z.week : esc(Z.short || Z.name)} · ${esc(L.title)}<br><small class="vi">${esc(L.titleVi)}</small></td><td>${S.isLessonDone(L.id) ? starsHTML(S.lesson(L.id).stars) : '—'}</td><td><button class="brick-btn btn-blue btn-sm" data-action="start-lesson" data-lesson="${L.id}" data-force="1">▶</button></td></tr>`; }).join('')}
         </tbody></table></div>` : ''}
       <p class="vi" style="margin-top:24px;text-align:center">🔐 Không quảng cáo · Không thu thập dữ liệu · Mọi tiến độ chỉ lưu trên thiết bị này (IndexedDB).</p>
     </div>`;
@@ -882,6 +959,7 @@
     if (key === 'micMode') { st.micMode = el.value; S.save(); }
     if (key === 'book') { st.book = el.value; S.save(); renderParent(); }
     if (key === 'school-unit') { st.schoolUnit = Number(el.value); S.save(); renderMap(); }
+    if (key === 'school-book') { st.book = el.value; st.lastBook = el.value; st.schoolUnit = 1; S.save(); renderMap(); }
     if (key === 'restore-file') {
       const f = el.files && el.files[0];
       if (!f) return;
@@ -1092,6 +1170,11 @@
             <button class="brick-btn btn-yellow btn-sm collect-btn" data-action="collect" data-i="${i}" disabled>${bi('＋ Collect brick', 'Nghe trước rồi thu thập')}</button>
           </div>`).join('')}
         </div>
+        ${this.l.fact ? `<div class="card fact-card studs-top">
+          <div class="fact-head">💡 Real-Life / Science Fact <span class="vi">Con có biết?</span></div>
+          <button class="fact-en" data-action="say-text" data-text="${esc(this.l.fact.en)}">🔊 ${esc(this.l.fact.en)}</button>
+          ${this.l.fact.vi ? `<button class="btn-mini-text" data-action="fact-vi">🇻🇳 Dịch nghĩa</button><div class="fact-vi vi" hidden>${esc(this.l.fact.vi)}</div>` : ''}
+        </div>` : ''}
         <div class="tray">
           <div class="tray-label">My Brick Tray<small>Khay gạch của em</small></div>
           ${words.map((w, i) => `<div class="tray-slot" data-slot="${i}"></div>`).join('')}
@@ -1907,7 +1990,9 @@
     refreshStudio() {
       if (this.t && this.t.branch) {
         const box = $('#studioBox');
-        if (box) box.innerHTML = `<p class="talk-tip" style="margin:18px 0 0">🎧 Luyện nói lại câu con vừa chọn trong Phòng thu (không bắt buộc)</p>${this.studioHTML()}`;
+        const card = box && $('.studio', box);
+        if (card) card.outerHTML = this.studioHTML();
+        else if (box) box.innerHTML = `<p class="talk-tip" style="margin:18px 0 0">🎧 Luyện nói lại câu con vừa chọn trong Phòng thu (không bắt buộc)</p>${this.studioHTML()}`;
         if (this.studio.state === 'recording') this.startVu();
       } else this.renderTalkMode();
     },
@@ -2236,6 +2321,222 @@
   };
 
   /* =========================================================
+     🎧 DAILY LISTENING & SPEAKING GYM – 5 lượt, 100% âm thanh trước
+     (Đúng/Sai nghe hiểu đời sống – khoa học  +  Hỏi đáp phản xạ bằng micro / Phòng thu)
+     ========================================================= */
+  const coreWord = (en) => en.replace(/\.\.\.|…/g, '').replace(/[?!.]+$/, '').trim();
+
+  /** Câu Đúng/Sai tự sinh từ câu đố của từ vựng (cho bài không có sẵn dữ liệu tf). */
+  function autoTF(l) {
+    const ws = l.words.filter((w) => w.clue);
+    if (ws.length < 2) return [];
+    const a = ws[0], b = ws[1], c = ws[ws.length - 1];
+    return [
+      { en: `${a.clue} This is "${coreWord(a.en)}".`, ok: true, why: `Yes! That describes "${coreWord(a.en)}".`, whyVi: `Đúng! Câu này mô tả "${a.en}" – ${a.vi}.` },
+      { en: `${b.clue} This is "${coreWord(c.en)}".`, ok: false, why: `No! That describes "${coreWord(b.en)}", not "${coreWord(c.en)}".`, whyVi: `Sai! Câu này mô tả "${b.en}" (${b.vi}), không phải "${c.en}".` }
+    ];
+  }
+
+  const Gym = {
+    token: 0,
+    start() {
+      closeModal();
+      this.token++;
+      Speech.cancel(); Listener.stop();
+      const pool = [];
+      ZONES.forEach((z) => z.lessons.forEach((l) => { if (S.isLessonDone(l.id)) pool.push(l); }));
+      const nxt = findNextLesson(stageZones()) || findNextLesson();
+      if (nxt && pool.indexOf(nxt) === -1) pool.push(nxt);
+      if (!pool.length) pool.push(ZONES[0].lessons[0]);
+      // Ưu tiên bài gần đây: lấy tối đa 6 bài mới nhất + bài đang học
+      const recent = pool.slice(-6);
+      const tfs = [], qas = [];
+      recent.forEach((l) => {
+        (l.tf.length ? l.tf : autoTF(l)).forEach((t) => tfs.push(Object.assign({ type: 'tf', lesson: l }, t)));
+        if (l.qa) qas.push(Object.assign({ type: 'qa', lesson: l }, l.qa));
+        l.talk.forEach((t) => qas.push({ type: 'qa', lesson: l, q: t.q, vi: t.vi, hint: t.hint, keywords: t.keywords }));
+      });
+      const uniq = (arr, key) => { const seen = new Set(); return arr.filter((x) => (seen.has(x[key]) ? false : seen.add(x[key]))); };
+      const tf = shuffle(uniq(tfs, 'en')).slice(0, 3);
+      const qa = shuffle(uniq(qas, 'q')).slice(0, 2);
+      this.rounds = [tf[0], qa[0], tf[1], qa[1], tf[2]].filter(Boolean);
+      this.i = 0; this.score = 0; this.answered = 0;
+      overlay.hidden = false;
+      overlay.innerHTML = `<div class="lesson-top">
+          <button class="brick-btn btn-white btn-round" data-action="gym-close" aria-label="Close">✕</button>
+          <div style="text-align:center"><b class="en" style="font-size:22px">🎧 Listening & Speaking Gym</b><div class="lesson-step-name">Phòng luyện Nghe – Nói 3 phút · nghe trước, đọc sau!</div></div>
+          <div class="lesson-earned"><span class="chip" style="box-shadow:0 4px 0 var(--card-edge)">🎯 <b id="gymScore">0</b></span></div>
+        </div>
+        <div class="lesson-body" id="gymBody"></div>`;
+      document.body.style.overflow = 'hidden';
+      this.render();
+    },
+
+    round() { return this.rounds[this.i]; },
+    who(r) { const z = zoneById(r.lesson.zoneId); return z.chars.b; },
+
+    render() {
+      const body = $('#gymBody');
+      if (!body) return;
+      Lesson.stopStudio();
+      if (this.i >= this.rounds.length) return this.finish();
+      const r = this.round();
+      r.state = r.state || { shown: false, done: false, hint: false };
+      const who = this.who(r);
+      const meter = `<div class="review-meter">${this.rounds.map((x, k) => `<i class="${k < this.i ? (x.type === 'tf' ? (x.state && x.state.right ? 'ok' : 'no') : 'ok') : k === this.i ? 'cur' : ''}"></i>`).join('')}</div>`;
+      const fig = `<div class="gym-fig">${LG.renderMinifig(who.fig, { cls: 'fig-who' })}<b>${esc(who.name)}</b></div>`;
+      let main;
+      if (r.type === 'tf') {
+        const st = r.state;
+        main = `<div class="card gym-stage studs-top">${fig}
+          <div class="gym-main">
+            <div class="gym-kicker">👂 Round ${this.i + 1}/${this.rounds.length} · True or False? <span class="vi">Nghe rồi chọn Đúng hay Sai</span></div>
+            <div class="gym-line${st.done ? '' : ' hidden-line'}">${st.done ? esc(r.en) : '🔊 ❓ ❓ ❓ <small class="vi">Nghe thật kỹ nhé – chữ sẽ hiện sau khi con trả lời!</small>'}</div>
+            <button class="brick-btn btn-blue btn-sm" data-action="gym-say">${bi('🔊 Listen again', 'Nghe lại')}</button>
+          </div></div>
+          ${st.done ? `<div class="card gym-result ${st.right ? 'good' : 'warm'}">
+              <b>${st.right ? '✅ Correct!' : '💡 Not quite!'} ${r.ok ? "It's TRUE." : "It's FALSE."}</b>
+              <button class="intro-line" data-action="say-text" data-text="${esc(r.why || '')}">🔊 ${esc(r.why || '')}<span class="vi">${esc(r.whyVi || '')}</span></button>
+            </div>
+            <div class="step-foot"><button class="brick-btn btn-green btn-xl" data-action="gym-next">${bi('Next ▶', 'Tiếp tục')}</button></div>`
+          : `<div class="tf-row">
+              <button class="tf-btn tf-true" data-action="gym-tf" data-v="1"><span>👍</span>True<small>Đúng</small></button>
+              <button class="tf-btn tf-false" data-action="gym-tf" data-v="0"><span>👎</span>False<small>Sai</small></button>
+            </div>`}`;
+      } else {
+        const st = r.state;
+        main = `<div class="card gym-stage studs-top">${fig}
+          <div class="gym-main">
+            <div class="gym-kicker">🎤 Round ${this.i + 1}/${this.rounds.length} · Quick Response <span class="vi">Nghe câu hỏi và trả lời bằng tiếng Anh</span></div>
+            <div class="gym-line${st.shown ? '' : ' hidden-line'}">${st.shown ? `“${esc(r.q)}”<small class="vi">${esc(r.vi)}</small>` : '🔊 ❓ ❓ ❓ <small class="vi">Nghe câu hỏi trước – cần thì bấm “Show question”</small>'}</div>
+            <div class="btn-row">
+              <button class="brick-btn btn-blue btn-sm" data-action="gym-say">${bi('🔊 Listen again', 'Nghe lại')}</button>
+              ${st.shown ? '' : `<button class="brick-btn btn-white btn-sm" data-action="gym-show">${bi('👁️ Show question', 'Hiện câu hỏi')}</button>`}
+              <button class="brick-btn btn-yellow btn-sm" data-action="gym-hint">${bi('💡 Sample answer', 'Câu trả lời mẫu')}</button>
+            </div>
+            ${st.hint ? `<div class="hint-box">💡 ${esc(r.hint)}</div>` : ''}
+          </div></div>
+          ${Lesson.useMic() ? `<div class="mic-wrap">
+            <button class="mic-btn${st.done ? ' done' : ''}" data-action="gym-mic" id="micBtn" aria-label="Microphone">${st.done ? '✅' : '🎙️'}</button>
+            <div class="transcript${st.done ? ' good' : ''}" id="transcript">${st.note || 'Tap the mic and answer! <small class="vi">Chạm micro rồi trả lời to, rõ</small>'}</div>
+          </div>` : ''}
+          <div id="studioBox"></div>
+          <div class="step-foot"><button class="brick-btn ${st.done ? 'btn-green btn-xl' : 'btn-white'}" data-action="gym-next">${st.done ? bi('Next ▶', 'Tiếp tục') : bi('✅ I answered – next', 'Con đã trả lời – tiếp')}</button></div>`;
+      }
+      body.innerHTML = `<div class="step gym">${meter}${main}</div>`;
+      if (r.type === 'qa') {
+        Lesson.t = { branch: true };
+        Lesson.studio = { state: 'idle', text: r.hint };
+        $('#studioBox').innerHTML = `<p class="talk-tip" style="margin:16px 0 0">🎧 Hoặc nói theo câu mẫu trong Phòng thu – ghi âm rồi Compare Voice</p>${Lesson.studioHTML()}`;
+      }
+      if (!r.state.played) { r.state.played = true; const tk = this.token; setTimeout(() => { if (tk === this.token) this.say(); }, 450); }
+    },
+
+    say() {
+      const r = this.round();
+      if (!r) return;
+      const fig = $('#gymBody .gym-fig svg');
+      if (fig) fig.classList.add('talking');
+      Speech.speak(r.type === 'tf' ? r.en : r.q, { pitch: 0.95 }).then(() => { if (fig) fig.classList.remove('talking'); });
+    },
+
+    pickTF(v, el) {
+      const r = this.round();
+      if (!r || r.type !== 'tf' || r.state.done) return;
+      r.state.done = true;
+      r.state.right = v === r.ok;
+      if (r.state.right) { this.score++; Sfx.playBrickClick(); praise(); } else { Sfx.playGentleOops(); S.addMistake('gym:' + r.en.slice(0, 40), r.en, r.whyVi); }
+      $('#gymScore').textContent = this.score;
+      this.render();
+      const tk = this.token;
+      (async () => {
+        await Speech.speak(r.ok ? "That's true!" : "That's false!");
+        if (tk !== this.token) return;
+        await Speech.speak(r.en);
+        if (tk !== this.token || !r.why) return;
+        await Speech.speak(r.why);
+      })();
+    },
+
+    show() { const r = this.round(); if (r) { r.state.shown = true; this.render(); } },
+    hint() { const r = this.round(); if (r) { r.state.hint = true; r.state.shown = true; this.render(); Speech.speak(r.hint); } },
+
+    mic() {
+      const r = this.round();
+      if (!r || r.type !== 'qa') return;
+      const btn = $('#micBtn');
+      if (btn && btn.classList.contains('listening')) { Listener.stop(); return; }
+      Speech.cancel(); Lesson.stopStudio();
+      Sfx.playMicOn();
+      const started = Listener.start({
+        onResult: (alts) => {
+          const res = Listener.score(alts, r.keywords || [], r.hint);
+          const tr = $('#transcript');
+          if (res.score >= 0.6) {
+            r.state.done = true; r.state.shown = true;
+            r.state.note = `“${esc(res.text)}” ✅`;
+            this.score++;
+            $('#gymScore').textContent = this.score;
+            Sfx.playSuccessFanfare(); praise();
+            this.render();
+          } else {
+            if (tr) { tr.className = 'transcript try'; tr.innerHTML = `“${esc(res.text)}”<br><small class="vi">Gần đúng rồi! Thử nói: <b>${esc(r.hint)}</b></small>`; }
+            Sfx.playGentleOops();
+          }
+        },
+        onError: (code) => {
+          const b = $('#micBtn'); if (b) b.classList.remove('listening');
+          const tr = $('#transcript');
+          if (tr) tr.innerHTML = Listener.blocked || code === 'unsupported' || code === 'start-failed'
+            ? '🎙️ Micro chưa dùng được – con dùng Phòng thu bên dưới nhé!'
+            : "I didn't hear you. Try again! <small class=\"vi\">Mình chưa nghe thấy, thử lại nhé!</small>";
+        },
+        onEnd: () => { const b = $('#micBtn'); if (b) b.classList.remove('listening'); }
+      });
+      if (started && btn) { btn.classList.add('listening'); const tr = $('#transcript'); if (tr) { tr.className = 'transcript'; tr.innerHTML = 'Listening… <small class="vi">Đang nghe…</small>'; } }
+    },
+
+    next() {
+      const r = this.round();
+      if (r && r.type === 'qa') this.answered++;
+      Listener.stop(); Lesson.stopStudio();
+      this.i++;
+      this.render();
+      const b = $('#gymBody'); if (b) b.scrollTop = 0;
+    },
+
+    finish() {
+      S.addStuds(10); S.addGold(1); S.recordGym();
+      updateWallet();
+      const tfTotal = this.rounds.filter((x) => x.type === 'tf').length;
+      const tfRight = this.rounds.filter((x) => x.type === 'tf' && x.state && x.state.right).length;
+      const qaTotal = this.rounds.filter((x) => x.type === 'qa').length;
+      Sfx.playSuccessFanfare(); fx.confetti(50);
+      $('#gymBody').innerHTML = `<div class="step"><div class="card lesson-done studs-top">
+        <h3>💪 Gym Complete!</h3><span class="vi">Hoàn thành buổi luyện Nghe – Nói hôm nay!</span>
+        <div class="reward-row">
+          <span class="reward">👂 ${tfRight}/${tfTotal} True/False</span>
+          <span class="reward">🎤 ${qaTotal} answers</span>
+          <span class="reward"><i class="stud-icon"></i>+10 Studs</span>
+          <span class="reward"><i class="gold-icon"></i>+1 Gold</span>
+        </div>
+        <p class="vi" style="margin-bottom:14px">Hôm nay con đã tập ${S.gymToday()} lượt. 🔥 Chuỗi ${S.streakDays()} ngày học liên tiếp – giữ lửa nhé!</p>
+        <div class="btn-row center">
+          <button class="brick-btn btn-purple" data-action="gym-again">${bi('🔁 One more round', 'Tập thêm một lượt')}</button>
+          <button class="brick-btn btn-white" data-action="gym-exit" data-screen="map">${bi('🌍 Map', 'Bản đồ')}</button>
+        </div></div></div>`;
+      Speech.speak('Great workout! Your English muscles are getting stronger!');
+    },
+
+    close() {
+      this.token++;
+      Speech.cancel(); Listener.stop(); Lesson.stopStudio();
+      overlay.hidden = true; overlay.innerHTML = '';
+      render();
+    }
+  };
+
+  /* =========================================================
      LEGO MYSTERY MISSION (Nhiệm vụ thám tử cuối mỗi Vùng đất)
      ========================================================= */
   const Mystery = {
@@ -2374,7 +2675,7 @@
   function go(screen) {
     App.screen = screen;
     if (screen !== 'parent') { App.parentOk = false; App.gate = null; }
-    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); overlay.hidden = true; overlay.innerHTML = ''; }
+    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); overlay.hidden = true; overlay.innerHTML = ''; }
     closeModal();
     render();
     screenEl.scrollTop = 0;
@@ -2390,11 +2691,11 @@
     'go': (el) => go(el.dataset.screen),
     'modal-close': () => closeModal(),
     'open-zone': (el) => openZone(el.dataset.zone),
-    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
-    'ws-open': (el) => { App.wsZone = el.dataset.zone; go('workshop'); },
+    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
+    'ws-open': (el) => { App.wsZone = el.dataset.zone; const z = zoneById(el.dataset.zone); if (z) S.state.settings.roadmap = z.stage; go('workshop'); },
     'ws-zone': (el) => { App.wsZone = el.dataset.zone; renderWorkshop(); },
-    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Lesson.stopStudio(); } Review.start(zid); },
-    'mystery': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Mystery.start(el.dataset.zone); },
+    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Lesson.stopStudio(); } Review.start(zid); },
+    'mystery': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Mystery.start(el.dataset.zone); },
     'mystery-close': () => Mystery.close(),
     'mystery-exit': (el) => { Mystery.close(); go(el.dataset.screen); },
     'mys-clue': (el) => Mystery.clue(Number(el.dataset.i)),
@@ -2406,7 +2707,19 @@
     'review-exit': () => { Review.close(); go('diorama'); },
     'rv-say': () => Review.say(),
     'rv-pick': (el) => Review.pick(Number(el.dataset.i), el),
-    'toggle-school': () => { S.state.settings.book = S.state.settings.book === 'gs4' ? 'none' : 'gs4'; S.save(); renderMap(); },
+    'toggle-school': () => { const st = S.state.settings; if (SCHOOL_BOOKS[st.book]) { st.lastBook = st.book; st.book = 'none'; } else st.book = SCHOOL_BOOKS[st.lastBook] ? st.lastBook : 'gs3'; S.save(); renderMap(); },
+    'stage-tab': (el) => { const v = el.dataset.stage; S.state.settings.roadmap = v === 'sgk' ? 'sgk' : Number(v); S.save(); Sfx.playBrickClick(); render(); screenEl.scrollTop = 0; },
+    'gym': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Gym.start(); },
+    'gym-say': () => Gym.say(),
+    'gym-tf': (el) => Gym.pickTF(el.dataset.v === '1', el),
+    'gym-show': () => Gym.show(),
+    'gym-hint': () => Gym.hint(),
+    'gym-mic': () => Gym.mic(),
+    'gym-next': () => Gym.next(),
+    'gym-close': () => Gym.close(),
+    'gym-exit': (el) => { Gym.close(); go(el.dataset.screen); },
+    'gym-again': () => Gym.start(),
+    'fact-vi': (el) => { const v = el.nextElementSibling; if (v) v.hidden = false; el.remove(); },
     'say-text': (el) => Speech.speak(el.dataset.text),
 
     // Bài học
@@ -2525,7 +2838,7 @@
     const fn = actions[el.dataset.action];
     if (!fn) return;
     App.lastActive = Date.now();
-    if (['reflex-pick', 'comic-pick', 'talk-pick', 'rv-pick', 'collect', 'bag-tap', 'locker-item', 'build-check', 'talk-rate', 'gate-key', 'branch-pick', 'mys-pick', 'mys-clue', 'studio-rec'].indexOf(el.dataset.action) === -1) Sfx.playTap();
+    if (['reflex-pick', 'comic-pick', 'talk-pick', 'rv-pick', 'collect', 'bag-tap', 'locker-item', 'build-check', 'talk-rate', 'gate-key', 'branch-pick', 'mys-pick', 'mys-clue', 'studio-rec', 'gym-tf'].indexOf(el.dataset.action) === -1) Sfx.playTap();
     fn(el, e);
   });
 
