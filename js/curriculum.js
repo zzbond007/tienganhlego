@@ -1231,7 +1231,7 @@
         { unit: 9, title: 'Colours', lesson: 'w5l1' },
         { unit: 10, title: 'Break time activities', lesson: 'w7l1' },
         { unit: 11, title: 'My family', lesson: 'w4l1' },
-        { unit: 12, title: 'Jobs', lesson: 'z5l1' },
+        { unit: 12, title: 'Jobs', lesson: 'w27l1' },
         { unit: 13, title: 'My house', lesson: 'w2l1' },
         { unit: 14, title: 'My bedroom', lesson: 'w2l2' },
         { unit: 15, title: 'At the dining table', lesson: 'w9l1' },
@@ -1239,7 +1239,7 @@
         { unit: 17, title: 'Our toys', lesson: 'w2l3' },
         { unit: 18, title: 'Playing and doing', lesson: 'w7l2' },
         { unit: 19, title: 'Outdoor activities', lesson: 'w7l2' },
-        { unit: 20, title: 'At the zoo', lesson: 'z6l1' }
+        { unit: 20, title: 'At the zoo', lesson: 'w16l1' }
       ]
     },
     gs4: {
@@ -1257,15 +1257,15 @@
         { unit: 9, title: 'Our sports day', lesson: 'z4l1' },
         { unit: 10, title: 'Our summer holidays', lesson: 'z8l2' },
         { unit: 11, title: 'My home', lesson: 'z9l2' },
-        { unit: 12, title: 'Jobs', lesson: 'z5l1' },
+        { unit: 12, title: 'Jobs', lesson: 'w27l1' },
         { unit: 13, title: 'Appearance', lesson: 'z6l2' },
         { unit: 14, title: 'Daily activities', lesson: 'z1l1' },
         { unit: 15, title: "My family's weekends", lesson: 'z8l1' },
-        { unit: 16, title: 'Weather', lesson: 'z7l1' },
-        { unit: 17, title: 'In the city', lesson: 'z9l3' },
+        { unit: 16, title: 'Weather', lesson: 'w17l1' },
+        { unit: 17, title: 'In the city', lesson: 'w25l1' },
         { unit: 18, title: 'At the shopping centre', lesson: 'z3l3' },
-        { unit: 19, title: 'The animal world', lesson: 'z6l1' },
-        { unit: 20, title: 'At the summer camp', lesson: 'z7l3' }
+        { unit: 19, title: 'The animal world', lesson: 'w16l1' },
+        { unit: 20, title: 'At the summer camp', lesson: 'w29l1' }
       ]
     }
   };

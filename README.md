@@ -24,8 +24,8 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 | Gói dữ liệu | Nội dung | Trạng thái |
 |---|---|---|
 | `js/curriculum-stage1.js` | Tuần 1–12: thói quen tự lập, ngôi nhà, việc nhà, gia đình, lớp học, môn học, sân chơi & cờ vua, ứng xử lịch sự, món Việt, siêu thị, 5 giác quan, sức khỏe | ✅ 36 bài · 180 từ |
-| `js/curriculum-stage2.js` | Tuần 13–24: khoa học tự nhiên hằng ngày | ⏳ |
-| `js/curriculum-stage3.js` | Tuần 25–36: giao tiếp tự tin & thế giới | ⏳ |
+| `js/curriculum-stage2.js` | Tuần 13–24: cây cối, bể cá thủy sinh, côn trùng, động vật & so sánh, dự báo thời tiết, vòng tuần hoàn nước, trang phục theo mùa, tái chế, vật liệu, chìm–nổi & nam châm, ánh sáng–bóng–âm thanh, tư duy lập trình | ✅ 36 bài · 180 từ |
+| `js/curriculum-stage3.js` | Tuần 25–36: khu phố, hỏi đường & an toàn giao thông, nghề nghiệp, ước mơ, du lịch & cắm trại, quá khứ đơn (was/were, went/saw…), thám tử nhí, Hệ Mặt Trời, phát minh, lời mời & gợi ý, nêu ý kiến & tranh luận | ✅ 36 bài · 180 từ |
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
