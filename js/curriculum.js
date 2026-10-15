@@ -1135,9 +1135,10 @@
     const zone = Object.assign({}, z);
     const n = z.lessons.length;
     zone.custom = !!z.custom;
+    zone.stage = z.custom ? 'sgk' : (z.stage || 'sgk');
     zone.lessons = z.lessons.map((l, li) => {
       const id = `${z.id}l${li + 1}`;
-      const xl = (ex.lessons && ex.lessons[id]) || l.expert || {};
+      const xl = (ex.lessons && ex.lessons[id]) || l.expert || { snow: l.snow, cb: l.cb, tb: l.tb };
       const words = l.words.map((w) => ({
         id: `${z.id}-${slug(w[0])}`,
         en: w[0], pos: w[1], posLabel: POS_LABEL[w[1]] || w[1], posVi: POS_VI[w[1]] || '',
@@ -1158,17 +1159,38 @@
       lesson.snowball = normSnow(xl.snow) || autoSnow(lesson);
       lesson.branchComic = normBranch(xl.cb);
       lesson.branchTalk = normBranch(xl.tb);
+      // Lộ trình 9 tháng: thẻ "Real-Life / Science Fact", câu Đúng/Sai cho Gym, câu hỏi đời sống cho Gym
+      lesson.fact = Array.isArray(l.fact) && l.fact[0] ? { en: l.fact[0], vi: l.fact[1] || '' } : null;
+      lesson.tf = Array.isArray(l.tf) ? l.tf.filter((t) => t && t[0]).map((t) => ({ en: t[0], ok: !!t[1], why: t[2] || '', whyVi: t[3] || '' })) : [];
+      lesson.qa = Array.isArray(l.qa) && l.qa[0] ? { q: l.qa[0], vi: l.qa[1] || '', hint: l.qa[2] || '', keywords: l.qa[3] || [] } : null;
       return lesson;
     });
     zone.mystery = normMystery((ex.mystery) || z.mystery) || autoMystery(zone);
+    // Mô hình theo mẫu chủ đề (các tuần của Lộ trình 9 Tháng)
+    if (Array.isArray(z.model) && global.LegoSvg && global.LegoSvg.registerTemplate) {
+      global.LegoSvg.registerTemplate(z.id, z.model[0], z.color, z.model[1], z.model[2], z.chars && z.chars.a && z.chars.a.fig);
+    }
     return zone;
   }
 
-  const ZONES = RAW.map((z) => buildZone(z, {
+  /* ---------- Lộ trình 9 Tháng: các gói dữ liệu theo Giai đoạn (js/curriculum-stage1.js, -stage2, -stage3) ----------
+     Mỗi gói tự đăng ký: window.CurriculumStages.push({ stage: 1, zones: [...] }) và phải được nạp TRƯỚC file này. */
+  const STAGES = [
+    { id: 1, icon: '🌱', en: 'Months 1–3', vi: 'Tháng 1–3: Đời sống quanh em (Lớp 3–4)', short: 'Tháng 1–3' },
+    { id: 2, icon: '🌿', en: 'Months 4–6', vi: 'Tháng 4–6: Khám phá Khoa học & Tự nhiên', short: 'Tháng 4–6' },
+    { id: 3, icon: '🚀', en: 'Months 7–9', vi: 'Tháng 7–9: Giao tiếp Tự tin & Thế giới', short: 'Tháng 7–9' },
+    { id: 'sgk', icon: '📘', en: 'School Books', vi: 'Học cùng SGK (Lớp 3 & Lớp 4 Global Success)', short: 'SGK & Kho bài' }
+  ];
+  const PACKS = (global.CurriculumStages || []).slice().sort((a, b) => a.stage - b.stage);
+  const ZONES = [];
+  PACKS.forEach((pack) => pack.zones.forEach((z) => ZONES.push(buildZone(Object.assign({ stage: pack.stage }, z), {}))));
+  RAW.forEach((z) => ZONES.push(buildZone(Object.assign({ stage: 'sgk' }, z), {
     lessons: EXPERT.LESSONS,
     mystery: EXPERT.MYSTERY[z.id]
-  }));
+  })));
   const BUILTIN_COUNT = ZONES.length;
+  const zonesOf = (stage) => ZONES.filter((z) => String(z.stage) === String(stage));
+  const stageReady = (stage) => zonesOf(stage).length > 0;
 
   const WORDS = {};
   function indexWords(z) { z.lessons.forEach((l) => l.words.forEach((w) => { WORDS[w.id] = w; })); }
@@ -1194,7 +1216,34 @@
   /* ---------- Học Cùng Lớp 4: Tiếng Anh 4 Global Success (Bộ GD&ĐT) ----------
      Mỗi Unit được nối với bài học LEGO có từ vựng/mẫu câu gần nhất để bé ôn đúng tuần học trên lớp. */
   const SCHOOL_BOOKS = {
+    gs3: {
+      name: 'Tiếng Anh 3 – Global Success',
+      grade: 3,
+      units: [
+        { unit: 1, title: 'Hello', lesson: 'w8l1' },
+        { unit: 2, title: 'Our names', lesson: 'w4l1' },
+        { unit: 3, title: 'Our friends', lesson: 'w4l2' },
+        { unit: 4, title: 'Our bodies', lesson: 'w11l1' },
+        { unit: 5, title: 'My hobbies', lesson: 'w7l1' },
+        { unit: 6, title: 'Our school', lesson: 'w5l2' },
+        { unit: 7, title: 'Classroom instructions', lesson: 'w5l3' },
+        { unit: 8, title: 'My school things', lesson: 'w5l1' },
+        { unit: 9, title: 'Colours', lesson: 'w5l1' },
+        { unit: 10, title: 'Break time activities', lesson: 'w7l1' },
+        { unit: 11, title: 'My family', lesson: 'w4l1' },
+        { unit: 12, title: 'Jobs', lesson: 'w27l1' },
+        { unit: 13, title: 'My house', lesson: 'w2l1' },
+        { unit: 14, title: 'My bedroom', lesson: 'w2l2' },
+        { unit: 15, title: 'At the dining table', lesson: 'w9l1' },
+        { unit: 16, title: 'My pets', lesson: 'w3l3' },
+        { unit: 17, title: 'Our toys', lesson: 'w2l3' },
+        { unit: 18, title: 'Playing and doing', lesson: 'w7l2' },
+        { unit: 19, title: 'Outdoor activities', lesson: 'w7l2' },
+        { unit: 20, title: 'At the zoo', lesson: 'w16l1' }
+      ]
+    },
     gs4: {
+      grade: 4,
       name: 'Tiếng Anh 4 – Global Success',
       units: [
         { unit: 1, title: 'My friends', lesson: 'z10l1' },
@@ -1208,15 +1257,15 @@
         { unit: 9, title: 'Our sports day', lesson: 'z4l1' },
         { unit: 10, title: 'Our summer holidays', lesson: 'z8l2' },
         { unit: 11, title: 'My home', lesson: 'z9l2' },
-        { unit: 12, title: 'Jobs', lesson: 'z5l1' },
+        { unit: 12, title: 'Jobs', lesson: 'w27l1' },
         { unit: 13, title: 'Appearance', lesson: 'z6l2' },
         { unit: 14, title: 'Daily activities', lesson: 'z1l1' },
         { unit: 15, title: "My family's weekends", lesson: 'z8l1' },
-        { unit: 16, title: 'Weather', lesson: 'z7l1' },
-        { unit: 17, title: 'In the city', lesson: 'z9l3' },
+        { unit: 16, title: 'Weather', lesson: 'w17l1' },
+        { unit: 17, title: 'In the city', lesson: 'w25l1' },
         { unit: 18, title: 'At the shopping centre', lesson: 'z3l3' },
-        { unit: 19, title: 'The animal world', lesson: 'z6l1' },
-        { unit: 20, title: 'At the summer camp', lesson: 'z7l3' }
+        { unit: 19, title: 'The animal world', lesson: 'w16l1' },
+        { unit: 20, title: 'At the summer camp', lesson: 'w29l1' }
       ]
     }
   };
@@ -1255,6 +1304,9 @@
     PRAISE,
     ENCOURAGE,
     STEPS,
+    STAGES,
+    zonesOf,
+    stageReady,
     BUILTIN_COUNT,
     buildZone,
     addZone,

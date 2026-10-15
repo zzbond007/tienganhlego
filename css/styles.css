@@ -1183,6 +1183,79 @@ p { margin: 0; }
 @keyframes stampIn { 0% { transform: rotate(var(--rot)) scale(1.6); opacity: 0; } 100% { transform: rotate(var(--rot)) scale(1); opacity: 1; } }
 @keyframes diamondShine { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
+/* =========================================================
+   LỘ TRÌNH 9 THÁNG · GYM · SCIENCE FACT
+   ========================================================= */
+.stage-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 22px 0 6px; }
+@media (max-width: 760px) { .stage-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.stage-tab b { overflow-wrap: anywhere; }
+/* Điện thoại: 6 nút dock + ví thưởng phải vừa màn hình */
+.dock-btn { min-width: 0; }
+@media (max-width: 560px) {
+  .dock { gap: 2px; padding-left: 4px; padding-right: 4px; }
+  .dock-en { font-size: 11px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dock-ico { font-size: 22px; }
+}
+@media (max-width: 440px) { .brand-text { display: none; } .hero { grid-template-columns: 1fr; } .hero-fig { display: none; } }
+.stage-tab {
+  position: relative; display: flex; align-items: center; gap: 10px; min-height: 64px; padding: 8px 12px 14px;
+  border-radius: 14px; background: #fff; box-shadow: 0 5px 0 var(--card-edge); text-align: left; transition: transform .1s;
+}
+.stage-tab:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--card-edge); }
+.stage-tab .st-ico { font-size: 28px; flex: none; }
+.stage-tab .st-txt { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.stage-tab b { font-family: var(--font-display); font-weight: 600; font-size: 17px; }
+.stage-tab small { font-size: 12px; font-weight: 800; color: var(--muted); }
+.stage-tab .st-bar { position: absolute; left: 12px; right: 12px; bottom: 6px; height: 5px; border-radius: 3px; background: #E2E8F0; overflow: hidden; }
+.stage-tab .st-bar i { display: block; height: 100%; background: var(--green); border-radius: 3px; }
+.stage-tab.active { background: var(--blue); color: #fff; box-shadow: 0 5px 0 var(--blue-d); }
+.stage-tab.active small { color: #DBEAFE; }
+.stage-tab.active .st-bar { background: rgba(255,255,255,.3); }
+.stage-tab.active .st-bar i { background: var(--yellow); }
+.month-title { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; font-size: 20px; margin: 22px 0 10px; }
+.month-title .month-num { font-size: 13px; font-weight: 800; color: #fff; background: var(--ink-2); padding: 3px 10px; border-radius: 999px; font-family: var(--font-body); }
+.month-title small { font-size: 13.5px; }
+.zone-num.wk { font-size: 15px; }
+.coming-soon { text-align: center; margin-top: 16px; --stud-c: #FEF3C7; background: #FFFBEB; box-shadow: 0 6px 0 #FDE68A; }
+.coming-soon h3 { font-size: 22px; margin: 6px 0; }
+
+/* Science / Life Fact */
+.fact-card { margin-top: 22px; --stud-c: #CFFAFE; background: #ECFEFF; box-shadow: 0 6px 0 #A5F3FC; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.fact-head { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: #0E7490; }
+.fact-head .vi { font-size: 13px; }
+.fact-en { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.3; text-align: left; }
+.fact-vi { font-size: 14.5px; }
+
+/* Gym */
+.gym-stage { display: grid; grid-template-columns: 130px 1fr; gap: 16px; align-items: center; --stud-c: #F3E8FF; background: #FAF5FF; box-shadow: 0 6px 0 #D8B4FE; }
+.gym-fig { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.gym-fig svg { width: 100px; height: 134px; }
+.gym-fig svg.talking { animation: talkBob .3s ease-in-out infinite alternate; }
+.gym-fig b { font-family: var(--font-display); font-weight: 600; }
+.gym-main { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.gym-kicker { font-weight: 800; color: var(--purple-d); }
+.gym-kicker .vi { font-size: 13px; display: block; }
+.gym-line { font-family: var(--font-display); font-size: 25px; font-weight: 600; line-height: 1.3; }
+.gym-line small { display: block; font-size: 14px; margin-top: 4px; }
+.gym-line.hidden-line { color: var(--purple); }
+.tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+.tf-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 140px; border-radius: var(--radius); color: #fff;
+  font-family: var(--font-display); font-size: 28px; font-weight: 700; transition: transform .08s;
+}
+.tf-btn span { font-size: 50px; line-height: 1.1; }
+.tf-btn small { font-family: var(--font-body); font-size: 15px; font-weight: 800; opacity: .9; }
+.tf-btn:active { transform: translateY(5px); }
+.tf-true { background: var(--green); box-shadow: 0 7px 0 var(--green-d); }
+.tf-false { background: var(--red); box-shadow: 0 7px 0 var(--red-d); }
+.gym-result { margin-top: 18px; display: flex; flex-direction: column; gap: 6px; }
+.gym-result b { font-family: var(--font-display); font-size: 22px; font-weight: 600; }
+.gym-result.good { background: #F0FDF4; box-shadow: 0 6px 0 #86EFAC; }
+.gym-result.warm { background: #FFF7ED; box-shadow: 0 6px 0 #FED7AA; }
+.gym-cap { margin: 4px auto 14px; max-width: 560px; padding: 10px 14px; border-radius: 12px; background: #FEF9C3; color: #713F12 !important; }
+.mic-btn.done { background: var(--green); box-shadow: 0 8px 0 var(--green-d); }
+@media (max-width: 560px) { .gym-stage { grid-template-columns: 1fr; text-align: center; } .gym-main { align-items: center; } }
+
 /* ---------- Animations ---------- */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }

@@ -501,6 +501,527 @@
   function registerModel(id, color, name, vi) { MODELS[id] = genericModel(color, name, vi); }
   function unregisterModel(id) { if (/^c\d+$/.test(id)) delete MODELS[id]; }
 
+
+  /* =========================================================
+     MẪU MÔ HÌNH THEO CHỦ ĐỀ cho Lộ trình 9 Tháng (mỗi mẫu 12 mảnh, đổi màu theo Vùng đất)
+     Dữ liệu tuần chọn mẫu bằng model: ['bedroom', 'Tên EN', 'Tên VI']
+     ========================================================= */
+  const GLS = C.GLASS;
+  const P = (n, vi, p) => ({ n, vi, p });
+  const TEMPLATES = {
+    bedroom: (c, d, l, fig) => [
+      P('Wooden Floor', 'Sàn gỗ', [['b', 8, 290, 384, 14, TAN]]),
+      P('Bedroom Wall', 'Bức tường phòng ngủ', [['t', 16, 110, 368, 180, l]]),
+      P('Bedroom Window', 'Cửa sổ phòng ngủ', [['win', 230, 130, 90, 58], ['t', 224, 186, 102, 8, WHT]]),
+      P('Bed Frame', 'Khung giường', [['b', 30, 248, 170, 42, BRN]]),
+      P('Mattress & Pillow', 'Đệm & gối', [['t', 34, 232, 162, 16, WHT], ['e', 58, 228, 20, 9, WHT]]),
+      P('Cozy Blanket', 'Chăn ấm', [['t', 84, 226, 112, 22, c]]),
+      P('Bedside Lamp', 'Đèn ngủ đầu giường', [['b', 206, 256, 34, 34, RBRN], ['l', 223, 256, 223, 226, DGRY, 3], ['p', '211,226 235,226 229,208 217,208', YEL]]),
+      P('Wall Clock', 'Đồng hồ treo tường', [['c', 120, 160, 18, WHT], ['l', 120, 160, 120, 148, BLK, 2], ['l', 120, 160, 130, 164, BLK, 2]]),
+      P('Bookshelf', 'Giá sách', [['b', 332, 214, 50, 76, BRN]]),
+      P('Story Books', 'Sách truyện', [['t', 338, 224, 8, 22, RED], ['t', 348, 224, 8, 22, BLU], ['t', 358, 224, 8, 22, YEL], ['t', 338, 256, 30, 6, GRN]]),
+      P('School Bag', 'Cặp sách', [['b', 294, 262, 30, 28, BLU], ['t', 299, 268, 20, 6, YEL]]),
+      P('Minifigure', 'Nhân vật', [['fig', 246, 226, 0.5, fig]])
+    ],
+    kitchen: (c, d, l, fig) => [
+      P('Tiled Floor', 'Sàn gạch', [['b', 8, 290, 384, 14, MGRY]]),
+      P('Kitchen Wall', 'Tường bếp', [['t', 16, 110, 368, 180, l]]),
+      P('Kitchen Window', 'Cửa sổ bếp', [['win', 50, 128, 80, 56]]),
+      P('Counter & Cupboards', 'Kệ bếp & tủ', [['b', 24, 232, 180, 58, WHT], ['t', 34, 250, 70, 32, c], ['t', 114, 250, 80, 32, c]]),
+      P('Sink & Tap', 'Bồn rửa & vòi nước', [['t', 44, 224, 60, 8, LGRY], ['l', 96, 224, 96, 206, DGRY, 3], ['l', 96, 206, 84, 206, DGRY, 3]]),
+      P('Clean Plates', 'Chồng bát đĩa sạch', [['t', 116, 220, 36, 6, WHT], ['t', 116, 214, 36, 6, AZ]]),
+      P('Rice Cooker', 'Nồi cơm điện', [['b', 162, 208, 32, 24, WHT], ['dome', 178, 208, 15, c]]),
+      P('Stove', 'Bếp nấu', [['b', 212, 236, 100, 54, DGRY], ['e', 236, 232, 13, 4, BLK], ['e', 288, 232, 13, 4, BLK]]),
+      P('Cooking Pot', 'Nồi nấu canh', [['b', 266, 206, 40, 26, RED], ['l', 306, 214, 318, 214, DGRY, 3]]),
+      P('Fridge', 'Tủ lạnh', [['b', 322, 150, 62, 140, WHT], ['l', 326, 200, 380, 200, LGRY, 2], ['t', 372, 164, 4, 26, DGRY], ['t', 372, 212, 4, 40, DGRY]]),
+      P('Spice Shelf', 'Kệ gia vị', [['t', 170, 160, 130, 6, BRN], ['b', 180, 140, 20, 20, ORG], ['b', 208, 140, 20, 20, GRN], ['b', 236, 140, 20, 20, YEL]]),
+      P('Minifigure', 'Nhân vật', [['fig', 140, 226, 0.5, fig]])
+    ],
+    picnic: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Tree Trunk', 'Thân cây', [['t', 40, 170, 22, 120, BRN]]),
+      P('Tree Leaves', 'Tán lá', [['c', 51, 150, 46, TGRN], ['c', 22, 176, 22, OGRN], ['c', 84, 172, 24, OGRN]]),
+      P('Sunshine', 'Ông mặt trời', [['c', 350, 50, 24, YEL]]),
+      P('Fluffy Cloud', 'Đám mây', [['e', 250, 60, 36, 14, WHT], ['e', 226, 64, 20, 10, WHT]]),
+      P('Picnic Blanket', 'Thảm dã ngoại', [['p', '120,288 330,288 300,262 150,262', c], ['l', 170, 262, 160, 288, WHT, 3], ['l', 225, 262, 225, 288, WHT, 3], ['l', 280, 262, 290, 288, WHT, 3]]),
+      P('Picnic Basket', 'Giỏ dã ngoại', [['b', 196, 240, 46, 26, RBRN], ['l', 200, 240, 219, 226, BRN, 3], ['l', 219, 226, 238, 240, BRN, 3]]),
+      P('Fruit Snacks', 'Trái cây ăn nhẹ', [['c', 266, 256, 7, RED], ['c', 283, 256, 7, ORG], ['c', 170, 256, 6, GRN]]),
+      P('Flying Kite', 'Diều bay', [['p', '300,90 320,110 300,140 280,110', RED], ['l', 300, 140, 342, 232, DGRY, 1.5]]),
+      P('Flowers', 'Khóm hoa', [['l', 360, 290, 360, 272, DGRN, 2], ['c', 360, 270, 6, c], ['l', 374, 290, 374, 276, DGRN, 2], ['c', 374, 274, 6, YEL], ['l', 386, 290, 386, 270, DGRN, 2], ['c', 386, 268, 6, RED]]),
+      P('Parent Minifigure', 'Bố/Mẹ', [['fig', 96, 226, 0.5, 'hair-brown|smile|torso-stars|legs-white|none']]),
+      P('Kid Minifigure', 'Bé', [['fig', 322, 226, 0.5, fig]])
+    ],
+    classroom: (c, d, l, fig) => [
+      P('Classroom Floor', 'Sàn lớp học', [['b', 8, 290, 384, 14, TAN]]),
+      P('Classroom Wall', 'Tường lớp học', [['t', 16, 100, 368, 190, l]]),
+      P('Board Frame', 'Khung bảng', [['t', 104, 120, 192, 90, BRN]]),
+      P('Blackboard', 'Bảng đen', [['t', 110, 126, 180, 78, DGRN], ['txt', 200, 172, 'A B C', 24, WHT]]),
+      P('Wall Clock', 'Đồng hồ', [['c', 340, 140, 18, WHT], ['l', 340, 140, 340, 128, BLK, 2], ['l', 340, 140, 350, 144, BLK, 2]]),
+      P("Teacher's Desk", 'Bàn giáo viên', [['b', 30, 240, 100, 50, BRN]]),
+      P('Globe', 'Quả địa cầu', [['c', 60, 214, 16, AZ], ['p', '52,206 66,204 70,214 58,220', GRN], ['l', 60, 230, 60, 238, DGRY, 3]]),
+      P('Books on the Desk', 'Sách trên bàn', [['t', 90, 228, 30, 6, RED], ['t', 92, 222, 26, 6, BLU]]),
+      P('Student Desk 1', 'Bàn học sinh 1', [['t', 190, 250, 70, 8, c], ['l', 196, 258, 196, 290, DGRY, 3], ['l', 254, 258, 254, 290, DGRY, 3]]),
+      P('Student Desk 2', 'Bàn học sinh 2', [['t', 290, 250, 70, 8, c], ['l', 296, 258, 296, 290, DGRY, 3], ['l', 354, 258, 354, 290, DGRY, 3]]),
+      P('Crayons & Pencil Case', 'Bút màu & hộp bút', [['t', 300, 242, 30, 8, d], ['t', 216, 240, 4, 10, RED], ['t', 222, 240, 4, 10, BLU], ['t', 228, 240, 4, 10, YEL]]),
+      P('Minifigure', 'Nhân vật', [['fig', 138, 226, 0.5, fig]])
+    ],
+    school: (c, d, l, fig) => [
+      P('Green Baseplate', 'Tấm đế xanh', [['b', 8, 290, 384, 14, GRN]]),
+      P('Ground Floor', 'Tầng trệt', [['b', 80, 236, 240, 54, c], ['door', 182, 250, 36, 40, BRN]]),
+      P('Ground Windows', 'Cửa sổ tầng trệt', [['win', 96, 248, 56, 28], ['win', 248, 248, 56, 28]]),
+      P('Upper Floor', 'Tầng trên', [['b', 90, 184, 220, 52, l]]),
+      P('Upper Windows', 'Cửa sổ tầng trên', [['win', 104, 196, 40, 26], ['win', 180, 196, 40, 26], ['win', 256, 196, 40, 26]]),
+      P('School Roof', 'Mái trường', [['p', '76,184 200,140 324,184', d]]),
+      P('Bell Tower', 'Tháp chuông', [['b', 180, 104, 40, 36, WHT], ['p', '174,104 200,80 226,104', RED]]),
+      P('Tower Clock', 'Đồng hồ tháp', [['c', 200, 122, 10, YEL], ['l', 200, 122, 200, 115, BLK, 2]]),
+      P('School Sign', 'Biển tên trường', [['t', 160, 164, 80, 16, WHT], ['txt', 200, 176, 'SCHOOL', 11, BLK]]),
+      P('Flagpole', 'Cột cờ', [['l', 362, 290, 362, 140, DGRY, 3], ['p', '362,140 394,150 362,160', RED], ['txt', 374, 154, '★', 10, YEL]]),
+      P('Schoolyard Tree', 'Cây sân trường', [['t', 36, 230, 12, 60, BRN], ['c', 42, 214, 26, TGRN]]),
+      P('Minifigure', 'Nhân vật', [['fig', 318, 226, 0.5, fig]])
+    ],
+    playground: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Slide Ladder', 'Thang cầu trượt', [['l', 40, 290, 58, 190, RED, 4], ['l', 70, 290, 88, 190, RED, 4], ['l', 46, 262, 76, 262, RED, 3], ['l', 50, 238, 80, 238, RED, 3], ['l', 54, 214, 84, 214, RED, 3]]),
+      P('Slide Platform', 'Bục cầu trượt', [['t', 54, 184, 54, 8, BLU]]),
+      P('Slide Chute', 'Máng trượt', [['p', '104,184 116,184 190,286 172,290', YEL]]),
+      P('Swing Frame', 'Khung xích đu', [['l', 232, 290, 246, 170, c, 5], ['l', 332, 290, 318, 170, c, 5], ['l', 240, 170, 324, 170, DGRY, 5]]),
+      P('Swing Seat', 'Ghế xích đu', [['l', 270, 172, 270, 250, DGRY, 2], ['l', 294, 172, 294, 250, DGRY, 2], ['t', 264, 250, 36, 6, RED]]),
+      P('Chess Table', 'Bàn cờ vua', [['t', 344, 262, 44, 6, BRN], ['l', 366, 268, 366, 290, DGRY, 3], ['t', 352, 256, 28, 6, WHT], ['t', 352, 256, 7, 6, BLK], ['t', 366, 256, 7, 6, BLK]]),
+      P('Football', 'Quả bóng', [['c', 210, 282, 8, WHT], ['c', 210, 282, 3, BLK]]),
+      P('Sunshine', 'Ông mặt trời', [['c', 360, 48, 22, YEL]]),
+      P('Little Tree', 'Cây nhỏ', [['t', 14, 220, 10, 70, BRN], ['c', 19, 206, 18, TGRN]]),
+      P('Kite', 'Con diều', [['p', '150,60 166,76 150,100 134,76', ORG], ['l', 150, 100, 186, 150, DGRY, 1.5]]),
+      P('Minifigure', 'Nhân vật', [['fig', 182, 226, 0.5, fig]])
+    ],
+    busstop: (c, d, l, fig) => [
+      P('Pavement', 'Vỉa hè', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Shelter Roof', 'Mái chờ xe buýt', [['t', 50, 176, 150, 10, c]]),
+      P('Shelter Poles', 'Cột mái chờ', [['l', 60, 186, 60, 290, DGRY, 4], ['l', 190, 186, 190, 290, DGRY, 4]]),
+      P('Glass Panel', 'Vách kính', [['t', 62, 190, 126, 60, GLS]]),
+      P('Bench', 'Ghế chờ', [['t', 80, 256, 90, 8, BRN], ['l', 90, 264, 90, 290, DGRY, 3], ['l', 160, 264, 160, 290, DGRY, 3]]),
+      P('Bus Stop Sign', 'Biển trạm xe buýt', [['l', 230, 290, 230, 170, DGRY, 3], ['c', 230, 164, 15, d], ['txt', 230, 169, 'BUS', 10, WHT]]),
+      P('Bus Body', 'Thân xe buýt', [['b', 270, 206, 124, 72, YEL], ['win', 280, 216, 30, 24], ['win', 318, 216, 30, 24], ['win', 356, 216, 30, 24]]),
+      P('Bus Wheels', 'Bánh xe buýt', [['w', 300, 282, 12], ['w', 366, 282, 12]]),
+      P('Recycling Bin', 'Thùng rác phân loại', [['b', 10, 256, 30, 34, GRN], ['t', 12, 250, 26, 6, DGRN]]),
+      P('Friend in Line', 'Bạn xếp hàng 1', [['fig', 66, 226, 0.5, 'hair-blonde|smile|torso-red|legs-blue|book']]),
+      P('Friend in Line 2', 'Bạn xếp hàng 2', [['fig', 110, 226, 0.5, 'cap-red|grin|torso-blue|legs-black|none']]),
+      P('Minifigure', 'Nhân vật', [['fig', 154, 226, 0.5, fig]])
+    ],
+    cafe: (c, d, l, fig) => [
+      P('Street Baseplate', 'Tấm đế phố', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Restaurant Wall', 'Tường quán ăn', [['b', 40, 172, 240, 118, WHT]]),
+      P('Door & Window', 'Cửa ra vào & cửa sổ', [['door', 190, 226, 40, 64, BRN], ['win', 60, 204, 100, 50]]),
+      P('Roof Edge', 'Mép mái', [['t', 34, 164, 252, 10, d]]),
+      P('Striped Awning', 'Mái hiên sọc', [['p', '30,174 290,174 280,198 40,198', c], ['p', '82,174 108,174 106,198 84,198', WHT], ['p', '160,174 186,174 186,198 160,198', WHT], ['p', '238,174 264,174 262,198 240,198', WHT]]),
+      P('Shop Sign', 'Biển hiệu', [['t', 100, 132, 120, 30, YEL], ['txt', 160, 153, 'PHO', 18, RED]]),
+      P('Outdoor Table', 'Bàn ngoài trời', [['t', 300, 250, 80, 8, RBRN], ['l', 340, 258, 340, 290, DGRY, 4]]),
+      P('Bowl of Noodles', 'Bát phở', [['e', 324, 245, 14, 6, WHT], ['e', 324, 242, 11, 3, ORG]]),
+      P('Drinks', 'Đồ uống', [['t', 352, 232, 10, 16, ORG], ['t', 366, 232, 10, 16, GRN]]),
+      P('Red Lantern', 'Đèn lồng đỏ', [['l', 300, 112, 300, 130, DGRY, 2], ['e', 300, 142, 12, 14, RED], ['t', 296, 154, 8, 6, YEL]]),
+      P('Plant Pot', 'Chậu cây', [['t', 12, 262, 24, 28, RBRN], ['c', 24, 250, 14, TGRN]]),
+      P('Minifigure', 'Nhân vật', [['fig', 236, 226, 0.5, fig]])
+    ],
+    shop: (c, d, l, fig) => [
+      P('Street Baseplate', 'Tấm đế phố', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Shop Building', 'Tòa nhà siêu thị', [['b', 30, 176, 300, 114, WHT]]),
+      P('Roof Stripe', 'Viền mái', [['t', 24, 168, 312, 10, c]]),
+      P('Big Sign', 'Biển hiệu lớn', [['t', 90, 136, 180, 30, c], ['txt', 180, 157, 'SUPERMARKET', 13, WHT]]),
+      P('Glass Doors', 'Cửa kính', [['t', 150, 220, 60, 70, GLS], ['l', 180, 220, 180, 290, WHT, 2]]),
+      P('Fruit Shelf', 'Kệ trái cây', [['win', 44, 200, 90, 60], ['t', 48, 226, 82, 4, BRN], ['c', 58, 220, 5, RED], ['c', 72, 220, 5, ORG], ['c', 86, 220, 5, GRN], ['t', 100, 214, 8, 12, YEL], ['t', 112, 214, 8, 12, AZ]]),
+      P('Milk Shelf', 'Kệ sữa', [['win', 226, 200, 90, 60], ['t', 230, 226, 82, 4, BRN], ['t', 236, 212, 10, 14, WHT], ['t', 250, 212, 10, 14, WHT], ['c', 276, 220, 5, YEL], ['c', 292, 220, 5, RED]]),
+      P('Open Sign', 'Biển "Mở cửa"', [['t', 156, 206, 48, 12, YEL], ['txt', 180, 215, 'OPEN', 9, RED]]),
+      P('Shopping Trolley', 'Xe đẩy hàng', [['p', '334,240 390,240 382,270 342,270', MGRY], ['w', 346, 280, 6], ['w', 376, 280, 6], ['l', 334, 240, 328, 226, DGRY, 3]]),
+      P('Groceries', 'Hàng hóa trong xe', [['c', 350, 236, 7, ORG], ['t', 362, 224, 10, 14, AZ], ['c', 378, 236, 6, GRN]]),
+      P('Bushes', 'Bụi cây', [['c', 46, 282, 10, TGRN], ['c', 66, 282, 10, OGRN], ['c', 110, 282, 10, TGRN]]),
+      P('Minifigure', 'Nhân vật', [['fig', 276, 226, 0.5, fig]])
+    ],
+    garden: (c, d, l, fig) => {
+      const posts = [];
+      for (let x = 20; x <= 380; x += 40) posts.push(['t', x, 228, 8, 62, WHT]);
+      return [
+        P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+        P('Garden Fence', 'Hàng rào vườn', [['t', 8, 240, 384, 6, WHT]].concat(posts)),
+        P('Apple Tree Trunk', 'Thân cây táo', [['t', 60, 170, 20, 120, BRN]]),
+        P('Apple Tree Leaves', 'Tán cây táo', [['c', 70, 148, 50, TGRN]]),
+        P('Red Apples', 'Những quả táo đỏ', [['c', 50, 140, 7, RED], ['c', 92, 160, 7, RED], ['c', 72, 118, 7, RED]]),
+        P('Flower Bed', 'Luống hoa', [['l', 180, 290, 180, 262, DGRN, 3], ['c', 180, 258, 8, c], ['l', 204, 290, 204, 268, DGRN, 3], ['c', 204, 264, 8, YEL], ['l', 290, 290, 290, 264, DGRN, 3], ['c', 290, 260, 8, RED], ['l', 314, 290, 314, 270, DGRN, 3], ['c', 314, 266, 8, d]]),
+        P('Busy Bee', 'Chú ong', [['e', 220, 120, 9, 6, YEL], ['l', 218, 114, 218, 126, BLK, 2], ['e', 222, 111, 6, 4, WHT]]),
+        P('Butterfly', 'Bươm bướm', [['e', 300, 110, 10, 7, c], ['e', 316, 110, 10, 7, c], ['l', 308, 102, 308, 118, BLK, 2]]),
+        P('Singing Bird', 'Chim hót', [['e', 340, 168, 12, 8, AZ], ['p', '352,166 360,168 352,171', ORG], ['txt', 362, 150, '♪', 20, BLK]]),
+        P('Sunshine', 'Ông mặt trời', [['c', 362, 44, 20, YEL]]),
+        P('Fruit Basket', 'Giỏ trái cây', [['b', 120, 262, 40, 28, RBRN], ['c', 130, 256, 7, YEL], ['c', 148, 256, 7, RED]]),
+        P('Minifigure', 'Nhân vật', [['fig', 226, 226, 0.5, fig]])
+      ];
+    },
+    clinic: (c, d, l, fig) => [
+      P('Green Baseplate', 'Tấm đế xanh', [['b', 8, 290, 384, 14, GRN]]),
+      P('Clinic Wall', 'Tường phòng khám', [['b', 60, 172, 220, 118, WHT]]),
+      P('Clinic Roof', 'Mái phòng khám', [['t', 54, 162, 232, 12, c]]),
+      P('Red Cross Sign', 'Biển chữ thập đỏ', [['t', 150, 118, 40, 40, WHT], ['t', 164, 124, 12, 28, RED], ['t', 156, 132, 28, 12, RED]]),
+      P('Clinic Door', 'Cửa phòng khám', [['door', 150, 226, 40, 64, AZ]]),
+      P('Clinic Windows', 'Cửa sổ phòng khám', [['win', 76, 196, 56, 40], ['win', 208, 196, 56, 40]]),
+      P('Ambulance Body', 'Thân xe cứu thương', [['b', 290, 222, 104, 54, WHT], ['t', 290, 240, 104, 8, RED]]),
+      P('Ambulance Light', 'Đèn & dấu thập', [['t', 300, 208, 14, 8, AZ], ['t', 352, 250, 6, 18, RED], ['t', 346, 256, 18, 6, RED]]),
+      P('Ambulance Wheels', 'Bánh xe cứu thương', [['w', 312, 282, 11], ['w', 372, 282, 11]]),
+      P('Little Tree', 'Cây nhỏ', [['t', 18, 220, 10, 70, BRN], ['c', 23, 206, 18, TGRN]]),
+      P('First Aid Kit', 'Hộp sơ cứu', [['b', 96, 268, 30, 22, RED], ['t', 108, 272, 6, 14, WHT], ['t', 104, 276, 14, 6, WHT]]),
+      P('Minifigure', 'Nhân vật', [['fig', 196, 226, 0.5, fig]])
+    ]
+  };
+  /* ---------- Mẫu mô hình Giai đoạn 2 (Khoa học Tự nhiên) & Giai đoạn 3 (Thế giới) ---------- */
+  const PNK = '#F4A7B9', SAND = '#E9D29A', NIGHT = '#1E2A4A', PALE = '#FFF3B0';
+  Object.assign(TEMPLATES, {
+    greenhouse: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Soil Bed', 'Luống đất', [['b', 44, 264, 170, 26, BRN]]),
+      P('Little Sprouts', 'Mầm cây nhỏ', [['l', 60, 264, 60, 250, TGRN, 3], ['e', 60, 248, 6, 3, TGRN], ['l', 90, 264, 90, 244, TGRN, 3], ['e', 90, 242, 7, 3, TGRN]]),
+      P('Sunflower', 'Hoa hướng dương', [['l', 150, 264, 150, 172, DGRN, 4], ['e', 138, 222, 11, 5, TGRN], ['e', 162, 202, 11, 5, TGRN], ['c', 150, 162, 17, YEL], ['c', 150, 162, 7, BRN]]),
+      P('Greenhouse Glass', 'Nhà kính', [['t', 232, 170, 150, 120, GLS], ['p', '224,170 307,122 390,170', GLS]]),
+      P('Greenhouse Frame', 'Khung nhà kính', [['l', 307, 122, 307, 290, WHT, 3], ['l', 232, 170, 382, 170, WHT, 3], ['l', 232, 230, 382, 230, WHT, 2]]),
+      P('Tomato Plant', 'Cây cà chua', [['l', 270, 290, 270, 214, DGRN, 3], ['e', 270, 210, 13, 8, TGRN], ['c', 262, 236, 6, RED], ['c', 279, 252, 6, RED]]),
+      P('Flower Pot', 'Chậu cây', [['b', 326, 262, 40, 28, RBRN], ['c', 346, 252, 14, OGRN]]),
+      P('Watering Can', 'Bình tưới', [['b', 10, 268, 30, 22, c], ['l', 40, 272, 52, 260, c, 4]]),
+      P('Sunshine', 'Ông mặt trời', [['c', 60, 60, 24, YEL], ['l', 60, 26, 60, 16, YEL, 3], ['l', 94, 60, 104, 60, YEL, 3], ['l', 84, 36, 92, 28, YEL, 3]]),
+      P('Rain Cloud', 'Mây mưa', [['e', 180, 72, 34, 14, WHT], ['e', 158, 78, 18, 10, WHT], ['l', 168, 92, 164, 104, AZ, 2], ['l', 184, 92, 180, 104, AZ, 2], ['l', 200, 90, 196, 102, AZ, 2]]),
+      P('Minifigure', 'Nhân vật', [['fig', 186, 226, 0.5, fig]])
+    ],
+    aquarium: (c, d, l, fig) => [
+      P('Wooden Floor', 'Sàn gỗ', [['b', 8, 290, 384, 14, TAN]]),
+      P('Tank Stand', 'Kệ bể cá', [['b', 56, 252, 288, 38, BRN]]),
+      P('Tank Water', 'Nước trong bể', [['t', 60, 112, 280, 140, AZ], ['l', 60, 112, 60, 252, WHT, 3], ['l', 340, 112, 340, 252, WHT, 3]]),
+      P('Gravel', 'Sỏi đáy bể', [['t', 60, 234, 280, 18, SAND], ['c', 90, 238, 4, MGRY], ['c', 180, 240, 3, MGRY], ['c', 316, 238, 4, MGRY]]),
+      P('Driftwood', 'Lũa', [['p', '104,234 168,200 182,206 124,234', BRN]]),
+      P('Water Plants', 'Cây thủy sinh', [['l', 226, 234, 220, 168, TGRN, 4], ['l', 242, 234, 250, 158, DGRN, 4], ['l', 300, 234, 294, 180, TGRN, 4]]),
+      P('Aquarium Rock', 'Đá trang trí', [['e', 286, 228, 22, 12, DGRY]]),
+      P('Orange Fish', 'Cá cam', [['e', 150, 152, 16, 9, ORG], ['p', '134,152 122,143 122,161', ORG], ['c', 158, 150, 2, BLK]]),
+      P('Yellow Fish', 'Cá vàng', [['e', 262, 130, 12, 7, YEL], ['p', '274,130 284,123 284,137', YEL], ['c', 256, 129, 2, BLK]]),
+      P('Air Bubbles', 'Bọt khí', [['c', 108, 186, 4, WHT], ['c', 112, 166, 3, WHT], ['c', 106, 146, 2, WHT]]),
+      P('Filter & Light', 'Máy lọc & đèn', [['t', 56, 102, 288, 10, DGRY], ['t', 306, 114, 14, 60, LGRY]]),
+      P('Minifigure', 'Nhân vật', [['fig', 346, 226, 0.5, fig]])
+    ],
+    meadow: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Tree Trunk', 'Thân cây', [['t', 30, 150, 22, 140, BRN]]),
+      P('Tree Leaves', 'Tán lá', [['c', 41, 128, 40, TGRN]]),
+      P('Beehive', 'Tổ ong', [['l', 84, 150, 84, 160, BRN, 2], ['e', 84, 178, 16, 20, YEL], ['l', 70, 172, 98, 172, ORG, 2], ['l', 70, 184, 98, 184, ORG, 2]]),
+      P('Busy Bees', 'Những chú ong', [['e', 116, 168, 6, 4, YEL], ['l', 114, 164, 114, 172, BLK, 1.5], ['e', 134, 190, 6, 4, YEL], ['l', 132, 186, 132, 194, BLK, 1.5]]),
+      P('Big Leaf', 'Chiếc lá to', [['e', 250, 252, 40, 13, TGRN], ['l', 212, 252, 288, 252, DGRN, 2]]),
+      P('Ladybird', 'Bọ rùa', [['dome', 252, 248, 10, RED], ['c', 248, 244, 2, BLK], ['c', 256, 244, 2, BLK]]),
+      P('Anthill', 'Tổ kiến', [['p', '300,290 330,252 360,290', RBRN], ['c', 318, 284, 2, BLK], ['c', 340, 278, 2, BLK]]),
+      P('Earthworm', 'Giun đất', [['e', 160, 285, 14, 4, PNK], ['e', 178, 283, 6, 3, PNK]]),
+      P('Meadow Flowers', 'Hoa đồng cỏ', [['l', 372, 290, 372, 270, DGRN, 3], ['c', 372, 266, 7, c], ['l', 388, 290, 388, 274, DGRN, 3], ['c', 388, 270, 6, YEL]]),
+      P('Butterfly', 'Bươm bướm', [['e', 300, 140, 12, 8, c], ['e', 318, 140, 12, 8, c], ['l', 309, 132, 309, 148, BLK, 2]]),
+      P('Minifigure', 'Nhân vật', [['fig', 186, 226, 0.5, fig]])
+    ],
+    safari: (c, d, l, fig) => [
+      P('Savanna Baseplate', 'Tấm đế thảo nguyên', [['b', 8, 290, 384, 14, SAND]]),
+      P('Acacia Trunk', 'Thân cây keo', [['t', 60, 190, 10, 100, BRN]]),
+      P('Acacia Canopy', 'Tán cây keo', [['e', 65, 184, 52, 14, OGRN]]),
+      P('Giraffe Body', 'Thân hươu cao cổ', [['e', 160, 236, 26, 14, YEL], ['l', 144, 246, 144, 290, YEL, 4], ['l', 174, 246, 174, 290, YEL, 4], ['c', 154, 232, 3, BRN], ['c', 166, 240, 3, BRN]]),
+      P('Giraffe Neck', 'Cổ hươu cao cổ', [['l', 178, 230, 196, 170, YEL, 7], ['e', 200, 166, 10, 7, YEL], ['c', 188, 200, 3, BRN]]),
+      P('Elephant Body', 'Thân voi', [['e', 282, 250, 36, 24, LGRY], ['t', 258, 262, 12, 28, LGRY], ['t', 292, 262, 12, 28, LGRY]]),
+      P('Elephant Head', 'Đầu voi', [['c', 318, 240, 16, LGRY], ['l', 328, 250, 332, 282, LGRY, 6], ['e', 308, 236, 10, 14, MGRY]]),
+      P('Waterhole', 'Vũng nước', [['e', 225, 288, 34, 5, AZ]]),
+      P('Safari Jeep', 'Xe jeep safari', [['b', 344, 262, 50, 22, c], ['w', 356, 286, 6], ['w', 384, 286, 6]]),
+      P('Hot Sun', 'Mặt trời nóng', [['c', 350, 50, 24, ORG]]),
+      P('Flying Birds', 'Đàn chim', [['txt', 250, 72, 'v  v', 16, BLK]]),
+      P('Ranger Minifigure', 'Kiểm lâm', [['fig', 90, 226, 0.5, fig]])
+    ],
+    weather: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Weather Hut', 'Trạm thời tiết', [['b', 40, 222, 110, 68, WHT], ['door', 82, 246, 28, 44, c]]),
+      P('Hut Roof', 'Mái trạm', [['p', '32,222 95,184 158,222', d]]),
+      P('Weather Vane', 'Chong chóng gió', [['l', 95, 184, 95, 146, DGRY, 2], ['p', '95,146 119,152 95,158', RED], ['txt', 95, 142, 'N', 10, BLK]]),
+      P('Thermometer', 'Nhiệt kế', [['t', 188, 182, 14, 88, WHT], ['t', 192, 212, 6, 58, RED], ['c', 195, 272, 9, RED]]),
+      P('Wind Cups', 'Máy đo gió', [['l', 250, 290, 250, 192, DGRY, 3], ['l', 230, 192, 270, 192, DGRY, 2], ['c', 230, 192, 6, c], ['c', 270, 192, 6, c]]),
+      P('Rain Gauge', 'Ống đo mưa', [['t', 288, 250, 20, 40, GLS], ['t', 288, 272, 20, 18, AZ]]),
+      P('Forecast Screen', 'Màn hình dự báo', [['t', 318, 180, 72, 50, DGRY], ['c', 342, 200, 8, YEL], ['e', 364, 212, 14, 7, WHT], ['l', 354, 230, 354, 290, DGRY, 3]]),
+      P('Rainbow', 'Cầu vồng', [['dome', 200, 108, 60, RED], ['dome', 200, 108, 50, YEL], ['dome', 200, 108, 40, AZ], ['dome', 200, 108, 30, '#E0F2FE']]),
+      P('Fluffy Cloud', 'Đám mây', [['e', 310, 80, 34, 14, WHT], ['e', 288, 86, 18, 10, WHT]]),
+      P('Sunshine', 'Ông mặt trời', [['c', 60, 60, 20, YEL]]),
+      P('Minifigure', 'Nhân vật', [['fig', 140, 226, 0.5, fig]])
+    ],
+    watercycle: (c, d, l, fig) => [
+      P('Seabed', 'Đáy biển', [['b', 8, 290, 384, 14, BLU]]),
+      P('Blue Sea', 'Biển xanh', [['t', 8, 260, 170, 30, AZ]]),
+      P('Big Mountain', 'Ngọn núi', [['p', '200,290 300,150 400,290', MGRY]]),
+      P('Snowy Top', 'Đỉnh núi tuyết', [['p', '280,178 300,150 320,178', WHT]]),
+      P('River', 'Dòng sông', [['p', '306,204 318,208 184,290 164,290', AZ]]),
+      P('Hot Sun', 'Mặt trời nóng', [['c', 60, 60, 26, YEL]]),
+      P('Evaporation Arrows', 'Mũi tên bốc hơi', [['l', 84, 248, 84, 176, WHT, 2], ['p', '78,180 84,168 90,180', WHT], ['l', 124, 248, 124, 186, WHT, 2], ['p', '118,190 124,178 130,190', WHT]]),
+      P('Rain Cloud', 'Mây mưa', [['e', 222, 80, 50, 20, WHT], ['e', 190, 86, 26, 14, WHT], ['e', 254, 88, 26, 13, WHT]]),
+      P('Raindrops', 'Giọt mưa', [['l', 200, 106, 196, 120, AZ, 2], ['l', 218, 106, 214, 120, AZ, 2], ['l', 236, 106, 232, 120, AZ, 2], ['l', 254, 106, 250, 120, AZ, 2]]),
+      P('Sailing Boat', 'Thuyền buồm', [['p', '40,258 100,258 92,270 48,270', c], ['l', 70, 258, 70, 224, BRN, 2], ['p', '70,226 92,250 70,250', WHT]]),
+      P('Jumping Fish', 'Cá nhảy', [['e', 150, 252, 8, 4, ORG], ['p', '142,252 136,248 136,256', ORG]]),
+      P('Minifigure', 'Nhân vật', [['fig', 184, 226, 0.5, fig]])
+    ],
+    boutique: (c, d, l, fig) => [
+      P('Street Baseplate', 'Tấm đế phố', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Shop Wall', 'Tường cửa hàng', [['b', 44, 172, 296, 118, l]]),
+      P('Shop Sign', 'Biển hiệu', [['t', 120, 138, 148, 26, c], ['txt', 194, 156, 'SEASONS', 12, WHT]]),
+      P('Awning', 'Mái hiên', [['p', '38,172 346,172 336,192 48,192', d]]),
+      P('Shop Window', 'Tủ kính', [['win', 58, 202, 150, 70]]),
+      P('Summer T-shirt', 'Áo phông mùa hè', [['p', '80,214 96,208 108,214 116,224 108,228 108,256 84,256 84,228 76,224', RED]]),
+      P('Raincoat', 'Áo mưa', [['p', '132,210 150,210 158,258 124,258', YEL]]),
+      P('Winter Sweater', 'Áo len mùa đông', [['p', '166,214 196,214 202,252 162,252', BLU]]),
+      P('Shop Door', 'Cửa ra vào', [['door', 236, 222, 40, 68, BRN]]),
+      P('Hat Stand', 'Giá treo mũ', [['l', 300, 290, 300, 222, DGRY, 3], ['e', 300, 216, 16, 6, RED], ['dome', 300, 214, 10, RED]]),
+      P('Umbrella', 'Ô dù', [['p', '6,232 42,232 24,214', AZ], ['l', 24, 232, 24, 272, BLK, 2]]),
+      P('Minifigure', 'Nhân vật', [['fig', 316, 226, 0.5, fig]])
+    ],
+    recycling: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Paper Bin', 'Thùng giấy', [['b', 20, 240, 50, 50, BLU], ['txt', 45, 270, 'PAPER', 8, WHT]]),
+      P('Plastic Bin', 'Thùng nhựa', [['b', 78, 240, 50, 50, YEL], ['txt', 103, 270, 'PLASTIC', 7, BLK]]),
+      P('Glass Bin', 'Thùng thủy tinh', [['b', 136, 240, 50, 50, DGRN], ['txt', 161, 270, 'GLASS', 8, WHT]]),
+      P('Things to Recycle', 'Đồ cần tái chế', [['t', 34, 218, 22, 12, WHT], ['t', 98, 214, 10, 18, AZ], ['t', 158, 212, 8, 20, GLS]]),
+      P('Recycling Sign', 'Biển tái chế', [['l', 200, 290, 200, 196, DGRY, 3], ['c', 200, 180, 20, GRN], ['txt', 200, 188, '♻', 22, WHT]]),
+      P('Little Tree', 'Cây non', [['l', 230, 290, 230, 258, DGRN, 3], ['c', 230, 252, 9, TGRN]]),
+      P('Truck Body', 'Thùng xe tái chế', [['b', 246, 226, 108, 50, c]]),
+      P('Truck Cab', 'Ca-bin xe', [['t', 352, 240, 40, 36, LGRY], ['win', 362, 246, 22, 14]]),
+      P('Truck Wheels', 'Bánh xe', [['w', 272, 282, 11], ['w', 362, 282, 11]]),
+      P('Happy Planet', 'Trái Đất vui vẻ', [['c', 320, 70, 26, AZ], ['e', 312, 64, 10, 8, GRN], ['e', 330, 82, 8, 6, GRN]]),
+      P('Minifigure', 'Nhân vật', [['fig', 190, 226, 0.5, fig]])
+    ],
+    workshop: (c, d, l, fig) => [
+      P('Wooden Floor', 'Sàn gỗ', [['b', 8, 290, 384, 14, TAN]]),
+      P('Workshop Wall', 'Tường xưởng', [['t', 16, 110, 368, 180, l]]),
+      P('Tool Board', 'Bảng treo dụng cụ', [['t', 40, 130, 160, 80, RBRN]]),
+      P('Metal Tools', 'Dụng cụ kim loại', [['l', 70, 150, 70, 192, BRN, 4], ['t', 62, 144, 18, 10, LGRY], ['l', 110, 150, 110, 194, LGRY, 4], ['p', '140,150 190,150 190,166 140,166', LGRY]]),
+      P('Workbench', 'Bàn làm việc', [['b', 30, 240, 200, 20, BRN], ['l', 40, 260, 40, 290, BRN, 5], ['l', 220, 260, 220, 290, BRN, 5]]),
+      P('Glass Jar', 'Lọ thủy tinh', [['t', 52, 210, 26, 30, GLS]]),
+      P('Metal Can', 'Lon kim loại', [['t', 92, 214, 22, 26, MGRY]]),
+      P('Paper Roll', 'Cuộn giấy', [['e', 144, 230, 18, 10, WHT]]),
+      P('Plastic Box', 'Hộp nhựa', [['b', 176, 218, 44, 22, c]]),
+      P('Wooden Chair', 'Ghế gỗ', [['t', 262, 196, 48, 8, BRN], ['l', 264, 240, 264, 200, BRN, 4], ['l', 306, 240, 306, 200, BRN, 4], ['t', 260, 240, 50, 8, BRN], ['l', 266, 248, 266, 290, BRN, 4], ['l', 304, 248, 304, 290, BRN, 4]]),
+      P('Window', 'Cửa sổ', [['win', 300, 130, 70, 50]]),
+      P('Minifigure', 'Nhân vật', [['fig', 330, 226, 0.5, fig]])
+    ],
+    lab: (c, d, l, fig) => [
+      P('Lab Floor', 'Sàn phòng thí nghiệm', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Lab Table', 'Bàn thí nghiệm', [['b', 20, 240, 250, 18, WHT], ['l', 30, 258, 30, 290, DGRY, 4], ['l', 260, 258, 260, 290, DGRY, 4]]),
+      P('Water Tank', 'Bể nước thí nghiệm', [['t', 40, 168, 150, 72, GLS]]),
+      P('Tank Water', 'Nước trong bể', [['t', 40, 196, 150, 44, AZ]]),
+      P('Floating Boat', 'Thuyền nổi', [['p', '64,196 98,196 92,206 70,206', YEL]]),
+      P('Floating Apple', 'Quả táo nổi', [['c', 132, 198, 8, RED], ['l', 132, 190, 134, 184, BRN, 2]]),
+      P('Sinking Stone', 'Hòn đá chìm', [['e', 162, 234, 12, 6, DGRY]]),
+      P('Big Magnet', 'Nam châm lớn', [['t', 210, 186, 40, 8, RED], ['t', 210, 194, 10, 32, RED], ['t', 240, 194, 10, 32, RED], ['t', 210, 222, 10, 8, LGRY], ['t', 240, 222, 10, 8, LGRY]]),
+      P('Paper Clips', 'Kẹp giấy', [['l', 210, 236, 222, 236, MGRY, 2], ['l', 238, 236, 250, 236, MGRY, 2], ['l', 214, 232, 220, 232, MGRY, 2]]),
+      P('Sink or Float Chart', 'Bảng Chìm hay Nổi', [['t', 290, 128, 92, 60, WHT], ['txt', 336, 152, 'SINK?', 11, BLU], ['txt', 336, 174, 'FLOAT?', 11, RED]]),
+      P('Beaker', 'Cốc thí nghiệm', [['p', '292,240 314,240 310,290 296,290', GLS], ['t', 296, 266, 14, 24, GRN]]),
+      P('Scientist Minifigure', 'Nhà khoa học', [['fig', 330, 226, 0.5, fig]])
+    ],
+    lighthouse: (c, d, l, fig) => [
+      P('Sea Baseplate', 'Tấm đế biển', [['b', 8, 290, 384, 14, BLU]]),
+      P('Rocky Island', 'Đảo đá', [['p', '150,290 190,250 330,250 370,290', DGRY]]),
+      P('Lighthouse Tower', 'Thân hải đăng', [['p', '220,250 270,250 260,130 230,130', WHT], ['p', '224,220 266,220 264,200 226,200', RED], ['p', '228,172 262,172 261,152 229,152', RED]]),
+      P('Lamp Room', 'Phòng đèn', [['t', 226, 108, 38, 22, GLS], ['p', '222,108 268,108 245,90', RED]]),
+      P('Right Light Beam', 'Tia sáng phải', [['p', '264,112 398,84 398,138', PALE]]),
+      P('Left Light Beam', 'Tia sáng trái', [['p', '226,112 120,84 120,138', PALE]]),
+      P('Moon & Stars', 'Trăng & sao', [['c', 52, 50, 18, PALE], ['txt', 110, 44, '✦', 12, YEL], ['txt', 160, 60, '✦', 10, YEL]]),
+      P('Little Boat', 'Thuyền nhỏ', [['p', '40,276 100,276 92,288 48,288', c], ['l', 70, 276, 70, 246, BRN, 2], ['p', '70,248 90,270 70,270', WHT]]),
+      P('Tree & Shadow', 'Cây & bóng cây', [['e', 346, 252, 24, 3, BLK], ['t', 318, 214, 8, 36, BRN], ['c', 322, 206, 14, TGRN]]),
+      P('Fog Bell', 'Chuông báo sương', [['dome', 196, 250, 10, YEL], ['txt', 178, 236, '♪', 14, BLK]]),
+      P('Seagull', 'Mòng biển', [['txt', 330, 70, 'v', 18, BLK]]),
+      P('Minifigure', 'Nhân vật', [['fig', 272, 186, 0.5, fig]])
+    ],
+    robotlab: (c, d, l, fig) => [
+      P('Tech Floor', 'Sàn phòng máy', [['b', 8, 290, 384, 14, MGRY]]),
+      P('Lab Wall', 'Tường phòng máy', [['t', 16, 110, 368, 180, l]]),
+      P('Window', 'Cửa sổ', [['win', 250, 128, 90, 50]]),
+      P('Computer Desk', 'Bàn máy tính', [['b', 30, 240, 170, 16, WHT], ['l', 40, 256, 40, 290, DGRY, 4], ['l', 190, 256, 190, 290, DGRY, 4]]),
+      P('Monitor & Code', 'Màn hình & mã lệnh', [['t', 60, 170, 100, 64, DGRY], ['t', 66, 176, 88, 52, NIGHT], ['l', 74, 188, 120, 188, GRN, 3], ['l', 82, 200, 140, 200, YEL, 3], ['l', 82, 212, 112, 212, WHT, 3], ['t', 104, 234, 12, 6, DGRY]]),
+      P('Tablet', 'Máy tính bảng', [['t', 160, 224, 32, 14, BLK], ['t', 162, 226, 28, 10, AZ]]),
+      P('Robot Body', 'Thân robot', [['b', 262, 236, 50, 40, LGRY], ['c', 287, 256, 6, c]]),
+      P('Robot Head', 'Đầu robot', [['b', 270, 206, 34, 24, LGRY], ['c', 280, 218, 4, AZ], ['c', 294, 218, 4, AZ], ['l', 287, 200, 287, 190, DGRY, 2], ['c', 287, 188, 3, RED]]),
+      P('Robot Wheels', 'Bánh xe robot', [['w', 274, 282, 8], ['w', 300, 282, 8]]),
+      P('Charging Station', 'Trạm sạc', [['b', 340, 250, 40, 40, DGRY], ['txt', 360, 276, '⚡', 16, YEL]]),
+      P('Code Arrow Cards', 'Thẻ lệnh mũi tên', [['t', 220, 282, 16, 8, YEL], ['txt', 228, 289, '→', 9, BLK], ['t', 240, 282, 16, 8, GRN], ['txt', 248, 289, '↑', 9, BLK]]),
+      P('Minifigure', 'Nhân vật', [['fig', 200, 226, 0.5, fig]])
+    ],
+    town: (c, d, l, fig) => [
+      P('Street Baseplate', 'Tấm đế phố', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Library Walls', 'Tường thư viện', [['b', 18, 192, 112, 98, TAN]]),
+      P('Library Columns', 'Cột thư viện', [['t', 30, 214, 8, 76, WHT], ['t', 60, 214, 8, 76, WHT], ['t', 90, 214, 8, 76, WHT], ['t', 116, 214, 8, 76, WHT]]),
+      P('Library Roof', 'Mái thư viện', [['p', '12,192 74,152 136,192', c], ['txt', 74, 184, 'LIBRARY', 9, WHT]]),
+      P('Post Office', 'Bưu điện', [['b', 146, 210, 92, 80, RED], ['door', 176, 244, 30, 46, WHT]]),
+      P('Post Office Sign', 'Biển bưu điện', [['t', 156, 214, 72, 16, YEL], ['txt', 192, 226, 'POST', 10, RED]]),
+      P('Postbox', 'Hòm thư', [['t', 244, 252, 16, 38, RED], ['dome', 252, 252, 8, RED]]),
+      P('Pharmacy', 'Hiệu thuốc', [['b', 270, 200, 112, 90, WHT]]),
+      P('Green Cross', 'Chữ thập xanh', [['t', 320, 208, 10, 26, GRN], ['t', 312, 216, 26, 10, GRN]]),
+      P('Pharmacy Windows', 'Cửa sổ hiệu thuốc', [['win', 282, 244, 40, 30], ['win', 332, 244, 40, 30]]),
+      P('Street Lamp', 'Đèn đường', [['l', 140, 290, 140, 200, BLK, 3], ['c', 140, 196, 6, YEL]]),
+      P('Minifigure', 'Nhân vật', [['fig', 226, 226, 0.5, fig]])
+    ],
+    crossing: (c, d, l, fig) => [
+      P('Road Baseplate', 'Tấm đế mặt đường', [['b', 8, 290, 384, 14, DGRY]]),
+      P('Pavement', 'Vỉa hè', [['t', 8, 230, 384, 12, LGRY]]),
+      P('Zebra Crossing', 'Vạch qua đường', [['t', 150, 250, 100, 6, WHT], ['t', 150, 264, 100, 6, WHT], ['t', 150, 278, 100, 6, WHT]]),
+      P('Traffic Light Pole', 'Cột đèn giao thông', [['l', 120, 230, 120, 140, BLK, 4], ['t', 108, 110, 24, 60, BLK]]),
+      P('Traffic Lights', 'Đèn tín hiệu', [['c', 120, 122, 7, RED], ['c', 120, 140, 7, '#5A4A00'], ['c', 120, 158, 7, '#164D2A']]),
+      P('Walking Light', 'Đèn cho người đi bộ', [['l', 262, 230, 262, 182, BLK, 3], ['t', 254, 160, 16, 22, BLK], ['c', 262, 171, 5, GRN]]),
+      P('Car Body', 'Thân ô tô', [['b', 270, 242, 100, 30, c], ['p', '290,242 350,242 340,224 300,224', c], ['win', 304, 228, 32, 12]]),
+      P('Car Wheels', 'Bánh ô tô', [['w', 292, 278, 10], ['w', 350, 278, 10]]),
+      P('Bicycle', 'Xe đạp', [['w', 36, 276, 12], ['w', 76, 276, 12], ['l', 36, 276, 56, 256, AZ, 2], ['l', 56, 256, 76, 276, AZ, 2], ['l', 56, 256, 64, 246, BLK, 2]]),
+      P('Safety Sign', 'Biển báo an toàn', [['l', 30, 230, 30, 172, DGRY, 3], ['p', '14,172 46,172 30,146', YEL], ['txt', 30, 168, '!', 14, BLK]]),
+      P('Crossing Guard Sign', 'Biển STOP', [['l', 380, 230, 380, 190, DGRY, 3], ['c', 380, 182, 12, RED], ['txt', 380, 186, 'STOP', 6, WHT]]),
+      P('Minifigure', 'Nhân vật', [['fig', 186, 166, 0.5, fig]])
+    ],
+    firestation: (c, d, l, fig) => [
+      P('Street Baseplate', 'Tấm đế phố', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Station Building', 'Tòa nhà trạm cứu hộ', [['b', 22, 172, 220, 118, RED]]),
+      P('Garage Door', 'Cửa gara', [['t', 40, 212, 80, 78, WHT], ['l', 40, 232, 120, 232, LGRY, 2], ['l', 40, 252, 120, 252, LGRY, 2], ['l', 40, 272, 120, 272, LGRY, 2]]),
+      P('Open Garage', 'Gara mở', [['t', 140, 212, 80, 78, DGRY]]),
+      P('Station Sign', 'Biển tên', [['t', 60, 182, 140, 20, WHT], ['txt', 130, 197, 'RESCUE TEAM', 11, RED]]),
+      P('Watch Tower', 'Tháp canh', [['b', 200, 122, 40, 50, DRED]]),
+      P('Alarm Bell', 'Chuông báo động', [['dome', 220, 146, 10, YEL]]),
+      P('Fire Engine', 'Xe cứu hỏa', [['b', 250, 236, 104, 40, RED], ['t', 350, 220, 34, 56, RED], ['win', 356, 228, 22, 14]]),
+      P('Ladder', 'Thang', [['t', 256, 224, 90, 6, LGRY], ['l', 270, 224, 270, 230, WHT, 2], ['l', 300, 224, 300, 230, WHT, 2], ['l', 330, 224, 330, 230, WHT, 2]]),
+      P('Engine Wheels', 'Bánh xe', [['w', 274, 282, 11], ['w', 360, 282, 11]]),
+      P('Fire Hydrant', 'Trụ nước cứu hỏa', [['t', 4, 262, 14, 28, RED], ['dome', 11, 262, 7, RED]]),
+      P('Hero Minifigure', 'Người hùng', [['fig', 158, 226, 0.5, fig]])
+    ],
+    rocket: (c, d, l, fig) => [
+      P('Launch Baseplate', 'Bãi phóng', [['b', 8, 290, 384, 14, DGRY]]),
+      P('Launch Pad', 'Bệ phóng', [['b', 140, 270, 120, 20, LGRY]]),
+      P('Rocket Body', 'Thân tên lửa', [['t', 180, 130, 40, 140, WHT]]),
+      P('Nose Cone', 'Mũi tên lửa', [['p', '180,130 220,130 200,82', RED]]),
+      P('Rocket Fins', 'Cánh tên lửa', [['p', '180,228 158,270 180,270', RED], ['p', '220,228 242,270 220,270', RED]]),
+      P('Round Window', 'Cửa sổ tròn', [['c', 200, 162, 10, AZ], ['c', 200, 162, 6, GLS], ['t', 180, 196, 40, 10, c]]),
+      P('Launch Tower', 'Tháp phóng', [['t', 262, 110, 12, 160, MGRY], ['t', 220, 150, 42, 6, MGRY], ['l', 262, 140, 274, 170, DGRY, 2], ['l', 274, 180, 262, 210, DGRY, 2]]),
+      P('Smoke Clouds', 'Khói phóng', [['e', 146, 284, 26, 10, WHT], ['e', 254, 284, 26, 10, WHT]]),
+      P('Moon', 'Mặt Trăng', [['c', 70, 60, 22, PALE], ['c', 62, 54, 4, LGRY], ['c', 78, 68, 3, LGRY]]),
+      P('Stars', 'Những vì sao', [['txt', 122, 50, '★', 12, YEL], ['txt', 330, 40, '★', 14, YEL], ['txt', 360, 92, '★', 10, YEL]]),
+      P('Dream Flag', 'Lá cờ ước mơ', [['l', 40, 290, 40, 222, DGRY, 2], ['p', '40,222 70,232 40,242', RED], ['txt', 50, 236, '★', 8, YEL]]),
+      P('Astronaut Minifigure', 'Phi hành gia nhí', [['fig', 300, 226, 0.5, fig]])
+    ],
+    campsite: (c, d, l, fig) => [
+      P('Grass Baseplate', 'Tấm đế cỏ', [['b', 8, 290, 384, 14, GRN]]),
+      P('Mountain', 'Ngọn núi', [['p', '120,290 232,110 344,290', MGRY]]),
+      P('Snowy Peak', 'Đỉnh tuyết', [['p', '212,142 232,110 252,142', WHT]]),
+      P('Tent', 'Lều trại', [['p', '24,290 86,200 148,290', c], ['p', '74,290 86,242 98,290', d]]),
+      P('Campfire', 'Lửa trại', [['l', 196, 288, 222, 280, BRN, 4], ['l', 222, 288, 196, 280, BRN, 4], ['p', '201,280 209,254 217,280', ORG], ['p', '205,280 209,266 213,280', YEL]]),
+      P('Pine Tree', 'Cây thông', [['t', 352, 240, 8, 50, BRN], ['p', '332,250 356,188 380,250', DGRN]]),
+      P('Small Pine', 'Cây thông nhỏ', [['t', 302, 252, 6, 38, BRN], ['p', '286,258 305,212 324,258', DGRN]]),
+      P('Little Lake', 'Hồ nhỏ', [['e', 262, 288, 24, 5, AZ]]),
+      P('Backpack', 'Ba lô', [['b', 156, 264, 24, 26, RED], ['t', 160, 270, 16, 6, YEL]]),
+      P('Sunshine', 'Ông mặt trời', [['c', 60, 60, 22, YEL]]),
+      P('Trail Sign', 'Biển chỉ đường', [['l', 384, 290, 384, 252, BRN, 3], ['t', 360, 244, 32, 10, WHT]]),
+      P('Camper Minifigure', 'Bạn cắm trại', [['fig', 226, 226, 0.5, fig]])
+    ],
+    station: (c, d, l, fig) => [
+      P('Platform', 'Sân ga', [['b', 8, 262, 384, 28, MGRY], ['t', 8, 286, 384, 4, BRN]]),
+      P('Station Roof', 'Mái nhà ga', [['t', 20, 140, 360, 12, c]]),
+      P('Pillars', 'Cột nhà ga', [['l', 40, 152, 40, 262, DGRY, 4], ['l', 360, 152, 360, 262, DGRY, 4]]),
+      P('Station Sign', 'Biển nhà ga', [['t', 150, 158, 100, 20, WHT], ['txt', 200, 173, 'STATION', 11, BLK]]),
+      P('Station Clock', 'Đồng hồ nhà ga', [['c', 200, 124, 14, WHT], ['l', 200, 124, 200, 114, BLK, 2], ['l', 200, 124, 208, 124, BLK, 2]]),
+      P('Carriage', 'Toa tàu', [['b', 170, 230, 116, 52, c], ['win', 180, 240, 30, 20], ['win', 220, 240, 30, 20], ['win', 254, 240, 26, 20]]),
+      P('Engine', 'Đầu tàu', [['b', 290, 224, 100, 58, RED], ['win', 302, 234, 30, 20], ['c', 380, 262, 6, YEL]]),
+      P('Train Wheels', 'Bánh tàu', [['w', 196, 286, 9], ['w', 260, 286, 9], ['w', 316, 286, 9], ['w', 370, 286, 9]]),
+      P('Bench', 'Ghế chờ', [['t', 48, 246, 64, 8, BRN], ['l', 56, 254, 56, 262, DGRY, 3], ['l', 104, 254, 104, 262, DGRY, 3]]),
+      P('Suitcase', 'Va li', [['b', 122, 240, 30, 22, ORG], ['t', 130, 234, 14, 4, BLK]]),
+      P('Hanging Lamp', 'Đèn treo', [['l', 120, 152, 120, 170, BLK, 2], ['dome', 120, 180, 10, YEL]]),
+      P('Traveller Minifigure', 'Hành khách', [['fig', 64, 198, 0.5, fig]])
+    ],
+    museum: (c, d, l, fig) => [
+      P('Plaza Baseplate', 'Quảng trường', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Front Steps', 'Bậc thềm', [['t', 60, 272, 280, 18, WHT], ['t', 80, 258, 240, 14, WHT]]),
+      P('Museum Hall', 'Sảnh bảo tàng', [['b', 80, 172, 240, 86, l]]),
+      P('Stone Columns', 'Cột đá', [['t', 100, 182, 14, 76, WHT], ['t', 148, 182, 14, 76, WHT], ['t', 238, 182, 14, 76, WHT], ['t', 286, 182, 14, 76, WHT]]),
+      P('Roof Triangle', 'Mái tam giác', [['p', '70,172 200,112 330,172', d]]),
+      P('Museum Sign', 'Biển bảo tàng', [['txt', 200, 162, 'MUSEUM', 14, WHT]]),
+      P('Big Door', 'Cửa lớn', [['door', 182, 208, 36, 50, BRN]]),
+      P('Banner', 'Băng rôn', [['l', 30, 290, 30, 188, DGRY, 2], ['t', 30, 188, 28, 46, RED], ['txt', 44, 214, 'DINO', 7, WHT]]),
+      P('Dino Body', 'Thân khủng long', [['e', 360, 250, 24, 12, MGRY], ['l', 348, 260, 348, 290, MGRY, 4], ['l', 370, 260, 370, 290, MGRY, 4]]),
+      P('Dino Neck & Tail', 'Cổ & đuôi khủng long', [['l', 380, 246, 390, 222, MGRY, 5], ['c', 392, 218, 6, MGRY], ['l', 338, 252, 322, 266, MGRY, 4]]),
+      P('Flag on Top', 'Lá cờ', [['l', 200, 112, 200, 88, DGRY, 2], ['p', '200,88 222,95 200,102', RED]]),
+      P('Visitor Minifigure', 'Khách tham quan', [['fig', 132, 194, 0.5, fig]])
+    ],
+    detective: (c, d, l, fig) => [
+      P('Office Floor', 'Sàn văn phòng', [['b', 8, 290, 384, 14, BRN]]),
+      P('Office Wall', 'Tường văn phòng', [['t', 16, 110, 368, 180, l]]),
+      P('Clue Board', 'Bảng manh mối', [['t', 30, 128, 150, 90, TAN], ['l', 52, 146, 122, 150, RED, 2], ['l', 122, 150, 160, 196, RED, 2]]),
+      P('Photos & Pins', 'Ảnh & ghim', [['t', 40, 140, 24, 18, WHT], ['t', 110, 144, 24, 18, WHT], ['t', 148, 190, 24, 18, WHT], ['c', 52, 140, 3, RED], ['c', 122, 144, 3, RED], ['c', 160, 190, 3, RED]]),
+      P('Night Window', 'Cửa sổ đêm', [['t', 258, 128, 94, 64, NIGHT], ['c', 330, 148, 8, PALE], ['l', 305, 128, 305, 192, WHT, 3]]),
+      P('Desk', 'Bàn làm việc', [['b', 200, 240, 150, 18, BRN], ['l', 210, 258, 210, 290, BRN, 4], ['l', 340, 258, 340, 290, BRN, 4]]),
+      P('Desk Lamp', 'Đèn bàn', [['l', 220, 240, 232, 210, DGRY, 3], ['p', '222,212 248,206 244,196 226,200', GRN]]),
+      P('Case Files', 'Hồ sơ vụ án', [['t', 256, 230, 34, 10, YEL], ['t', 260, 224, 30, 6, c]]),
+      P('Magnifying Glass', 'Kính lúp', [['c', 312, 230, 10, GLS], ['l', 319, 237, 332, 236, BRN, 3]]),
+      P('Footprints', 'Dấu chân', [['e', 60, 286, 5, 3, DGRY], ['e', 80, 280, 5, 3, DGRY], ['e', 100, 286, 5, 3, DGRY], ['e', 120, 280, 5, 3, DGRY]]),
+      P('Safe', 'Két sắt', [['b', 30, 250, 46, 40, MGRY], ['c', 53, 270, 6, DGRY]]),
+      P('Detective Minifigure', 'Thám tử', [['fig', 150, 226, 0.5, fig]])
+    ],
+    observatory: (c, d, l, fig) => [
+      P('Hill Baseplate', 'Ngọn đồi', [['b', 8, 290, 384, 14, OGRN]]),
+      P('Observatory Base', 'Chân đài thiên văn', [['b', 120, 222, 160, 68, WHT]]),
+      P('Silver Dome', 'Mái vòm bạc', [['dome', 200, 222, 70, LGRY]]),
+      P('Telescope', 'Kính thiên văn', [['t', 196, 152, 8, 70, DGRY], ['l', 204, 172, 252, 122, DGRY, 8]]),
+      P('Door', 'Cửa ra vào', [['door', 184, 246, 32, 44, c]]),
+      P('The Sun', 'Mặt Trời', [['c', 40, 50, 24, YEL]]),
+      P('Planet Earth', 'Trái Đất', [['c', 110, 82, 16, AZ], ['e', 106, 78, 7, 5, GRN]]),
+      P('Saturn', 'Sao Thổ', [['e', 322, 72, 28, 5, TAN], ['c', 322, 72, 15, ORG]]),
+      P('The Moon', 'Mặt Trăng', [['c', 158, 42, 9, LGRY]]),
+      P('Mars', 'Sao Hỏa', [['c', 372, 40, 10, RED]]),
+      P('Twinkling Stars', 'Sao lấp lánh', [['txt', 262, 40, '★', 12, YEL], ['txt', 362, 140, '★', 10, YEL], ['txt', 70, 140, '✦', 10, YEL]]),
+      P('Stargazer Minifigure', 'Nhà thiên văn nhí', [['fig', 300, 226, 0.5, fig]])
+    ],
+    hangar: (c, d, l, fig) => [
+      P('Runway Baseplate', 'Đường băng', [['b', 8, 290, 384, 14, LGRY]]),
+      P('Hangar', 'Nhà chứa máy bay', [['dome', 130, 290, 118, l]]),
+      P('Hangar Inside', 'Bên trong nhà chứa', [['dome', 130, 290, 88, DGRY]]),
+      P('Plane Body', 'Thân máy bay', [['e', 290, 252, 70, 14, WHT], ['c', 312, 248, 3, AZ], ['c', 324, 248, 3, AZ], ['c', 336, 248, 3, AZ]]),
+      P('Wings & Tail', 'Cánh & đuôi', [['p', '270,252 322,252 294,278', c], ['p', '222,252 234,222 246,252', c]]),
+      P('Propeller', 'Cánh quạt', [['l', 362, 236, 362, 268, BLK, 3], ['c', 360, 252, 4, DGRY]]),
+      P('Plane Wheels', 'Bánh máy bay', [['l', 276, 262, 276, 278, DGRY, 2], ['w', 276, 282, 7], ['l', 320, 262, 320, 278, DGRY, 2], ['w', 320, 282, 7]]),
+      P('Light Bulb Idea', 'Bóng đèn ý tưởng', [['c', 60, 76, 24, YEL], ['t', 52, 100, 16, 14, MGRY]]),
+      P('Big Gear', 'Bánh răng', [['c', 362, 80, 18, MGRY], ['c', 362, 80, 7, LGRY]]),
+      P('Stone Wheel', 'Bánh xe đá', [['c', 30, 270, 18, BRN], ['c', 30, 270, 5, TAN]]),
+      P('Blueprint', 'Bản thiết kế', [['t', 190, 122, 80, 40, BLU], ['l', 200, 132, 258, 132, WHT, 1], ['l', 200, 142, 240, 152, WHT, 1]]),
+      P('Inventor Minifigure', 'Nhà phát minh nhí', [['fig', 110, 226, 0.5, fig]])
+    ],
+    partyhall: (c, d, l, fig) => [
+      P('Garden Baseplate', 'Tấm đế vườn', [['b', 8, 290, 384, 14, GRN]]),
+      P('Party Roof', 'Mái lều tiệc', [['p', '40,170 200,110 360,170', c]]),
+      P('Tent Posts', 'Cột lều', [['l', 50, 170, 50, 290, WHT, 4], ['l', 350, 170, 350, 290, WHT, 4]]),
+      P('Party Banner', 'Băng rôn tiệc', [['txt', 200, 158, 'PARTY', 14, WHT]]),
+      P('Bunting Flags', 'Dây cờ', [['l', 50, 180, 350, 180, DGRY, 1], ['p', '64,180 80,180 72,194', RED], ['p', '112,180 128,180 120,194', YEL], ['p', '160,180 176,180 168,194', BLU], ['p', '208,180 224,180 216,194', GRN], ['p', '256,180 272,180 264,194', ORG], ['p', '304,180 320,180 312,194', RED]]),
+      P('Party Table', 'Bàn tiệc', [['b', 140, 250, 120, 14, WHT], ['l', 150, 264, 150, 290, DGRY, 3], ['l', 250, 264, 250, 290, DGRY, 3]]),
+      P('Birthday Cake', 'Bánh sinh nhật', [['b', 180, 226, 40, 24, PNK], ['t', 176, 222, 48, 6, WHT], ['l', 200, 222, 200, 210, YEL, 2], ['c', 200, 207, 3, ORG]]),
+      P('Gift Boxes', 'Hộp quà', [['b', 270, 262, 30, 28, RED], ['l', 285, 262, 285, 290, YEL, 3], ['b', 304, 270, 24, 20, BLU]]),
+      P('Balloons', 'Bóng bay', [['l', 90, 262, 96, 212, DGRY, 1], ['e', 96, 200, 12, 15, RED], ['l', 90, 262, 80, 218, DGRY, 1], ['e', 78, 206, 12, 15, YEL]]),
+      P('Music Speaker', 'Loa nhạc', [['b', 10, 246, 30, 44, BLK], ['c', 25, 262, 8, DGRY], ['c', 25, 280, 5, DGRY]]),
+      P('Invitation Card', 'Thiệp mời', [['t', 232, 238, 22, 12, WHT], ['txt', 243, 247, '♥', 8, RED]]),
+      P('Host Minifigure', 'Chủ nhà', [['fig', 104, 226, 0.5, fig]])
+    ],
+    stage: (c, d, l, fig) => [
+      P('Hall Floor', 'Sàn hội trường', [['b', 8, 290, 384, 14, BRN]]),
+      P('Stage Platform', 'Sân khấu', [['b', 30, 240, 340, 20, RBRN]]),
+      P('Back Curtain', 'Rèm sau', [['t', 40, 110, 320, 130, DRED]]),
+      P('Side Curtains', 'Rèm hai bên', [['p', '40,110 90,110 70,240 40,240', RED], ['p', '310,110 360,110 360,240 330,240', RED]]),
+      P('Debate Banner', 'Băng rôn tranh biện', [['t', 120, 116, 160, 22, YEL], ['txt', 200, 132, 'MINI DEBATE', 12, BLK]]),
+      P('Spotlight', 'Đèn sân khấu', [['p', '200,140 160,240 240,240', PALE]]),
+      P('Left Podium', 'Bục trái', [['b', 96, 196, 52, 44, BLU], ['txt', 122, 222, 'AGREE', 7, WHT]]),
+      P('Right Podium', 'Bục phải', [['b', 252, 196, 52, 44, c], ['txt', 278, 222, 'DISAGREE', 6, WHT]]),
+      P('Microphones', 'Micro', [['l', 122, 196, 122, 176, DGRY, 2], ['c', 122, 174, 4, BLK], ['l', 278, 196, 278, 176, DGRY, 2], ['c', 278, 174, 4, BLK]]),
+      P('Golden Trophy', 'Cúp vàng', [['t', 190, 228, 20, 12, YEL], ['dome', 200, 226, 10, YEL]]),
+      P('Audience Chairs', 'Ghế khán giả', [['t', 60, 276, 30, 14, DGRY], ['t', 110, 276, 30, 14, DGRY], ['t', 260, 276, 30, 14, DGRY], ['t', 310, 276, 30, 14, DGRY]]),
+      P('Speaker Minifigure', 'Bạn tranh biện', [['fig', 154, 176, 0.5, fig]])
+    ]
+  });
+
+  TEMPLATES.house = (c, d, l, fig) => {
+    const g = genericModel(c).parts;
+    g[11] = P('Minifigure', 'Nhân vật', [['fig', 22, 226, 0.5, fig]]);
+    return g;
+  };
+
+  /** Đăng ký mô hình theo mẫu chủ đề (dùng cho các tuần của Lộ trình 9 Tháng). */
+  function registerTemplate(id, template, color, name, vi, fig) {
+    const make = TEMPLATES[template] || TEMPLATES.house;
+    const c = color || RED;
+    MODELS[id] = { name: name || 'LEGO Set', vi: vi || 'Bộ mô hình', parts: make(c, shade(c, -0.3), shade(c, 0.45), fig || 'cap-red|grin|torso-blue|legs-black|book') };
+  }
+
   function partSvg(part) { return part.p.map(drawPrim).join(''); }
 
   function partBox(part) {
@@ -607,8 +1128,23 @@
     for (let x = 20; x < 1200; x += 80) s += `<rect x="${x}" y="309" width="40" height="5" rx="2" fill="#F4F4F4"/>`;
     s += `<rect x="0" y="292" width="1200" height="5" fill="#A0A5A9"/><rect x="0" y="325" width="1200" height="5" fill="#A0A5A9"/>`;
 
+    zones = zones.slice(0, 14);
+    const n = zones.length;
+    const backN = n <= 10 ? 5 : Math.ceil(n / 2);
+    let slots = DIO_SLOTS;
+    if (n > 10) {
+      // > 10 mô hình: chia đều 2 hàng, thu nhỏ cho vừa (chừa chỗ bên phải cho nhân vật của bé)
+      const sc = Math.min(0.57, (1125 / backN - 10) / 400);
+      const w = 400 * sc, h = 320 * sc;
+      const gap = backN > 1 ? (1125 - backN * w) / (backN - 1) : 0;
+      slots = [];
+      for (let i = 0; i < n; i++) {
+        const row = i < backN ? 0 : 1, k = row ? i - backN : i;
+        slots.push({ x: 8 + k * (w + gap), y: row ? 505 - h : 274 - h, s: sc });
+      }
+    }
     const drawSlot = (z, i) => {
-      const slot = DIO_SLOTS[i];
+      const slot = slots[i];
       const st = states[z.id] || [];
       const built = st.filter((x) => x === 2).length;
       const w = 400 * slot.s, h = 320 * slot.s;
@@ -642,13 +1178,13 @@
       return out;
     };
 
-    zones.slice(0, 5).forEach((z, i) => { s += drawSlot(z, i); });
+    zones.slice(0, backN).forEach((z, i) => { s += drawSlot(z, i); });
     // Nhân vật của bé đứng trên đường
     if (avatar) {
       s += `<g class="dio-fig" data-fig="me"><g transform="translate(1146 238) scale(0.62)">${'<g transform="translate(12 4)">' + minifigInner(avatar) + '</g>'}</g>`;
       s += `<rect x="1142" y="314" width="56" height="18" rx="6" fill="#FFD500" stroke="#C7A300" stroke-width="2"/><text x="1170" y="327" text-anchor="middle" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="11" fill="#1E293B">${esc(String(name || 'Me').slice(0, 9))}</text></g>`;
     }
-    zones.slice(5, 10).forEach((z, i) => { s += drawSlot(z, i + 5); });
+    zones.slice(backN).forEach((z, i) => { s += drawSlot(z, i + backN); });
     s += `</svg>`;
     return s;
   }
@@ -666,6 +1202,8 @@
     renderDiorama,
     DIO_SLOTS,
     registerModel,
+    registerTemplate,
+    TEMPLATES,
     unregisterModel,
     partCount: (zoneId) => (MODELS[zoneId] ? MODELS[zoneId].parts.length : 0)
   };
