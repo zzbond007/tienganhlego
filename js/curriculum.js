@@ -1030,33 +1030,166 @@
   const POS_LABEL = { verb: 'verb phrase', noun: 'noun', adj: 'adjective', adv: 'adverb', phrase: 'phrase', prep: 'preposition' };
   const POS_VI = { verb: 'động từ / cụm động từ', noun: 'danh từ', adj: 'tính từ', adv: 'trạng từ', phrase: 'mẫu câu / cụm từ', prep: 'giới từ' };
 
-  const ZONES = RAW.map((z) => {
+  const EXPERT = global.ExpertData || { LESSONS: {}, MYSTERY: {} };
+
+  /** Chia 12 mảnh ghép cho n bài học (3 bài → 4 mảnh/bài). */
+  function partsFor(li, n) {
+    const out = [];
+    for (let i = 0; i < 12; i++) if (Math.min(n - 1, Math.floor((i * n) / 12)) === li) out.push(i);
+    return out;
+  }
+
+  /** Cắt một câu thành ~n viên gạch (dùng khi bài học tùy chỉnh thiếu dữ liệu Snowball). */
+  function chunkSentence(sentence, n) {
+    const words = String(sentence || '').split(/\s+/).filter(Boolean);
+    if (words.length <= n) return words;
+    const out = [];
+    let start = 0;
+    for (let k = 0; k < n; k++) {
+      const end = Math.round(((k + 1) * words.length) / n);
+      out.push(words.slice(start, end).join(' '));
+      start = end;
+    }
+    return out.filter(Boolean);
+  }
+
+  /** Snowball tự sinh: Level 1 = từ khóa, Level 2 = câu ngắn, Level 3 = câu dài nhất (≥ 5 gạch). */
+  function autoSnow(lesson) {
+    const w0 = lesson.words[0];
+    if (!w0) return null;
+    const builds = lesson.build.slice().sort((a, b) => a.answer.length - b.answer.length);
+    const short = builds.find((b) => b.answer.length >= 2 && b.answer.length <= 4);
+    const long = builds.slice().reverse().find((b) => b.answer.length >= 5);
+    const longEx = lesson.words.map((w) => w.ex).sort((a, b) => b.split(' ').length - a.split(' ').length)[0] || w0.ex;
+    const l2 = short ? { bricks: short.answer, vi: short.vi } : { bricks: chunkSentence(w0.ex, 3), vi: w0.exVi };
+    const l3 = long ? { bricks: long.answer, vi: long.vi } : { bricks: chunkSentence(longEx, 5), vi: (lesson.words.find((w) => w.ex === longEx) || w0).exVi };
+    if (l3.bricks.length < 5 || l2.bricks.length < 2) return null;
+    const extra = lesson.words.slice(1, 3).map((w) => w.en.split(' ')[0]).filter((x) => l3.bricks.indexOf(x) === -1);
+    return {
+      vi: 'Nâng cấp câu từ ngắn đến dài',
+      levels: [
+        { level: 1, bricks: [w0.en.replace(/\.\.\.|…/g, '').trim()], vi: w0.vi },
+        { level: 2, bricks: l2.bricks, vi: l2.vi },
+        { level: 3, bricks: l3.bricks, vi: l3.vi }
+      ],
+      extra
+    };
+  }
+
+  function normSnow(sn) {
+    if (!sn || !Array.isArray(sn.l) || sn.l.length !== 3) return null;
+    return {
+      vi: sn.vi || '',
+      levels: sn.l.map((lv, i) => ({ level: i + 1, bricks: lv[0], vi: lv[1] || '', roles: lv[2] || null })),
+      extra: sn.x || []
+    };
+  }
+
+  function normBranch(br) {
+    if (!br || !Array.isArray(br[3]) || br[3].length < 2) return null;
+    return {
+      who: br[0] === 'a' ? 'a' : 'b', q: br[1], vi: br[2] || '',
+      options: br[3].map((o) => ({ tone: o[0] || 'calm', en: o[1], vi: o[2] || '', re: o[3] || 'Great!', reVi: o[4] || '', emoji: o[5] || '🙂' }))
+    };
+  }
+
+  function normMystery(m) {
+    if (!m || !Array.isArray(m.clues) || !Array.isArray(m.o)) return null;
+    return {
+      title: m.t, titleVi: m.tv || '',
+      intro: { en: (m.intro || [])[0] || '', vi: (m.intro || [])[1] || '' },
+      clues: m.clues.map((c) => ({ en: c[0], vi: c[1] || '' })),
+      q: { en: m.q[0], vi: m.q[1] || '' },
+      options: m.o.map((o) => ({ en: o[0], emoji: o[1] || '❓', vi: o[2] || '' })),
+      answer: m.a,
+      win: { en: (m.win || [])[0] || 'Mystery solved!', vi: (m.win || [])[1] || 'Phá án thành công!' }
+    };
+  }
+
+  /** Mystery tự sinh từ từ vựng (cho Vùng đất tùy chỉnh không có sẵn câu đố). */
+  function autoMystery(zone) {
+    const all = [];
+    zone.lessons.forEach((l) => l.words.forEach((w) => all.push(w)));
+    if (all.length < 4) return null;
+    const target = all[Math.floor(all.length / 2)];
+    const others = all.filter((w) => w !== target);
+    const opts = [target].concat([others[0], others[Math.floor(others.length / 2)], others[others.length - 1]]);
+    const blanked = target.ex.replace(new RegExp(target.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), '_____');
+    return normMystery({
+      t: 'The Secret Word', tv: 'Từ khóa bí mật',
+      intro: ['A secret word is hiding in this zone. Listen to the clues and find it!', 'Một từ khóa bí mật đang trốn trong vùng đất này. Nghe manh mối và tìm ra nó nhé!'],
+      clues: [
+        ['Clue one: ' + target.clue, 'Manh mối 1 (gợi ý bằng tiếng Anh)'],
+        [`Clue two: It starts with the letter "${target.en.trim()[0].toUpperCase()}".`, `Manh mối 2: Nó bắt đầu bằng chữ cái "${target.en.trim()[0].toUpperCase()}".`],
+        ['Clue three: ' + (blanked !== target.ex ? blanked : target.ex), 'Manh mối 3: điền từ còn thiếu vào câu']
+      ],
+      q: ['What is the secret word?', 'Từ khóa bí mật là gì?'],
+      o: opts.map((w) => [w.en, w.emoji, w.vi]), a: 0,
+      win: [`Yes! The secret word is "${target.en}".`, `Đúng rồi! Từ khóa bí mật là "${target.en}" – ${target.vi}.`]
+    });
+  }
+
+  /** Chuẩn hóa 1 Vùng đất từ định dạng gọn (RAW) → đối tượng dùng trong app. */
+  function buildZone(z, extras) {
+    const ex = extras || {};
     const zone = Object.assign({}, z);
+    const n = z.lessons.length;
+    zone.custom = !!z.custom;
     zone.lessons = z.lessons.map((l, li) => {
       const id = `${z.id}l${li + 1}`;
+      const xl = (ex.lessons && ex.lessons[id]) || l.expert || {};
       const words = l.words.map((w) => ({
         id: `${z.id}-${slug(w[0])}`,
         en: w[0], pos: w[1], posLabel: POS_LABEL[w[1]] || w[1], posVi: POS_VI[w[1]] || '',
-        ipa: w[2], vi: w[3], emoji: w[4], ex: w[5], exVi: w[6], clue: w[7],
+        ipa: w[2], vi: w[3], emoji: w[4], ex: w[5], exVi: w[6], clue: w[7], role: w[8] || null,
         zoneId: z.id, lessonId: id
       }));
-      return {
+      const lesson = {
         id, index: li, zoneId: z.id, title: l.title, titleVi: l.titleVi, icon: l.icon, words,
         comic: {
           title: l.comic.title, titleVi: l.comic.titleVi,
           panels: l.comic.panels.map((p) => ({ who: p[0], text: p[1], vi: p[2], prop: p[3] })),
           blanks: l.comic.blanks.map((b) => ({ panel: b[0], answer: b[1], options: b[2] }))
         },
-        build: l.build.map((b) => ({ vi: b.vi, answer: b.a, extra: b.x })),
+        build: l.build.map((b) => ({ vi: b.vi, answer: b.a, extra: b.x, roles: b.r || null })),
         talk: l.talk.map((t) => ({ q: t.q, vi: t.vi, hint: t.hint, keywords: t.k, choices: t.c })),
-        parts: [li * 4, li * 4 + 1, li * 4 + 2, li * 4 + 3]
+        parts: partsFor(li, n)
       };
+      lesson.snowball = normSnow(xl.snow) || autoSnow(lesson);
+      lesson.branchComic = normBranch(xl.cb);
+      lesson.branchTalk = normBranch(xl.tb);
+      return lesson;
     });
+    zone.mystery = normMystery((ex.mystery) || z.mystery) || autoMystery(zone);
     return zone;
-  });
+  }
+
+  const ZONES = RAW.map((z) => buildZone(z, {
+    lessons: EXPERT.LESSONS,
+    mystery: EXPERT.MYSTERY[z.id]
+  }));
+  const BUILTIN_COUNT = ZONES.length;
 
   const WORDS = {};
-  ZONES.forEach((z) => z.lessons.forEach((l) => l.words.forEach((w) => { WORDS[w.id] = w; })));
+  function indexWords(z) { z.lessons.forEach((l) => l.words.forEach((w) => { WORDS[w.id] = w; })); }
+  ZONES.forEach(indexWords);
+
+  /** Thêm Vùng đất tùy chỉnh (từ Custom Unit Importer). Trả về zone đã chuẩn hóa. */
+  function addZone(raw) {
+    removeZone(raw.id);
+    const zone = buildZone(raw, {});
+    ZONES.push(zone);
+    indexWords(zone);
+    return zone;
+  }
+
+  function removeZone(id) {
+    const i = ZONES.findIndex((z) => z.id === id);
+    if (i < BUILTIN_COUNT || i === -1) return false;
+    ZONES[i].lessons.forEach((l) => l.words.forEach((w) => { delete WORDS[w.id]; }));
+    ZONES.splice(i, 1);
+    return true;
+  }
 
   /* ---------- Học Cùng Lớp 4: Tiếng Anh 4 Global Success (Bộ GD&ĐT) ----------
      Mỗi Unit được nối với bài học LEGO có từ vựng/mẫu câu gần nhất để bé ôn đúng tuần học trên lớp. */
@@ -1122,6 +1255,13 @@
     PRAISE,
     ENCOURAGE,
     STEPS,
+    BUILTIN_COUNT,
+    buildZone,
+    addZone,
+    removeZone,
+    chunkSentence,
+    totalLessons: () => ZONES.reduce((s, z) => s + z.lessons.length, 0),
+    totalWords: () => Object.keys(WORDS).length,
     zone: (id) => ZONES.find((z) => z.id === id),
     lesson: (id) => {
       for (const z of ZONES) { const l = z.lessons.find((x) => x.id === id); if (l) return l; }

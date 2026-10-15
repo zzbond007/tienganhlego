@@ -475,6 +475,32 @@
     }
   };
 
+  /* =========================================================
+     MÔ HÌNH CHUNG cho Vùng đất tùy chỉnh (Custom Unit) – "Builder Clubhouse" 12 mảnh theo màu vùng
+     ========================================================= */
+  function genericModel(color, name, vi) {
+    const c = color || RED, d = shade(c, -0.3), l = shade(c, 0.45);
+    return {
+      name: name || 'Builder Clubhouse', vi: vi || 'Câu lạc bộ Thợ xây',
+      parts: [
+        { n: 'Green Baseplate', vi: 'Tấm đế xanh lá', p: [['b', 8, 290, 384, 14, GRN]] },
+        { n: 'Ground Floor', vi: 'Tầng trệt', p: [['b', 96, 236, 208, 54, c], ['door', 182, 248, 36, 42, BRN]] },
+        { n: 'Front Windows', vi: 'Cửa sổ tầng trệt', p: [['win', 112, 248, 50, 30], ['win', 238, 248, 50, 30]] },
+        { n: 'Garden Path', vi: 'Lối đi vào nhà', p: [['t', 186, 290, 28, 6, TAN], ['t', 60, 280, 30, 10, LGRY], ['t', 312, 280, 30, 10, LGRY]] },
+        { n: 'Second Floor', vi: 'Tầng hai', p: [['b', 106, 180, 188, 56, l]] },
+        { n: 'Balcony Windows', vi: 'Cửa sổ ban công', p: [['win', 122, 192, 44, 32], ['win', 234, 192, 44, 32], ['t', 176, 218, 48, 8, WHT]] },
+        { n: 'Big Roof', vi: 'Mái nhà lớn', p: [['p', '90,180 200,108 310,180', d]] },
+        { n: 'Roof Sign', vi: 'Biển tên trên mái', p: [['t', 158, 150, 84, 20, YEL], ['txt', 200, 165, 'ENGLISH', 12, BLK]] },
+        { n: 'Chimney & Flag', vi: 'Ống khói & lá cờ', p: [['b', 252, 122, 22, 40, RBRN], ['l', 200, 110, 200, 72, DGRY, 3], ['p', '200,72 226,80 200,88', c]] },
+        { n: 'Left Tree', vi: 'Cây bên trái', p: [['t', 46, 236, 12, 54, BRN], ['c', 52, 222, 26, TGRN], ['c', 40, 238, 16, OGRN]] },
+        { n: 'Right Tree & Flowers', vi: 'Cây bên phải & hoa', p: [['t', 342, 244, 10, 46, BRN], ['c', 347, 232, 22, TGRN], ['c', 320, 284, 5, RED], ['c', 332, 284, 5, YEL], ['c', 372, 284, 5, AZ]] },
+        { n: 'Builder Minifigure', vi: 'Nhân vật thợ xây', p: [['fig', 22, 226, 0.5, 'cap-red|grin|torso-blue|legs-black|book']] }
+      ]
+    };
+  }
+  function registerModel(id, color, name, vi) { MODELS[id] = genericModel(color, name, vi); }
+  function unregisterModel(id) { if (/^c\d+$/.test(id)) delete MODELS[id]; }
+
   function partSvg(part) { return part.p.map(drawPrim).join(''); }
 
   function partBox(part) {
@@ -639,6 +665,8 @@
     renderPolybag,
     renderDiorama,
     DIO_SLOTS,
+    registerModel,
+    unregisterModel,
     partCount: (zoneId) => (MODELS[zoneId] ? MODELS[zoneId].parts.length : 0)
   };
 })(window);

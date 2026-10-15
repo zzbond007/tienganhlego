@@ -432,17 +432,64 @@
     }
   };
 
-  /* ---------------- Recorder (Thu âm nghe lại) ---------------- */
+  /* ---------------- Recorder (Thu âm nghe lại + Sóng âm cho Phòng thu Shadowing) ---------------- */
   const Recorder = {
     supported: !!(global.navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && global.MediaRecorder),
     _stream: null,
     _rec: null,
     _chunks: [],
     _url: null,
+    _ctx: null,
+    _an: null,
+    _anStream: null,
+    _buf: null,
+
+    /** Gắn AnalyserNode vào luồng micro (không nối ra loa → không bị hú). */
+    _attachAnalyser() {
+      try {
+        const AC = global.AudioContext || global.webkitAudioContext;
+        if (!AC || !this._stream) return;
+        // Dùng chung AudioContext với hiệu ứng âm thanh (iPad giới hạn số AudioContext)
+        let ctx = (global.Sfx && global.Sfx.ctx) || this._ctx;
+        if (!ctx) ctx = this._ctx = new AC();
+        if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
+        if (this._an && this._anStream === this._stream) return;
+        const src = ctx.createMediaStreamSource(this._stream);
+        const an = ctx.createAnalyser();
+        an.fftSize = 512;
+        an.smoothingTimeConstant = 0.55;
+        src.connect(an);
+        this._an = an; this._anStream = this._stream; this._anSrc = src;
+        this._buf = new Uint8Array(an.frequencyBinCount);
+      } catch (e) { this._an = null; }
+    },
+
+    /** Mức âm lượng theo n dải tần giọng nói (≈ 90 Hz – 4 kHz), mỗi giá trị 0..1. null nếu không có dữ liệu. */
+    levels(n = 10) {
+      if (!this._an || !this.isRecording()) return null;
+      this._an.getByteFrequencyData(this._buf);
+      const binHz = (this._an.context.sampleRate || 48000) / this._an.fftSize;
+      const lo = Math.max(1, Math.floor(90 / binHz));
+      const hi = Math.min(this._buf.length - 1, Math.ceil(4000 / binHz));
+      const span = (hi - lo + 1) / n;
+      const out = [];
+      for (let k = 0; k < n; k++) {
+        const a = lo + Math.floor(k * span);
+        const b = Math.max(a + 1, lo + Math.floor((k + 1) * span));
+        let sum = 0;
+        for (let i = a; i < b; i++) sum += this._buf[i];
+        const v = sum / (b - a) / 255;
+        out.push(Math.min(1, Math.max(0, (v - 0.1) * 1.9)));
+      }
+      return out;
+    },
+
+    hasRecording() { return !!this._url; },
 
     async start() {
       if (!this.supported) throw new Error('unsupported');
       if (!this._stream) this._stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this._attachAnalyser();
       this._chunks = [];
       let mime = '';
       ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/aac'].some((m) => {
@@ -486,6 +533,8 @@
 
     release() {
       if (this._stream) { this._stream.getTracks().forEach((t) => t.stop()); this._stream = null; }
+      if (this._anSrc) { try { this._anSrc.disconnect(); } catch (e) { /* */ } }
+      this._an = null; this._anStream = null; this._anSrc = null;
     }
   };
 

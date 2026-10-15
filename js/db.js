@@ -46,6 +46,10 @@
       avatar: { hat: 'cap-red', face: 'smile', torso: 'torso-red', legs: 'legs-blue', acc: 'none' },
       owned: ['none-hat', 'cap-red', 'hair-brown', 'smile', 'grin', 'torso-red', 'torso-blue', 'legs-blue', 'legs-black', 'none'],
       polished: {},         // { z1: timestamp lần bảo trì gần nhất }
+      mysteries: {},        // { z1: { done, stars, at } } – LEGO Mystery Mission
+      snow: {},             // { z1l1: 3 } – tầng Snowball cao nhất đã lắp (1..3)
+      branches: {},         // { 'z1l1:cb': ['yes','no'] } – các hướng hội thoại bé đã thử
+      customUnits: [],      // [{ id: 'c1', addedAt, data: {...JSON bố mẹ nhập} }]
       settings: {
         accent: 'en-US',
         rate: 0.9,
@@ -106,9 +110,12 @@
     out.profile = Object.assign({}, base.profile, saved.profile || {});
     out.avatar = Object.assign({}, base.avatar, saved.avatar || {});
     out.settings = Object.assign({}, base.settings, saved.settings || {});
-    ['lessons', 'parts', 'words', 'mistakes', 'daily', 'polished'].forEach((k) => {
+    ['lessons', 'parts', 'words', 'mistakes', 'daily', 'polished', 'mysteries', 'snow', 'branches'].forEach((k) => {
       out[k] = Object.assign({}, saved[k] || {});
     });
+    out.customUnits = Array.isArray(saved.customUnits)
+      ? saved.customUnits.filter((u) => u && typeof u.id === 'string' && u.data && typeof u.data === 'object')
+      : [];
     out.owned = Array.from(new Set([].concat(base.owned, Array.isArray(saved.owned) ? saved.owned : [])));
     out.studs = Math.max(0, Number(saved.studs) || 0);
     out.goldBricks = Math.max(0, Number(saved.goldBricks) || 0);
@@ -302,6 +309,63 @@
 
     polish(zoneId) { this.state.polished[zoneId] = Date.now(); this.save(); },
 
+    /** Hộp SRS 1..5 → cấp gạch trong Hộ chiếu: Nhựa (1) → Bạc (2) → Vàng (3–4) → Kim Cương (5). */
+    wordBox(wordId) {
+      const w = this.state.words[wordId];
+      return w && w.stage ? Math.min(5, w.stage) : 0;
+    },
+    wordTier(wordId) {
+      const b = this.wordBox(wordId);
+      return b === 0 ? 'none' : b === 1 ? 'plastic' : b === 2 ? 'silver' : b <= 4 ? 'gold' : 'diamond';
+    },
+
+    /* ---------- Mystery Mission & Snowball & Hội thoại rẽ nhánh ---------- */
+    mystery(zoneId) { return this.state.mysteries[zoneId] || null; },
+    solveMystery(zoneId, stars) {
+      const prev = this.state.mysteries[zoneId];
+      const first = !(prev && prev.done);
+      this.state.mysteries[zoneId] = { done: true, stars: Math.max(stars, (prev && prev.stars) || 0), at: (prev && prev.at) || Date.now() };
+      this.save();
+      return first;
+    },
+    snowLevel(lessonId) { return this.state.snow[lessonId] || 0; },
+    setSnow(lessonId, level) {
+      const first = level > (this.state.snow[lessonId] || 0);
+      if (first) { this.state.snow[lessonId] = level; this.save(); }
+      return first;
+    },
+    tryBranch(key, tone) {
+      const list = this.state.branches[key] || [];
+      const first = list.indexOf(tone) === -1;
+      if (first) { list.push(tone); this.state.branches[key] = list; this.save(); }
+      return first;
+    },
+
+    /* ---------- Bài học tùy chỉnh (Custom Unit Importer) ---------- */
+    nextCustomId() {
+      let n = 1;
+      const used = new Set(this.state.customUnits.map((u) => u.id));
+      while (used.has('c' + n)) n++;
+      return 'c' + n;
+    },
+    addCustomUnit(id, data) {
+      this.state.customUnits = this.state.customUnits.filter((u) => u.id !== id).concat([{ id, addedAt: Date.now(), data }]);
+      this.save();
+    },
+    /** Xóa bài tùy chỉnh và toàn bộ tiến độ gắn với nó (để không còn từ "ma" trong lịch ôn). */
+    removeCustomUnit(id) {
+      const st = this.state;
+      st.customUnits = st.customUnits.filter((u) => u.id !== id);
+      const pre = id + '-', lpre = id + 'l';
+      Object.keys(st.words).forEach((k) => { if (k.indexOf(pre) === 0) delete st.words[k]; });
+      Object.keys(st.lessons).forEach((k) => { if (k.indexOf(lpre) === 0 && /^\d+$/.test(k.slice(lpre.length))) delete st.lessons[k]; });
+      Object.keys(st.snow).forEach((k) => { if (k.indexOf(lpre) === 0) delete st.snow[k]; });
+      Object.keys(st.branches).forEach((k) => { if (k.indexOf(lpre) === 0) delete st.branches[k]; });
+      Object.keys(st.mistakes).forEach((k) => { if (k.indexOf(':' + lpre) !== -1 || k.indexOf('word:' + pre) === 0) delete st.mistakes[k]; });
+      delete st.parts[id]; delete st.polished[id]; delete st.mysteries[id];
+      this.save();
+    },
+
     /* ---------- Lỗi hay gặp ---------- */
     addMistake(key, text, vi) {
       const m = this.state.mistakes[key] || { text, vi: vi || '', count: 0 };
@@ -378,8 +442,10 @@
 
     async reset() {
       const keepSettings = this.state.settings;
+      const keepUnits = this.state.customUnits;   // bài học bố mẹ nhập là nội dung, không phải tiến độ
       this.state = defaults();
       this.state.settings = keepSettings;
+      this.state.customUnits = keepUnits;
       await this.saveNow();
       this._emit();
     }
