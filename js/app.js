@@ -454,7 +454,7 @@
         <div class="hero-actions">
           ${next ? `<button class="brick-btn btn-red" data-action="start-lesson" data-lesson="${next.id}">${bi('▶ Next lesson: ' + esc(next.title), 'Bài tiếp theo: ' + esc(next.titleVi))}</button>`
             : `<button class="brick-btn btn-green" data-action="go" data-screen="diorama">${bi('🏆 All lessons done!', 'Đã học hết – xem Sa bàn')}</button>`}
-          <button class="brick-btn btn-purple" data-action="gym">${bi('🎧 Listening & Speaking Gym', `Luyện Nghe – Nói mỗi ngày (3 phút)${S.gymToday() ? ' · hôm nay: ' + S.gymToday() + ' lượt' : ''}`)}</button>
+          <button class="brick-btn btn-purple" data-action="gym">${bi('🎧 Listening & Speaking Gym', `Luyện Nghe – Nói mỗi ngày (3 phút)${S.gymToday() ? ' · hôm nay: ' + S.gymToday() + ' lượt' : ''}${S.gymToday() < GYM_GOLD_PER_DAY ? ' · 🥇 còn ' + (GYM_GOLD_PER_DAY - S.gymToday()) + ' Gold' : ''}`)}</button>
           ${due ? `<button class="brick-btn btn-orange" data-action="review" data-zone="">${bi(`🔧 Tune-up time (${due})`, `Trạm bảo trì: ${due} từ cần ôn`)}</button>` : ''}
           ${(() => { const mz = ZONES.find((z) => mysteryOpen(z) && !(S.mystery(z.id) || {}).done); return mz ? `<button class="brick-btn btn-yellow" data-action="mystery" data-zone="${mz.id}">${bi('🕵️ Mystery Mission!', 'Nhiệm vụ thám tử: ' + esc(mz.short || mz.name))}</button>` : ''; })()}
           ${S.totalReadyParts() ? `<button class="brick-btn btn-blue" data-action="go" data-screen="workshop">${bi(`🧱 ${S.totalReadyParts()} parts to build`, 'Mảnh ghép đang chờ lắp')}</button>` : ''}
@@ -2337,6 +2337,7 @@
     ];
   }
 
+  const GYM_GOLD_PER_DAY = 2;
   const Gym = {
     token: 0,
     start() {
@@ -2506,7 +2507,10 @@
     },
 
     finish() {
-      S.addStuds(10); S.addGold(1); S.recordGym();
+      // Chống "cày" thưởng: chỉ 2 lượt Gym đầu tiên mỗi ngày có +1 Gold và +10 Studs; các lượt sau +2 Studs để luyện thêm
+      const full = S.gymToday() < GYM_GOLD_PER_DAY;
+      const studs = full ? 10 : 2, gold = full ? 1 : 0;
+      S.addStuds(studs); if (gold) S.addGold(gold); S.recordGym();
       updateWallet();
       const tfTotal = this.rounds.filter((x) => x.type === 'tf').length;
       const tfRight = this.rounds.filter((x) => x.type === 'tf' && x.state && x.state.right).length;
@@ -2517,9 +2521,10 @@
         <div class="reward-row">
           <span class="reward">👂 ${tfRight}/${tfTotal} True/False</span>
           <span class="reward">🎤 ${qaTotal} answers</span>
-          <span class="reward"><i class="stud-icon"></i>+10 Studs</span>
-          <span class="reward"><i class="gold-icon"></i>+1 Gold</span>
+          <span class="reward"><i class="stud-icon"></i>+${studs} Studs</span>
+          ${gold ? '<span class="reward"><i class="gold-icon"></i>+1 Gold</span>' : ''}
         </div>
+        ${full ? '' : `<p class="vi gym-cap">🥇 Hôm nay con đã nhận đủ ${GYM_GOLD_PER_DAY} Gold từ Gym rồi. Luyện thêm vẫn rất tốt – nhưng để có thêm Gold, con hãy học bài mới hoặc vào Trạm bảo trì 🔧 nhé!</p>`}
         <p class="vi" style="margin-bottom:14px">Hôm nay con đã tập ${S.gymToday()} lượt. 🔥 Chuỗi ${S.streakDays()} ngày học liên tiếp – giữ lửa nhé!</p>
         <div class="btn-row center">
           <button class="brick-btn btn-purple" data-action="gym-again">${bi('🔁 One more round', 'Tập thêm một lượt')}</button>

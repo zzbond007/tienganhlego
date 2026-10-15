@@ -28,7 +28,7 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 | `js/curriculum-stage3.js` | Tuần 25–36: giao tiếp tự tin & thế giới | ⏳ |
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
-**🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold).
+**🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
 10 Vùng đất gốc nằm ở tab **📘 SGK & Kho bài**; School Sync hỗ trợ cả *Tiếng Anh 3* và *Tiếng Anh 4 Global Success*.
 
 Gói giai đoạn tự đăng ký bằng `window.CurriculumStages.push({ stage, zones })` và phải nạp trước `js/curriculum.js`
