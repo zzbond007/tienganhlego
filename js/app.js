@@ -361,7 +361,7 @@
         <div>
           <h2>${greet[0]}, ${esc(st.profile.name)}! 👋</h2>
           <p class="vi">${greet[1]}, ${esc(st.profile.name)}! Hôm nay mình học tiếng Anh và lắp LEGO nhé.</p>
-          <p style="margin-top:8px;font-weight:800">🧱 ${lessonsDone}/${CUR.totalLessons()} lessons · 🏆 ${ZONES.filter((z) => S.zoneProgress(z.id).complete).length}/${ZONES.length} sets · 🔤 ${S.learnedWordIds().filter((id) => WORDS[id]).length} words</p>
+          <p style="margin-top:8px;font-weight:800">🔥 ${S.streakDays()} day streak · 🧱 ${lessonsDone}/${CUR.totalLessons()} lessons · 🏆 ${ZONES.filter((z) => S.zoneProgress(z.id).complete).length}/${ZONES.length} sets · 🔤 ${S.learnedWordIds().filter((id) => WORDS[id]).length} words</p>
         </div>
         <div class="hero-actions">
           ${next ? `<button class="brick-btn btn-red" data-action="start-lesson" data-lesson="${next.id}">${bi('▶ Next lesson: ' + esc(next.title), 'Bài tiếp theo: ' + esc(next.titleVi))}</button>`
@@ -1170,7 +1170,7 @@
           <div>
             <div class="reflex-q" id="reflexQ"></div>
             <div class="opt-grid">${R.opts.map((w, k) => `<button class="opt-brick" data-action="reflex-pick" data-i="${k}" style="--oc:${BRICK_COLORS[k]};--ocd:${LG.shade(BRICK_COLORS[k], -0.3)}">
-              <span class="o-emoji">${w.emoji}</span><span class="o-word">${esc(w.en)}</span></button>`).join('')}</div>
+              <span class="o-emoji">${w.emoji}</span><span class="o-word">${esc(round.mode === 'word' ? w.vi : w.en)}</span></button>`).join('')}</div>
           </div>
         </div>
       </div>`;
@@ -1205,6 +1205,8 @@
       if (w === round.w) {
         $$('.opt-brick', overlay).forEach((b) => { b.style.pointerEvents = 'none'; });
         el.classList.add('right');
+        const wordSpan = $('.o-word', el);
+        if (wordSpan) wordSpan.innerHTML = `${esc(w.en)}<small style="display:block;font-size:13px;opacity:.9">${esc(w.vi)}</small>`;
         Sfx.playBrickClick();
         this.answered(R.first, true);
         if (R.first) { S.recordAnswer(w.id, true); this.combo++; }
@@ -1521,6 +1523,16 @@
       Sfx.playBrickClick();
       this.renderBricks();
       if (k === -1) Speech.speak(this.b.bricks[id].t, { rate: 0.95 });
+      this.autoCheckSnowL1();
+    },
+
+    /** Snowball Level 1 chỉ có 1 gạch: đặt đúng là tự chấm, bé không phải bấm ✓ Check. */
+    autoCheckSnowL1() {
+      const B = this.b, curS = B.queue[B.si];
+      if (!curS || curS.level !== 1 || curS.answer.length !== 1) return;
+      if (B.placed.length === 1 && B.bricks[B.placed[0]].t === curS.answer[0]) {
+        setTimeout(() => { if (!this.b.solved) this.buildCheck($('#buildCheck')); }, 320);
+      }
     },
 
     placeAt(id, idx) {
@@ -1531,6 +1543,7 @@
       P.splice(Math.max(0, Math.min(idx, P.length)), 0, id);
       Sfx.playBrickClick();
       this.renderBricks();
+      this.autoCheckSnowL1();
     },
 
     unplace(id) {
@@ -1923,7 +1936,8 @@
     /** Dừng ghi âm/sóng âm khi rời câu hỏi (không làm mất bản ghi cũ). */
     stopStudio() {
       this.stopVu();
-      if (Recorder.isRecording()) Recorder.stop();
+      if (Recorder.isRecording()) Recorder.stop().then(() => Recorder.release());
+      else Recorder.release();
       if (this.studio && this.studio.state === 'recording') this.studio.state = Recorder.hasRecording() ? 'done' : 'idle';
     },
 
@@ -2516,6 +2530,11 @@
   });
 
   modal.addEventListener('click', (e) => { if (e.target === modal && modal.dataset.dismiss === '1') closeModal(); });
+
+  // iPad: đóng bàn phím ảo xong Safari hay để khung app bị đẩy lệch lên → kéo về đúng chỗ
+  document.addEventListener('focusout', (e) => {
+    if (e.target && e.target.matches && e.target.matches('input, textarea, select')) setTimeout(() => window.scrollTo(0, 0), 100);
+  });
 
   document.addEventListener('input', (e) => { if (e.target && e.target.id === 'unitJson') App.unitDraft = e.target.value; });
 

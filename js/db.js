@@ -397,6 +397,17 @@
       return out;
     },
     totalSeconds() { return Object.values(this.state.daily).reduce((a, b) => a + b, 0); },
+    /** Số ngày học liên tiếp (tính đến hôm nay, hoặc hôm qua nếu hôm nay chưa học). */
+    streakDays() {
+      let count = 0;
+      const d = new Date();
+      if (!this.state.daily[todayKey(d)]) d.setDate(d.getDate() - 1);
+      while (this.state.daily[todayKey(d)] > 0) {
+        count++;
+        d.setDate(d.getDate() - 1);
+      }
+      return count;
+    },
 
     /* ---------- Nhân vật ---------- */
     owns(itemId) { return this.state.owned.indexOf(itemId) !== -1; },
