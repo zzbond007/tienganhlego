@@ -1059,7 +1059,7 @@ p { margin: 0; }
 .stamp-ring small { font-size: 10.5px; font-weight: 800; letter-spacing: .4px; }
 .stamp-ico { font-size: 30px; filter: grayscale(1) opacity(.5); }
 .stamp.inked .stamp-ring {
-  border: 5px double var(--zc); color: var(--zc); background: color-mix(in srgb, var(--zc) 9%, #fff);
+  border: 5px double var(--zc); color: var(--zc); background: #FFFBEB; background: color-mix(in srgb, var(--zc) 9%, #fff);
   transform: rotate(var(--rot)); animation: stampIn .5s var(--bounce) both;
   box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 5px var(--zc);
 }

@@ -341,6 +341,8 @@
     start(handlers = {}) {
       if (!this.supported || this.blocked) { handlers.onError && handlers.onError('unsupported'); return false; }
       this.stop();
+      // iPad: micro đang bị Recorder giữ sẽ làm SpeechRecognition lỗi 'audio-capture' → nhả ra trước
+      if (global.Recorder && global.Recorder._stream) global.Recorder.release();
       let rec;
       try { rec = new SR(); } catch (e) { this.blocked = true; handlers.onError && handlers.onError('unsupported'); return false; }
       rec.lang = Speech.accent || 'en-US';
@@ -454,6 +456,7 @@
         if (!ctx) ctx = this._ctx = new AC();
         if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
         if (this._an && this._anStream === this._stream) return;
+        if (this._anSrc) { try { this._anSrc.disconnect(); } catch (e) { /* */ } }
         const src = ctx.createMediaStreamSource(this._stream);
         const an = ctx.createAnalyser();
         an.fftSize = 512;
@@ -507,6 +510,7 @@
       return new Promise((resolve) => {
         clearTimeout(this._timer);
         if (!this._rec || this._rec.state === 'inactive') {
+          this.release();
           resolve(this._url);
           return;
         }
@@ -514,6 +518,8 @@
           if (this._url) URL.revokeObjectURL(this._url);
           const blob = new Blob(this._chunks, { type: this._rec.mimeType || 'audio/mp4' });
           this._url = URL.createObjectURL(blob);
+          // Nhả micro ngay: iPad thoát chế độ đàm thoại (loa to, hết rè) và tắt chấm cam trên thanh trạng thái
+          this.release();
           resolve(this._url);
         };
         this._rec.stop();
