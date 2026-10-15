@@ -1284,3 +1284,10 @@ p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* ---------- Bắt buộc luyện nói: nút 🎤 Say it! trong Brick Discovery ---------- */
+.word-card .sayit-btn { width: 100%; margin-top: 8px; }
+.word-card .sayit-btn[disabled] { opacity: .5; }
+.word-card.spoken .sayit-btn { background: var(--green); box-shadow: 0 4px 0 var(--green-d); }
+.word-card.spoken::after { content: '🎤'; position: absolute; top: 8px; right: 10px; font-size: 20px; }
+.speak-praise { font-weight: 800; color: var(--green-d); margin: 4px 0 10px; }

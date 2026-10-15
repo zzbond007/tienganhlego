@@ -29,6 +29,13 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🎤 Bắt buộc luyện nói (mặc định BẬT, tắt được trong Góc Bố Mẹ):**
+- Bước 1 – mỗi từ: 🔊 nghe → 🎤 *Say it!* nói to → app phát lại giọng con rồi giọng mẫu → mới thu được gạch (nói được: +2 Studs thay vì +1).
+  Máy tự dừng ghi khi con nói xong. Nếu 3 lần không nghe thấy tiếng, con vẫn được thu gạch để không bị kẹt.
+- Bước 5 – phải thử nói (micro chấm điểm) hoặc ghi âm có tiếng trong Phòng thu mới mở được phần chọn câu; câu đã nói được +1 Gold.
+- Hội thoại tự chọn & Gym "Quick Response": phải ghi âm câu trả lời mới sang bước tiếp.
+- Trên iPad mở từ Màn hình chính (không có nhận diện giọng nói), app dùng ghi âm + nhận biết có tiếng nói (đo độ lớn âm thanh),
+  rồi cho con nghe lại giọng mình so với giọng mẫu. Góc Bố Mẹ hiển thị số lần con đã nói hôm nay và tổng cộng.
 10 Vùng đất gốc nằm ở tab **📘 SGK & Kho bài**; School Sync hỗ trợ cả *Tiếng Anh 3* và *Tiếng Anh 4 Global Success*.
 
 Gói giai đoạn tự đăng ký bằng `window.CurriculumStages.push({ stage, zones })` và phải nạp trước `js/curriculum.js`
