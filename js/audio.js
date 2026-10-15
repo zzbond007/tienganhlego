@@ -489,7 +489,37 @@
 
     hasRecording() { return !!this._url; },
 
-    async start() {
+    /* ---- Nhận biết giọng nói (VAD đơn giản theo độ lớn âm thanh) ----
+       voiceMs: tổng thời gian có tiếng nói trong lần ghi gần nhất (ms); null = không đo được (không có Analyser). */
+    voiceMs: null,
+    _vad(opts) {
+      clearInterval(this._vadTimer);
+      this.voiceMs = this._an ? 0 : null;
+      if (!this._an) return;
+      const STEP = 50, buf = new Uint8Array(this._an.fftSize);
+      let floor = 0.012, lastVoice = 0, started = Date.now();
+      this._vadTimer = setInterval(() => {
+        if (!this._an || !this.isRecording()) { clearInterval(this._vadTimer); return; }
+        this._an.getByteTimeDomainData(buf);
+        let sum = 0;
+        for (let i = 0; i < buf.length; i++) { const v = (buf[i] - 128) / 128; sum += v * v; }
+        const rms = Math.sqrt(sum / buf.length);
+        const now = Date.now();
+        // Ngưỡng thích nghi với tiếng ồn nền trong 400 ms đầu
+        if (now - started < 400 && rms < 0.025) floor = Math.max(floor, rms);
+        if (rms > Math.max(0.03, floor * 2.5)) { this.voiceMs += STEP; lastVoice = now; }
+        // Tự dừng khi con đã nói xong (im lặng sau khi có tiếng) – tiện cho bé, không cần bấm Dừng
+        if (opts.autoStop && this.voiceMs >= (opts.minVoiceMs || 300) && now - lastVoice > (opts.silenceMs || 1100)) {
+          clearInterval(this._vadTimer);
+          if (opts.onAuto) opts.onAuto('silence');
+        }
+      }, STEP);
+    },
+    /** Đã nghe thấy giọng con chưa? (true nếu không đo được – không chặn bé vì lỗi thiết bị) */
+    heardVoice(minMs = 300) { return this.voiceMs === null || this.voiceMs >= minMs; },
+
+    /** start({ maxMs, autoStop, silenceMs, onAuto(reason) }) */
+    async start(opts = {}) {
       if (!this.supported) throw new Error('unsupported');
       if (!this._stream) this._stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       this._attachAnalyser();
@@ -502,13 +532,18 @@
       this._rec = mime ? new MediaRecorder(this._stream, { mimeType: mime }) : new MediaRecorder(this._stream);
       this._rec.ondataavailable = (e) => { if (e.data && e.data.size) this._chunks.push(e.data); };
       this._rec.start();
+      this._vad(opts);
       clearTimeout(this._timer);
-      this._timer = setTimeout(() => { if (this._rec && this._rec.state === 'recording') this._rec.stop(); }, 10000);
+      this._timer = setTimeout(() => {
+        if (!this._rec || this._rec.state !== 'recording') return;
+        if (opts.onAuto) opts.onAuto('max'); else this._rec.stop();
+      }, opts.maxMs || 10000);
     },
 
     stop() {
       return new Promise((resolve) => {
         clearTimeout(this._timer);
+        clearInterval(this._vadTimer);
         if (!this._rec || this._rec.state === 'inactive') {
           this.release();
           resolve(this._url);
