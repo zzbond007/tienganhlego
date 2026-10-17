@@ -342,7 +342,7 @@
       if (!this.supported || this.blocked) { handlers.onError && handlers.onError('unsupported'); return false; }
       this.stop();
       // iPad: micro đang bị Recorder giữ sẽ làm SpeechRecognition lỗi 'audio-capture' → nhả ra trước
-      if (global.Recorder && global.Recorder._stream) global.Recorder.release();
+      if (global.Recorder && (global.Recorder._base || global.Recorder._stream)) global.Recorder.releaseAll();
       let rec;
       try { rec = new SR(); } catch (e) { this.blocked = true; handlers.onError && handlers.onError('unsupported'); return false; }
       rec.lang = Speech.accent || 'en-US';
@@ -455,7 +455,7 @@
         let ctx = (global.Sfx && global.Sfx.ctx) || this._ctx;
         if (!ctx) ctx = this._ctx = new AC();
         if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
-        if (this._an && this._anStream === this._stream) return;
+        // Mỗi lần ghi tạo nút nguồn mới: nút cũ có thể ngừng nhận dữ liệu khi micro được giữ mở lâu
         if (this._anSrc) { try { this._anSrc.disconnect(); } catch (e) { /* */ } }
         const src = ctx.createMediaStreamSource(this._stream);
         const an = ctx.createAnalyser();
@@ -521,7 +521,21 @@
     /** start({ maxMs, autoStop, silenceMs, onAuto(reason) }) */
     async start(opts = {}) {
       if (!this.supported) throw new Error('unsupported');
-      if (!this._stream) this._stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (this._base && !this._base.getAudioTracks().some((t) => t.readyState === 'live')) this.release(true);
+      if (!this._base) {
+        // iOS 17+: phát giọng mẫu ra loa ngoài khi micro đang mở
+        try { if (navigator.audioSession) navigator.audioSession.type = 'play-and-record'; } catch (e) { /* */ }
+        this._base = await navigator.mediaDevices.getUserMedia({ audio: true });
+      }
+      // iPad mở từ Màn hình chính hỏi quyền micro MỖI LẦN gọi getUserMedia → giữ luồng micro gốc (_base) mở cho cả
+      // buổi học, chỉ nhả khi đóng bài / Gym hoặc khi app chạy nền (releaseAll). Mỗi lần ghi dùng một bản sao track
+      // (clone không cần xin quyền lại) để MediaRecorder và bộ đo âm lượng luôn nhận dữ liệu mới.
+      this._hold = true;
+      this._dropClone();
+      try {
+        this._stream = new MediaStream(this._base.getAudioTracks().map((t) => t.clone()));
+        this._clone = true;
+      } catch (e) { this._stream = this._base; this._clone = false; }
       this._attachAnalyser();
       this._chunks = [];
       let mime = '';
@@ -553,12 +567,19 @@
           if (this._url) URL.revokeObjectURL(this._url);
           const blob = new Blob(this._chunks, { type: this._rec.mimeType || 'audio/mp4' });
           this._url = URL.createObjectURL(blob);
-          // Nhả micro ngay: iPad thoát chế độ đàm thoại (loa to, hết rè) và tắt chấm cam trên thanh trạng thái
-          this.release();
+          this.release();   // giữ micro nếu đang trong buổi học (_hold), tránh iPad hỏi quyền lại
           resolve(this._url);
         };
         this._rec.stop();
       });
+    },
+
+    /** Kết thúc buổi học: nhả hẳn micro (tắt chấm cam, iPad về chế độ loa thường). */
+    releaseAll() {
+      this._hold = false;
+      if (this._rec && this._rec.state === 'recording') { try { this._rec.stop(); } catch (e) { /* */ } }
+      this.release(true);
+      try { if (navigator.audioSession) navigator.audioSession.type = 'auto'; } catch (e) { /* */ }
     },
 
     isRecording() { return !!(this._rec && this._rec.state === 'recording'); },
@@ -572,14 +593,25 @@
       });
     },
 
-    release() {
-      if (this._stream) { this._stream.getTracks().forEach((t) => t.stop()); this._stream = null; }
+    /** Nhả micro. Trong buổi học (_hold) chỉ dừng ghi, giữ luồng micro; force = nhả hẳn. */
+    release(force) {
+      if (this.isRecording()) { try { this._rec.stop(); } catch (e) { /* */ } }
+      this._dropClone();
+      if (this._hold && !force) return;
+      if (this._base) { this._base.getTracks().forEach((t) => t.stop()); this._base = null; }
+    },
+
+    _dropClone() {
       if (this._anSrc) { try { this._anSrc.disconnect(); } catch (e) { /* */ } }
       this._an = null; this._anStream = null; this._anSrc = null;
+      if (this._stream && this._clone) this._stream.getTracks().forEach((t) => t.stop());
+      this._stream = null; this._clone = false;
     }
   };
 
   Speech.init();
+  // App chạy nền / tắt màn hình → nhả micro
+  if (global.document) document.addEventListener('visibilitychange', () => { if (document.hidden) Recorder.releaseAll(); });
 
   global.SoundEngine = SoundEngine;
   global.Sfx = new SoundEngine();
