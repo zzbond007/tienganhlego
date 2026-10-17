@@ -1090,7 +1090,7 @@
       }
       this.token++;
       Speech.cancel(); Listener.stop(); this.stopStudio();
-      overlay.hidden = true; overlay.innerHTML = '';
+      Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = '';
       render();
     },
 
@@ -2491,7 +2491,7 @@
     close() {
       this.token++;
       Speech.cancel();
-      overlay.hidden = true; overlay.innerHTML = '';
+      Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = '';
       render();
     }
   };
@@ -2737,7 +2737,7 @@
     close() {
       this.token++;
       Speech.cancel(); Listener.stop(); Lesson.stopStudio();
-      overlay.hidden = true; overlay.innerHTML = '';
+      Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = '';
       render();
     }
   };
@@ -2870,7 +2870,7 @@
     close() {
       this.token++;
       Speech.cancel();
-      overlay.hidden = true; overlay.innerHTML = '';
+      Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = '';
       render();
     }
   };
@@ -2881,7 +2881,7 @@
   function go(screen) {
     App.screen = screen;
     if (screen !== 'parent') { App.parentOk = false; App.gate = null; }
-    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); overlay.hidden = true; overlay.innerHTML = ''; }
+    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
     closeModal();
     render();
     screenEl.scrollTop = 0;
