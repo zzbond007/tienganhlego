@@ -148,11 +148,31 @@
     $('#avatarChip').innerHTML = LG.renderMinifig(S.state.avatar);
   }
 
+  /* Tốc độ giọng đọc: trên iPad giọng máy đọc khá nhanh → thêm mức Rất chậm, mặc định Chậm */
+  const SPEEDS = [
+    { v: 0.5, icon: '🐌', en: 'Very slow', vi: 'Rất chậm' },
+    { v: 0.65, icon: '🐢', en: 'Slow', vi: 'Chậm' },
+    { v: 0.8, icon: '🚶', en: 'Normal', vi: 'Vừa' },
+    { v: 0.95, icon: '🐇', en: 'Natural', vi: 'Tự nhiên' }
+  ];
+  const speedOf = (v) => SPEEDS.reduce((a, b) => (Math.abs(b.v - v) < Math.abs(a.v - v) ? b : a));
   function applySettings() {
     const st = S.state.settings;
     Sfx.enabled = st.sfx !== false;
     Speech.setAccent(st.accent);
-    Speech.rate = Number(st.rate) || 0.9;
+    Speech.rate = Number(st.rate) || 0.65;
+  }
+  function speedChipHTML() {
+    const sp = speedOf(Speech.rate);
+    return `<button class="chip speed-chip" data-action="speed-cycle" style="box-shadow:0 4px 0 var(--card-edge)" aria-label="Speech speed">${sp.icon}<small>${sp.vi}</small></button>`;
+  }
+  function cycleSpeed() {
+    const i = SPEEDS.indexOf(speedOf(Speech.rate));
+    const sp = SPEEDS[(i + 1) % SPEEDS.length];
+    S.state.settings.rate = sp.v; S.save(); applySettings();
+    $$('.speed-chip').forEach((b) => { b.innerHTML = `${sp.icon}<small>${sp.vi}</small>`; });
+    toast(`${sp.icon} ${sp.en}`, `Tốc độ đọc: ${sp.vi}`, 'good');
+    Speech.speak('This is my speaking speed.');
   }
 
   function sayWord(w, slow) {
@@ -445,7 +465,7 @@
 
     screenEl.innerHTML = `<div class="screen-inner">
       <div class="card hero studs-top">
-        <div>${LG.renderMinifig(st.avatar, { cls: 'hero-fig' })}</div>
+        <div>${LG.renderScene(st.avatar, { cls: 'hero-fig' })}</div>
         <div>
           <h2>${greet[0]}, ${esc(st.profile.name)}! 👋</h2>
           <p class="vi">${greet[1]}, ${esc(st.profile.name)}! Hôm nay mình học tiếng Anh và lắp LEGO nhé.</p>
@@ -664,19 +684,27 @@
     { key: 'face', en: 'Faces', vi: 'Khuôn mặt' },
     { key: 'torso', en: 'Outfits', vi: 'Trang phục' },
     { key: 'legs', en: 'Legs', vi: 'Quần' },
-    { key: 'acc', en: 'Accessories', vi: 'Phụ kiện' }
+    { key: 'acc', en: 'Accessories', vi: 'Phụ kiện' },
+    { key: 'pet', en: '🐶 Pets', vi: 'Thú cưng' },
+    { key: 'ride', en: '🛹 Rides', vi: 'Xe' },
+    { key: 'buddy', en: '🧑‍🤝‍🧑 Buddies', vi: 'Bạn đồng hành' }
   ];
+  const priceHTML = (it) => it.gold ? `<i class="gold-icon"></i>${it.gold}` : `<i class="stud-icon"></i>${it.price}`;
+  const canAfford = (it) => it.gold ? S.state.goldBricks >= it.gold : S.state.studs >= it.price;
 
   function renderLocker() {
     const st = S.state;
     const cat = App.lockerCat;
     const items = LG.ITEMS[cat];
+    const allItems = [].concat(...Object.values(LG.ITEMS));
     screenEl.innerHTML = `<div class="screen-inner">
-      <div class="screen-head"><div><h2>🧑‍🚀 Minifigure Locker</h2><span class="vi">Tủ đồ nhân vật – dùng LEGO Studs kiếm được khi học để mở khóa trang phục!</span></div>
-        <span class="chip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="stud-icon"></i><b>${st.studs}</b><small>Studs</small></span></div>
+      <div class="screen-head"><div><h2>🧑‍🚀 Minifigure Locker</h2><span class="vi">Cửa hàng & Tủ đồ – dùng LEGO Studs kiếm được khi học để mua trang phục, thú cưng, xe và bạn đồng hành! Đồ ⭐ Huyền thoại mua bằng 🥇 Gold.</span></div>
+        <div class="btn-row"><span class="chip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="stud-icon"></i><b>${st.studs}</b><small>Studs</small></span>
+        <span class="chip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="gold-icon"></i><b>${st.goldBricks}</b><small>Gold</small></span></div></div>
       <div class="locker">
         <div class="card fig-stage studs-top">
-          <div id="bigFig">${LG.renderMinifig(st.avatar, { cls: 'fig-big' })}</div>
+          <div id="bigFig">${LG.renderScene(st.avatar, { cls: 'fig-big' })}</div>
+          <div class="collection-bar">🏆 Bộ sưu tập: <b>${allItems.filter((it) => it.price + (it.gold || 0) > 0 && S.owns(it.id)).length}</b> / ${allItems.filter((it) => it.price + (it.gold || 0) > 0).length} món</div>
           <div class="name-tag">${esc(st.profile.name)}</div>
           <div class="btn-row center">
             <button class="brick-btn btn-blue btn-sm" data-action="fig-hello">${bi('👋 Say hi', 'Chào bạn')}</button>
@@ -690,11 +718,14 @@
             const owned = S.owns(it.id);
             const equipped = st.avatar[cat] === it.id;
             const cfg = Object.assign({}, st.avatar, { [cat]: it.id });
-            const cant = !owned && st.studs < it.price;
-            return `<button class="item${owned ? ' owned' : ''}${equipped ? ' equipped' : ''}${cant ? ' cant' : ''}" data-action="locker-item" data-id="${it.id}">
-              ${LG.renderMinifig(cfg)}
+            const cant = !owned && !canAfford(it);
+            const tier = LG.TIERS[it.tier || 'common'];
+            const solo = cat === 'pet' || cat === 'ride' || cat === 'buddy';
+            return `<button class="item tier-${it.tier || 'common'}${owned ? ' owned' : ''}${equipped ? ' equipped' : ''}${cant ? ' cant' : ''}" data-action="locker-item" data-id="${it.id}">
+              ${it.price || it.gold ? `<span class="tier-badge" style="--tc:${tier.color}">${it.tier === 'legendary' ? '⭐ ' : ''}${tier.vi}</span>` : ''}
+              ${solo ? LG.renderItemPreview(cat, it.id) : LG.renderMinifig(cfg)}
               <b>${esc(it.en)}</b><small>${esc(it.vi)}</small>
-              <span class="price">${equipped ? '✓ Wearing' : owned ? 'Owned' : `<i class="stud-icon"></i>${it.price}`}</span>
+              <span class="price">${equipped ? '✓ Using' : owned ? 'Owned' : priceHTML(it)}</span>
             </button>`;
           }).join('')}</div>
         </div>
@@ -713,14 +744,16 @@
       const f = $('#bigFig .fig-big'); if (f) { f.classList.add('cheer'); }
       return;
     }
-    if (S.state.studs < it.price) {
+    if (!canAfford(it)) {
       Sfx.playGentleOops();
-      toast(`You need ${it.price - S.state.studs} more studs!`, `Cần thêm ${it.price - S.state.studs} nút xu – học bài để kiếm thêm nhé!`, 'warm');
+      if (it.gold) toast(`You need ${it.gold - S.state.goldBricks} more Gold!`, `Cần thêm ${it.gold - S.state.goldBricks} 🥇 Gold – nói tiếng Anh thật tốt và đạt 3 sao để nhận Gold nhé!`, 'warm');
+      else toast(`You need ${it.price - S.state.studs} more studs!`, `Cần thêm ${it.price - S.state.studs} nút xu – học bài để kiếm thêm nhé!`, 'warm');
       return;
     }
-    const ok = await confirmModal({ en: `Unlock ${it.en}?`, vi: `Mở khóa "${it.vi}"?`, text: `<div style="display:flex;justify-content:center">${LG.renderMinifig(Object.assign({}, S.state.avatar, { [cat]: id }))}</div><p style="text-align:center">Giá: <b>${it.price}</b> LEGO Studs (con đang có ${S.state.studs})</p>`, ok: 'Unlock!', okVi: 'Mở khóa' });
+    const priceTxt = it.gold ? `<b>${it.gold}</b> 🥇 Gold Brick (con đang có ${S.state.goldBricks})` : `<b>${it.price}</b> LEGO Studs (con đang có ${S.state.studs})`;
+    const ok = await confirmModal({ en: `Unlock ${it.en}?`, vi: `Mở khóa "${it.vi}"?`, text: `<div style="display:flex;justify-content:center">${LG.renderScene(Object.assign({}, S.state.avatar, { [cat]: id }), { cls: 'fig-confirm' })}</div><p style="text-align:center">Giá: ${priceTxt}</p>`, ok: 'Unlock!', okVi: 'Mở khóa' });
     if (!ok) return;
-    if (S.buy(id, it.price)) {
+    if (it.gold ? S.buyWithGold(id, it.gold) : S.buy(id, it.price)) {
       S.equip(cat, id);
       Sfx.playStudCollect(3);
       fx.confetti(30);
@@ -782,7 +815,7 @@
     screenEl.innerHTML = `<div class="screen-inner">
       <div class="screen-head"><div><h2>🛂 My LEGO Passport</h2><span class="vi">Hộ chiếu Thợ xây – bộ sưu tập gạch từ vựng & con dấu các Vùng đất</span></div></div>
       <div class="card passport-cover studs-top">
-        <div class="pp-photo">${LG.renderMinifig(st.avatar, { cls: 'pp-fig' })}</div>
+        <div class="pp-photo">${LG.renderScene(st.avatar, { cls: 'pp-fig' })}</div>
         <div class="pp-info">
           <div class="pp-kicker">LEGO BUILDER PASSPORT · HỘ CHIẾU THỢ XÂY</div>
           <h3>${esc(st.profile.name)}</h3>
@@ -883,7 +916,7 @@
         <div class="card p-section"><h3>⚙️ Cài đặt</h3><span class="vi">Settings</span>
           <div class="setting-row"><label>Tên nhân vật<small>Builder name</small></label><input class="text-input" maxlength="16" value="${esc(st.profile.name)}" data-change="name"></div>
           <div class="setting-row"><label>Giọng đọc<small>Voice accent</small></label><select class="select-lg" data-change="accent"><option value="en-US"${st.settings.accent === 'en-US' ? ' selected' : ''}>🇺🇸 American (US)</option><option value="en-GB"${st.settings.accent === 'en-GB' ? ' selected' : ''}>🇬🇧 British (UK)</option></select></div>
-          <div class="setting-row"><label>Tốc độ đọc<small>Speech speed</small></label><select class="select-lg" data-change="rate">${[[0.75, 'Chậm – Slow'], [0.9, 'Vừa – Normal'], [1, 'Nhanh – Natural']].map(([v, t]) => `<option value="${v}"${Number(st.settings.rate) === v ? ' selected' : ''}>${t}</option>`).join('')}</select></div>
+          <div class="setting-row"><label>Tốc độ đọc<small>Speech speed</small></label><select class="select-lg" data-change="rate">${SPEEDS.map((sp) => `<option value="${sp.v}"${speedOf(Number(st.settings.rate)).v === sp.v ? ' selected' : ''}>${sp.icon} ${sp.vi} – ${sp.en}</option>`).join('')}</select></div>
           <div class="setting-row"><label>Hiệu ứng âm thanh<small>Brick click & fanfare</small></label><button class="toggle${st.settings.sfx !== false ? ' on' : ''}" data-action="toggle-sfx" aria-label="SFX"></button></div>
           <div class="setting-row"><label>Chế độ luyện nói<small>${Listener.supported ? 'Trình duyệt có hỗ trợ nhận diện giọng nói' : 'Trình duyệt không hỗ trợ nhận diện – dùng Ghi âm & Chọn câu'}</small></label><select class="select-lg" data-change="micMode"><option value="auto"${st.settings.micMode === 'auto' ? ' selected' : ''}>🎙️ Tự động (Micro chấm điểm)</option><option value="fallback"${st.settings.micMode === 'fallback' ? ' selected' : ''}>🎤 Ghi âm nghe lại + Chọn câu</option></select></div>
           <div class="setting-row"><label>Bắt buộc luyện nói<small>Bật: con phải nói (hoặc ghi âm có tiếng) mới thu được gạch & qua câu hỏi. Tắt khi con học ở nơi cần yên lặng.</small></label><select class="select-lg" data-change="speakMode"><option value="required"${st.settings.speakMode !== 'optional' ? ' selected' : ''}>🎤 Bật – phải nói mới qua</option><option value="optional"${st.settings.speakMode === 'optional' ? ' selected' : ''}>🔇 Tắt – nói là tùy chọn</option></select></div>
@@ -1074,6 +1107,7 @@
             <div class="lesson-step-name" id="stepName"></div>
           </div>
           <div class="lesson-earned">
+            ${speedChipHTML()}
             <span class="chip" id="lsStudChip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="stud-icon"></i><b id="lsStuds">0</b></span>
             <span class="chip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="gold-icon"></i><b id="lsGold">0</b></span>
           </div>
@@ -1211,7 +1245,7 @@
       }
       if (act === 'collect') {
         if (!this.d.heard.has(i)) { toast('Listen first!', 'Nghe trước đã nhé!', 'warm'); return; }
-        if (this.speakRequired() && !this.d.spoken.has(i) && (this.d.tries[i] || 0) < 3) { toast('Say it first!', 'Bấm 🎤 Say it! và nói to từ này trước nhé!', 'warm'); return; }
+        if (this.speakRequired() && !this.d.spoken.has(i) && (this.d.tries[i] || 0) < 5) { toast('Say it first!', 'Bấm 🎤 Say it! và nói to từ này trước nhé!', 'warm'); return; }
         if (this.d.collected.has(i)) return;
         this.d.collected.add(i);
         card.classList.add('collected');
@@ -1302,13 +1336,26 @@
       await Recorder.stop();
       if (tk !== this.token) return;
       this.sayItBtn(i, 'idle');
-      if (!Recorder.heardVoice(200)) { this.sayItMiss(i); return; }
+      if (!Recorder.heardVoice(250)) { this.sayItMiss(i); return; }
+      D.clips = D.clips || {};
+      D.clips[i] = Recorder.lastBlob;
       this.spokeWord(i);
-      // Nghe lại: giọng con → giọng mẫu (so sánh ngay)
-      await Recorder.play();
+      await this.hearMe(i);
+    },
+
+    /** ▶ Nghe lại giọng con rồi giọng mẫu để so sánh. */
+    async hearMe(i) {
+      const D = this.d, tk = this.token;
+      const clip = D && D.clips && D.clips[i];
+      if (!clip) return;
+      const b = $(`.hearme-btn[data-i="${i}"]`, overlay);
+      if (b) { b.classList.add('rec-on'); b.innerHTML = bi('🔊 Your voice…', 'Đang phát giọng con'); }
+      await Recorder.play(clip);
       if (tk !== this.token) return;
+      if (b) b.innerHTML = bi('🔊 Native…', 'Giọng mẫu');
       await sleep(250);
-      if (tk === this.token) sayWord(this.l.words[i], false);
+      if (tk === this.token) await sayWord(this.l.words[i], false);
+      if (b && b.isConnected) { b.classList.remove('rec-on'); b.innerHTML = bi('▶ My voice vs Native', 'Nghe lại giọng con & giọng mẫu'); }
     },
 
     sayItBtn(i, mode) {
@@ -1328,6 +1375,10 @@
       const card = $(`.word-card[data-i="${i}"]`, overlay);
       if (card) card.classList.add('spoken');
       this.sayItBtn(i, 'idle');
+      const say = card && $('.sayit-btn', card);
+      if (say && D.clips && D.clips[i] && !$('.hearme-btn', card)) {
+        say.insertAdjacentHTML('afterend', `<button class="brick-btn btn-blue btn-sm hearme-btn" data-action="hear-me" data-i="${i}">${bi('▶ My voice vs Native', 'Nghe lại giọng con & giọng mẫu')}</button>`);
+      }
       this.countSpoken();
       if (first) {
         Sfx.playBrickClick();
@@ -1343,7 +1394,7 @@
       D.tries[i] = (D.tries[i] || 0) + 1;
       this.sayItBtn(i, 'idle');
       Sfx.playGentleOops();
-      if (D.tries[i] >= 3) {
+      if (D.tries[i] >= 5) {
         this.enableCollect(i, true);
         toast("Let's keep going!", 'Không sao! Con thu thập gạch rồi lần sau nói to hơn nhé 💪', 'warm');
       } else toast(said ? `I heard ${said}` : "I can't hear you!", said ? 'Gần đúng rồi! Nghe mẫu rồi nói lại nhé' : 'Mình chưa nghe thấy giọng con – nói TO và RÕ hơn nhé!', 'warm');
@@ -1733,7 +1784,7 @@
       if (k === -1) this.b.placed.push(id); else this.b.placed.splice(k, 1);
       Sfx.playBrickClick();
       this.renderBricks();
-      if (k === -1) Speech.speak(this.b.bricks[id].t, { rate: 0.95 });
+      if (k === -1) Speech.speak(this.b.bricks[id].t);
       this.autoCheckSnowL1();
     },
 
@@ -2191,7 +2242,7 @@
           this.stopVu();
           await Recorder.stop();
           if (tk !== this.token) return;
-          if (!Recorder.heardVoice()) {
+          if (!Recorder.heardVoice(400)) {
             // Không có tiếng nói trong bản ghi → chưa tính, mời con nói lại to hơn
             st.state = 'idle';
             this.refreshStudio();
@@ -2542,7 +2593,7 @@
       overlay.innerHTML = `<div class="lesson-top">
           <button class="brick-btn btn-white btn-round" data-action="gym-close" aria-label="Close">✕</button>
           <div style="text-align:center"><b class="en" style="font-size:22px">🎧 Listening & Speaking Gym</b><div class="lesson-step-name">Phòng luyện Nghe – Nói 3 phút · nghe trước, đọc sau!</div></div>
-          <div class="lesson-earned"><span class="chip" style="box-shadow:0 4px 0 var(--card-edge)">🎯 <b id="gymScore">0</b></span></div>
+          <div class="lesson-earned">${speedChipHTML()}<span class="chip" style="box-shadow:0 4px 0 var(--card-edge)">🎯 <b id="gymScore">0</b></span></div>
         </div>
         <div class="lesson-body" id="gymBody"></div>`;
       document.body.style.overflow = 'hidden';
@@ -2938,6 +2989,7 @@
     'reveal': (el) => Lesson.discoverAction('reveal', Number(el.dataset.i), el),
     'collect': (el) => Lesson.discoverAction('collect', Number(el.dataset.i), el),
     'say-it': (el) => Lesson.sayIt(Number(el.dataset.i), el),
+    'hear-me': (el) => Lesson.hearMe(Number(el.dataset.i)),
     'reflex-replay': () => Lesson.reflexSpeak(),
     'reflex-pick': (el) => Lesson.reflexPick(Number(el.dataset.i), el),
     'comic-play': () => Lesson.comicPlay(),
@@ -2969,6 +3021,7 @@
     'qb-later': () => Lesson.finishLesson(),
 
     // Tủ đồ
+    'speed-cycle': () => cycleSpeed(),
     'locker-cat': (el) => { App.lockerCat = el.dataset.cat; renderLocker(); },
     'locker-item': (el) => lockerItem(el.dataset.id),
     'fig-hello': () => { const f = $('#bigFig svg'); if (f) bounceEl(f); Speech.speak(`Hi! I'm ${S.state.profile.name}. I love building with LEGO!`, { pitch: 1.15 }); },

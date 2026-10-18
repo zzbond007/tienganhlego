@@ -29,6 +29,13 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🛍️ Cửa hàng nhân vật (Tủ đồ):** 99 món, chia 8 nhóm – mũ & tóc, khuôn mặt, trang phục, quần, phụ kiện, 🐶 thú cưng,
+🛹 xe, 🧑‍🤝‍🧑 bạn đồng hành. Độ hiếm: Thường (≤ 80 Studs) · Hiếm (≤ 250) · Sử thi (≤ 600) · ⭐ Huyền thoại (đến 900 Studs
+hoặc mua bằng 🥇 Gold Brick: vương miện kim cương, áo giáp vàng, rồng con, kỳ lân, tên lửa, bạn Robot). Thú cưng, xe và
+bạn đồng hành xuất hiện cùng nhân vật ở Bản đồ, Tủ đồ và Hộ chiếu.
+
+**🐢 Tốc độ đọc:** 4 mức Rất chậm / Chậm (mặc định) / Vừa / Tự nhiên; đổi nhanh bằng nút 🐢 trên thanh bài học & Gym.
+
 **🎤 Bắt buộc luyện nói (mặc định BẬT, tắt được trong Góc Bố Mẹ):**
 - Bước 1 – mỗi từ: 🔊 nghe → 🎤 *Say it!* nói to → app phát lại giọng con rồi giọng mẫu → mới thu được gạch (nói được: +2 Studs thay vì +1).
   Máy tự dừng ghi khi con nói xong. Nếu 3 lần không nghe thấy tiếng, con vẫn được thu gạch để không bị kẹt.

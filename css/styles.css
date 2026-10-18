@@ -1291,3 +1291,19 @@ p { margin: 0; }
 .word-card.spoken .sayit-btn { background: var(--green); box-shadow: 0 4px 0 var(--green-d); }
 .word-card.spoken::after { content: '🎤'; position: absolute; top: 8px; right: 10px; font-size: 20px; }
 .speak-praise { font-weight: 800; color: var(--green-d); margin: 4px 0 10px; }
+
+/* ---------- Cửa hàng mở rộng: thú cưng, xe, bạn đồng hành, độ hiếm ---------- */
+.fig-stage svg.fig.fig-scene { width: 100%; max-width: 520px; height: 260px; }
+.hero-fig.fig-scene { width: auto; max-width: 240px; height: 120px; }
+.pp-photo svg.fig-scene { width: auto; max-width: 220px; }
+svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
+.item svg.item-solo { width: 110px; height: 96px; margin: 8px 0 6px; }
+.tier-badge { position: absolute; top: 6px; left: 6px; font-size: 11px; font-weight: 800; color: #fff; background: var(--tc); border-radius: 8px; padding: 2px 7px; z-index: 1; }
+.item.tier-rare { box-shadow: 0 5px 0 #7DD3FC; }
+.item.tier-epic { box-shadow: 0 5px 0 #C4B5FD; background: linear-gradient(180deg, #fff 70%, #F5F3FF); }
+.item.tier-legendary { box-shadow: 0 5px 0 #FCD34D; background: linear-gradient(180deg, #FFFBEB, #FEF3C7); }
+.item.tier-legendary .tier-badge { animation: micPulse 2s infinite; }
+.collection-bar { font-weight: 800; margin: 6px 0 10px; color: var(--muted); }
+.collection-bar b { color: var(--green-d); font-size: 18px; }
+.item.equipped[class*="tier-"] { box-shadow: 0 5px 0 var(--green-d); }
+.word-card .hearme-btn { width: 100%; }
