@@ -43,8 +43,8 @@
       words: {},            // { wordId: { stage, due, correct, wrong, learnedAt, lastReview } }
       mistakes: {},         // { key: { text, vi, count, last } }
       daily: {},            // { 'YYYY-MM-DD': giây học }
-      avatar: { hat: 'cap-red', face: 'smile', torso: 'torso-red', legs: 'legs-blue', acc: 'none' },
-      owned: ['none-hat', 'cap-red', 'hair-brown', 'smile', 'grin', 'torso-red', 'torso-blue', 'legs-blue', 'legs-black', 'none'],
+      avatar: { hat: 'cap-red', face: 'smile', torso: 'torso-red', legs: 'legs-blue', acc: 'none', pet: 'none-pet', ride: 'none-ride', buddy: 'none-buddy' },
+      owned: ['none-hat', 'cap-red', 'hair-brown', 'smile', 'grin', 'torso-red', 'torso-blue', 'legs-blue', 'legs-black', 'none', 'none-pet', 'none-ride', 'none-buddy'],
       polished: {},         // { z1: timestamp lần bảo trì gần nhất }
       mysteries: {},        // { z1: { done, stars, at } } – LEGO Mystery Mission
       gym: {},              // { 'YYYY-MM-DD': số lượt Listening & Speaking Gym }
@@ -54,7 +54,8 @@
       customUnits: [],      // [{ id: 'c1', addedAt, data: {...JSON bố mẹ nhập} }]
       settings: {
         accent: 'en-US',
-        rate: 0.9,
+        rate: 0.65,
+        rateV2: true,
         sfx: true,
         book: 'none',       // 'none' | 'gs4'
         schoolUnit: 1,
@@ -113,6 +114,12 @@
     out.profile = Object.assign({}, base.profile, saved.profile || {});
     out.avatar = Object.assign({}, base.avatar, saved.avatar || {});
     out.settings = Object.assign({}, base.settings, saved.settings || {});
+    // Bản cũ đọc nhanh (0.75 / 0.9 / 1) → thang mới chậm hơn cho iPad (chỉ một lần)
+    if (saved.settings && !saved.settings.rateV2) {
+      const r = Number(saved.settings.rate) || 0.9;
+      out.settings.rate = r >= 1 ? 0.8 : r <= 0.75 ? 0.5 : 0.65;
+      out.settings.rateV2 = true;
+    }
     ['lessons', 'parts', 'words', 'mistakes', 'daily', 'polished', 'mysteries', 'snow', 'branches', 'gym', 'speak'].forEach((k) => {
       out[k] = Object.assign({}, saved[k] || {});
     });
@@ -422,6 +429,15 @@
     buy(itemId, price) {
       if (this.owns(itemId)) return true;
       if (!this.spendStuds(price)) return false;
+      this.state.owned.push(itemId);
+      this.save();
+      return true;
+    },
+    /** Đồ Huyền thoại: trả bằng Gold Brick. */
+    buyWithGold(itemId, gold) {
+      if (this.owns(itemId)) return true;
+      if (this.state.goldBricks < gold) return false;
+      this.state.goldBricks -= gold;
       this.state.owned.push(itemId);
       this.save();
       return true;

@@ -265,6 +265,7 @@
     const legD = shade(legC, -0.3), tD = shade(torso.c, -0.3);
     const hat = HATS[c.hat] || HATS['none-hat'];
     let s = '';
+    if (torso.back) s += torso.back;   // áo choàng / gai lưng vẽ phía sau
     // Chân + hông
     s += `<rect x="8" y="80" width="44" height="8" rx="2" fill="${shade(legC, -0.12)}" stroke="${legD}"/>`;
     s += `<rect x="9" y="87" width="20" height="33" rx="2" fill="${legC}" stroke="${legD}"/><rect x="9" y="116" width="20" height="5" rx="1.5" fill="${legD}"/>`;
@@ -1193,6 +1194,7 @@
     COLORS: C,
     MODELS,
     ITEMS,
+    PARTS: { HATS, FACES, TORSOS, LEGS, ACCS },
     shade,
     renderModel,
     renderPart,

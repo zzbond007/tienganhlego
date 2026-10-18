@@ -175,7 +175,7 @@
   const Speech = {
     supported: !!(synth && global.SpeechSynthesisUtterance),
     accent: 'en-US',
-    rate: 0.9,
+    rate: 0.65,
     voices: [],
     _voice: null,
     _unlocked: false,
@@ -317,13 +317,13 @@
       for (let i = 0; i < words.length; i++) {
         if (id !== this._slowId) return;
         if (opts.onWord) opts.onWord(i);
-        await this.speak(words[i], { rate: 0.62 });
+        await this.speak(words[i], { rate: Math.min(0.6, this.rate * 0.85) });
         await new Promise((r) => setTimeout(r, 160));
       }
       if (opts.onWord) opts.onWord(-1);
       // Đọc lại cả cụm ở tốc độ chậm vừa
       if (id === this._slowId && words.length > 1) {
-        await this.speak(text, { rate: 0.7 });
+        await this.speak(text, { rate: Math.min(0.7, this.rate) });
       }
     }
   };
@@ -497,7 +497,13 @@
       this.voiceMs = this._an ? 0 : null;
       if (!this._an) return;
       const STEP = 50, buf = new Uint8Array(this._an.fftSize);
-      let floor = 0.012, lastVoice = 0, started = Date.now();
+      // Chặt hơn để tiếng ồn nền (quạt, TV, tiếng bấm màn hình) không bị tính là con nói:
+      //  - bỏ qua 250 ms đầu (tiếng chạm nút), dùng nó để đo độ ồn nền
+      //  - ngưỡng = max(0.045, ồn nền × 3.2), ồn nền cập nhật liên tục khi không có tiếng nói
+      //  - chỉ tính những đoạn có tiếng liên tục ≥ 150 ms (tiếng nói thật), và phải có lúc đủ to (peak)
+      let floor = 0, nFloor = 0, lastVoice = 0, run = 0;
+      const started = Date.now();
+      this.peak = 0;
       this._vadTimer = setInterval(() => {
         if (!this._an || !this.isRecording()) { clearInterval(this._vadTimer); return; }
         this._an.getByteTimeDomainData(buf);
@@ -505,9 +511,16 @@
         for (let i = 0; i < buf.length; i++) { const v = (buf[i] - 128) / 128; sum += v * v; }
         const rms = Math.sqrt(sum / buf.length);
         const now = Date.now();
-        // Ngưỡng thích nghi với tiếng ồn nền trong 400 ms đầu
-        if (now - started < 400 && rms < 0.025) floor = Math.max(floor, rms);
-        if (rms > Math.max(0.03, floor * 2.5)) { this.voiceMs += STEP; lastVoice = now; }
+        if (now - started < 250) { floor = (floor * nFloor + rms) / (++nFloor); return; }
+        const thr = Math.max(0.045, Math.min(0.2, floor * 3.2));
+        if (rms > thr) {
+          run++;
+          if (run === 3) this.voiceMs += 3 * STEP; else if (run > 3) this.voiceMs += STEP;
+          if (run >= 3) { lastVoice = now; this.peak = Math.max(this.peak, rms); }
+        } else {
+          run = 0;
+          floor = floor * 0.9 + rms * 0.1;
+        }
         // Tự dừng khi con đã nói xong (im lặng sau khi có tiếng) – tiện cho bé, không cần bấm Dừng
         if (opts.autoStop && this.voiceMs >= (opts.minVoiceMs || 300) && now - lastVoice > (opts.silenceMs || 1100)) {
           clearInterval(this._vadTimer);
@@ -516,7 +529,7 @@
       }, STEP);
     },
     /** Đã nghe thấy giọng con chưa? (true nếu không đo được – không chặn bé vì lỗi thiết bị) */
-    heardVoice(minMs = 300) { return this.voiceMs === null || this.voiceMs >= minMs; },
+    heardVoice(minMs = 300) { return this.voiceMs === null || (this.voiceMs >= minMs && (this.peak || 0) >= 0.07); },
 
     /** start({ maxMs, autoStop, silenceMs, onAuto(reason) }) */
     async start(opts = {}) {
@@ -566,6 +579,7 @@
         this._rec.onstop = () => {
           if (this._url) URL.revokeObjectURL(this._url);
           const blob = new Blob(this._chunks, { type: this._rec.mimeType || 'audio/mp4' });
+          this.lastBlob = blob; this._decoded = null;
           this._url = URL.createObjectURL(blob);
           this.release();   // giữ micro nếu đang trong buổi học (_hold), tránh iPad hỏi quyền lại
           resolve(this._url);
@@ -584,13 +598,41 @@
 
     isRecording() { return !!(this._rec && this._rec.state === 'recording'); },
 
-    play() {
-      if (!this._url) return Promise.resolve();
-      return new Promise((resolve) => {
-        const a = new Audio(this._url);
-        a.onended = resolve; a.onerror = resolve;
-        a.play().catch(resolve);
+    /** Phát lại giọng con. Dùng Web Audio (AudioContext đã được mở khóa bằng thao tác chạm) vì iPad hay chặn
+     *  thẻ <audio> phát sau một chuỗi await; có khuếch đại nhẹ vì khi micro mở iPad phát nhỏ hơn. */
+    play(blob) {
+      const b = blob || this.lastBlob;
+      if (!b) return Promise.resolve();
+      const ctx = global.Sfx && global.Sfx.ctx;
+      const viaElement = () => new Promise((resolve) => {
+        const url = blob ? URL.createObjectURL(b) : this._url;
+        const a = new Audio(url);
+        const done = () => { if (blob) URL.revokeObjectURL(url); resolve(); };
+        a.onended = done; a.onerror = done;
+        a.play().catch(done);
       });
+      if (!ctx || !ctx.decodeAudioData || !b.arrayBuffer) return viaElement();
+      return (async () => {
+        try {
+          if (ctx.state === 'suspended') await ctx.resume();
+          let audio = !blob && this._decoded;
+          if (!audio) {
+            const ab = await b.arrayBuffer();
+            audio = await new Promise((res, rej) => { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); });
+            if (!blob) this._decoded = audio;
+          }
+          await new Promise((resolve) => {
+            const src = ctx.createBufferSource();
+            const g = ctx.createGain();
+            g.gain.value = 1.8;
+            src.buffer = audio;
+            src.connect(g); g.connect(ctx.destination);
+            src.onended = resolve;
+            src.start(0);
+            setTimeout(resolve, audio.duration * 1000 + 400);
+          });
+        } catch (e) { await viaElement(); }
+      })();
     },
 
     /** Nhả micro. Trong buổi học (_hold) chỉ dừng ghi, giữ luồng micro; force = nhả hẳn. */
