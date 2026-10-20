@@ -54,8 +54,8 @@
             { vi: 'Em muốn giải thích: Cây cần ánh nắng để lớn.', a: ['Plants', 'need', 'sunlight', 'to grow.'], x: ['needs', 'grows'] }
           ],
           talk: [
-            { q: 'What do plants need to grow?', vi: 'Cây cần gì để lớn lên?', hint: 'Plants need water and sunlight.', k: ['need|needs|like', 'water|sunlight|sun|soil|air|light'], c: ['Plants need water and sunlight.', 'Plants need pizza and socks.', 'Plants need a bicycle.'] },
-            { q: 'What colour are the leaves on your favourite tree?', vi: 'Lá của cái cây bạn thích có màu gì?', hint: 'The leaves are dark green.', k: ['leaves|leaf|they|it', 'green|yellow|red|orange|brown|purple'], c: ['The leaves are dark green.', 'The leaves are my teacher.', 'The leaves are under my bed.'] }
+            { q: 'What do plants need to grow?', vi: 'Cây cần gì để lớn lên?', hint: 'Plants need water and sunlight.', k: ['need|needs', 'water|sunlight|sun|soil|air|light|sunshine'], c: ['Plants need water and sunlight.', 'Plants grow in the garden.', 'Plants have green leaves.'] },
+            { q: 'What colour are the leaves on your favourite tree?', vi: 'Lá của cái cây bạn thích có màu gì?', hint: 'The leaves are dark green.', k: ['green|yellow|red|orange|brown|purple|pink'], c: ['The leaves are dark green.', 'The leaves are big and soft.', 'My favourite tree is a mango tree.'] }
           ],
           snow: { vi: 'Kể về các bộ phận của cây', l: [[['the roots'], 'rễ cây'], [['The roots', 'drink', 'water.'], 'Rễ cây uống nước.'], [['Under the ground,', 'the roots', 'drink', 'water', 'and hold the plant.'], 'Dưới mặt đất, rễ cây uống nước và giữ cho cây đứng vững.']], x: ['drinks', 'sky'] },
           cb: ['b', 'Bin, this plant is too dark in the corner. What should we do?', 'Bin ơi, cây này để trong góc tối quá. Mình nên làm gì nhỉ?', [
@@ -69,7 +69,7 @@
             ['Roots grow under the ground.', true, 'Yes! Roots grow down into the soil to find water.', 'Đúng! Rễ mọc xuống đất để tìm nước.'],
             ['Plants grow best in a dark cupboard.', false, 'No! Plants need sunlight to make their food.', 'Sai! Cây cần ánh nắng để làm ra thức ăn.']
           ],
-          qa: ['Do you have any plants at home?', 'Nhà bạn có trồng cây không?', 'Yes, we have a small lime tree on the balcony.', ['yes|no|we|have|my', 'tree|plant|plants|flower|flowers|garden|balcony|pot']]
+          qa: ['Do you have any plants at home?', 'Nhà bạn có trồng cây không?', 'Yes, we have a small lime tree on the balcony.', ['yes|no|sometimes', 'tree|plant|plants|flower|flowers|garden|balcony|pot|lime']]
         },
         {
           title: 'The Bean-in-a-Jar Experiment', titleVi: 'Thí nghiệm hạt đậu trong lọ', icon: '🫘',
@@ -95,8 +95,8 @@
             { vi: 'Em muốn nói: Mình giữ bông gòn luôn ẩm.', a: ['I', 'keep', 'the cotton wool', 'damp.'], x: ['keeps', 'dry'] }
           ],
           talk: [
-            { q: 'Where will you put your bean jar?', vi: 'Bạn sẽ đặt lọ đậu của mình ở đâu?', hint: 'I will put it near the window.', k: ['put|keep|it|will', 'window|sun|kitchen|balcony|table|garden|room'], c: ['I will put it near the window.', 'I will put it in my soup.', 'I will put it on the cat.'] },
-            { q: 'What do you think will happen to the bean?', vi: 'Bạn nghĩ hạt đậu sẽ ra sao?', hint: 'I think it will sprout.', k: ['think|will|maybe|guess', 'sprout|grow|roots|leaves|green|bigger'], c: ['I think it will sprout.', 'I think it will fly to the moon.', 'I think it will sing a song.'] }
+            { q: 'Where will you put your bean jar?', vi: 'Bạn sẽ đặt lọ đậu của mình ở đâu?', hint: 'I will put it near the window.', k: ['window|sun|sunny|kitchen|balcony|table|garden|room|shelf|desk'], c: ['I will put it near the window.', 'I will water it every day.', 'It will grow big and green.'] },
+            { q: 'What do you think will happen to the bean?', vi: 'Bạn nghĩ hạt đậu sẽ ra sao?', hint: 'I think it will sprout.', k: ['sprout|grow|grows|roots|leaves|shoot|bigger'], c: ['I think it will sprout.', 'I think it is in the jar.', 'I will put it near the window.'] }
           ],
           snow: { vi: 'Kể về thí nghiệm hạt đậu', l: [[['sprouted'], 'đã nảy mầm'], [['My bean', 'sprouted', 'quickly.'], 'Hạt đậu của mình nảy mầm nhanh.'], [['In the sunny jar,', 'my bean', 'sprouted', 'quickly', 'and grew green leaves.'], 'Trong lọ có nắng, hạt đậu nảy mầm nhanh và mọc lá xanh.']], x: ['sprouts', 'cupboard'] },
           cb: ['a', 'Oh no! I forgot my bean jar for a week. The cotton wool is dry!', 'Ôi không! Cháu quên lọ đậu cả tuần. Bông gòn khô hết rồi!', [
@@ -110,7 +110,7 @@
             ['A plant in the dark can turn pale and yellow.', true, 'Yes! Without sunlight, it cannot make green leaves well.', 'Đúng! Không có nắng, cây không làm ra lá xanh tốt được.'],
             ['Seeds need lots of chocolate to sprout.', false, 'No! Seeds need water, air and warmth.', 'Sai! Hạt cần nước, không khí và hơi ấm.']
           ],
-          qa: ['Have you ever grown a seed?', 'Bạn đã từng trồng một hạt giống chưa?', 'Yes, I grew a bean in a jar at school.', ['yes|no|i|grew|planted|never', 'bean|seed|flower|tree|jar|pot|school|home']]
+          qa: ['Have you ever grown a seed?', 'Bạn đã từng trồng một hạt giống chưa?', 'Yes, I grew a bean in a jar at school.', ['yes|no|never|grew|planted', 'bean|seed|seeds|flower|tree|jar|pot|plant']]
         },
         {
           title: "Grandma's Mango Seed", titleVi: 'Hạt xoài ở nhà bà', icon: '🥭',
@@ -136,8 +136,8 @@
             { vi: 'Em muốn kể theo thứ tự: Đầu tiên, mình đào một cái hố.', a: ['First,', 'we', 'dig', 'a hole.'], x: ['digs', 'Finally,'] }
           ],
           talk: [
-            { q: 'What fruit tree would you like to plant?', vi: 'Bạn muốn trồng cây ăn quả nào?', hint: "I'd like to plant a mango tree.", k: ["like|want|plant|i'd|would", 'mango|banana|orange|lime|papaya|guava|coconut|apple|longan|lychee|tree'], c: ["I'd like to plant a mango tree.", "I'd like to plant a television.", "I'd like to plant my homework."] },
-            { q: 'How do you plant a seed? Tell me the first step.', vi: 'Bạn gieo hạt như thế nào? Kể bước đầu tiên đi.', hint: 'First, I dig a hole in the soil.', k: ['first|dig|put|fill', 'hole|soil|pot|seed|flowerpot|water'], c: ['First, I dig a hole in the soil.', 'First, I eat the seed.', 'First, I go to the cinema.'] }
+            { q: 'What fruit tree would you like to plant?', vi: 'Bạn muốn trồng cây ăn quả nào?', hint: "I'd like to plant a mango tree.", k: ['mango|banana|orange|lime|papaya|guava|coconut|apple|longan|lychee|lemon|durian|jackfruit|pear|cherry|plum'], c: ["I'd like to plant a mango tree.", "I'd like to plant a rose.", "I'd like to plant it in the garden."] },
+            { q: 'How do you plant a seed? Tell me the first step.', vi: 'Bạn gieo hạt như thế nào? Kể bước đầu tiên đi.', hint: 'First, I dig a hole in the soil.', k: ['first|dig|start|begin', 'hole|soil|pot|flowerpot'], c: ['First, I dig a hole in the soil.', 'Finally, I water the seed.', 'First, I pick the fruit.'] }
           ],
           snow: { vi: 'Kể các bước trồng hạt xoài', l: [[['a hole'], 'một cái hố'], [['We', 'dig', 'a hole.'], 'Mình đào một cái hố.'], [['First,', 'we', 'dig', 'a hole', 'and plant the mango seed.'], 'Đầu tiên, mình đào một cái hố và gieo hạt xoài.']], x: ['digs', 'Finally,'] },
           cb: ['b', 'Bin, the sun is very hot at noon. Where should we put the young plant?', 'Bin ơi, giữa trưa nắng gắt lắm. Mình nên để cây non ở đâu?', [
@@ -151,7 +151,7 @@
             ['Some bamboo can grow almost one metre in one day.', true, 'Yes! Some kinds of bamboo are the fastest-growing plants.', 'Đúng! Một số loại tre là cây mọc nhanh nhất thế giới.'],
             ['You should plant a seed on the roof of a car.', false, 'No! You plant a seed in soil, in a garden or a flowerpot.', 'Sai! Con gieo hạt vào đất, trong vườn hoặc chậu cây.']
           ],
-          qa: ["What would you like to grow at your grandparents' house?", 'Bạn muốn trồng gì ở nhà ông bà?', 'I would like to grow a mango tree.', ['grow|plant|would|like|want', 'mango|tree|flower|flowers|vegetables|banana|lime|herbs|beans|rice']]
+          qa: ["What would you like to grow at your grandparents' house?", 'Bạn muốn trồng gì ở nhà ông bà?', 'I would like to grow a mango tree.', ['grow|plant', 'mango|tree|trees|flower|flowers|vegetables|banana|lime|herbs|beans|rice|fruit']]
         }
       ],
       mystery: {
@@ -205,8 +205,8 @@
             { vi: 'Em muốn giải thích: Máy lọc giữ cho nước sạch.', a: ['The filter', 'keeps', 'the water', 'clean.'], x: ['keep', 'dirty'] }
           ],
           talk: [
-            { q: 'What would you put in your dream fish tank?', vi: 'Bạn sẽ cho gì vào bể cá mơ ước của mình?', hint: 'I would put water plants and driftwood.', k: ['put|would|have|want', 'plants|driftwood|pebbles|fish|castle|rocks|filter|shells'], c: ['I would put water plants and driftwood.', 'I would put my bicycle in it.', 'I would put hot soup in it.'] },
-            { q: 'Why do fish need water plants?', vi: 'Vì sao cá cần cây thủy sinh?', hint: 'Because they can hide and rest there.', k: ['because|they|fish|to', 'hide|rest|eat|play|sleep|oxygen|safe|clean'], c: ['Because they can hide and rest there.', 'Because they can watch TV there.', 'Because plants can sing.'] }
+            { q: 'What would you put in your dream fish tank?', vi: 'Bạn sẽ cho gì vào bể cá mơ ước của mình?', hint: 'I would put water plants and driftwood.', k: ['plants|plant|driftwood|pebbles|fish|castle|rocks|filter|shells|sand|stones'], c: ['I would put water plants and driftwood.', 'I would put it in my bedroom.', 'I would feed them every day.'] },
+            { q: 'Why do fish need water plants?', vi: 'Vì sao cá cần cây thủy sinh?', hint: 'Because they can hide and rest there.', k: ['hide|rest|sleep|oxygen|safe|air|breathe|eat'], c: ['Because they can hide and rest there.', 'Because the water is warm.', 'Because they like to swim fast.'] }
           ],
           snow: { vi: 'Kể về bể cá của em', l: [[['driftwood'], 'khúc lũa'], [['My fish', 'love', 'the driftwood.'], 'Cá của mình thích khúc lũa.'], [['Every afternoon,', 'my fish', 'hide', 'behind the driftwood', 'and the water plants.'], 'Chiều nào cá của mình cũng trốn sau khúc lũa và cây thủy sinh.']], x: ['hides', 'roof'] },
           cb: ['b', 'Na, do you want ten fish in this small tank?', 'Na ơi, cháu có muốn thả mười con cá vào bể nhỏ này không?', [
@@ -246,8 +246,8 @@
             { vi: 'Em muốn kể: Con cá quẫy vây để bơi.', a: ['The fish', 'moves', 'its fins', 'to swim.'], x: ['move', 'legs'] }
           ],
           talk: [
-            { q: 'How do you breathe, and how do fish breathe?', vi: 'Bạn thở bằng gì, còn cá thở bằng gì?', hint: 'I breathe with my nose. Fish breathe with gills.', k: ['breathe|breath|use|with', 'nose|mouth|lungs|gills'], c: ['I breathe with my nose. Fish breathe with gills.', 'I breathe with my shoes.', 'Fish breathe with umbrellas.'] },
-            { q: 'What does your favourite fish look like?', vi: 'Con cá bạn thích trông như thế nào?', hint: 'It has orange scales and long fins.', k: ['has|have|it|is', 'scales|fins|tail|orange|red|blue|yellow|long|big|small|stripes|shiny'], c: ['It has orange scales and long fins.', 'It has four legs and a hat.', 'It has a red bicycle.'] }
+            { q: 'How do you breathe, and how do fish breathe?', vi: 'Bạn thở bằng gì, còn cá thở bằng gì?', hint: 'I breathe with my nose. Fish breathe with gills.', k: ['nose|mouth|lungs', 'gills'], c: ['I breathe with my nose. Fish breathe with gills.', 'I breathe with my nose. Fish breathe with fins.', 'I breathe with my mouth. Fish breathe air.'] },
+            { q: 'What does your favourite fish look like?', vi: 'Con cá bạn thích trông như thế nào?', hint: 'It has orange scales and long fins.', k: ['scales|fins|fin|tail|orange|red|blue|yellow|long|big|small|stripes|shiny|gold|silver|black|white|spots'], c: ['It has orange scales and long fins.', 'It lives in a glass tank.', 'It swims around all day.'] }
           ],
           snow: { vi: 'Kể về cách cá thở', l: [[['gills'], 'mang cá'], [['Fish', 'have', 'gills.'], 'Cá có mang.'], [['Under the water,', 'fish', 'breathe', 'with their gills', 'all day and night.'], 'Dưới nước, cá thở bằng mang suốt ngày đêm.']], x: ['has', 'noses'] },
           cb: ['b', 'Na, the fish are at the top, opening their mouths. What does it mean?', 'Na ơi, đàn cá ngoi lên mặt nước, há miệng. Thế là sao nhỉ?', [
@@ -261,7 +261,7 @@
             ['Fish use their gills to take oxygen from the water.', true, 'Yes! Gills work like our lungs.', 'Đúng! Mang cá hoạt động giống phổi của chúng ta.'],
             ['Fish breathe with a nose like ours.', false, 'No! Fish breathe with their gills.', 'Sai! Cá thở bằng mang.']
           ],
-          qa: ['Can you hold your breath underwater?', 'Bạn có thể nín thở dưới nước không?', 'Yes, I can hold my breath for ten seconds.', ['yes|no|can|cannot|can\'t', 'seconds|second|minute|breath|long|ten|five|twenty']]
+          qa: ['Can you hold your breath underwater?', 'Bạn có thể nín thở dưới nước không?', 'Yes, I can hold my breath for ten seconds.', ["yes|no|can|cannot|can't", 'seconds|second|minute|minutes|breath|ten|five|twenty']]
         },
         {
           title: 'The Guppy Care Mission', titleVi: 'Nhiệm vụ chăm cá bảy màu', icon: '🧽',
@@ -287,8 +287,8 @@
             { vi: 'Em muốn kể: Mình vệ sinh bể cá mỗi Chủ nhật.', a: ['I', 'clean', 'the tank', 'every Sunday.'], x: ['cleans', 'yesterday'] }
           ],
           talk: [
-            { q: 'How often should you feed a guppy?', vi: 'Nên cho cá bảy màu ăn bao lâu một lần?', hint: 'Two times a day, just a pinch of food.', k: ['once|two|twice|one|times|day', 'pinch|little|day|small|food'], c: ['Two times a day, just a pinch of food.', 'Twenty times a day, a big bucket.', 'Never, fish eat the pebbles.'] },
-            { q: 'Who can help you clean the tank?', vi: 'Ai có thể giúp bạn vệ sinh bể cá?', hint: 'My dad can help me clean the tank.', k: ['dad|mum|mom|brother|sister|grandpa|grandma|uncle|aunt|friend|myself', 'help|clean|can|tank'], c: ['My dad can help me clean the tank.', 'My goldfish can wash the dishes.', 'The moon can help me.'] }
+            { q: 'How often should you feed a guppy?', vi: 'Nên cho cá bảy màu ăn bao lâu một lần?', hint: 'Two times a day, just a pinch of food.', k: ['once|one|two|twice', 'day|pinch|little|small'], c: ['Two times a day, just a pinch of food.', 'Ten times a day, a big bowl of food.', 'Once a month, a big bowl.'] },
+            { q: 'Who can help you clean the tank?', vi: 'Ai có thể giúp bạn vệ sinh bể cá?', hint: 'My dad can help me clean the tank.', k: ['dad|mum|mom|brother|sister|grandpa|grandma|uncle|aunt|friend|myself|teacher|father|mother|parents'], c: ['My dad can help me clean the tank.', 'I clean the tank on Sundays.', 'We clean it with a sponge.'] }
           ],
           snow: { vi: 'Kể về cách chăm cá', l: [[['a pinch of food'], 'một nhúm thức ăn'], [['I', 'give', 'a pinch of food.'], 'Mình cho một nhúm thức ăn.'], [['Every morning,', 'I', 'give', 'my guppies', 'a pinch of food.'], 'Mỗi sáng, mình cho đàn cá bảy màu một nhúm thức ăn.']], x: ['gives', 'a bucket'] },
           cb: ['b', 'Na, we are going on holiday for three days. What about your guppies?', 'Na ơi, nhà mình đi du lịch ba ngày. Đàn cá bảy màu thì sao?', [
@@ -302,7 +302,7 @@
             ['Too much fish food makes the water dirty.', true, 'Yes! Old food goes bad in the water.', 'Đúng! Thức ăn thừa bị thối trong nước.'],
             ['You should clean the tank with soap.', false, 'No! Soap is bad for fish. Use clean water only.', 'Sai! Xà phòng có hại cho cá. Chỉ dùng nước sạch thôi.']
           ],
-          qa: ['If you had a fish, what would you name it?', 'Nếu có một con cá, bạn sẽ đặt tên nó là gì?', 'I would name it Bubbles.', ['name|call|would', 'it|my|fish|bubbles|nemo|goldie']]
+          qa: ['If you had a fish, what would you name it?', 'Nếu có một con cá, bạn sẽ đặt tên nó là gì?', 'I would name it Bubbles.', ['name|call|called']]
         }
       ],
       mystery: {
@@ -356,8 +356,8 @@
             { vi: 'Em muốn khen: Kiến rất cần cù.', a: ['Ants', 'are', 'very', 'hard-working.'], x: ['is', 'lazy'] }
           ],
           talk: [
-            { q: 'Do you like honey? What do you eat it with?', vi: 'Bạn có thích mật ong không? Bạn ăn nó với gì?', hint: 'Yes, I eat honey with bread.', k: ['yes|no|like|love|eat|put', 'bread|tea|pancakes|yoghurt|yogurt|milk|lemon|toast|it'], c: ['Yes, I eat honey with bread.', 'Yes, I eat honey with my shoes.', 'No, honey is a car.'] },
-            { q: 'What should you do if a bee comes near you?', vi: 'Bạn nên làm gì nếu một con ong bay tới gần?', hint: 'I should stay calm and walk away slowly.', k: ['stay|keep|walk|move|be|don\'t|stand', 'calm|still|slowly|away|quiet'], c: ['I should stay calm and walk away slowly.', 'I should hit it with a book.', 'I should eat it.'] }
+            { q: 'Do you like honey? What do you eat it with?', vi: 'Bạn có thích mật ong không? Bạn ăn nó với gì?', hint: 'Yes, I eat honey with bread.', k: ['yes|no|like|love', 'bread|tea|pancakes|yoghurt|yogurt|milk|lemon|toast|banana|rice|cake'], c: ['Yes, I eat honey with bread.', 'Yes, bees make honey.', 'Yes, I eat it in the morning.'] },
+            { q: 'What should you do if a bee comes near you?', vi: 'Bạn nên làm gì nếu một con ong bay tới gần?', hint: 'I should stay calm and walk away slowly.', k: ['calm|still|slowly|away|quiet'], c: ['I should stay calm and walk away slowly.', 'I should run and shout.', 'I should wave my hands at it.'] }
           ],
           snow: { vi: 'Kể về loài ong', l: [[['honey'], 'mật ong'], [['Bees', 'make', 'honey.'], 'Ong làm mật.'], [['In the beehive,', 'hard-working bees', 'make', 'sweet honey', 'from flowers.'], 'Trong tổ, những chú ong chăm chỉ làm mật ngọt từ hoa.']], x: ['makes', 'milk'] },
           cb: ['b', 'Tí, the ants are in the kitchen again. What should we do?', 'Tí ơi, kiến lại vào bếp rồi. Mình nên làm gì nhỉ?', [
@@ -371,7 +371,7 @@
             ['Ants can carry things much heavier than their own body.', true, 'Yes! Ants are very strong for their size.', 'Đúng! So với kích thước, kiến rất khỏe.'],
             ['Bees make honey from salt and rice.', false, 'No! Bees make honey from the nectar of flowers.', 'Sai! Ong làm mật từ mật hoa.']
           ],
-          qa: ['Which bug do you see most at your home?', 'Bạn hay thấy loài côn trùng nào nhất ở nhà?', 'I see ants in the kitchen every day.', ['see|saw|there|ants|have', 'ant|ants|mosquito|mosquitoes|fly|flies|bee|bees|butterfly|kitchen|garden']]
+          qa: ['Which bug do you see most at your home?', 'Bạn hay thấy loài côn trùng nào nhất ở nhà?', 'I see ants in the kitchen every day.', ['ant|ants|mosquito|mosquitoes|fly|flies|bee|bees|butterfly|cockroach|spider|spiders|gecko|moth|moths']]
         },
         {
           title: 'The Butterfly Life Cycle', titleVi: 'Vòng đời của bướm', icon: '🦋',
@@ -397,8 +397,8 @@
             { vi: 'Em muốn kể theo thứ tự: Cuối cùng, một chú bướm chui ra.', a: ['Finally,', 'a butterfly', 'comes out', 'of the chrysalis.'], x: ['First,', 'come out'] }
           ],
           talk: [
-            { q: 'Can you tell me the life cycle of a butterfly?', vi: 'Bạn kể vòng đời của bướm được không?', hint: 'Egg, caterpillar, chrysalis, then butterfly.', k: ['egg|first|caterpillar', 'chrysalis|cocoon|butterfly|then|finally'], c: ['Egg, caterpillar, chrysalis, then butterfly.', 'Butterfly, pizza, then car.', 'Egg, chicken, then omelette.'] },
-            { q: 'What colour wings would your dream butterfly have?', vi: 'Chú bướm mơ ước của bạn có cánh màu gì?', hint: 'It would have purple and gold wings.', k: ['would|have|has|it', 'red|blue|green|yellow|purple|pink|orange|gold|black|white|rainbow'], c: ['It would have purple and gold wings.', 'It would have four wheels.', 'It would have a school bag.'] }
+            { q: 'Can you tell me the life cycle of a butterfly?', vi: 'Bạn kể vòng đời của bướm được không?', hint: 'Egg, caterpillar, chrysalis, then butterfly.', k: ['caterpillar', 'chrysalis|cocoon|pupa'], c: ['Egg, caterpillar, chrysalis, then butterfly.', 'Egg, tadpole, then frog.', 'Caterpillar, egg, then butterfly.'] },
+            { q: 'What colour wings would your dream butterfly have?', vi: 'Chú bướm mơ ước của bạn có cánh màu gì?', hint: 'It would have purple and gold wings.', k: ['red|blue|green|yellow|purple|pink|orange|gold|black|white|rainbow|silver|brown'], c: ['It would have purple and gold wings.', 'It would have big, soft wings.', 'It would fly over the flowers.'] }
           ],
           snow: { vi: 'Kể về vòng đời của bướm', l: [[['a caterpillar'], 'một con sâu bướm'], [['A caterpillar', 'becomes', 'a butterfly.'], 'Sâu bướm biến thành bướm.'], [['After two weeks,', 'the caterpillar', 'becomes', 'a beautiful butterfly', 'with orange wings.'], 'Sau hai tuần, con sâu biến thành chú bướm xinh đẹp có cánh màu cam.']], x: ['become', 'a fish'] },
           cb: ['a', 'Dr. Ana, a caterpillar is eating our lime tree leaves! Should I take it away?', 'Cô Ana ơi, một con sâu đang ăn lá cây chanh! Cháu có nên bắt nó đi không?', [
@@ -438,8 +438,8 @@
             { vi: 'Em muốn nói: Giun đất làm cho đất tốt hơn.', a: ['Earthworms', 'make', 'the soil', 'better.'], x: ['makes', 'worse'] }
           ],
           talk: [
-            { q: 'Is a ladybird helpful or harmful? Why?', vi: 'Bọ rùa có ích hay có hại? Vì sao?', hint: 'It is helpful because it eats aphids.', k: ['helpful|good|useful', 'because|eats|aphids|bugs|plants'], c: ['It is helpful because it eats aphids.', 'It is harmful because it drives a car.', 'It is helpful because it sings.'] },
-            { q: 'What would you put in your bug hotel?', vi: 'Bạn sẽ cho gì vào khách sạn côn trùng của mình?', hint: 'I would put sticks, leaves and bamboo.', k: ['put|would|use|need', 'sticks|leaves|bamboo|bricks|stones|wood|pine|straw|cones'], c: ['I would put sticks, leaves and bamboo.', 'I would put a TV and a sofa.', 'I would put ice cream.'] }
+            { q: 'Is a ladybird helpful or harmful? Why?', vi: 'Bọ rùa có ích hay có hại? Vì sao?', hint: 'It is helpful because it eats aphids.', k: ['helpful|good|useful', 'aphids|bugs|insects|pests|greenfly'], c: ['It is helpful because it eats aphids.', 'It is harmful because it eats leaves.', 'It is helpful because it is red.'] },
+            { q: 'What would you put in your bug hotel?', vi: 'Bạn sẽ cho gì vào khách sạn côn trùng của mình?', hint: 'I would put sticks, leaves and bamboo.', k: ['sticks|leaves|bamboo|bricks|stones|wood|pine|straw|cones|bark|twigs|moss'], c: ['I would put sticks, leaves and bamboo.', 'I would put it in the garden.', 'I would put ladybirds and bees.'] }
           ],
           snow: { vi: 'Kể về những người bạn có ích trong vườn', l: [[['helpful'], 'có ích'], [['Earthworms', 'are', 'helpful.'], 'Giun đất có ích.'], [['In our garden,', 'earthworms', 'are', 'helpful', 'because they make the soil soft.'], 'Trong vườn nhà mình, giun đất có ích vì chúng làm đất tơi xốp.']], x: ['is', 'harmful'] },
           cb: ['b', 'Tí, your little sister wants to step on a worm! What do you say?', 'Tí ơi, em gái cháu định giẫm lên con giun! Cháu nói gì?', [
@@ -507,8 +507,8 @@
             { vi: 'Em muốn nói: Con hà mã ở dưới nước cả ngày.', a: ['The hippo', 'stays', 'in the water', 'all day.'], x: ['stay', 'tree'] }
           ],
           talk: [
-            { q: 'Which safari animal would you like to photograph?', vi: 'Bạn muốn chụp ảnh con vật nào trên thảo nguyên?', hint: 'I would like to photograph a zebra.', k: ['would|like|want|photograph|photo|take', 'zebra|hippo|rhino|gorilla|lion|elephant|giraffe|cheetah|tiger|monkey'], c: ['I would like to photograph a zebra.', 'I would like to photograph my homework.', 'I would like to eat a rhino.'] },
-            { q: 'What does a rhino look like?', vi: 'Con tê giác trông như thế nào?', hint: 'It is big and grey with a horn.', k: ['big|grey|gray|large|heavy|strong', 'horn|horns|skin|nose|legs'], c: ['It is big and grey with a horn.', 'It is tiny and pink with wings.', 'It is a kind of bicycle.'] }
+            { q: 'Which safari animal would you like to photograph?', vi: 'Bạn muốn chụp ảnh con vật nào trên thảo nguyên?', hint: 'I would like to photograph a zebra.', k: ['zebra|hippo|rhino|gorilla|lion|elephant|giraffe|cheetah|tiger|monkey|leopard|crocodile'], c: ['I would like to photograph a zebra.', 'I would like to photograph a sunset.', 'I would take a photo with my camera.'] },
+            { q: 'What does a rhino look like?', vi: 'Con tê giác trông như thế nào?', hint: 'It is big and grey with a horn.', k: ['big|grey|gray|large|heavy', 'horn|horns|skin'], c: ['It is big and grey with a horn.', 'It is big and grey with a long trunk.', 'It has black and white stripes.'] }
           ],
           snow: { vi: 'Kể về chuyến safari của em', l: [[['a zebra'], 'một con ngựa vằn'], [['I', 'saw', 'a zebra.'], 'Mình thấy một con ngựa vằn.'], [['On our safari,', 'I', 'saw', 'a zebra', 'and two hippos in the river.'], 'Trong chuyến safari, mình thấy một con ngựa vằn và hai con hà mã dưới sông.']], x: ['see', 'a penguin'] },
           cb: ['b', 'Khang, a gorilla is looking at you through the glass. What do you do?', 'Khang ơi, một con khỉ đột đang nhìn em qua tấm kính. Em làm gì?', [
@@ -548,8 +548,8 @@
             { vi: 'Em muốn nói: Hà mã nặng hơn ô tô.', a: ['A hippo', 'is', 'heavier than', 'a car.'], x: ['heavy than', 'are'] }
           ],
           talk: [
-            { q: 'Which is heavier: a hippo or a dog?', vi: 'Con nào nặng hơn: hà mã hay con chó?', hint: 'A hippo is heavier than a dog.', k: ['hippo', 'heavier|bigger'], c: ['A hippo is heavier than a dog.', 'A dog is heavier than a mountain.', 'A hippo is a kind of pizza.'] },
-            { q: 'What is your favourite dinosaur? Why?', vi: 'Khủng long yêu thích của bạn là con nào? Vì sao?', hint: 'I like Stegosaurus because it has big plates.', k: ['like|love|favourite|favorite', 'because|big|long|fast|strong|horns|plates|teeth|fly|cool'], c: ['I like Stegosaurus because it has big plates.', 'I like the fridge because it is cold.', 'I like Monday because it is a dinosaur.'] }
+            { q: 'Which is heavier: a hippo or a dog?', vi: 'Con nào nặng hơn: hà mã hay con chó?', hint: 'A hippo is heavier than a dog.', k: ['hippo', 'heavier|bigger'], c: ['A hippo is heavier than a dog.', 'A dog is heavier.', 'A hippo is faster than a dog.'] },
+            { q: 'What is your favourite dinosaur? Why?', vi: 'Khủng long yêu thích của bạn là con nào? Vì sao?', hint: 'I like Stegosaurus because it has big plates.', k: ['stegosaurus|t-rex|rex|triceratops|diplodocus|brachiosaurus|velociraptor|raptor|pterodactyl|dinosaur|spinosaurus|ankylosaurus', 'because|big|long|fast|strong|horns|plates|teeth|fly|cool'], c: ['I like Stegosaurus because it has big plates.', 'Stegosaurus ate plants.', 'I like the dinosaur museum.'] }
           ],
           snow: { vi: 'So sánh khủng long', l: [[['longer than'], 'dài hơn'], [['Diplodocus', 'was', 'longer than a bus.'], 'Khủng long cổ dài dài hơn xe buýt.'], [['Millions of years ago,', 'Diplodocus', 'was', 'longer than', 'three school buses.'], 'Hàng triệu năm trước, khủng long cổ dài dài hơn ba chiếc xe buýt trường học.']], x: ['longest', 'is'] },
           cb: ['a', 'My friend says dinosaurs and people lived together. Is that true?', 'Bạn em bảo khủng long và con người từng sống cùng nhau. Đúng không ạ?', [
@@ -563,7 +563,7 @@
             ['Some dinosaurs were heavier than ten elephants.', true, 'Yes! Argentinosaurus was one of the heaviest animals on land ever.', 'Đúng! Argentinosaurus là một trong những loài vật trên cạn nặng nhất từ trước đến nay.'],
             ['People lived at the same time as Diplodocus.', false, 'No! Dinosaurs like Diplodocus lived millions of years before people.', 'Sai! Những loài như Diplodocus sống hàng triệu năm trước con người.']
           ],
-          qa: ['If you met a dinosaur, what would you say?', 'Nếu gặp một con khủng long, bạn sẽ nói gì?', 'I would say: Hello! Please don’t eat me!', ['say|hello|hi|would', 'please|eat|friend|run|big|hello|hi']]
+          qa: ['If you met a dinosaur, what would you say?', 'Nếu gặp một con khủng long, bạn sẽ nói gì?', 'I would say: Hello! Please don’t eat me!', ['hello|hi|please|friend|eat|run|help|wow']]
         },
         {
           title: 'Animal Record Breakers', titleVi: 'Những nhà vô địch động vật', icon: '🏆',
@@ -589,8 +589,8 @@
             { vi: 'Em muốn so sánh: Con rùa chậm hơn con thỏ.', a: ['A tortoise', 'is', 'slower than', 'a rabbit.'], x: ['slowest', 'more slow'] }
           ],
           talk: [
-            { q: 'Which animal is the fastest on land?', vi: 'Loài vật nào chạy nhanh nhất trên cạn?', hint: 'The cheetah is the fastest on land.', k: ['cheetah', 'fastest|fast|quickest|run|is'], c: ['The cheetah is the fastest on land.', 'The snail is the fastest on land.', 'The sofa is the fastest on land.'] },
-            { q: 'Who is the tallest person in your family?', vi: 'Ai là người cao nhất trong nhà bạn?', hint: 'My dad is the tallest in my family.', k: ['dad|father|mum|mom|mother|brother|sister|grandpa|grandma|uncle|i|me', 'tallest|tall|biggest'], c: ['My dad is the tallest in my family.', 'My goldfish is the tallest in my family.', 'The fridge is my dad.'] }
+            { q: 'Which animal is the fastest on land?', vi: 'Loài vật nào chạy nhanh nhất trên cạn?', hint: 'The cheetah is the fastest on land.', k: ['cheetah'], c: ['The cheetah is the fastest on land.', 'The horse is the fastest on land.', 'The sailfish is the fastest in the sea.'] },
+            { q: 'Who is the tallest person in your family?', vi: 'Ai là người cao nhất trong nhà bạn?', hint: 'My dad is the tallest in my family.', k: ['dad|father|mum|mom|mother|brother|sister|grandpa|grandma|uncle|aunt|i|me', 'tallest|tall|biggest'], c: ['My dad is the tallest in my family.', 'My baby sister is the shortest.', 'My dad is the oldest in my family.'] }
           ],
           snow: { vi: 'Kể về kỷ lục động vật', l: [[['the fastest'], 'nhanh nhất'], [['The cheetah', 'is', 'the fastest.'], 'Báo săn nhanh nhất.'], [['On land,', 'the cheetah', 'is', 'the fastest animal', 'in the world.'], 'Trên cạn, báo săn là loài vật nhanh nhất thế giới.']], x: ['fast', 'are'] },
           cb: ['b', 'You lost the Top Trumps game three times. How do you feel?', 'Em thua bài so tài ba lần rồi. Em thấy sao?', [
@@ -604,7 +604,7 @@
             ['The blue whale is bigger than any dinosaur we know.', true, 'Yes! It is the biggest animal that has ever lived.', 'Đúng! Nó là loài vật to nhất từng sống trên Trái Đất.'],
             ['A snail is faster than a cheetah.', false, 'No! A snail is much slower than a cheetah.', 'Sai! Ốc sên chậm hơn báo săn rất nhiều.']
           ],
-          qa: ['What is the fastest thing you can do?', 'Việc gì bạn làm nhanh nhất?', 'I can run faster than my brother.', ['run|swim|eat|ride|read|can|faster|fastest', 'faster|fastest|than|quick|quickly']]
+          qa: ['What is the fastest thing you can do?', 'Việc gì bạn làm nhanh nhất?', 'I can run faster than my brother.', ['run|swim|eat|ride|read|write|draw|type|dance|count', 'faster|fastest|quick|quickly|fast']]
         }
       ],
       mystery: {
@@ -662,8 +662,8 @@
             { vi: 'Em muốn kể: Mình thấy tia chớp trong cơn dông.', a: ['I', 'saw', 'lightning', 'in the thunderstorm.'], x: ['see', 'lemon'] }
           ],
           talk: [
-            { q: 'What is the weather like today?', vi: 'Hôm nay thời tiết thế nào?', hint: "It's chilly and cloudy today.", k: ['it|its|is', 'chilly|humid|hot|cold|sunny|rainy|cloudy|windy|drizzle|warm|cool|storm|thunderstorm'], c: ["It's chilly and cloudy today.", "It's a big banana today.", 'The weather is my teacher.'] },
-            { q: 'Are you scared of thunderstorms?', vi: 'Bạn có sợ cơn dông không?', hint: 'A little, but I stay inside.', k: ['yes|no|little|bit|not|sometimes', 'scared|afraid|inside|home|thunder|storm|stay|cool|ok'], c: ['A little, but I stay inside.', 'Yes, I eat thunder for lunch.', 'No, I am a raincoat.'] }
+            { q: 'What is the weather like today?', vi: 'Hôm nay thời tiết thế nào?', hint: "It's chilly and cloudy today.", k: ['chilly|humid|hot|cold|sunny|rainy|cloudy|windy|drizzle|warm|cool|stormy|storm|foggy|raining|snowy|dry'], c: ["It's chilly and cloudy today.", "It's Monday today.", 'I am wearing my jacket.'] },
+            { q: 'Are you scared of thunderstorms?', vi: 'Bạn có sợ cơn dông không?', hint: 'A little, but I stay inside.', k: ['yes|no|little|bit|not|sometimes', 'scared|afraid|inside|home|stay|ok|fine|brave'], c: ['A little, but I stay inside.', 'Yes, I like sunny days.', "No, it's very hot today."] }
           ],
           snow: { vi: 'Mô tả thời tiết hôm nay', l: [[['chilly'], 'se lạnh'], [['It', 'is', 'chilly.'], 'Trời se lạnh.'], [['This morning,', 'it', 'is', 'chilly', 'with a light drizzle.'], 'Sáng nay trời se lạnh và có mưa phùn nhẹ.']], x: ['are', 'humidly'] },
           cb: ['b', "Bin, there's lightning outside. Do you still want to play football?", 'Bin ơi, ngoài trời có sấm chớp. Cháu vẫn muốn đá bóng à?', [
@@ -703,8 +703,8 @@
             { vi: 'Em muốn kể: Mình xem dự báo thời tiết mỗi tối.', a: ['I', 'watch', 'the weather forecast', 'every evening.'], x: ['watches', 'the weather breakfast'] }
           ],
           talk: [
-            { q: "What's the temperature today?", vi: 'Hôm nay nhiệt độ bao nhiêu?', hint: "It's about twenty-five degrees.", k: ['degree|degrees|about|its|is', 'twenty|thirty|fifteen|eighteen|ten|hot|cold|warm|[0-9]+'], c: ["It's about twenty-five degrees.", "It's twenty-five bananas.", 'The temperature is my dog.'] },
-            { q: 'Who watches the weather forecast in your family?', vi: 'Ai trong nhà bạn hay xem dự báo thời tiết?', hint: 'My dad watches it every evening.', k: ['dad|mum|mom|grandpa|grandma|i|my|nobody|everyone', 'watch|watches|check|checks|phone|tv|evening|morning'], c: ['My dad watches it every evening.', 'My cat cooks the forecast.', 'The forecast is a pizza.'] }
+            { q: "What's the temperature today?", vi: 'Hôm nay nhiệt độ bao nhiêu?', hint: "It's about twenty-five degrees.", k: ['degree|degrees|twenty|thirty|fifteen|eighteen|nineteen|sixteen|seventeen|hot|cold|warm'], c: ["It's about twenty-five degrees.", "It's about five o'clock.", "It's sunny and windy today."] },
+            { q: 'Who watches the weather forecast in your family?', vi: 'Ai trong nhà bạn hay xem dự báo thời tiết?', hint: 'My dad watches it every evening.', k: ['dad|mum|mom|grandpa|grandma|i|nobody|everyone|father|mother|brother|sister|grandad|grandmother|grandfather'], c: ['My dad watches it every evening.', 'It says it will rain tomorrow.', "It is on TV at seven o'clock."] }
           ],
           snow: { vi: 'Đọc bản tin thời tiết như phát thanh viên', l: [[['cloudy'], 'nhiều mây'], [['Tomorrow', 'will be', 'cloudy.'], 'Ngày mai trời sẽ nhiều mây.'], [['Tomorrow,', 'Hà Nội', 'will be', 'cloudy', 'and eighteen degrees.'], 'Ngày mai, Hà Nội sẽ nhiều mây và mười tám độ.']], x: ['are', 'yesterday'] },
           cb: ['b', 'Oh no, Bin! You forgot the temperature on TV!', 'Ôi Bin ơi! Cháu quên đọc nhiệt độ trên TV rồi!', [
@@ -718,7 +718,7 @@
             ['A thermometer tells us the temperature.', true, 'Yes! A thermometer measures how hot or cold it is.', 'Đúng! Nhiệt kế đo độ nóng hay lạnh.'],
             ['Thirty-five degrees is very cold weather.', false, 'No! Thirty-five degrees is very hot.', 'Sai! Ba mươi lăm độ là rất nóng.']
           ],
-          qa: ["What's the weather forecast for tomorrow?", 'Dự báo thời tiết ngày mai thế nào?', "Tomorrow will be cloudy and twenty-two degrees.", ['will|tomorrow|going', 'cloudy|sunny|rainy|chilly|hot|cold|degrees|drizzle|storm|windy']]
+          qa: ["What's the weather forecast for tomorrow?", 'Dự báo thời tiết ngày mai thế nào?', "Tomorrow will be cloudy and twenty-two degrees.", ['cloudy|sunny|rainy|chilly|hot|cold|degrees|drizzle|storm|windy|warm|cool|rain']]
         },
         {
           title: 'Trip Check: North vs South', titleVi: 'Kiểm tra thời tiết trước chuyến đi', icon: '🧳',
@@ -744,8 +744,8 @@
             { vi: 'Em muốn khuyên: Chúng ta nên xem thời tiết trước chuyến đi.', a: ['We', 'should', 'check the weather', 'before the trip.'], x: ['checks', 'after the trip.'] }
           ],
           talk: [
-            { q: 'Do you check the weather before you go out?', vi: 'Bạn có xem thời tiết trước khi ra ngoài không?', hint: 'Yes, I check it on my mum\'s phone.', k: ['yes|no|sometimes|always|usually', 'check|look|phone|tv|app|mum|dad|weather|forecast'], c: ["Yes, I check it on my mum's phone.", 'Yes, I check it in my soup.', 'No, the weather is my shoe.'] },
-            { q: 'What do you take in the rainy season?', vi: 'Mùa mưa bạn mang theo gì?', hint: 'I take an umbrella and a raincoat.', k: ['take|bring|carry|wear|need', 'umbrella|raincoat|boots|coat|jacket|bag'], c: ['I take an umbrella and a raincoat.', 'I take a snowman.', 'I take the dry season.'] }
+            { q: 'Do you check the weather before you go out?', vi: 'Bạn có xem thời tiết trước khi ra ngoài không?', hint: 'Yes, I check it on my mum\'s phone.', k: ['yes|no|sometimes|always|usually|never|often', 'check|look|phone|tv|app|forecast'], c: ["Yes, I check it on my mum's phone.", 'Yes, I go out with my friends.', 'No, I go to school by bus.'] },
+            { q: 'What do you take in the rainy season?', vi: 'Mùa mưa bạn mang theo gì?', hint: 'I take an umbrella and a raincoat.', k: ['umbrella|raincoat|boots|poncho|coat|jacket'], c: ['I take an umbrella and a raincoat.', 'I take sunglasses and sun cream.', 'I take my swimsuit.'] }
           ],
           snow: { vi: 'Kể về mùa mưa ở miền Nam', l: [[['an umbrella'], 'một cái ô'], [['We', 'need', 'an umbrella.'], 'Chúng ta cần một cái ô.'], [['In the rainy season,', 'we', 'need', 'an umbrella', 'every afternoon.'], 'Vào mùa mưa, chiều nào chúng ta cũng cần ô.']], x: ['needs', 'a snowball'] },
           cb: ['b', 'The forecast says a big flood is coming to our street tonight.', 'Dự báo nói tối nay đường mình sẽ bị ngập to.', [
@@ -759,7 +759,7 @@
             ['Sài Gòn has a rainy season and a dry season.', true, 'Yes! The South has two main seasons.', 'Đúng! Miền Nam có hai mùa chính.'],
             ['It often snows in Sài Gòn in December.', false, 'No! Sài Gòn is warm all year. It never snows there.', 'Sai! Sài Gòn ấm quanh năm. Ở đó không bao giờ có tuyết.']
           ],
-          qa: ['What is the weather like in your city in winter?', 'Mùa đông ở thành phố bạn thời tiết thế nào?', 'It is chilly and there is a light drizzle.', ['it|its|is|there', 'chilly|cold|cool|warm|hot|drizzle|rainy|dry|humid|cloudy|sunny|windy']]
+          qa: ['What is the weather like in your city in winter?', 'Mùa đông ở thành phố bạn thời tiết thế nào?', 'It is chilly and there is a light drizzle.', ['chilly|cold|cool|warm|hot|drizzle|rainy|dry|humid|cloudy|sunny|windy']]
         }
       ],
       mystery: {
@@ -813,8 +813,8 @@
             { vi: 'Em muốn giải thích: Vũng nước bốc hơi dưới nắng nóng.', a: ['Puddles', 'evaporate', 'in the hot sun.'], x: ['evaporates', 'in the freezer.'] }
           ],
           talk: [
-            { q: 'Where does rain come from?', vi: 'Mưa đến từ đâu?', hint: 'Rain comes from the clouds.', k: ['come|comes|from|fall|falls', 'cloud|clouds|sky'], c: ['Rain comes from the clouds.', 'Rain comes from the fridge.', 'Rain comes from my shoes.'] },
-            { q: 'What happens to a puddle on a sunny day?', vi: 'Vũng nước sẽ ra sao vào ngày nắng?', hint: 'It evaporates and disappears.', k: ['evaporate|evaporates|disappear|disappears|dry|dries|gone|vapour|sky', 'it|puddle|water|sun'], c: ['It evaporates and disappears.', 'It turns into a cat.', 'It sings a song.'] }
+            { q: 'Where does rain come from?', vi: 'Mưa đến từ đâu?', hint: 'Rain comes from the clouds.', k: ['cloud|clouds|sky'], c: ['Rain comes from the clouds.', 'Rain goes into the rivers.', 'Rain falls in the rainy season.'] },
+            { q: 'What happens to a puddle on a sunny day?', vi: 'Vũng nước sẽ ra sao vào ngày nắng?', hint: 'It evaporates and disappears.', k: ['evaporate|evaporates|disappear|disappears|dry|dries|gone|vapour|vapor|steam'], c: ['It evaporates and disappears.', 'It gets bigger and deeper.', 'It turns into ice.'] }
           ],
           snow: { vi: 'Kể chuyến phiêu lưu của Giọt Nước', l: [[['evaporates'], 'bốc hơi'], [['Drip', 'evaporates', 'in the sun.'], 'Giọt bốc hơi dưới nắng.'], [['First,', 'Drip', 'evaporates', 'from the river', 'and floats up to the sky.'], 'Đầu tiên, Giọt bốc hơi từ dòng sông và bay lên bầu trời.']], x: ['evaporate', 'down to the ground.'] },
           cb: ['b', 'Na, I am so heavy now! Too many drops in this cloud!', 'Na ơi, mình nặng quá rồi! Đám mây này nhiều giọt quá!', [
@@ -828,7 +828,7 @@
             ['Water evaporates faster on a hot, sunny day.', true, 'Yes! Heat makes water evaporate quickly.', 'Đúng! Hơi nóng làm nước bốc hơi nhanh.'],
             ['Clouds are made of cotton.', false, 'No! Clouds are made of tiny drops of water or ice.', 'Sai! Mây được tạo từ những giọt nước hoặc tinh thể băng nhỏ li ti.']
           ],
-          qa: ['Where do you see water evaporate at home?', 'Ở nhà bạn thấy nước bốc hơi ở đâu?', 'I see it when my mum boils water in the kettle.', ['see|when|boil|boils|cook|dry|dries', 'kettle|pot|soup|rice|clothes|floor|water|puddle|tea']]
+          qa: ['Where do you see water evaporate at home?', 'Ở nhà bạn thấy nước bốc hơi ở đâu?', 'I see it when my mum boils water in the kettle.', ['boil|boils|cook|cooks|dry|dries|steam|hot', 'kettle|pot|soup|rice|clothes|floor|water|puddle|tea']]
         },
         {
           title: 'Kitchen Cloud Experiment', titleVi: 'Thí nghiệm làm mây trong bếp', icon: '🧪',
@@ -854,8 +854,8 @@
             { vi: 'Em muốn giải thích: Hơi nước ngưng tụ trên chiếc đĩa lạnh.', a: ['The steam', 'condenses', 'on the cold plate.'], x: ['condense', 'on the hot sun.'] }
           ],
           talk: [
-            { q: 'What do you see above a hot bowl of phở?', vi: 'Bạn thấy gì phía trên bát phở nóng?', hint: 'I see white steam.', k: ['see|is|there', 'steam|smoke|vapour|white|cloud'], c: ['I see white steam.', 'I see a pink elephant.', 'I see snow falling.'] },
-            { q: 'Who helps you with experiments at home?', vi: 'Ở nhà ai giúp bạn làm thí nghiệm?', hint: 'My mum helps me.', k: ['mum|mom|dad|grandpa|grandma|sister|brother|nobody|myself|teacher', 'help|helps|me|with'], c: ['My mum helps me.', 'My kettle helps me.', 'The steam is my brother.'] }
+            { q: 'What do you see above a hot bowl of phở?', vi: 'Bạn thấy gì phía trên bát phở nóng?', hint: 'I see white steam.', k: ['steam|vapour|vapor|smoke'], c: ['I see white steam.', 'I see noodles and beef.', 'I see ice cubes.'] },
+            { q: 'Who helps you with experiments at home?', vi: 'Ở nhà ai giúp bạn làm thí nghiệm?', hint: 'My mum helps me.', k: ['mum|mom|dad|grandpa|grandma|sister|brother|nobody|myself|teacher|father|mother|aunt|uncle'], c: ['My mum helps me.', 'I do experiments in the kitchen.', 'We use water and a kettle.'] }
           ],
           snow: { vi: 'Kể lại các bước thí nghiệm', l: [[['the kettle'], 'cái ấm'], [['Mum', 'heats up', 'the kettle.'], 'Mẹ đun nóng ấm nước.'], [['First,', 'Mum', 'heats up', 'the kettle.', 'Next, steam rises.', 'Finally, drops fall from the plate.'], 'Đầu tiên, mẹ đun ấm. Tiếp theo, hơi nóng bốc lên. Cuối cùng, giọt nước rơi từ đĩa.']], x: ['heat up', 'Yesterday,'] },
           cb: ['b', 'Na, the kettle is very hot. What should you do?', 'Na ơi, ấm nước rất nóng. Bạn nên làm gì?', [
@@ -869,7 +869,7 @@
             ['Steam turns into water drops on a cold plate.', true, 'Yes! The cold makes the steam condense.', 'Đúng! Hơi lạnh làm hơi nước ngưng tụ.'],
             ['Children should hold a boiling kettle by themselves.', false, 'No! A boiling kettle is dangerous. Ask a grown-up.', 'Sai! Ấm nước sôi rất nguy hiểm. Hãy nhờ người lớn.']
           ],
-          qa: ['What experiment would you like to try?', 'Bạn muốn thử thí nghiệm nào?', 'I would like to make rain on a plate.', ['would|like|want|try|make', 'rain|cloud|ice|rainbow|plate|steam|volcano|experiment|water']]
+          qa: ['What experiment would you like to try?', 'Bạn muốn thử thí nghiệm nào?', 'I would like to make rain on a plate.', ['rain|cloud|ice|rainbow|plate|steam|volcano|experiment|water|magnet|egg']]
         },
         {
           title: 'Ice, Snow & Rainbows', titleVi: 'Băng, tuyết & cầu vồng', icon: '🌈',
@@ -895,8 +895,8 @@
             { vi: 'Em muốn kể: Chúng mình thấy cầu vồng sau cơn mưa.', a: ['We', 'saw', 'a rainbow', 'after the rain.'], x: ['see', 'a snowman'] }
           ],
           talk: [
-            { q: 'Have you ever seen a rainbow?', vi: 'Bạn đã bao giờ thấy cầu vồng chưa?', hint: 'Yes, I saw one after the rain.', k: ['yes|no|never|once|saw|seen', 'rain|sky|rainbow|one|river|sea|garden'], c: ['Yes, I saw one after the rain.', 'Yes, I ate one for lunch.', 'No, a rainbow is my teacher.'] },
-            { q: 'What happens to an ice cube in a hot drink?', vi: 'Viên đá sẽ ra sao trong đồ uống nóng?', hint: 'It melts very quickly.', k: ['melt|melts|disappear|water', 'quick|quickly|fast|it|water'], c: ['It melts very quickly.', 'It grows into a tree.', 'It flies to the moon.'] }
+            { q: 'Have you ever seen a rainbow?', vi: 'Bạn đã bao giờ thấy cầu vồng chưa?', hint: 'Yes, I saw one after the rain.', k: ['yes|no|never|sometimes|once', 'saw|seen|see|rain|sky|rainbow'], c: ['Yes, I saw one after the rain.', 'Yes, I like the colour red.', 'No, it is sunny today.'] },
+            { q: 'What happens to an ice cube in a hot drink?', vi: 'Viên đá sẽ ra sao trong đồ uống nóng?', hint: 'It melts very quickly.', k: ['melt|melts|melting|water'], c: ['It melts very quickly.', 'It gets bigger and harder.', 'It sinks to the bottom.'] }
           ],
           snow: { vi: 'Giải thích băng tan', l: [[['melts'], 'tan chảy'], [['The ice', 'melts', 'quickly.'], 'Băng tan nhanh.'], [['In the hot sun,', 'the ice cube', 'melts', 'quickly', 'into water.'], 'Dưới nắng nóng, viên đá tan nhanh thành nước.']], x: ['melt', 'freezes'] },
           cb: ['b', 'Na, your ice lolly is melting! What will you do?', 'Na ơi, que kem của bạn đang chảy kìa! Bạn sẽ làm gì?', [
@@ -910,7 +910,7 @@
             ['A rainbow has seven colours.', true, 'Yes! Red, orange, yellow, green, blue, indigo and violet.', 'Đúng! Đỏ, cam, vàng, lục, lam, chàm, tím.'],
             ['Ice melts when it gets colder.', false, 'No! Ice melts when it gets warmer.', 'Sai! Băng tan khi trời ấm lên.']
           ],
-          qa: ['What do you put in the freezer at home?', 'Ở nhà bạn để gì trong ngăn đá?', 'We put ice cubes and ice cream in the freezer.', ['put|keep|have|there', 'ice|cream|meat|fish|lolly|water|chicken|cube|cubes']]
+          qa: ['What do you put in the freezer at home?', 'Ở nhà bạn để gì trong ngăn đá?', 'We put ice cubes and ice cream in the freezer.', ['ice|cream|meat|fish|lolly|water|chicken|cube|cubes|peas|vegetables']]
         }
       ],
       mystery: {
@@ -964,8 +964,8 @@
             { vi: 'Em muốn khuyên: Bạn nên đội mũ chống nắng ở bãi biển.', a: ['You', 'should', 'wear', 'a sun hat', 'on the beach.'], x: ['wearing', 'in the snow.'] }
           ],
           talk: [
-            { q: 'What do you wear on a chilly morning?', vi: 'Bạn mặc gì vào buổi sáng se lạnh?', hint: 'I wear a jumper and a scarf.', k: ['wear|put|have', 'jumper|sweater|scarf|gloves|coat|jacket|boots|hoodie|socks|hat|layers'], c: ['I wear a jumper and a scarf.', 'I wear a swimsuit and sandals.', 'I wear my breakfast.'] },
-            { q: 'Do you have rain boots?', vi: 'Bạn có ủng đi mưa không?', hint: 'Yes, I have yellow rain boots.', k: ['yes|no|have|dont|do', 'boots|yellow|red|blue|green|pink|black|rain|sandals|shoes'], c: ['Yes, I have yellow rain boots.', 'Yes, my boots can fly.', 'No, I have a rainbow pizza.'] }
+            { q: 'What do you wear on a chilly morning?', vi: 'Bạn mặc gì vào buổi sáng se lạnh?', hint: 'I wear a jumper and a scarf.', k: ['jumper|sweater|scarf|gloves|coat|jacket|boots|hoodie|socks|hat|layers|cardigan'], c: ['I wear a jumper and a scarf.', 'I wear a T-shirt and shorts.', 'I wear a swimsuit and sandals.'] },
+            { q: 'Do you have rain boots?', vi: 'Bạn có ủng đi mưa không?', hint: 'Yes, I have yellow rain boots.', k: ['yes|no', 'boots|wellies|wellingtons'], c: ['Yes, I have yellow rain boots.', 'Yes, I have a yellow raincoat.', 'No, I have a blue umbrella.'] }
           ],
           snow: { vi: 'Nói về cách mặc mùa đông', l: [[['layers'], 'nhiều lớp'], [['I', 'wear', 'layers.'], 'Mình mặc nhiều lớp.'], [['On chilly mornings,', 'I', 'wear', 'layers', 'and a warm scarf.'], 'Vào những sáng se lạnh, mình mặc nhiều lớp và quàng khăn ấm.']], x: ['wears', 'a sun hat'] },
           cb: ['b', 'Su, it is thirty-five degrees today. Why are you wearing gloves?', 'Su ơi, hôm nay ba mươi lăm độ. Sao cháu lại đeo găng tay?', [
@@ -979,7 +979,7 @@
             ['A scarf keeps your neck warm.', true, 'Yes! You wrap a scarf around your neck.', 'Đúng! Khăn quàng giữ ấm cổ.'],
             ['You wear gloves on your feet.', false, 'No! Gloves are for your hands. Socks are for your feet.', 'Sai! Găng tay để đeo ở tay. Tất mới để đi ở chân.']
           ],
-          qa: ['What do you wear on a hot sunny day?', 'Bạn mặc gì vào ngày nắng nóng?', 'I wear a T-shirt, shorts and a sun hat.', ['wear|put', 'shirt|t-shirt|shorts|hat|sandals|dress|cap|sunglasses|skirt']]
+          qa: ['What do you wear on a hot sunny day?', 'Bạn mặc gì vào ngày nắng nóng?', 'I wear a T-shirt, shorts and a sun hat.', ['shirt|t-shirt|shorts|hat|sandals|dress|cap|sunglasses|skirt']]
         },
         {
           title: 'Pack for Sa Pa or Phú Quốc?', titleVi: 'Xếp vali đi Sa Pa hay Phú Quốc?', icon: '🧳',
@@ -1005,8 +1005,8 @@
             { vi: 'Em muốn nhắc: Hãy bôi kem chống nắng trước khi bơi.', a: ['Put on', 'sun cream', 'before you swim.'], x: ['Puts on', 'after you sleep.'] }
           ],
           talk: [
-            { q: 'What would you pack for a beach trip?', vi: 'Bạn sẽ xếp gì cho chuyến đi biển?', hint: 'I would pack a swimsuit and sun cream.', k: ['pack|take|bring|would|need', 'swimsuit|sun|cream|sandals|hat|towel|sunglasses|shorts|ball'], c: ['I would pack a swimsuit and sun cream.', 'I would pack a snowman.', 'I would pack my school desk.'] },
-            { q: 'Have you ever been to a cold place?', vi: 'Bạn đã từng đến nơi lạnh chưa?', hint: 'Yes, I went to Sa Pa last winter.', k: ['yes|no|never|went|been|visited', 'sa pa|sapa|dalat|da lat|ha noi|hanoi|mountain|cold|winter|japan|korea'], c: ['Yes, I went to Sa Pa last winter.', 'Yes, I went to the sun.', 'No, my hoodie is a cat.'] }
+            { q: 'What would you pack for a beach trip?', vi: 'Bạn sẽ xếp gì cho chuyến đi biển?', hint: 'I would pack a swimsuit and sun cream.', k: ['swimsuit|sun|cream|sandals|hat|towel|sunglasses|shorts|ball|suncream|goggles'], c: ['I would pack a swimsuit and sun cream.', 'I would pack a scarf and gloves.', 'I would pack a warm jacket.'] },
+            { q: 'Have you ever been to a cold place?', vi: 'Bạn đã từng đến nơi lạnh chưa?', hint: 'Yes, I went to Sa Pa last winter.', k: ['yes|no|never', 'sa pa|sapa|dalat|da lat|ha noi|hanoi|mountain|mountains|cold|winter|japan|korea|snow'], c: ['Yes, I went to Sa Pa last winter.', 'Yes, I went to the beach last summer.', 'No, I like hot weather.'] }
           ],
           snow: { vi: 'Kể về chuyến đi Phú Quốc', l: [[['sandals'], 'dép xăng-đan'], [['I', 'pack', 'sandals.'], 'Mình xếp dép xăng-đan.'], [['For Phú Quốc,', 'I', 'pack', 'sandals,', 'a swimsuit and sun cream.'], 'Đi Phú Quốc, mình xếp dép, đồ bơi và kem chống nắng.']], x: ['packs', 'gloves'] },
           cb: ['b', 'Su, the suitcase is too full. It will not close!', 'Su ơi, vali đầy quá. Không đóng được!', [
@@ -1020,7 +1020,7 @@
             ['You should put on sun cream at the beach.', true, 'Yes! Sun cream protects your skin from sunburn.', 'Đúng! Kem chống nắng bảo vệ da khỏi cháy nắng.'],
             ['A swimsuit is the best clothes for a cold mountain.', false, 'No! On a cold mountain, you need a jacket and a hoodie.', 'Sai! Trên núi lạnh, con cần áo khoác và áo nỉ.']
           ],
-          qa: ['Where would you like to go on holiday, and what would you pack?', 'Bạn muốn đi nghỉ ở đâu và sẽ xếp gì?', 'I would like to go to Phú Quốc. I would pack my swimsuit.', ['go|visit|travel|like', 'pack|take|bring|swimsuit|jacket|hoodie|sandals|cream|hat|boots']]
+          qa: ['Where would you like to go on holiday, and what would you pack?', 'Bạn muốn đi nghỉ ở đâu và sẽ xếp gì?', 'I would like to go to Phú Quốc. I would pack my swimsuit.', ['go|visit|travel', 'pack|take|bring']]
         },
         {
           title: 'Shopping at the LEGO Boutique', titleVi: 'Mua sắm ở cửa hàng LEGO', icon: '🛍️',
@@ -1046,8 +1046,8 @@
             { vi: 'Em muốn nói: Chiếc áo khoác này rộng quá so với cháu.', a: ['This jacket', 'is', 'too big', 'for me.'], x: ['are', 'too long ago'] }
           ],
           talk: [
-            { q: 'What do you say when shoes are too small?', vi: 'Bạn nói gì khi giày bị chật?', hint: 'Can I try a bigger size, please?', k: ['bigger|size|another|different|too small|tight', 'can|please|try|have'], c: ['Can I try a bigger size, please?', 'Can I eat these shoes?', 'These shoes are my grandma.'] },
-            { q: 'Do you like shopping for clothes?', vi: 'Bạn có thích đi mua quần áo không?', hint: 'Yes, I love trying on new clothes.', k: ['yes|no|sometimes|love|like|not', 'shop|shopping|clothes|try|trying|buy|mum|mall|market'], c: ['Yes, I love trying on new clothes.', 'Yes, I love eating the shop.', 'No, clothes are my homework.'] }
+            { q: 'What do you say when shoes are too small?', vi: 'Bạn nói gì khi giày bị chật?', hint: 'Can I try a bigger size, please?', k: ['bigger|larger'], c: ['Can I try a bigger size, please?', 'Can I try a smaller size, please?', 'How much are these shoes?'] },
+            { q: 'Do you like shopping for clothes?', vi: 'Bạn có thích đi mua quần áo không?', hint: 'Yes, I love trying on new clothes.', k: ['yes|no|sometimes|love|like|not', 'shop|shopping|clothes|try|trying|buy|mall|market'], c: ['Yes, I love trying on new clothes.', 'Yes, I like playing football.', "No, I don't like cooking."] }
           ],
           snow: { vi: 'Kể về lần mua sắm', l: [[['fits'], 'vừa'], [['The jacket', 'fits', 'perfectly!'], 'Chiếc áo vừa khít!'], [['In the boutique,', 'the red jacket', 'fits', 'perfectly,', 'so I buy it.'], 'Trong cửa hàng, chiếc áo đỏ vừa khít, nên mình mua nó.']], x: ['fit', 'too big'] },
           cb: ['b', 'Sorry, Su. We have no size M in red. Only blue.', 'Xin lỗi Su. Màu đỏ hết cỡ M rồi. Chỉ còn màu xanh.', [
@@ -1061,7 +1061,7 @@
             ['We try on clothes in the changing room.', true, 'Yes! The changing room has a mirror and a curtain.', 'Đúng! Phòng thử đồ có gương và rèm.'],
             ['If shoes are too small, they are comfortable.', false, 'No! Shoes that are too small hurt your feet.', 'Sai! Giày chật làm đau chân.']
           ],
-          qa: ['What clothes would you like to buy?', 'Bạn muốn mua quần áo gì?', 'I would like to buy a new hoodie.', ['would|like|want|buy', 'hoodie|jacket|shoes|boots|dress|scarf|hat|shirt|t-shirt|jeans|sandals']]
+          qa: ['What clothes would you like to buy?', 'Bạn muốn mua quần áo gì?', 'I would like to buy a new hoodie.', ['hoodie|jacket|shoes|boots|dress|scarf|hat|shirt|t-shirt|jeans|sandals|trainers|skirt|shorts']]
         }
       ],
       mystery: {
@@ -1115,8 +1115,8 @@
             { vi: 'Em muốn hướng dẫn: Bỏ chai nhựa vào thùng tái chế.', a: ['Put', 'the plastic bottle', 'in the recycling bin.'], x: ['Puts', 'in the fish tank.'] }
           ],
           talk: [
-            { q: 'Do you recycle at home?', vi: 'Nhà bạn có tái chế không?', hint: 'Yes, we recycle paper and bottles.', k: ['yes|no|sometimes|always|we|do', 'recycle|paper|bottle|bottles|plastic|glass|cans|boxes|sort'], c: ['Yes, we recycle paper and bottles.', 'Yes, we recycle our grandma.', 'No, my bin is a robot dinosaur.'] },
-            { q: 'Where does a glass jar go?', vi: 'Lọ thủy tinh bỏ vào đâu?', hint: 'It goes in the glass bin.', k: ['go|goes|in|put', 'glass|bin|recycling'], c: ['It goes in the glass bin.', 'It goes in my lunchbox.', 'It goes to the cinema.'] }
+            { q: 'Do you recycle at home?', vi: 'Nhà bạn có tái chế không?', hint: 'Yes, we recycle paper and bottles.', k: ['yes|no|sometimes|always|never', 'recycle|paper|bottle|bottles|plastic|glass|cans|boxes|sort'], c: ['Yes, we recycle paper and bottles.', 'Yes, we put rubbish in one big bag.', 'No, we throw everything away.'] },
+            { q: 'Where does a glass jar go?', vi: 'Lọ thủy tinh bỏ vào đâu?', hint: 'It goes in the glass bin.', k: ['glass', 'bin|recycling'], c: ['It goes in the glass bin.', 'It goes in the paper bin.', 'It goes in the plastic bin.'] }
           ],
           snow: { vi: 'Hướng dẫn phân loại rác', l: [[['recycle'], 'tái chế'], [['We', 'recycle', 'bottles.'], 'Chúng mình tái chế chai.'], [['Every Friday,', 'we', 'recycle', 'plastic bottles and cardboard boxes', 'at school.'], 'Thứ Sáu hằng tuần, chúng mình tái chế chai nhựa và thùng các-tông ở trường.']], x: ['recycles', 'throw away'] },
           cb: ['b', 'Tí, your friend throws a plastic bottle in the wrong bin. What do you say?', 'Tí ơi, bạn cháu ném chai nhựa vào nhầm thùng. Cháu nói gì?', [
@@ -1130,7 +1130,7 @@
             ['Old paper can be recycled into new paper.', true, 'Yes! Recycling paper saves trees.', 'Đúng! Tái chế giấy giúp bảo vệ cây xanh.'],
             ['A plastic bottle disappears in the ground in one week.', false, 'No! A plastic bottle takes hundreds of years to break down.', 'Sai! Chai nhựa cần hàng trăm năm mới phân hủy.']
           ],
-          qa: ['What can you recycle in your classroom?', 'Trong lớp bạn có thể tái chế gì?', 'We can recycle paper and plastic bottles.', ['recycle|can|we|put', 'paper|bottle|bottles|plastic|boxes|box|cans|glass']]
+          qa: ['What can you recycle in your classroom?', 'Trong lớp bạn có thể tái chế gì?', 'We can recycle paper and plastic bottles.', ['recycle|reuse', 'paper|bottle|bottles|plastic|boxes|box|cans|glass']]
         },
         {
           title: 'Water & Energy Heroes', titleVi: 'Siêu anh hùng tiết kiệm nước & điện', icon: '🚰',
@@ -1156,8 +1156,8 @@
             { vi: 'Em muốn kể: Mình dùng lại bình nước mỗi ngày.', a: ['I', 'reuse', 'my water bottle', 'every day.'], x: ['reuses', 'my plastic bag'] }
           ],
           talk: [
-            { q: 'How can you save water at home?', vi: 'Ở nhà bạn tiết kiệm nước bằng cách nào?', hint: 'I turn off the tap when I brush my teeth.', k: ['turn|use|take|short|close|cup', 'tap|shower|water|cup|teeth|less'], c: ['I turn off the tap when I brush my teeth.', 'I fill the bath with lemonade.', 'I swim in the kitchen.'] },
-            { q: 'Do you reuse a water bottle?', vi: 'Bạn có dùng lại bình nước không?', hint: 'Yes, I refill it every day.', k: ['yes|no|sometimes|always|do', 'refill|reuse|bottle|it|every|school'], c: ['Yes, I refill it every day.', 'Yes, I eat it every day.', 'No, my bottle is a giraffe.'] }
+            { q: 'How can you save water at home?', vi: 'Ở nhà bạn tiết kiệm nước bằng cách nào?', hint: 'I turn off the tap when I brush my teeth.', k: ['turn|close|short|less|cup|reuse|bucket|fix', 'tap|shower|water|teeth|leak|bath'], c: ['I turn off the tap when I brush my teeth.', 'I turn off the lights when I leave.', 'I take a long bath every day.'] },
+            { q: 'Do you reuse a water bottle?', vi: 'Bạn có dùng lại bình nước không?', hint: 'Yes, I refill it every day.', k: ['yes|no|sometimes|always|never', 'refill|reuse|again|fill'], c: ['Yes, I refill it every day.', 'Yes, I buy a new one every day.', 'No, I drink juice at lunch.'] }
           ],
           snow: { vi: 'Kể về việc tiết kiệm nước', l: [[['the tap'], 'vòi nước'], [['I', 'turn off', 'the tap.'], 'Mình khóa vòi nước.'], [['When I brush my teeth,', 'I', 'turn off', 'the tap', 'to save water.'], 'Khi đánh răng, mình khóa vòi để tiết kiệm nước.']], x: ['turns off', 'to waste water.'] },
           cb: ['b', 'Tí, nobody is in the living room, but the fan and lights are on.', 'Tí ơi, phòng khách không có ai mà quạt và đèn vẫn bật.', [
@@ -1197,8 +1197,8 @@
             { vi: 'Em muốn kể: Mẹ mang túi vải đi chợ.', a: ['Mum', 'takes', 'a cloth bag', 'to the market.'], x: ['take', 'a plastic bag'] }
           ],
           talk: [
-            { q: 'What would you do to help the Earth?', vi: 'Bạn sẽ làm gì để giúp Trái Đất?', hint: 'I would plant a tree and pick up litter.', k: ['would|will|can|plant|pick|recycle|save|use', 'tree|trees|litter|rubbish|water|bag|plastic|recycle|bin'], c: ['I would plant a tree and pick up litter.', 'I would throw rubbish in the river.', 'I would eat the Earth.'] },
-            { q: 'What do you say when someone drops rubbish?', vi: 'Bạn nói gì khi ai đó vứt rác?', hint: "Please don't litter. Use the bin.", k: ["don't|dont|please|no", 'litter|bin|rubbish|pick'], c: ["Please don't litter. Use the bin.", 'Great! Drop more!', 'Rubbish is my favourite food.'] }
+            { q: 'What would you do to help the Earth?', vi: 'Bạn sẽ làm gì để giúp Trái Đất?', hint: 'I would plant a tree and pick up litter.', k: ['plant|pick|recycle|save|reuse|clean|turn', 'tree|trees|litter|rubbish|water|bag|bags|plastic|bin|energy|lights'], c: ['I would plant a tree and pick up litter.', 'I would throw rubbish in the river.', 'I would use more plastic bags.'] },
+            { q: 'What do you say when someone drops rubbish?', vi: 'Bạn nói gì khi ai đó vứt rác?', hint: "Please don't litter. Use the bin.", k: ['litter|bin|rubbish|pick|trash'], c: ["Please don't litter. Use the bin.", 'Thank you very much!', 'Please pass me the ball.'] }
           ],
           snow: { vi: 'Kể về nhiệm vụ siêu anh hùng xanh', l: [[['a tree'], 'một cái cây'], [['We', 'plant', 'a tree.'], 'Chúng mình trồng một cái cây.'], [['On Earth Day,', 'we', 'plant', 'a tree', 'in the school garden.'], 'Vào Ngày Trái Đất, chúng mình trồng cây trong vườn trường.']], x: ['plants', 'a plastic bag'] },
           cb: ['b', 'Tí, a boy drops a sweet wrapper on the ground. What do you do?', 'Tí ơi, một bạn vứt vỏ kẹo xuống đất. Cháu làm gì?', [
@@ -1212,7 +1212,7 @@
             ['A cloth bag can be used many times.', true, 'Yes! It is strong and eco-friendly.', 'Đúng! Túi vải bền và thân thiện với môi trường.'],
             ['Plastic bags are good food for sea turtles.', false, 'No! Turtles think bags are jellyfish, and it makes them sick.', 'Sai! Rùa biển tưởng túi nilon là sứa và bị bệnh khi ăn phải.']
           ],
-          qa: ['What eco-hero mission can you do this week?', 'Tuần này bạn có thể làm nhiệm vụ xanh nào?', 'I can pick up litter in the park.', ['can|will|plant|pick|recycle|save|reuse|turn', 'litter|rubbish|tree|water|bottle|bag|tap|lights|park|school']]
+          qa: ['What eco-hero mission can you do this week?', 'Tuần này bạn có thể làm nhiệm vụ xanh nào?', 'I can pick up litter in the park.', ['plant|pick|recycle|save|reuse|turn|clean', 'litter|rubbish|tree|water|bottle|bag|tap|lights|park|school']]
         }
       ],
       mystery: {
@@ -1272,8 +1272,8 @@
             { vi: 'Em muốn kể: Gạch LEGO được làm bằng nhựa.', a: ['LEGO bricks', 'are made of', 'plastic.'], x: ['is made of', 'paper.'] }
           ],
           talk: [
-            { q: 'What is your schoolbag made of?', vi: 'Cặp sách của bạn làm bằng gì?', hint: 'My schoolbag is made of fabric.', k: ['made|is|it', 'fabric|plastic|leather|cloth|nylon|canvas'], c: ['My schoolbag is made of fabric.', 'My schoolbag is made of chocolate.', 'My schoolbag is Tuesday.'] },
-            { q: 'Can you find something made of wood in your room?', vi: 'Bạn có tìm thấy đồ gì làm bằng gỗ trong phòng không?', hint: 'Yes, my desk is made of wood.', k: ['yes|no|my|the', 'desk|bed|door|chair|table|wood|pencil|shelf|bookshelf|wardrobe'], c: ['Yes, my desk is made of wood.', 'Yes, my cat is made of wood.', 'No, I am a window.'] }
+            { q: 'What is your schoolbag made of?', vi: 'Cặp sách của bạn làm bằng gì?', hint: 'My schoolbag is made of fabric.', k: ['fabric|plastic|leather|cloth|nylon|canvas|cotton'], c: ['My schoolbag is made of fabric.', 'My schoolbag is blue and big.', 'My schoolbag has three pockets.'] },
+            { q: 'Can you find something made of wood in your room?', vi: 'Bạn có tìm thấy đồ gì làm bằng gỗ trong phòng không?', hint: 'Yes, my desk is made of wood.', k: ['yes|no', 'desk|bed|door|chair|table|shelf|bookshelf|wardrobe|pencil|floor|wood'], c: ['Yes, my desk is made of wood.', 'Yes, my window is made of glass.', 'Yes, my ball is made of rubber.'] }
           ],
           snow: { vi: 'Kể về đồ vật làm bằng gì', l: [[['metal'], 'kim loại'], [['Spoons', 'are made of', 'metal.'], 'Thìa làm bằng kim loại.'], [['In our kitchen,', 'spoons and pots', 'are made of', 'metal', 'because it is strong.'], 'Trong bếp nhà mình, thìa và nồi làm bằng kim loại vì nó chắc chắn.']], x: ['is made of', 'fabric'] },
           cb: ['b', 'Na, which material should we use for a LEGO bridge?', 'Na ơi, mình nên dùng vật liệu gì để làm cây cầu LEGO nhỉ?', [
@@ -1287,7 +1287,7 @@
             ['Wood comes from trees.', true, 'Yes! People cut trees to get wood.', 'Đúng! Người ta lấy gỗ từ cây.'],
             ['A metal spoon is made of paper.', false, 'No! A metal spoon is made of metal. Paper is too weak.', 'Sai! Thìa kim loại làm bằng kim loại. Giấy quá yếu.']
           ],
-          qa: ['What is your favourite toy made of?', 'Đồ chơi yêu thích của bạn làm bằng gì?', 'My favourite toy is made of plastic.', ['made|is|it', 'plastic|wood|metal|fabric|rubber|paper|glass']]
+          qa: ['What is your favourite toy made of?', 'Đồ chơi yêu thích của bạn làm bằng gì?', 'My favourite toy is made of plastic.', ['plastic|wood|metal|fabric|rubber|paper|glass|cotton']]
         },
         {
           title: 'Material Super Powers', titleVi: 'Siêu năng lực của vật liệu', icon: '🦸',
@@ -1313,8 +1313,8 @@
             { vi: 'Em muốn nói: Mình nhìn xuyên qua được vì nó trong suốt.', a: ['I', 'can see', 'through it', 'because it is transparent.'], x: ['sees', 'because it is bendy.'] }
           ],
           talk: [
-            { q: 'Is your raincoat waterproof?', vi: 'Áo mưa của bạn có chống nước không?', hint: 'Yes, my raincoat is waterproof.', k: ['yes|no', 'waterproof|dry|wet|raincoat|it'], c: ['Yes, my raincoat is waterproof.', 'Yes, my raincoat is a sandwich.', 'No, it is my grandma.'] },
-            { q: 'Can you name something fragile in your home?', vi: 'Bạn kể tên một đồ dễ vỡ trong nhà được không?', hint: 'A glass cup is fragile.', k: ['glass|egg|eggs|cup|plate|vase|bowl|mirror|window|bottle', 'fragile|break|careful|is'], c: ['A glass cup is fragile.', 'A pillow is fragile and scary.', 'My elbow is a glass.'] }
+            { q: 'Is your raincoat waterproof?', vi: 'Áo mưa của bạn có chống nước không?', hint: 'Yes, my raincoat is waterproof.', k: ['yes|no', 'waterproof|dry'], c: ['Yes, my raincoat is waterproof.', 'Yes, my raincoat is yellow.', 'No, my raincoat is in my bag.'] },
+            { q: 'Can you name something fragile in your home?', vi: 'Bạn kể tên một đồ dễ vỡ trong nhà được không?', hint: 'A glass cup is fragile.', k: ['glass|egg|eggs|cup|plate|vase|bowl|mirror|window|bottle|cups|plates|bowls|phone|lamp|teapot'], c: ['A glass cup is fragile.', 'A pillow is soft.', 'A rubber ball is bouncy.'] }
           ],
           snow: { vi: 'Mô tả tính chất của vật liệu', l: [[['stretchy'], 'co giãn'], [['A balloon', 'is', 'stretchy.'], 'Bóng bay co giãn.'], [['A balloon', 'is', 'stretchy,', 'but it is', 'fragile too!'], 'Bóng bay co giãn, nhưng nó cũng dễ vỡ nữa!']], x: ['are', 'waterproof'] },
           cb: ['b', 'Na, can you carry this box of glass bottles?', 'Na ơi, cháu bê giúp chú thùng chai thủy tinh này được không?', [
@@ -1328,7 +1328,7 @@
             ['A clean glass window is transparent.', true, 'Yes! Light goes through it, so we can see outside.', 'Đúng! Ánh sáng đi xuyên qua nên mình nhìn được ra ngoài.'],
             ['A paper bag is waterproof.', false, 'No! Paper gets wet and soft in the rain.', 'Sai! Giấy bị ướt và nhũn khi gặp mưa.']
           ],
-          qa: ['What do you wear on rainy days?', 'Bạn mặc gì vào những ngày mưa?', 'I wear my waterproof raincoat and boots.', ['wear|take|use|have', 'raincoat|umbrella|boots|waterproof|poncho|jacket']]
+          qa: ['What do you wear on rainy days?', 'Bạn mặc gì vào những ngày mưa?', 'I wear my waterproof raincoat and boots.', ['raincoat|umbrella|boots|waterproof|poncho|jacket']]
         },
         {
           title: 'The Umbrella Challenge', titleVi: 'Thử thách làm chiếc ô', icon: '☂️',
@@ -1354,8 +1354,8 @@
             { vi: 'Em muốn nói: Kim loại là vật liệu chắc chắn.', a: ['Metal', 'is', 'a strong material.'], x: ['are', 'a fragile material.'] }
           ],
           talk: [
-            { q: 'Which material is the best for an umbrella?', vi: 'Vật liệu nào tốt nhất để làm ô?', hint: 'Plastic is the best because it is waterproof.', k: ['plastic|fabric|nylon|rubber', 'waterproof|dry|strong|because|best'], c: ['Plastic is the best because it is waterproof.', 'Cake is the best because it is yummy.', 'My umbrella is sleeping.'] },
-            { q: 'What do you do when your LEGO model breaks?', vi: 'Bạn làm gì khi mô hình LEGO bị hỏng?', hint: 'I try again and make it stronger.', k: ['try|build|fix|make|again', 'again|stronger|strong|better|it'], c: ['I try again and make it stronger.', 'I eat the LEGO bricks.', 'I throw it at the cat.'] }
+            { q: 'Which material is the best for an umbrella?', vi: 'Vật liệu nào tốt nhất để làm ô?', hint: 'Plastic is the best because it is waterproof.', k: ['plastic|nylon|rubber|waterproof|fabric'], c: ['Plastic is the best because it is waterproof.', 'Paper is the best because it is light.', 'Wood is the best because it is strong.'] },
+            { q: 'What do you do when your LEGO model breaks?', vi: 'Bạn làm gì khi mô hình LEGO bị hỏng?', hint: 'I try again and make it stronger.', k: ['again|fix|rebuild|stronger|repair|try'], c: ['I try again and make it stronger.', 'I put it back in the box.', 'I cry and stop playing.'] }
           ],
           snow: { vi: 'Kể về thử thách kỹ sư', l: [[["Let's try again!"], 'Mình thử lại nào!'], [['We', 'test', 'our umbrella.'], 'Tụi mình thử chiếc ô.'], [['First,', 'we', 'test', 'our umbrella', 'with a cup of water.'], 'Đầu tiên, tụi mình thử chiếc ô bằng một cốc nước.']], x: ['tests', 'with a cup of juice.'] },
           cb: ['b', 'Our umbrella leaks! How do you feel, Na?', 'Chiếc ô bị dột rồi! Cháu thấy thế nào, Na?', [
@@ -1423,8 +1423,8 @@
             { vi: 'Em muốn nói: Hòn đá chìm xuống đáy.', a: ['The stone', 'sinks', 'to the bottom.'], x: ['sink', 'to the sky.'] }
           ],
           talk: [
-            { q: 'Does a rubber duck sink or float?', vi: 'Vịt cao su chìm hay nổi?', hint: 'It floats on the water.', k: ['float|floats', 'water|surface|it|duck'], c: ['It floats on the water.', 'It flies to the Moon.', 'It drinks all the water.'] },
-            { q: 'What toys can float in your bath?', vi: 'Đồ chơi nào có thể nổi trong bồn tắm của bạn?', hint: 'My plastic boat can float.', k: ['boat|duck|ball|toy|toys|plastic|bottle|fish', 'float|floats|can'], c: ['My plastic boat can float.', 'My bed can float in the bath.', 'My toys are sleeping.'] }
+            { q: 'Does a rubber duck sink or float?', vi: 'Vịt cao su chìm hay nổi?', hint: 'It floats on the water.', k: ['float|floats'], c: ['It floats on the water.', 'It sinks to the bottom.', 'It is yellow and small.'] },
+            { q: 'What toys can float in your bath?', vi: 'Đồ chơi nào có thể nổi trong bồn tắm của bạn?', hint: 'My plastic boat can float.', k: ['boat|duck|ball|toy|toys|plastic|bottle|fish|ducks|boats', 'float|floats'], c: ['My plastic boat can float.', 'My metal car sinks.', 'My toy car sinks in the bath.'] }
           ],
           snow: { vi: 'Kể về thí nghiệm vật nổi', l: [[['floats'], 'nổi'], [['The ball', 'floats', 'on the water.'], 'Quả bóng nổi trên mặt nước.'], [['When I push it down,', 'the ball', 'jumps up', 'and floats', 'on the surface.'], 'Khi mình ấn xuống, quả bóng bật lên và nổi trên mặt nước.']], x: ['sinks', 'under the sand'] },
           cb: ['b', 'Bin, will this big watermelon sink or float?', 'Bin ơi, quả dưa hấu to này sẽ chìm hay nổi?', [
@@ -1464,8 +1464,8 @@
             { vi: 'Em muốn rủ: Mình thử nó trong bát nước nhé.', a: ["Let's", 'test', 'it', 'in a bowl of water.'], x: ['tests', 'in a bowl of soup.'] }
           ],
           talk: [
-            { q: 'Do you think a fresh egg will sink or float?', vi: 'Bạn nghĩ quả trứng tươi sẽ chìm hay nổi?', hint: 'I think it will sink.', k: ['think|predict|guess|will', 'sink|sinks|float|floats'], c: ['I think it will sink.', 'I think it will sing a song.', 'An egg is my teacher.'] },
-            { q: 'What was the result of the orange test?', vi: 'Kết quả thí nghiệm quả cam là gì?', hint: 'It floats with its peel and sinks without it.', k: ['float|floats', 'sink|sinks|peel'], c: ['It floats with its peel and sinks without it.', 'The orange went to school.', 'The result is a birthday cake.'] }
+            { q: 'Do you think a fresh egg will sink or float?', vi: 'Bạn nghĩ quả trứng tươi sẽ chìm hay nổi?', hint: 'I think it will sink.', k: ['sink|sinks|bottom'], c: ['I think it will sink.', 'I think it will float.', 'I think it will break.'] },
+            { q: 'What was the result of the orange test?', vi: 'Kết quả thí nghiệm quả cam là gì?', hint: 'It floats with its peel and sinks without it.', k: ['float|floats', 'sink|sinks'], c: ['It floats with its peel and sinks without it.', 'It sinks with its peel.', 'It floats with or without its peel.'] }
           ],
           snow: { vi: 'Kể lại thí nghiệm', l: [[['the result'], 'kết quả'], [['We', 'check', 'the result.'], 'Tụi mình kiểm tra kết quả.'], [['After the test,', 'we', 'write down', 'the result', 'in our science notebook.'], 'Sau khi thử, tụi mình ghi kết quả vào sổ khoa học.']], x: ['checks', 'in our lunch box.'] },
           cb: ['b', 'Oh! My prediction was wrong. The orange floated!', 'Ồ! Ông đoán sai rồi. Quả cam nổi!', [
@@ -1479,7 +1479,7 @@
             ['Scientists often predict before they test.', true, 'Yes! They guess first, then they test.', 'Đúng! Họ đoán trước, rồi mới thử nghiệm.'],
             ['The result of a test is always the same as your prediction.', false, 'No! Sometimes the result surprises us.', 'Sai! Đôi khi kết quả làm mình bất ngờ.']
           ],
-          qa: ['What experiment would you like to try at home?', 'Bạn muốn thử thí nghiệm gì ở nhà?', 'I would like to test which fruits float.', ['test|try|do|make', 'fruit|fruits|float|sink|water|magnet|egg|orange|ice']]
+          qa: ['What experiment would you like to try at home?', 'Bạn muốn thử thí nghiệm gì ở nhà?', 'I would like to test which fruits float.', ['fruit|fruits|float|sink|water|magnet|egg|orange|ice|rain']]
         },
         {
           title: 'Magnet Fishing Game', titleVi: 'Trò chơi câu cá nam châm', icon: '🎣',
@@ -1505,8 +1505,8 @@
             { vi: 'Em muốn nói: Hai cực bắc đẩy nhau ra.', a: ['Two north poles', 'repel', 'each other.'], x: ['repels', 'attract'] }
           ],
           talk: [
-            { q: 'Does a magnet attract a plastic spoon?', vi: 'Nam châm có hút thìa nhựa không?', hint: 'No, it only attracts iron and steel.', k: ['no|not|doesn|does not', 'iron|steel|metal|plastic|only'], c: ['No, it only attracts iron and steel.', 'Yes, it eats the spoon for lunch.', 'The spoon is my best friend.'] },
-            { q: 'What would you catch in a magnet fishing game?', vi: 'Bạn sẽ câu được gì trong trò câu cá nam châm?', hint: 'I would catch a paper fish with a clip.', k: ['catch|get|fish|would', 'clip|fish|paper|steel|metal'], c: ['I would catch a paper fish with a clip.', 'I would catch a real whale.', 'I would catch a cold.'] }
+            { q: 'Does a magnet attract a plastic spoon?', vi: 'Nam châm có hút thìa nhựa không?', hint: 'No, it only attracts iron and steel.', k: ['no|not|doesn|does', 'iron|steel|metal|metals|nickel'], c: ['No, it only attracts iron and steel.', 'Yes, it attracts the plastic spoon.', 'No, it only attracts wood and paper.'] },
+            { q: 'What would you catch in a magnet fishing game?', vi: 'Bạn sẽ câu được gì trong trò câu cá nam châm?', hint: 'I would catch a paper fish with a clip.', k: ['clip|clips|steel|metal|iron|paperclip'], c: ['I would catch a paper fish with a clip.', 'I would catch a plastic fish.', 'I would catch a fish with my hands.'] }
           ],
           snow: { vi: 'Nói về nam châm', l: [[['magnets'], 'nam châm'], [['Magnets', 'attract', 'steel.'], 'Nam châm hút thép.'], [['In the fishing game,', 'my magnet', 'attracts', 'a paper fish', 'with a steel clip.'], 'Trong trò câu cá, nam châm của mình hút con cá giấy có kẹp thép.']], x: ['attracting', 'plastic spoons'] },
           cb: ['b', 'Oh no! I dropped my sewing needle in the rice basket!', 'Ôi không! Ông làm rơi cây kim khâu vào rổ gạo rồi!', [
@@ -1520,7 +1520,7 @@
             ['Magnets attract iron and steel.', true, 'Yes! Iron and steel stick to magnets.', 'Đúng! Sắt và thép bị nam châm hút.'],
             ['A magnet attracts a wooden pencil.', false, 'No! Wood is not attracted to magnets.', 'Sai! Nam châm không hút gỗ.']
           ],
-          qa: ['What things in your house does a magnet stick to?', 'Nam châm dính vào những đồ vật nào trong nhà bạn?', 'A magnet sticks to our fridge door.', ['fridge|door|spoon|scissors|key|nail|clip|board|metal|steel|pot', 'stick|sticks|attract|attracts|magnet']]
+          qa: ['What things in your house does a magnet stick to?', 'Nam châm dính vào những đồ vật nào trong nhà bạn?', 'A magnet sticks to our fridge door.', ['fridge|door|spoon|scissors|key|nail|clip|board|metal|steel|pot|keys|nails']]
         }
       ],
       mystery: {
@@ -1574,8 +1574,8 @@
             { vi: 'Em muốn nói: Mặt Trời chiếu sáng trên cánh đồng lúa.', a: ['The Sun', 'shines', 'on the rice fields.'], x: ['shine', 'under the rice fields.'] }
           ],
           talk: [
-            { q: 'Can you name a light source?', vi: 'Bạn kể tên một nguồn sáng được không?', hint: 'The Sun is a light source.', k: ['sun|lamp|torch|candle|fire|bulb|lightning|star|screen|lighthouse', 'is|light|source'], c: ['The Sun is a light source.', 'My sock is a light source.', 'I am a banana.'] },
-            { q: 'When can you see your shadow?', vi: 'Khi nào bạn có thể nhìn thấy cái bóng của mình?', hint: 'I can see my shadow on sunny days.', k: ['see|can|when', 'sunny|sun|light|day|lamp|torch|morning|afternoon|evening'], c: ['I can see my shadow on sunny days.', 'I can see my shadow in my soup.', 'My shadow is at school.'] }
+            { q: 'Can you name a light source?', vi: 'Bạn kể tên một nguồn sáng được không?', hint: 'The Sun is a light source.', k: ['sun|lamp|torch|candle|fire|bulb|lightning|star|stars|screen|lighthouse'], c: ['The Sun is a light source.', 'The Moon is a light source.', 'A mirror is a light source.'] },
+            { q: 'When can you see your shadow?', vi: 'Khi nào bạn có thể nhìn thấy cái bóng của mình?', hint: 'I can see my shadow on sunny days.', k: ['sunny|sun|light|lamp|torch|sunshine'], c: ['I can see my shadow on sunny days.', 'I can see my shadow on the ground.', 'I can see my shadow at night in the dark.'] }
           ],
           snow: { vi: 'Nói về cái bóng', l: [[['my shadow'], 'cái bóng của mình'], [['I', 'see', 'my shadow.'], 'Mình nhìn thấy cái bóng của mình.'], [['On sunny days,', 'I', 'see', 'my shadow', 'on the playground.'], 'Vào những ngày nắng, mình thấy cái bóng của mình trên sân chơi.']], x: ['sees', 'in the dark cupboard.'] },
           cb: ['b', 'Mai, the lighthouse stairs are very dark. What do you need?', 'Mai ơi, cầu thang hải đăng tối lắm. Cháu cần gì nào?', [
@@ -1589,7 +1589,7 @@
             ['A shadow appears when something blocks the light.', true, 'Yes! Light cannot go through you, so a dark shape appears.', 'Đúng! Ánh sáng không đi xuyên qua người mình nên tạo ra hình tối.'],
             ['The Moon makes its own light.', false, 'No! The Moon reflects light from the Sun.', 'Sai! Mặt Trăng phản chiếu ánh sáng của Mặt Trời.']
           ],
-          qa: ['What light sources are in your home?', 'Nhà bạn có những nguồn sáng nào?', 'We have lamps, a torch and some candles.', ['lamp|lamps|torch|candle|candles|light|lights|bulb|tv|screen', 'have|there|is|are']]
+          qa: ['What light sources are in your home?', 'Nhà bạn có những nguồn sáng nào?', 'We have lamps, a torch and some candles.', ['lamp|lamps|torch|candle|candles|light|lights|bulb|tv|screen']]
         },
         {
           title: 'Shadow Puppets in a Power Cut', titleVi: 'Múa rối bóng lúc cúp điện', icon: '🐰',
@@ -1615,8 +1615,8 @@
             { vi: 'Em muốn kể: Buổi chiều tối, Mặt Trời ở thấp trên bầu trời.', a: ['In the evening,', 'the Sun', 'is', 'low in the sky.'], x: ['are', 'under the sea.'] }
           ],
           talk: [
-            { q: 'What do you do during a power cut?', vi: 'Bạn làm gì khi bị cúp điện?', hint: 'I use a torch and make shadow puppets.', k: ['torch|candle|play|sleep|read|light|talk|tell|make|use', 'torch|candle|shadow|puppets|stories|story|games|outside'], c: ['I use a torch and make shadow puppets.', 'I watch TV all night.', 'I eat the light bulb.'] },
-            { q: 'Why is your shadow long in the evening?', vi: 'Tại sao buổi chiều tối cái bóng của bạn lại dài?', hint: 'Because the Sun is low in the sky.', k: ['because|sun', 'low|sky|evening|down|setting'], c: ['Because the Sun is low in the sky.', 'Because my shadow ate dinner.', 'Because I wear big shoes.'] }
+            { q: 'What do you do during a power cut?', vi: 'Bạn làm gì khi bị cúp điện?', hint: 'I use a torch and make shadow puppets.', k: ['torch|candle|candles|shadow|puppets|stories|story|games|outside|read|sleep|lamp|talk'], c: ['I use a torch and make shadow puppets.', 'I watch TV all night.', 'I turn on the fan and the TV.'] },
+            { q: 'Why is your shadow long in the evening?', vi: 'Tại sao buổi chiều tối cái bóng của bạn lại dài?', hint: 'Because the Sun is low in the sky.', k: ['sun', 'low|down|setting'], c: ['Because the Sun is low in the sky.', 'Because the Sun is high in the sky.', 'Because I am tall.'] }
           ],
           snow: { vi: 'Kể về buổi tối cúp điện', l: [[['a power cut'], 'cúp điện'], [['We', 'had', 'a power cut.'], 'Nhà mình bị cúp điện.'], [['Last night,', 'we', 'had', 'a power cut,', 'so we made shadow puppets.'], 'Tối qua nhà mình bị cúp điện, nên cả nhà làm rối bóng.']], x: ['has', 'so we ate shadow puppets.'] },
           cb: ['b', 'Mai, the power cut is long. Are you scared?', 'Mai ơi, cúp điện lâu quá. Cháu có sợ không?', [
@@ -1630,7 +1630,7 @@
             ['A mirror reflects light.', true, 'Yes! Light bounces off a mirror.', 'Đúng! Ánh sáng bật lại khi chiếu vào gương.'],
             ['Your shadow is longest at noon.', false, 'No! It is shortest at noon and long in the morning and evening.', 'Sai! Buổi trưa bóng ngắn nhất, còn sáng sớm và chiều tối bóng dài.']
           ],
-          qa: ['Which animal can you make as a shadow puppet?', 'Bạn có thể làm con vật nào bằng rối bóng?', 'I can make a rabbit and a bird.', ['make|can', 'rabbit|bird|dog|duck|cat|snake|crocodile|butterfly|wolf|deer|swan|eagle']]
+          qa: ['Which animal can you make as a shadow puppet?', 'Bạn có thể làm con vật nào bằng rối bóng?', 'I can make a rabbit and a bird.', ['rabbit|bird|dog|duck|cat|snake|crocodile|butterfly|wolf|deer|swan|eagle']]
         },
         {
           title: "The Lighthouse Keeper's Night", titleVi: 'Đêm của người gác hải đăng', icon: '📯',
@@ -1656,8 +1656,8 @@
             { vi: 'Em muốn kể: Mình nghe thấy tiếng vang trong hang.', a: ['I', 'hear', 'an echo', 'in the cave.'], x: ['hears', 'in my pocket.'] }
           ],
           talk: [
-            { q: 'What is the loudest sound in your street?', vi: 'Âm thanh nào to nhất trên phố nhà bạn?', hint: 'The motorbike horns are the loudest.', k: ['motorbike|motorbikes|car|cars|horn|horns|dog|dogs|music|truck|trucks|bus|drill|rooster|karaoke', 'loud|loudest|is|are'], c: ['The motorbike horns are the loudest.', 'The loudest sound is my toothbrush.', 'My street is a sandwich.'] },
-            { q: 'Where do you need to be quiet?', vi: 'Ở đâu bạn cần giữ yên lặng?', hint: 'I need to be quiet in the library.', k: ['quiet|calm|silent', 'library|bedroom|hospital|class|classroom|temple|cinema|museum|night'], c: ['I need to be quiet in the library.', 'I need to be quiet at a football match.', 'Quiet is my favourite fruit.'] }
+            { q: 'What is the loudest sound in your street?', vi: 'Âm thanh nào to nhất trên phố nhà bạn?', hint: 'The motorbike horns are the loudest.', k: ['motorbike|motorbikes|car|cars|horn|horns|dog|dogs|music|truck|trucks|bus|drill|rooster|karaoke'], c: ['The motorbike horns are the loudest.', 'The birds are the quietest.', 'My street is very busy.'] },
+            { q: 'Where do you need to be quiet?', vi: 'Ở đâu bạn cần giữ yên lặng?', hint: 'I need to be quiet in the library.', k: ['library|bedroom|hospital|class|classroom|temple|cinema|museum|night|pagoda|exam|test'], c: ['I need to be quiet in the library.', 'I need to be quiet at a football match.', 'I can shout in the playground.'] }
           ],
           snow: { vi: 'Kể về ngọn hải đăng', l: [[['the foghorn'], 'còi báo sương mù'], [['We', 'blow', 'the foghorn.'], 'Tụi mình thổi còi báo sương mù.'], [['On foggy nights,', 'the keeper', 'blows', 'the loud foghorn', 'to warn the ships.'], 'Vào những đêm sương mù, người gác thổi chiếc còi thật to để cảnh báo tàu thuyền.']], x: ['blowing', 'to wake the fish.'] },
           cb: ['b', "Shh! It's late and the baby next door is sleeping.", 'Suỵt! Muộn rồi và em bé nhà bên đang ngủ.', [
@@ -1671,7 +1671,7 @@
             ['Sound is made when things vibrate.', true, 'Yes! Touch your throat when you talk. It vibrates!', 'Đúng! Chạm vào cổ khi nói, con sẽ thấy nó rung!'],
             ['A whisper is louder than a foghorn.', false, 'No! A whisper is very quiet. A foghorn is very loud.', 'Sai! Tiếng thì thầm rất khẽ. Còi báo sương mù rất to.']
           ],
-          qa: ['What sound do you like to hear in the morning?', 'Buổi sáng bạn thích nghe âm thanh gì?', 'I like to hear the birds singing.', ['hear|like|love|listen', 'bird|birds|rooster|music|rain|mum|voice|song|bell|bells|sea']]
+          qa: ['What sound do you like to hear in the morning?', 'Buổi sáng bạn thích nghe âm thanh gì?', 'I like to hear the birds singing.', ['bird|birds|rooster|music|rain|mum|voice|song|bell|bells|sea|alarm']]
         }
       ],
       mystery: {
@@ -1725,8 +1725,8 @@
             { vi: 'Em muốn nói: Rô-bốt làm theo hướng dẫn từng bước một.', a: ['The robot', 'follows', 'the instructions', 'step by step.'], x: ['follow', 'step by sleep.'] }
           ],
           talk: [
-            { q: 'How do you brush your teeth, step by step?', vi: 'Bạn đánh răng từng bước thế nào?', hint: 'First, I put on toothpaste. Next, I brush. Finally, I rinse.', k: ['first|next|then|finally', 'toothpaste|brush|rinse|water|teeth'], c: ['First, I put on toothpaste. Next, I brush. Finally, I rinse.', 'First, I brush my shoes.', 'Finally, I eat the toothbrush.'] },
-            { q: 'What command would you give to a robot?', vi: 'Bạn sẽ ra lệnh gì cho rô-bốt?', hint: 'Move forward and pick up my socks!', k: ['move|pick|clean|go|stop|bring|dance|make|tidy|forward', 'forward|socks|room|toys|up|stop|homework|dance|water'], c: ['Move forward and pick up my socks!', 'Robot, eat my homework!', 'My robot is a cloud.'] }
+            { q: 'How do you brush your teeth, step by step?', vi: 'Bạn đánh răng từng bước thế nào?', hint: 'First, I put on toothpaste. Next, I brush. Finally, I rinse.', k: ['first|next|then|finally', 'toothpaste|brush|rinse|water|teeth'], c: ['First, I put on toothpaste. Next, I brush. Finally, I rinse.', 'First, I wash my face. Then, I comb my hair.', 'I brush my teeth two times a day.'] },
+            { q: 'What command would you give to a robot?', vi: 'Bạn sẽ ra lệnh gì cho rô-bốt?', hint: 'Move forward and pick up my socks!', k: ['move|pick|clean|go|stop|bring|dance|tidy|turn|forward|jump|walk|wash|carry'], c: ['Move forward and pick up my socks!', 'My robot is red and blue.', 'I like robots very much.'] }
           ],
           snow: { vi: 'Ra lệnh cho rô-bốt', l: [[['Move forward!'], 'Tiến lên!'], [['The robot', 'moves forward', 'slowly.'], 'Rô-bốt tiến lên chậm rãi.'], [['First,', 'the robot', 'moves forward', 'three steps,', 'and then it stops.'], 'Đầu tiên, rô-bốt tiến lên ba bước, rồi nó dừng lại.']], x: ['move forwards', 'and then it sings.'] },
           cb: ['b', "Khoa, your instructions are mixed up. I'm confused!", 'Khoa ơi, hướng dẫn của cậu lộn xộn quá. Tớ bối rối rồi!', [
@@ -1740,7 +1740,7 @@
             ['A robot follows instructions step by step.', true, 'Yes! Robots do exactly what the code says.', 'Đúng! Rô-bốt làm chính xác những gì mã lệnh yêu cầu.'],
             ['Robots always know what to do without any commands.', false, 'No! People write the instructions for robots.', 'Sai! Con người viết hướng dẫn cho rô-bốt.']
           ],
-          qa: ['What job would you like a robot to do for you?', 'Bạn muốn rô-bốt làm việc gì cho bạn?', 'I would like a robot to tidy my room.', ['tidy|clean|cook|wash|carry|help|do|fold|feed|water', 'room|dishes|homework|toys|clothes|floor|dog|cat|bed|plants']]
+          qa: ['What job would you like a robot to do for you?', 'Bạn muốn rô-bốt làm việc gì cho bạn?', 'I would like a robot to tidy my room.', ['tidy|clean|cook|wash|carry|help|fold|feed|water', 'room|dishes|homework|toys|clothes|floor|dog|cat|bed|plants']]
         },
         {
           title: 'Oops, a Bug in the Maze!', titleVi: 'Ối, lỗi trong mê cung!', icon: '🐞',
@@ -1766,8 +1766,8 @@
             { vi: 'Em muốn ra lệnh: Lặp lại bước này ba lần.', a: ['Repeat', 'this step', 'three times.'], x: ['Repeats', 'three dogs.'] }
           ],
           talk: [
-            { q: 'What do you do when you find a bug in your code?', vi: 'Bạn làm gì khi tìm thấy lỗi trong mã lệnh?', hint: 'I check every step and fix it.', k: ['fix|change|check|look|try|ask|read', 'it|bug|code|step|steps|again|carefully'], c: ['I check every step and fix it.', 'I give the bug some rice.', 'I throw the computer away.'] },
-            { q: 'Your robot hits a wall. What command do you give?', vi: 'Rô-bốt của bạn đụng tường. Bạn ra lệnh gì?', hint: 'Turn around and move forward!', k: ['turn|go|move|back|stop', 'around|forward|back|left|right|stop'], c: ['Turn around and move forward!', 'Eat the wall, robot!', 'Sing a song to the wall!'] }
+            { q: 'What do you do when you find a bug in your code?', vi: 'Bạn làm gì khi tìm thấy lỗi trong mã lệnh?', hint: 'I check every step and fix it.', k: ['fix|change|check|look|try|ask|debug|read'], c: ['I check every step and fix it.', 'I start a new game.', 'I turn off the computer.'] },
+            { q: 'Your robot hits a wall. What command do you give?', vi: 'Rô-bốt của bạn đụng tường. Bạn ra lệnh gì?', hint: 'Turn around and move forward!', k: ['turn|back|backward|backwards|around|left|right|reverse'], c: ['Turn around and move forward!', 'Move forward again!', 'Go faster, robot!'] }
           ],
           snow: { vi: 'Kể về việc sửa lỗi', l: [[['the bug'], 'lỗi'], [['We', 'fixed', 'the bug.'], 'Tụi mình đã sửa lỗi.'], [['After lunch,', 'we', 'fixed', 'the bug,', 'and the robot reached the battery.'], 'Sau bữa trưa, tụi mình sửa lỗi, và rô-bốt đã tới cục pin.']], x: ['fixes', 'and the robot ate the battery.'] },
           cb: ['b', 'Beep! Your code has a bug. I keep spinning in circles!', 'Bíp! Mã lệnh của cậu có lỗi. Tớ cứ quay vòng vòng!', [
@@ -1781,7 +1781,7 @@
             ['A bug is a mistake in a computer program.', true, 'Yes! Coders look for bugs and fix them.', 'Đúng! Lập trình viên tìm lỗi và sửa chúng.'],
             ['When you repeat a step, you do it only once.', false, 'No! Repeat means you do it again and again.', 'Sai! Lặp lại nghĩa là làm đi làm lại nhiều lần.']
           ],
-          qa: ['Have you ever made a mistake and fixed it?', 'Bạn đã bao giờ mắc lỗi và tự sửa chưa?', 'Yes, I fixed my LEGO tower when it fell down.', ['yes|no|i', 'fix|fixed|built|tried|again|made|changed|corrected']]
+          qa: ['Have you ever made a mistake and fixed it?', 'Bạn đã bao giờ mắc lỗi và tự sửa chưa?', 'Yes, I fixed my LEGO tower when it fell down.', ['fix|fixed|built|tried|again|changed|corrected|rebuilt']]
         },
         {
           title: 'Smart and Safe Online', titleVi: 'Thông minh & an toàn trên mạng', icon: '🔐',
@@ -1807,8 +1807,8 @@
             { vi: 'Em muốn nói: Mình hỏi người lớn khi tin nhắn trông lạ.', a: ['I', 'ask', 'an adult', 'when a message looks strange.'], x: ['asks', 'a stranger'] }
           ],
           talk: [
-            { q: 'How much screen time do you have every day?', vi: 'Mỗi ngày bạn dùng màn hình bao lâu?', hint: 'I have about one hour of screen time a day.', k: ['hour|hours|minutes|minute|one|two|thirty|half|forty', 'day|screen|time|every|weekend'], c: ['I have about one hour of screen time a day.', 'I have screen time for one hundred days.', 'My screen is a potato.'] },
-            { q: 'What do you do if a stranger asks for your password?', vi: 'Bạn làm gì nếu người lạ hỏi mật khẩu của bạn?', hint: 'I say no and ask an adult.', k: ['no|never|not|don', 'adult|mum|dad|parent|parents|teacher|tell|ask'], c: ['I say no and ask an adult.', 'I send it to everyone.', 'I write it on the wall.'] }
+            { q: 'How much screen time do you have every day?', vi: 'Mỗi ngày bạn dùng màn hình bao lâu?', hint: 'I have about one hour of screen time a day.', k: ['hour|hours|minutes|minute|half'], c: ['I have about one hour of screen time a day.', 'I have screen time after dinner.', 'I watch cartoons on my tablet.'] },
+            { q: 'What do you do if a stranger asks for your password?', vi: 'Bạn làm gì nếu người lạ hỏi mật khẩu của bạn?', hint: 'I say no and ask an adult.', k: ["no|never|not|don't|dont", 'adult|mum|dad|parent|parents|teacher|tell|ask'], c: ['I say no and ask an adult.', 'I tell them my password.', 'I ask them their name.'] }
           ],
           snow: { vi: 'Nói về an toàn trên mạng', l: [[['my password'], 'mật khẩu của mình'], [['I', 'keep', 'my password secret.'], 'Mình giữ bí mật mật khẩu.'], [['On the internet,', 'I', 'always keep', 'my password secret', 'and ask an adult for help.'], 'Trên mạng, mình luôn giữ bí mật mật khẩu và nhờ người lớn giúp đỡ.']], x: ['keeps', 'and ask a stranger'] },
           cb: ['b', 'Khoa, you have played games for two hours. What now?', 'Khoa ơi, cậu chơi game hai tiếng rồi đấy. Giờ sao đây?', [

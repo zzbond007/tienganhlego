@@ -56,7 +56,10 @@
     return String(text || '').toLowerCase().replace(/[’`]/g, "'").replace(/^[\s"“(¿¡]+/, '').trim();
   }
 
-  const isVerb = (w) => AUX.has(w) || VERBS.has(w) || (/^[a-z]+(ing|ed)$/.test(w) && VERBS.has(w.replace(/(ing|ed)$/, '')));
+  const isVerb = (w) => AUX.has(w) || VERBS.has(w)
+    || (/^[a-z]+(ing|ed)$/.test(w) && (VERBS.has(w.replace(/(ing|ed)$/, '')) || VERBS.has(w.replace(/(ing|ed)$/, 'e'))))
+    // ngôi thứ 3 số ít: makes, washes, watches, tries → make, wash, watch, try (gạch nhiễu sai chia động từ vẫn là Action)
+    || (/^[a-z]+s$/.test(w) && (VERBS.has(w.slice(0, -1)) || (/es$/.test(w) && VERBS.has(w.slice(0, -2))) || (/ies$/.test(w) && VERBS.has(w.slice(0, -3) + 'y'))));
   const firstWord = (text) => clean(text).split(/[\s,.!?]+/)[0];
 
   /** Đoán vai trò ngữ pháp của MỘT viên gạch chữ. */

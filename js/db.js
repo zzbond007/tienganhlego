@@ -486,5 +486,52 @@
     }
   };
 
+  /* ---------- 🎙️ Sổ giọng nói: lưu vài bản ghi mỗi bài để bố mẹ nghe tiến bộ theo tuần ----------
+     IndexedDB riêng (leb-voice), tối đa MAX bản ghi (xóa bản cũ nhất), mỗi bản ghi vài giây (~30–80 KB). */
+  const VoiceBook = {
+    MAX: 120,
+    _db: null,
+    _open() {
+      if (this._db) return Promise.resolve(this._db);
+      return new Promise((resolve, reject) => {
+        if (!global.indexedDB) { reject(new Error('no-idb')); return; }
+        let req;
+        try { req = indexedDB.open('leb-voice', 1); } catch (e) { reject(e); return; }
+        req.onupgradeneeded = () => { const db = req.result; if (!db.objectStoreNames.contains('clips')) db.createObjectStore('clips', { keyPath: 'id', autoIncrement: true }); };
+        req.onsuccess = () => { this._db = req.result; resolve(this._db); };
+        req.onerror = () => reject(req.error);
+      });
+    },
+    async add(rec) {
+      try {
+        if (!rec || !rec.blob || !rec.blob.size) return;
+        const db = await this._open();
+        await new Promise((res, rej) => { const tx = db.transaction('clips', 'readwrite'); tx.objectStore('clips').add(Object.assign({ date: Date.now() }, rec)); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+        const all = await this.list();
+        if (all.length > this.MAX) {
+          const tx = db.transaction('clips', 'readwrite');
+          all.slice(this.MAX).forEach((c) => tx.objectStore('clips').delete(c.id));
+        }
+      } catch (e) { /* không lưu được thì bỏ qua – không ảnh hưởng bài học */ }
+    },
+    /** Mới nhất trước. */
+    async list() {
+      try {
+        const db = await this._open();
+        return await new Promise((res, rej) => {
+          const tx = db.transaction('clips', 'readonly');
+          const rq = tx.objectStore('clips').getAll();
+          rq.onsuccess = () => res((rq.result || []).sort((a, b) => b.date - a.date));
+          rq.onerror = () => rej(rq.error);
+        });
+      } catch (e) { return []; }
+    },
+    async get(id) { return (await this.list()).find((c) => c.id === id) || null; },
+    async clear() {
+      try { const db = await this._open(); await new Promise((res) => { const tx = db.transaction('clips', 'readwrite'); tx.objectStore('clips').clear(); tx.oncomplete = res; tx.onerror = res; }); } catch (e) { /* */ }
+    }
+  };
+
   global.Store = Store;
+  global.VoiceBook = VoiceBook;
 })(window);

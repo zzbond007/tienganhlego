@@ -29,7 +29,23 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
-**🛍️ Cửa hàng nhân vật (Tủ đồ):** 99 món, chia 8 nhóm – mũ & tóc, khuôn mặt, trang phục, quần, phụ kiện, 🐶 thú cưng,
+**🛠️ Bản v1.6 – khắc phục theo báo cáo đánh giá 20/10/2026:**
+- *Chấm nói theo ý định* (`Listener.judge`): chấp nhận câu trả lời ngắn tự nhiên ("Yes, I do.", "At six o'clock."),
+  từ chối câu giống phương án sai; từ khóa chỉ gồm từ mang nghĩa. Kiểm định: 276/276 câu mẫu đạt, 550/552 phương án sai bị loại
+  (2 câu còn lại là lời từ chối lời mời hợp lý).
+- *Phương án nhiễu hợp lý* (cùng chủ đề, sai chi tiết) thay cho câu vô lý ở cả 4 gói; 10 vùng SGK có thêm dữ liệu Gym.
+- *Tự nói trước, xem mẫu sau*: câu mẫu trong Phòng thu ẩn cho tới khi con tự nói; gợi ý 3 mức (từ khóa → nửa câu → cả câu),
+  dùng hết gợi ý thì không có Gold.
+- *Ngưỡng thành thạo 70%*: dưới ngưỡng chỉ mở một nửa mảnh ghép, có nút "Luyện lại" để mở nốt.
+- *Bước 4*: tháng 1–2 có màu vai trò, từ tháng 3 tắt màu (🎨 để xem); sửa bộ đoán vai trò (makes/washes → động từ);
+  lắp xong phải đọc to câu (câu thường & Snowball tầng 3).
+- *Ôn tập chủ động*: 2/5 câu ở Trạm bảo trì là "nhìn hình + nghe câu đố → tự nói từ".
+- *Giảm dần tiếng Việt*: từ tháng 4, lời thoại Comic bấm 🇻🇳 mới hiện nghĩa.
+- *🎙️ Sổ giọng nói* trong Góc Bố Mẹ (so sánh bản đầu – bản mới nhất); thống kê tách *từ vựng* và *mẫu câu*.
+- *Importer*: bắt buộc câu ví dụ; thiếu phần nào thì báo "⚠️ chất lượng thấp" thay vì "Hợp lệ"; sửa gạch nhiễu bị cắt lỗi.
+- Nhãn "giọng mẫu (máy đọc)" thay cho "bản xứ"; Góc Bố Mẹ giải thích giới hạn chấm nói khi mở từ Màn hình chính.
+
+**🛍️ Cửa hàng nhân vật (Tủ đồ):** 86 món để mua (cùng 13 lựa chọn miễn phí ban đầu), chia 8 nhóm – mũ & tóc, khuôn mặt, trang phục, quần, phụ kiện, 🐶 thú cưng,
 🛹 xe, 🧑‍🤝‍🧑 bạn đồng hành. Độ hiếm: Thường (≤ 80 Studs) · Hiếm (≤ 250) · Sử thi (≤ 600) · ⭐ Huyền thoại (đến 900 Studs
 hoặc mua bằng 🥇 Gold Brick: vương miện kim cương, áo giáp vàng, rồng con, kỳ lân, tên lửa, bạn Robot). Thú cưng, xe và
 bạn đồng hành xuất hiện cùng nhân vật ở Bản đồ, Tủ đồ và Hộ chiếu.

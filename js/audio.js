@@ -391,6 +391,8 @@
     /** Chuẩn hóa câu để so khớp. */
     normalize(s) {
       return String(s || '').toLowerCase()
+        // Bỏ dấu tiếng Việt thay vì xóa chữ: "Hà Nội" → "ha noi", "Đà Nẵng" → "da nang"
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd')
         .replace(/[’`]/g, "'")
         .replace(/\bp\.\s?e\.?/g, 'pe')
         .replace(/[^a-z0-9'\s-]/g, ' ')
@@ -404,6 +406,49 @@
      * keywords: mảng; mỗi phần tử có thể là "a|b|c" (khớp 1 trong các lựa chọn).
      * Điểm = max(tỉ lệ từ khóa đúng, tỉ lệ từ trùng với câu gợi ý).
      */
+    /**
+     * Chấm câu trả lời NÓI theo ý định (thay cho đếm từ khóa rời):
+     *  item = { q, keywords, hint, wrong: [các phương án sai] }
+     *  ✔ câu đủ ý: chứa từ khóa của MỌI nhóm (nhóm = từ mang nghĩa, có từ đồng nghĩa)
+     *  ✔ câu trả lời ngắn tự nhiên: "Yes, I do." cho câu hỏi Yes/No; "At six o'clock." / "A cat." cho câu hỏi Wh-
+     *    (≤ 5 từ và chứa nhóm từ khóa nội dung – nhóm cuối)
+     *  ✔ nói lại gần trọn câu mẫu (≥ 80% từ)
+     *  ✘ câu giống phương án sai hơn giống câu mẫu → không đạt (chặn câu vô lý kiểu "I eat my bed.")
+     *  Trả về { ok, score (0..1), text, reason: 'full'|'short'|'model'|'wrong'|'partial' }
+     */
+    judge(transcripts, item = {}) {
+      const list = (Array.isArray(transcripts) ? transcripts : [transcripts]).filter(Boolean);
+      const kws = item.keywords || [];
+      const words = (s) => this.normalize(s).split(' ').filter((w) => w.length > 1);
+      const overlap = (a, b) => { const A = words(a), B = new Set(words(b)); return A.length ? A.filter((w) => B.has(w)).length / A.length : 0; };
+      const sim = (a, b) => Math.min(overlap(a, b), overlap(b, a));
+      const groupHit = (t, k) => String(k).split('|').some((alt) => { const x = this.normalize(alt); return x && t.indexOf(' ' + x + ' ') !== -1; });
+      // Câu trả lời ngắn Yes/No: phải đúng "chiều" với câu mẫu (câu mẫu "No, ..." thì "Yes, it does." là sai)
+      const shortYN = (t) => /^ ?(yes|yeah|yep|sure|of course|i do|i can|i am|i did)\b/.test(t) ? 'yes'
+        : /^ ?(no|nope|not really|never|i don't|i can't|i'm not|i didn't)\b/.test(t) ? 'no'
+        : /^ ?(sometimes|usually|often|always)\b/.test(t) ? 'any' : '';
+      const hintPol = item.hint ? (shortYN(' ' + this.normalize(item.hint) + ' ') === 'any' ? '' : shortYN(' ' + this.normalize(item.hint) + ' ')) : '';
+      const yesNoQ = /^(do|does|did|is|are|am|was|were|can|could|will|would|have|has|should|shall|may)\b/i.test(String(item.q || '').trim());
+      let best = { ok: false, score: 0, text: list[0] || '', reason: 'partial' };
+      for (const raw of list) {
+        const t = ' ' + this.normalize(raw) + ' ';
+        const n = words(raw).length;
+        const hit = kws.map((k) => groupHit(t, k));
+        const kw = kws.length ? hit.filter(Boolean).length / kws.length : 0;
+        const ov = item.hint ? overlap(item.hint, raw) : 0;
+        const wrongSim = Math.max(0, ...(item.wrong || []).map((w) => sim(w, raw)));
+        let r;
+        if (wrongSim >= 0.6 && wrongSim > sim(item.hint || '', raw)) r = { ok: false, score: 0.2, reason: 'wrong' };
+        else if (kws.length && kw === 1) r = { ok: true, score: 1, reason: 'full' };
+        else if (yesNoQ && shortYN(t) && (!hintPol || shortYN(t) === hintPol || shortYN(t) === 'any')) r = { ok: true, score: 0.9, reason: 'short' };
+        else if (!yesNoQ && kws.length && n <= 5 && hit[kws.length - 1]) r = { ok: true, score: 0.9, reason: 'short' };
+        else if (ov >= 0.8) r = { ok: true, score: 0.95, reason: 'model' };
+        else r = { ok: false, score: Math.min(0.69, Math.max(kw, ov) * 0.69), reason: 'partial' };
+        if (r.ok && !best.ok || r.score > best.score) best = Object.assign(r, { text: raw });
+      }
+      return best;
+    },
+
     score(transcripts, keywords = [], hint = '') {
       const list = Array.isArray(transcripts) ? transcripts : [transcripts];
       let best = 0, bestText = list[0] || '';

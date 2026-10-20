@@ -59,8 +59,8 @@
             { vi: 'Em muốn nói: Mình rửa mặt bằng nước mát.', a: ['I', 'wash', 'my face', 'with cold water.'], x: ['washes', 'teeth'] }
           ],
           talk: [
-            { q: 'What time do you wake up?', vi: 'Bạn thức dậy lúc mấy giờ?', hint: "I wake up at six o'clock.", k: ['wake|get', "o'clock|oclock|six|seven|half|past|at"], c: ["I wake up at six o'clock.", 'I wake up at my bed.', "It's a toothbrush."] },
-            { q: 'Do you make your bed every morning?', vi: 'Bạn có gấp chăn mỗi sáng không?', hint: 'Yes, I make my bed every morning.', k: ['yes|no|sometimes|always|usually', 'make|bed|it'], c: ['Yes, I make my bed every morning.', 'Yes, I eat my bed.', 'No, it is Tuesday blue.'] }
+            { q: 'What time do you wake up?', vi: 'Bạn thức dậy lúc mấy giờ?', hint: "I wake up at six o'clock.", k: ['wake|get', "o'clock|oclock|five|six|seven|eight|nine|ten|half|quarter"], c: ["I wake up at six o'clock.", "I go to bed at nine o'clock.", 'I wake up in my bedroom.'] },
+            { q: 'Do you make your bed every morning?', vi: 'Bạn có gấp chăn mỗi sáng không?', hint: 'Yes, I make my bed every morning.', k: ['yes|no|sometimes|always|usually|never|often', 'make|makes|made|bed'], c: ['Yes, I make my bed every morning.', 'Yes, I wash my face every morning.', 'No, I have milk for breakfast.'] }
           ],
           snow: { vi: 'Kể về buổi sáng của em', l: [[['wake up'], 'thức dậy'], [['I', 'wake up', 'early.'], 'Mình dậy sớm.'], [['Every morning,', 'I', 'wake up', 'early', 'and make my bed.'], 'Mỗi sáng, mình dậy sớm và gấp chăn.']], x: ['wakes', 'night'] },
           cb: ['b', 'Minh, would you like to help me make your bed?', 'Minh ơi, con có muốn giúp mẹ gấp chăn không?', [
@@ -100,8 +100,8 @@
             { vi: 'Em muốn chào mẹ: Tạm biệt mẹ! Chúc mẹ một ngày tốt lành!', a: ['Goodbye, Mum!', 'Have', 'a nice day!'], x: ['Has', 'night'] }
           ],
           talk: [
-            { q: 'What do you have for breakfast?', vi: 'Bạn ăn gì vào bữa sáng?', hint: 'I have bread and milk for breakfast.', k: ['have|eat|drink|usually', 'bread|milk|rice|noodles|pho|egg|eggs|cereal|fruit|banana|sticky'], c: ['I have bread and milk for breakfast.', 'I have breakfast in my shoes.', 'It is a schoolbag.'] },
-            { q: 'Do you pack your schoolbag by yourself?', vi: 'Bạn có tự chuẩn bị cặp sách không?', hint: 'Yes, I pack it by myself.', k: ['yes|no|sometimes', 'pack|myself|it|mum|dad'], c: ['Yes, I pack it by myself.', 'Yes, my schoolbag is a banana.', 'No, I am breakfast.'] }
+            { q: 'What do you have for breakfast?', vi: 'Bạn ăn gì vào bữa sáng?', hint: 'I have bread and milk for breakfast.', k: ['bread|milk|rice|noodles|pho|egg|eggs|cereal|fruit|banana|sticky|banh|cake|soup|yogurt'], c: ['I have bread and milk for breakfast.', "I have breakfast at six o'clock.", 'I have breakfast in the kitchen.'] },
+            { q: 'Do you pack your schoolbag by yourself?', vi: 'Bạn có tự chuẩn bị cặp sách không?', hint: 'Yes, I pack it by myself.', k: ['yes|no|sometimes|always|usually|never|often', 'pack|packs|myself|mum|mom|dad'], c: ['Yes, I pack it by myself.', 'Yes, I go to school by bus.', 'No, my schoolbag is blue.'] }
           ],
           snow: { vi: 'Kể về việc chuẩn bị đi học', l: [[['my schoolbag'], 'cặp sách của mình'], [['I', 'pack', 'my schoolbag.'], 'Mình chuẩn bị cặp sách.'], [['Every evening,', 'I', 'pack', 'my schoolbag', 'for the next day.'], 'Mỗi tối, mình chuẩn bị cặp sách cho ngày hôm sau.']], x: ['packs', 'shoes'] },
           cb: ['b', "Minh, it's raining. Do you want to take an umbrella?", 'Minh ơi, trời mưa rồi. Con có muốn mang ô không?', [
@@ -141,8 +141,8 @@
             { vi: 'Em muốn nhờ bố: Bố đọc truyện cho con được không ạ?', a: ['Can you', 'read', 'a bedtime story,', 'please?'], x: ['reads', 'Do'] }
           ],
           talk: [
-            { q: 'What time do you go to bed?', vi: 'Bạn đi ngủ lúc mấy giờ?', hint: "I go to bed at nine o'clock.", k: ['bed|sleep', "o'clock|oclock|nine|ten|eight|half|past|at"], c: ["I go to bed at nine o'clock.", 'I go to bed in my shoes.', 'It is a bedtime story.'] },
-            { q: 'Who reads you a bedtime story?', vi: 'Ai đọc truyện cho bạn trước khi ngủ?', hint: 'My mum reads me a bedtime story.', k: ['mum|mom|dad|mother|father|grandma|grandpa|sister|brother|myself|i', 'read|reads|story|stories'], c: ['My mum reads me a bedtime story.', 'My shoes read me a story.', 'I read the light.'] }
+            { q: 'What time do you go to bed?', vi: 'Bạn đi ngủ lúc mấy giờ?', hint: "I go to bed at nine o'clock.", k: ['bed|sleep', "o'clock|oclock|seven|eight|nine|ten|eleven|half|past|quarter|pm"], c: ["I go to bed at nine o'clock.", "I wake up at six o'clock.", 'I go to bed in my bedroom.'] },
+            { q: 'Who reads you a bedtime story?', vi: 'Ai đọc truyện cho bạn trước khi ngủ?', hint: 'My mum reads me a bedtime story.', k: ['mum|mom|dad|mother|father|grandma|grandpa|sister|brother|myself|nobody|parents', 'read|reads|story|stories'], c: ['My mum reads me a bedtime story.', 'My dad takes me to school.', 'I read comics in the morning.'] }
           ],
           snow: { vi: 'Kể về giờ đi ngủ', l: [[['Good night!'], 'Chúc ngủ ngon!'], [['I', 'go', 'to bed.'], 'Mình đi ngủ.'], [['After my bedtime story,', 'I', 'say', 'Good night', 'and turn off the light.'], 'Sau khi nghe truyện, mình chúc ngủ ngon và tắt đèn.']], x: ['goes', 'morning'] },
           cb: ['b', "It's nine o'clock. Time for bed, Minh!", 'Chín giờ rồi. Đến giờ đi ngủ rồi Minh!', [
@@ -210,8 +210,8 @@
             { vi: 'Em muốn hỏi ông: Ông đang ở đâu ạ? Ông ở trong vườn à?', a: ['Where are you?', 'Are you', 'in the garden?'], x: ['Is', 'kitchens'] }
           ],
           talk: [
-            { q: 'How many bedrooms are there in your house?', vi: 'Nhà bạn có mấy phòng ngủ?', hint: 'There are two bedrooms in my house.', k: ['there|have|has|is|are', 'one|two|three|four|bedroom|bedrooms'], c: ['There are two bedrooms in my house.', 'There are two kitchens in my bed.', 'My house is a banana.'] },
-            { q: 'Where do you do your homework?', vi: 'Bạn làm bài tập ở đâu?', hint: 'I do my homework in my bedroom.', k: ['in|at|on', 'bedroom|living|kitchen|room|desk|table'], c: ['I do my homework in my bedroom.', 'I do my homework in the bathtub.', 'My homework is a garden.'] }
+            { q: 'How many bedrooms are there in your house?', vi: 'Nhà bạn có mấy phòng ngủ?', hint: 'There are two bedrooms in my house.', k: ['one|two|three|four|five|six|no', 'bedroom|bedrooms'], c: ['There are two bedrooms in my house.', 'There are two bathrooms in my house.', 'My bedroom is next to the kitchen.'] },
+            { q: 'Where do you do your homework?', vi: 'Bạn làm bài tập ở đâu?', hint: 'I do my homework in my bedroom.', k: ['bedroom|living|kitchen|room|desk|table|library|school|classroom|home'], c: ['I do my homework in my bedroom.', 'I do my homework after dinner.', 'I do my homework with my sister.'] }
           ],
           snow: { vi: 'Giới thiệu căn phòng em yêu thích', l: [[['my bedroom'], 'phòng ngủ của mình'], [['I', 'love', 'my bedroom.'], 'Mình yêu phòng ngủ của mình.'], [['I', 'really love', 'my bedroom', 'because', 'it is cozy and quiet.'], 'Mình rất thích phòng ngủ vì nó ấm cúng và yên tĩnh.']], x: ['loves', 'kitchen'] },
           cb: ['b', "Lily, let's play hide and seek again!", 'Lily ơi, mình chơi trốn tìm nữa nhé!', [
@@ -225,7 +225,7 @@
             ['We cook food in the kitchen.', true, 'Yes! The kitchen is for cooking.', 'Đúng! Nhà bếp là nơi nấu ăn.'],
             ['We take a shower in the living room.', false, 'No! We take a shower in the bathroom.', 'Sai! Mình tắm trong phòng tắm.']
           ],
-          qa: ['What can you see in your living room?', 'Bạn thấy gì trong phòng khách nhà bạn?', 'I can see a sofa and a TV.', ['see|have|has|there', 'sofa|tv|table|lamp|chair|clock|picture|television']]
+          qa: ['What can you see in your living room?', 'Bạn thấy gì trong phòng khách nhà bạn?', 'I can see a sofa and a TV.', ['sofa|tv|table|lamp|chair|clock|picture|television|bookshelf|plant|plants|fan|cushion|carpet|rug']]
         },
         {
           title: 'Things in My Room', titleVi: 'Đồ đạc trong phòng', icon: '🪑',
@@ -251,8 +251,8 @@
             { vi: 'Em muốn tả: Có nhiều sách trên giá sách của mình.', a: ['There are', 'many books', 'on', 'my bookshelf.'], x: ['There is', 'eat'] }
           ],
           talk: [
-            { q: 'Where is your lamp?', vi: 'Đèn bàn của bạn ở đâu?', hint: "It's on my desk.", k: ["it's|its|it|is|on|next|in|under", 'desk|table|bed|bookshelf|room'], c: ["It's on my desk.", "It's in my breakfast.", 'It is a wardrobe dog.'] },
-            { q: 'What is in your wardrobe?', vi: 'Trong tủ quần áo của bạn có gì?', hint: 'My clothes are in my wardrobe.', k: ['clothes|shirts|shirt|jacket|dress|trousers|uniform|t-shirts'], c: ['My clothes are in my wardrobe.', 'A car is in my wardrobe.', 'My wardrobe is in the sky.'] }
+            { q: 'Where is your lamp?', vi: 'Đèn bàn của bạn ở đâu?', hint: "It's on my desk.", k: ['on|next|in|under|near|behind|beside', 'desk|table|bed|bookshelf|room|bedroom|window|shelf'], c: ["It's on my desk.", "It's a small yellow lamp.", 'I turn it on at night.'] },
+            { q: 'What is in your wardrobe?', vi: 'Trong tủ quần áo của bạn có gì?', hint: 'My clothes are in my wardrobe.', k: ['clothes|shirts|shirt|jacket|jackets|dress|dresses|trousers|uniform|t-shirts|coat|coats|skirt|socks|jeans|hats'], c: ['My clothes are in my wardrobe.', 'My wardrobe is next to my bed.', 'My wardrobe is big and brown.'] }
           ],
           snow: { vi: 'Tả vị trí đồ vật trong phòng', l: [[['the lamp'], 'cái đèn'], [['The lamp', 'is', 'on the desk.'], 'Đèn ở trên bàn học.'], [['My new lamp', 'is', 'on the desk', 'next to', 'my bookshelf.'], 'Cái đèn mới của mình ở trên bàn, cạnh giá sách.']], x: ['are', 'eat'] },
           cb: ['b', 'Lily, shall we put your new bookshelf next to the bed?', 'Lily ơi, mình đặt giá sách mới cạnh giường nhé?', [
@@ -292,8 +292,8 @@
             { vi: 'Em muốn nhắc: Hãy tắt đèn khi bạn ra ngoài nhé.', a: ['Please', 'turn off', 'the lights', 'when you go out.'], x: ['turns', 'on'] }
           ],
           talk: [
-            { q: 'Is your room messy or tidy?', vi: 'Phòng bạn bừa bộn hay gọn gàng?', hint: 'My room is tidy.', k: ['messy|tidy|clean|neat'], c: ['My room is tidy.', 'My room is a bus.', 'My room eats toys.'] },
-            { q: 'What do you do after playing with LEGO?', vi: 'Bạn làm gì sau khi chơi LEGO?', hint: 'I put away my toys.', k: ['put|tidy|clean|keep', 'away|toys|lego|box|bricks|up'], c: ['I put away my toys.', 'I put my toys in the soup.', 'I turn off my LEGO.'] }
+            { q: 'Is your room messy or tidy?', vi: 'Phòng bạn bừa bộn hay gọn gàng?', hint: 'My room is tidy.', k: ['messy|tidy|clean|neat'], c: ['My room is tidy.', 'My room is big.', 'My room is next to the bathroom.'] },
+            { q: 'What do you do after playing with LEGO?', vi: 'Bạn làm gì sau khi chơi LEGO?', hint: 'I put away my toys.', k: ['put|tidy|clean|keep', 'away|toys|lego|box|bricks|up'], c: ['I put away my toys.', 'I build a big LEGO car.', 'I watch TV with my sister.'] }
           ],
           snow: { vi: 'Nói về việc giữ phòng gọn gàng', l: [[['tidy'], 'gọn gàng'], [['My room', 'is', 'tidy.'], 'Phòng mình gọn gàng.'], [['Every evening,', 'I', 'put away', 'my toys', 'and keep my room tidy.'], 'Mỗi tối, mình cất đồ chơi và giữ phòng gọn gàng.']], x: ['messy', 'puts'] },
           cb: ['b', 'Lily, your room is messy. Can you tidy it now?', 'Lily ơi, phòng cháu bừa bộn quá. Cháu dọn ngay nhé?', [
@@ -361,8 +361,8 @@
             { vi: 'Em muốn hỏi bố: Con giúp bố nấu cơm được không ạ?', a: ['Can I', 'help you', 'cook rice,', 'Dad?'], x: ['Do', 'cooks'] }
           ],
           talk: [
-            { q: 'Do you help your parents in the kitchen?', vi: 'Bạn có giúp bố mẹ trong bếp không?', hint: 'Yes, I set the table.', k: ['yes|no|sometimes|always|usually', 'set|wash|cook|clear|help|table|dishes|rice'], c: ['Yes, I set the table.', 'Yes, I cook my shoes.', 'No, the kitchen is a bus.'] },
-            { q: 'Who washes the dishes in your family?', vi: 'Ai rửa bát trong gia đình bạn?', hint: 'My mum and I wash the dishes.', k: ['mum|mom|dad|i|me|brother|sister|grandma|grandpa|we|everyone', 'wash|washes|dishes'], c: ['My mum and I wash the dishes.', 'The dishes wash my cat.', 'I wash the moon.'] }
+            { q: 'Do you help your parents in the kitchen?', vi: 'Bạn có giúp bố mẹ trong bếp không?', hint: 'Yes, I set the table.', k: ['yes|no|sometimes|always|usually|never|often', 'set|wash|cook|clear|help|table|dishes|rice|cut|clean'], c: ['Yes, I set the table.', 'Yes, I tidy my bedroom.', 'No, I watch TV in the living room.'] },
+            { q: 'Who washes the dishes in your family?', vi: 'Ai rửa bát trong gia đình bạn?', hint: 'My mum and I wash the dishes.', k: ['mum|mom|dad|i|me|brother|sister|grandma|grandpa|we|everyone|parents|myself', 'wash|washes|dishes|bowls'], c: ['My mum and I wash the dishes.', 'My mum cooks dinner.', 'My dad waters the plants.'] }
           ],
           snow: { vi: 'Kể việc em giúp bố mẹ', l: [[['the dishes'], 'bát đĩa'], [['I', 'wash', 'the dishes.'], 'Mình rửa bát.'], [['After dinner,', 'I', 'help my dad', 'wash the dishes', 'in the kitchen.'], 'Sau bữa tối, mình giúp bố rửa bát trong bếp.']], x: ['washes', 'eat'] },
           cb: ['b', 'Tom, the rice is ready. Can you call everyone for dinner?', 'Tom ơi, cơm chín rồi. Con gọi cả nhà ăn cơm nhé?', [
@@ -402,8 +402,8 @@
             { vi: 'Em muốn nhờ anh: Anh đổ rác giúp em được không?', a: ['Can you', 'take out', 'the rubbish,', 'please?'], x: ['takes', 'in'] }
           ],
           talk: [
-            { q: 'What housework do you do on Sundays?', vi: 'Bạn làm việc nhà gì vào Chủ nhật?', hint: 'I sweep the floor and fold the clothes.', k: ['sweep|mop|fold|wash|clean|tidy|take', 'floor|clothes|dishes|room|rubbish|house'], c: ['I sweep the floor and fold the clothes.', 'I sweep the clouds.', 'Sunday is a broom.'] },
-            { q: 'Where is the broom?', vi: 'Cái chổi ở đâu?', hint: "It's behind the door.", k: ["it's|its|it|is", 'behind|next|in|under|on|kitchen|door|corner'], c: ["It's behind the door.", "It's in my soup.", 'The broom is Monday.'] }
+            { q: 'What housework do you do on Sundays?', vi: 'Bạn làm việc nhà gì vào Chủ nhật?', hint: 'I sweep the floor and fold the clothes.', k: ['sweep|mop|fold|wash|clean|tidy|take', 'floor|clothes|dishes|room|rubbish|house'], c: ['I sweep the floor and fold the clothes.', 'I play football with my friends.', 'I go to the park on Sundays.'] },
+            { q: 'Where is the broom?', vi: 'Cái chổi ở đâu?', hint: "It's behind the door.", k: ['behind|next|under|near|beside|kitchen|door|corner|bathroom|wardrobe|garden|cupboard'], c: ["It's behind the door.", "It's a long brown broom.", 'I sweep the floor with it.'] }
           ],
           snow: { vi: 'Kể về ngày dọn nhà', l: [[['the floor'], 'sàn nhà'], [['I', 'sweep', 'the floor.'], 'Mình quét nhà.'], [['On Sundays,', 'I', 'sweep', 'the floor', 'with a big broom.'], 'Vào Chủ nhật, mình quét nhà bằng cây chổi to.']], x: ['sweeps', 'eat'] },
           cb: ['b', 'Tom, the rubbish bin is full. Can you take out the rubbish?', 'Tom ơi, thùng rác đầy rồi. Con đổ rác giúp bố nhé?', [
@@ -443,8 +443,8 @@
             { vi: 'Em muốn hỏi bạn: Bạn có nuôi thú cưng không?', a: ['Do you', 'have', 'a pet?'], x: ['Does', 'has'] }
           ],
           talk: [
-            { q: 'Do you have a pet?', vi: 'Bạn có nuôi thú cưng không?', hint: 'Yes, I have a cat.', k: ['yes|no|have|has|got', 'cat|dog|fish|bird|rabbit|hamster|pet|turtle|no'], c: ['Yes, I have a cat.', 'Yes, I have a cloud.', 'My pet is a Tuesday.'] },
-            { q: 'Who waters the plants in your house?', vi: 'Ai tưới cây trong nhà bạn?', hint: 'My grandma waters the plants.', k: ['mum|mom|dad|grandma|grandpa|i|me|brother|sister|we', 'water|waters|plants'], c: ['My grandma waters the plants.', 'The plants water my grandma.', 'I water the television.'] }
+            { q: 'Do you have a pet?', vi: 'Bạn có nuôi thú cưng không?', hint: 'Yes, I have a cat.', k: ['yes|no|sometimes|always|usually|never|often', 'cat|dog|fish|bird|rabbit|hamster|pet|pets|turtle|parrot'], c: ['Yes, I have a cat.', 'Yes, I have a sister.', 'Yes, I have a new bike.'] },
+            { q: 'Who waters the plants in your house?', vi: 'Ai tưới cây trong nhà bạn?', hint: 'My grandma waters the plants.', k: ['mum|mom|dad|grandma|grandpa|i|me|brother|sister|we|parents|myself', 'water|waters|plants'], c: ['My grandma waters the plants.', 'My grandma cooks dinner.', 'My dad washes the car.'] }
           ],
           snow: { vi: 'Kể về việc chăm thú cưng', l: [[['my cat'], 'con mèo của mình'], [['I', 'feed', 'my cat.'], 'Mình cho mèo ăn.'], [['Every day,', 'I', 'feed', 'my cat', 'and give her fresh water.'], 'Mỗi ngày, mình cho mèo ăn và cho nó nước sạch.']], x: ['feeds', 'plants'] },
           cb: ['b', 'Tom, the plants look dry. What should we do?', 'Tom ơi, cây trông khô quá. Mình nên làm gì nhỉ?', [
@@ -512,8 +512,8 @@
             { vi: 'Em muốn giới thiệu: Đây là em họ của mình. Tên bạn ấy là Bin.', a: ['This is', 'my cousin.', 'His name', 'is Bin.'], x: ['These are', 'Her'] }
           ],
           talk: [
-            { q: 'How many people are there in your family?', vi: 'Gia đình bạn có mấy người?', hint: 'There are four people in my family.', k: ['there|are|have|is', 'two|three|four|five|six|seven|people'], c: ['There are four people in my family.', 'There are four dogs in my soup.', 'My family is a pencil.'] },
-            { q: 'Do you have any cousins?', vi: 'Bạn có anh chị em họ không?', hint: 'Yes, I have three cousins.', k: ['yes|no|have|got', 'cousin|cousins|one|two|three|four|five'], c: ['Yes, I have three cousins.', 'Yes, my cousin is a kitchen.', 'No, I am Monday.'] }
+            { q: 'How many people are there in your family?', vi: 'Gia đình bạn có mấy người?', hint: 'There are four people in my family.', k: ['two|three|four|five|six|seven|eight|nine', 'people|family'], c: ['There are four people in my family.', 'There are four bedrooms in my house.', 'My family lives in Ha Noi.'] },
+            { q: 'Do you have any cousins?', vi: 'Bạn có anh chị em họ không?', hint: 'Yes, I have three cousins.', k: ['yes|no|sometimes|always|usually|never|often', 'cousin|cousins'], c: ['Yes, I have three cousins.', 'Yes, I have two brothers.', "No, I don't have a pet."] }
           ],
           snow: { vi: 'Giới thiệu người thân', l: [[['my uncle'], 'chú của mình'], [['This', 'is', 'my uncle.'], 'Đây là chú của mình.'], [['This', 'is', 'my uncle.', 'He', 'can play the guitar very well.'], 'Đây là chú của mình. Chú chơi đàn ghi-ta rất giỏi.']], x: ['are', 'aunt'] },
           cb: ['b', 'Mai, your cousins are coming this weekend. Are you happy?', 'Mai ơi, cuối tuần này các anh chị em họ của cháu sẽ đến chơi. Cháu vui không?', [
@@ -527,7 +527,7 @@
             ["Your aunt is your mum's or dad's sister.", true, 'Yes! An aunt is a sister of your parent.', 'Đúng! Cô/dì là chị em gái của bố hoặc mẹ.'],
             ['Your grandparents are younger than you.', false, 'No! Grandparents are much older than you.', 'Sai! Ông bà lớn tuổi hơn con rất nhiều.']
           ],
-          qa: ['Who do you live with?', 'Bạn sống cùng với ai?', 'I live with my parents and my sister.', ['live|with', 'mum|mom|dad|parents|sister|brother|grandma|grandpa|grandparents|family']]
+          qa: ['Who do you live with?', 'Bạn sống cùng với ai?', 'I live with my parents and my sister.', ['mum|mom|dad|parents|sister|brother|grandma|grandpa|grandparents|family|uncle|aunt']]
         },
         {
           title: 'What Do They Look Like?', titleVi: 'Họ trông như thế nào?', icon: '👓',
@@ -553,8 +553,8 @@
             { vi: 'Em muốn tả: Cô mình có mái tóc xoăn và đeo kính.', a: ['My aunt', 'has', 'curly hair', 'and wears glasses.'], x: ['have', 'eats'] }
           ],
           talk: [
-            { q: 'What does your best friend look like?', vi: 'Bạn thân của bạn trông như thế nào?', hint: 'She is short and she has long hair.', k: ['tall|short|long|curly|straight|hair|glasses|big|small|thin|eyes'], c: ['She is short and she has long hair.', 'She is a banana with glasses.', 'My friend is Tuesday.'] },
-            { q: 'Who is the tallest in your family?', vi: 'Ai cao nhất trong gia đình bạn?', hint: 'My dad is the tallest.', k: ['dad|mum|mom|father|mother|brother|sister|grandpa|uncle|i|me', 'tallest|tall'], c: ['My dad is the tallest.', 'The tallest is my shoe.', 'My family is very curly.'] }
+            { q: 'What does your best friend look like?', vi: 'Bạn thân của bạn trông như thế nào?', hint: 'She is short and she has long hair.', k: ['tall|short|long|curly|straight|hair|glasses|big|small|thin|eyes'], c: ['She is short and she has long hair.', 'She is very kind and funny.', 'She likes reading books.'] },
+            { q: 'Who is the tallest in your family?', vi: 'Ai cao nhất trong gia đình bạn?', hint: 'My dad is the tallest.', k: ['dad|mum|mom|father|mother|brother|sister|grandpa|grandma|uncle|i|me', 'tallest|tall'], c: ['My dad is the tallest.', 'My dad is the oldest.', 'My brother is the shortest.'] }
           ],
           snow: { vi: 'Tả ngoại hình người thân', l: [[['glasses'], 'kính mắt'], [['Grandpa', 'wears', 'glasses.'], 'Ông đeo kính.'], [['My grandpa', 'is tall,', 'and he', 'wears', 'big round glasses.'], 'Ông mình cao, và ông đeo cặp kính tròn to.']], x: ['wear', 'eats'] },
           cb: ['b', 'Mai, do you like my new glasses?', 'Mai ơi, cháu thấy kính mới của bà thế nào?', [
@@ -594,8 +594,8 @@
             { vi: 'Em muốn hỏi bạn: Trông bạn buồn thế. Có chuyện gì vậy?', a: ['You look', 'sad.', "What's", 'wrong?'], x: ['Where', 'eat'] }
           ],
           talk: [
-            { q: 'How do you feel today?', vi: 'Hôm nay bạn cảm thấy thế nào?', hint: "I'm happy today!", k: ['happy|sad|tired|angry|great|good|fine|excited|sleepy|okay|ok'], c: ["I'm happy today!", "I'm a sandwich today!", 'Today is very blue rice.'] },
-            { q: 'What do you do when you feel sad?', vi: 'Bạn làm gì khi cảm thấy buồn?', hint: 'I talk to my mum.', k: ['talk|hug|play|read|draw|sleep|listen|tell|cry|sing'], c: ['I talk to my mum.', 'I eat my shoes.', 'I am a sad bus.'] }
+            { q: 'How do you feel today?', vi: 'Hôm nay bạn cảm thấy thế nào?', hint: "I'm happy today!", k: ['happy|sad|tired|angry|great|good|fine|excited|sleepy|okay|ok'], c: ["I'm happy today!", "I'm at school today.", 'Today is Monday.'] },
+            { q: 'What do you do when you feel sad?', vi: 'Bạn làm gì khi cảm thấy buồn?', hint: 'I talk to my mum.', k: ['talk|hug|play|read|draw|sleep|listen|tell|cry|sing'], c: ['I talk to my mum.', 'I feel sad when I lose a game.', "I'm sad today."] }
           ],
           snow: { vi: 'Nói về cảm xúc của em', l: [[['happy'], 'vui vẻ'], [['I', 'feel', 'happy.'], 'Mình thấy vui.'], [['Today,', 'I', 'feel', 'very happy', 'because my grandma is here.'], 'Hôm nay, mình thấy rất vui vì bà đến chơi.']], x: ['feels', 'sad'] },
           cb: ['b', 'Mai, your friend Linh is crying. What can you say to her?', 'Mai ơi, bạn Linh đang khóc kìa. Cháu có thể nói gì với bạn?', [
@@ -609,7 +609,7 @@
             ['When you are tired, you should take a rest.', true, 'Yes! Rest helps your body get strong again.', 'Đúng! Nghỉ ngơi giúp cơ thể khỏe lại.'],
             ['When your friend is sad, you should laugh at them.', false, "No! You should ask \"What's wrong?\" and help them.", 'Sai! Con nên hỏi "Có chuyện gì vậy?" và giúp bạn.']
           ],
-          qa: ['What makes you happy?', 'Điều gì làm bạn vui?', 'Playing LEGO makes me happy.', ['play|playing|lego|family|friends|reading|music|games|football|happy|makes']]
+          qa: ['What makes you happy?', 'Điều gì làm bạn vui?', 'Playing LEGO makes me happy.', ['play|playing|lego|family|friends|reading|music|games|football|drawing|books|pets|toys']]
         }
       ],
       mystery: {
@@ -666,8 +666,8 @@
             { vi: 'Em muốn nhắc bạn: Cẩn thận với cái kéo nhé!', a: ['Be', 'careful', 'with', 'the scissors!'], x: ['Is', 'eat'] }
           ],
           talk: [
-            { q: 'What is in your pencil case?', vi: 'Trong hộp bút của bạn có gì?', hint: 'There is a ruler and an eraser.', k: ['ruler|eraser|pencil|pen|pens|pencils|crayons|scissors|rubber|sharpener'], c: ['There is a ruler and an eraser.', 'There is a pizza and a cat.', 'My pencil case is Tuesday.'] },
-            { q: 'What colour is your schoolbag?', vi: 'Cặp sách của bạn màu gì?', hint: "It's blue.", k: ['red|blue|green|yellow|pink|purple|black|white|orange|brown|grey|gray'], c: ["It's blue.", "It's Monday.", "It's a ruler."] }
+            { q: 'What is in your pencil case?', vi: 'Trong hộp bút của bạn có gì?', hint: 'There is a ruler and an eraser.', k: ['ruler|eraser|pencil|pen|pens|pencils|crayons|scissors|rubber|sharpener'], c: ['There is a ruler and an eraser.', "It's blue and red.", "It's in my schoolbag."] },
+            { q: 'What colour is your schoolbag?', vi: 'Cặp sách của bạn màu gì?', hint: "It's blue.", k: ['red|blue|green|yellow|pink|purple|black|white|orange|brown|grey|gray'], c: ["It's blue.", "It's big and heavy.", "It's on my desk."] }
           ],
           snow: { vi: 'Tả đồ dùng học tập', l: [[['my ruler'], 'thước kẻ của mình'], [['My ruler', 'is', 'long.'], 'Thước kẻ của mình dài.'], [['My new ruler', 'is', 'long and blue,', 'and it', 'is in my pencil case.'], 'Thước kẻ mới của mình dài và màu xanh, nó ở trong hộp bút.']], x: ['are', 'eat'] },
           cb: ['b', 'Ben, you forgot your scissors. What can you do?', 'Ben ơi, em quên mang kéo rồi. Em có thể làm gì?', [
@@ -707,8 +707,8 @@
             { vi: 'Em muốn mượn bạn: Cho mình mượn cục tẩy của bạn nhé?', a: ['May I', 'borrow', 'your eraser,', 'please?'], x: ['borrows', 'Do'] }
           ],
           talk: [
-            { q: 'May I borrow your pencil?', vi: 'Cho mình mượn bút chì của bạn nhé?', hint: 'Sure! Here you are.', k: ['sure|yes|here|course|okay|ok|sorry'], c: ['Sure! Here you are.', 'Sure! I am a pencil.', 'No, it is raining pencils.'] },
-            { q: 'You are late for class. What do you say to the teacher?', vi: 'Bạn đến lớp muộn. Bạn nói gì với cô giáo?', hint: "Sorry I'm late. May I come in?", k: ['sorry|may|come|late|in'], c: ["Sorry I'm late. May I come in?", "Sorry, I'm a door.", 'May I eat the classroom?'] }
+            { q: 'May I borrow your pencil?', vi: 'Cho mình mượn bút chì của bạn nhé?', hint: 'Sure! Here you are.', k: ['sure|yes|here|course|okay|ok|sorry'], c: ['Sure! Here you are.', 'Thank you very much!', 'Good morning, teacher!'] },
+            { q: 'You are late for class. What do you say to the teacher?', vi: 'Bạn đến lớp muộn. Bạn nói gì với cô giáo?', hint: "Sorry I'm late. May I come in?", k: ['sorry|late|come'], c: ["Sorry I'm late. May I come in?", 'May I go out, please?', 'Thank you, teacher!'] }
           ],
           snow: { vi: 'Xin phép mượn đồ lịch sự', l: [[['your ruler'], 'thước của bạn'], [['May I', 'borrow', 'your ruler?'], 'Cho mình mượn thước của bạn nhé?'], [['Excuse me, Lan.', 'May I', 'borrow', 'your ruler', 'for a minute, please?'], 'Xin lỗi Lan. Cho mình mượn thước một chút nhé?']], x: ['borrows', 'eat'] },
           cb: ['b', 'Ben, do you need anything?', 'Ben ơi, em có cần gì không?', [
@@ -748,8 +748,8 @@
             { vi: 'Em muốn nhắc: Hãy giữ trật tự trong thư viện.', a: ['Please', 'be quiet', 'in', 'the library.'], x: ['is', 'noisy'] }
           ],
           talk: [
-            { q: 'What do you do when you want to answer?', vi: 'Bạn làm gì khi muốn trả lời câu hỏi?', hint: 'I raise my hand.', k: ['raise|put|up', 'hand|hands|arm'], c: ['I raise my hand.', 'I raise my lunch.', 'I shout very loudly.'] },
-            { q: 'What are the rules in your classroom?', vi: 'Lớp bạn có những nội quy gì?', hint: 'We must listen carefully and be quiet.', k: ['listen|quiet|raise|hand|sit|tidy|kind|share|late|must'], c: ['We must listen carefully and be quiet.', 'We must eat our books.', 'The rules are blue bananas.'] }
+            { q: 'What do you do when you want to answer?', vi: 'Bạn làm gì khi muốn trả lời câu hỏi?', hint: 'I raise my hand.', k: ['raise|put|up', 'hand|hands|arm'], c: ['I raise my hand.', 'I stand up and shout.', 'I open my book.'] },
+            { q: 'What are the rules in your classroom?', vi: 'Lớp bạn có những nội quy gì?', hint: 'We must listen carefully and be quiet.', k: ['listen|quiet|raise|hand|hands|sit|tidy|kind|share|late|polite|wait|help'], c: ['We must listen carefully and be quiet.', 'We have Maths and English.', 'My classroom is big and bright.'] }
           ],
           snow: { vi: 'Nói về nội quy lớp học', l: [[['quiet'], 'yên lặng'], [['Please', 'be', 'quiet.'], 'Hãy giữ trật tự.'], [['In class,', 'we', 'raise our hands', 'and listen', 'carefully to the teacher.'], 'Trong lớp, chúng mình giơ tay và lắng nghe cô giáo cẩn thận.']], x: ['noisy', 'is'] },
           cb: ['b', 'Class, who knows the answer? Ben?', 'Cả lớp, ai biết câu trả lời nào? Ben?', [
@@ -817,8 +817,8 @@
             { vi: 'Em muốn kể: Mình thăm ông bà vào cuối tuần.', a: ['I', 'visit', 'my grandparents', 'at the weekend.'], x: ['visits', 'eat'] }
           ],
           talk: [
-            { q: 'What day is it today?', vi: 'Hôm nay là thứ mấy?', hint: "It's Monday.", k: ['monday|tuesday|wednesday|thursday|friday|saturday|sunday'], c: ["It's Monday.", "It's a pencil.", "It's half past blue."] },
-            { q: 'What do you do at the weekend?', vi: 'Bạn làm gì vào cuối tuần?', hint: 'I play football and visit my grandparents.', k: ['play|visit|go|watch|read|swim|ride|help|clean|draw|sleep'], c: ['I play football and visit my grandparents.', 'I go to the moon on Monday morning.', 'The weekend is a ruler.'] }
+            { q: 'What day is it today?', vi: 'Hôm nay là thứ mấy?', hint: "It's Monday.", k: ['monday|tuesday|wednesday|thursday|friday|saturday|sunday'], c: ["It's Monday.", "It's sunny today.", "It's ten o'clock."] },
+            { q: 'What do you do at the weekend?', vi: 'Bạn làm gì vào cuối tuần?', hint: 'I play football and visit my grandparents.', k: ['play|visit|watch|read|swim|ride|help|clean|draw|sleep|park|zoo|grandparents|football|cinema|tv|games|shopping'], c: ['I play football and visit my grandparents.', 'I go to school from Monday to Friday.', 'The weekend is Saturday and Sunday.'] }
           ],
           snow: { vi: 'Kể lịch trong tuần', l: [[['Friday'], 'thứ Sáu'], [['I', 'love', 'Fridays.'], 'Mình thích thứ Sáu.'], [['On Fridays,', 'I', 'have', 'swimming lessons', 'after school.'], 'Vào thứ Sáu, mình học bơi sau giờ học.']], x: ['loves', 'eat'] },
           cb: ['b', 'Sara, our class picnic is on Friday or Saturday. Which day do you like?', 'Sara, buổi dã ngoại của lớp vào thứ Sáu hoặc thứ Bảy. Em thích ngày nào?', [
@@ -858,8 +858,8 @@
             { vi: 'Em muốn hỏi bạn: Hôm nay bạn có những môn gì?', a: ['What subjects', 'do you have', 'today?'], x: ['does', 'eat'] }
           ],
           talk: [
-            { q: 'What subjects do you have today?', vi: 'Hôm nay bạn có những môn gì?', hint: 'I have Maths, English and Art.', k: ['maths|math|english|vietnamese|science|art|music|pe|it|history|geography'], c: ['I have Maths, English and Art.', 'I have a banana and a cloud.', "It is Maths o'clock."] },
-            { q: 'Who is your English teacher?', vi: 'Giáo viên Tiếng Anh của bạn là ai?', hint: 'My English teacher is Miss Linh.', k: ['teacher|miss|mr|mrs|ms|is|name'], c: ['My English teacher is Miss Linh.', 'My English teacher is a ruler.', 'My teacher is Tuesday.'] }
+            { q: 'What subjects do you have today?', vi: 'Hôm nay bạn có những môn gì?', hint: 'I have Maths, English and Art.', k: ['maths|math|english|vietnamese|science|art|music|pe|history|geography'], c: ['I have Maths, English and Art.', 'I have lunch at school.', 'Today is Monday.'] },
+            { q: 'Who is your English teacher?', vi: 'Giáo viên Tiếng Anh của bạn là ai?', hint: 'My English teacher is Miss Linh.', k: ['miss|mr|mrs|ms|teacher|name|called'], c: ['My English teacher is Miss Linh.', 'She is very kind and funny.', 'We have English on Monday.'] }
           ],
           snow: { vi: 'Kể về các môn học', l: [[['English'], 'môn Tiếng Anh'], [['I', 'study', 'English.'], 'Mình học Tiếng Anh.'], [['On Mondays,', 'I', 'study', 'English and Maths', 'at school.'], 'Vào thứ Hai, mình học Tiếng Anh và Toán ở trường.']], x: ['studies', 'eat'] },
           cb: ['b', 'Sara, we have a Science quiz tomorrow. Are you ready?', 'Sara ơi, mai lớp mình kiểm tra Khoa học. Em sẵn sàng chưa?', [
@@ -873,7 +873,7 @@
             ['We draw and paint in Art.', true, 'Yes! Art is for drawing and painting.', 'Đúng! Mỹ thuật là môn vẽ và tô màu.'],
             ['We learn about plants in Maths.', false, 'No! We learn about plants in Science.', 'Sai! Mình học về cây cối trong môn Khoa học.']
           ],
-          qa: ['What subjects do you have on Monday?', 'Thứ Hai bạn có những môn gì?', 'I have Maths, Vietnamese and English on Monday.', ['maths|math|english|vietnamese|science|art|music|pe|it']]
+          qa: ['What subjects do you have on Monday?', 'Thứ Hai bạn có những môn gì?', 'I have Maths, Vietnamese and English on Monday.', ['maths|math|english|vietnamese|science|art|music|pe']]
         },
         {
           title: 'My Favourite Subject', titleVi: 'Môn học yêu thích', icon: '⭐',
@@ -899,8 +899,8 @@
             { vi: 'Em muốn giải thích: Mình thích Khoa học vì nó thú vị.', a: ['I like', 'Science', 'because', 'it is interesting.'], x: ['likes', 'eat'] }
           ],
           talk: [
-            { q: "What's your favourite subject?", vi: 'Môn học yêu thích nhất của bạn là gì?', hint: 'My favourite subject is Art.', k: ['maths|math|english|vietnamese|science|art|music|pe|it|history|geography'], c: ['My favourite subject is Art.', 'My favourite subject is pizza.', 'I am Tuesday.'] },
-            { q: 'Why do you like it?', vi: 'Tại sao bạn thích môn đó?', hint: "Because it's interesting.", k: ['because|interesting|fun|easy|love|like|cool|exciting'], c: ["Because it's interesting.", "Because it's a chair.", "Because it's Monday rice."] }
+            { q: "What's your favourite subject?", vi: 'Môn học yêu thích nhất của bạn là gì?', hint: 'My favourite subject is Art.', k: ['maths|math|english|vietnamese|science|art|music|pe|history|geography'], c: ['My favourite subject is Art.', 'My favourite day is Saturday.', 'My favourite colour is blue.'] },
+            { q: 'Why do you like it?', vi: 'Tại sao bạn thích môn đó?', hint: "Because it's interesting.", k: ['interesting|fun|easy|love|cool|exciting|enjoy|draw|drawing|paint|songs|games|good|teacher|kind|learn'], c: ["Because it's interesting.", "Because it's difficult.", 'I have it on Monday.'] }
           ],
           snow: { vi: 'Nói về môn học yêu thích', l: [[['Art'], 'Mỹ thuật'], [['I', 'like', 'Art.'], 'Mình thích Mỹ thuật.'], [['My favourite', 'subject', 'is Art', 'because', 'I love painting.'], 'Môn yêu thích của mình là Mỹ thuật vì mình thích vẽ tranh.']], x: ['likes', 'eat'] },
           cb: ['b', 'Sara, the Maths homework is difficult. Do you want some help?', 'Sara ơi, bài tập Toán khó đấy. Em có cần giúp không?', [
@@ -914,7 +914,7 @@
             ['A timetable shows your lessons.', true, 'Yes! It tells you which subject is on which day.', 'Đúng! Nó cho biết môn học nào vào ngày nào.'],
             ['"Difficult" means very easy.', false, 'No! "Difficult" means not easy.', 'Sai! "Difficult" nghĩa là khó, không dễ.']
           ],
-          qa: ['Which subject is difficult for you?', 'Môn học nào khó đối với bạn?', 'Maths is a little difficult for me.', ['maths|math|english|vietnamese|science|art|music|pe|it', 'difficult|hard|easy']]
+          qa: ['Which subject is difficult for you?', 'Môn học nào khó đối với bạn?', 'Maths is a little difficult for me.', ['maths|math|english|vietnamese|science|art|music|pe', 'difficult|hard|easy']]
         }
       ],
       mystery: {
@@ -968,8 +968,8 @@
             { vi: 'Em muốn rủ bạn: Mình chơi trốn tìm nhé!', a: ["Let's", 'play', 'hide-and-seek!'], x: ['plays', 'eat'] }
           ],
           talk: [
-            { q: 'What do you do at break time?', vi: 'Bạn làm gì vào giờ ra chơi?', hint: 'I jump rope with my friends.', k: ['jump|play|kick|run|talk|read|eat|chat', 'rope|tag|hide|shuttlecock|football|friends|chess|games'], c: ['I jump rope with my friends.', 'I jump into the timetable.', 'Break time is a pencil.'] },
-            { q: 'Can you kick a shuttlecock?', vi: 'Bạn có biết đá cầu không?', hint: 'Yes, I can. I can kick it ten times!', k: ["yes|no|can|can't|cannot"], c: ['Yes, I can. I can kick it ten times!', 'Yes, I can kick the moon.', 'No, it is a sandwich.'] }
+            { q: 'What do you do at break time?', vi: 'Bạn làm gì vào giờ ra chơi?', hint: 'I jump rope with my friends.', k: ['jump|play|kick|run|talk|read|eat|chat', 'rope|tag|hide|shuttlecock|football|friends|chess|games'], c: ['I jump rope with my friends.', 'I have Maths and English.', "Break time is at ten o'clock."] },
+            { q: 'Can you kick a shuttlecock?', vi: 'Bạn có biết đá cầu không?', hint: 'Yes, I can. I can kick it ten times!', k: ['yes|no|sometimes|always|usually|never|often', 'kick|shuttlecock|times'], c: ['Yes, I can. I can kick it ten times!', 'Yes, I can swim.', "No, I can't ride a bike."] }
           ],
           snow: { vi: 'Kể về giờ ra chơi', l: [[['jump rope'], 'nhảy dây'], [['We', 'jump', 'rope.'], 'Chúng mình nhảy dây.'], [['At break time,', 'my friends and I', 'jump rope', 'in the schoolyard', 'every day.'], 'Giờ ra chơi, mình và các bạn nhảy dây ở sân trường mỗi ngày.']], x: ['jumps', 'eat'] },
           cb: ['b', 'Kim, a new student is alone at break time. What can you do?', 'Kim ơi, có bạn học sinh mới đang đứng một mình giờ ra chơi. Em có thể làm gì?', [
@@ -1009,8 +1009,8 @@
             { vi: 'Em muốn khen: Kim chạy nhanh lắm!', a: ['Kim', 'can', 'run', 'fast!'], x: ['cans', 'eat'] }
           ],
           talk: [
-            { q: 'What sport do you like?', vi: 'Bạn thích môn thể thao nào?', hint: 'I like football.', k: ['football|badminton|basketball|swimming|volleyball|tennis|running|chess|shuttlecock|skating|martial'], c: ['I like football.', 'I like rulers.', 'Sport is a Tuesday.'] },
-            { q: 'Can you play basketball?', vi: 'Bạn có biết chơi bóng rổ không?', hint: 'Yes, I can.', k: ["yes|no|can|can't|cannot"], c: ['Yes, I can.', 'Yes, I can eat basketball.', 'No, it is my team cake.'] }
+            { q: 'What sport do you like?', vi: 'Bạn thích môn thể thao nào?', hint: 'I like football.', k: ['football|badminton|basketball|swimming|volleyball|tennis|running|chess|shuttlecock|skating|martial'], c: ['I like football.', 'I like Maths and Art.', 'I like pizza.'] },
+            { q: 'Can you play basketball?', vi: 'Bạn có biết chơi bóng rổ không?', hint: 'Yes, I can play basketball.', k: ['yes|no|sometimes|always|usually|never|often', 'basketball|ball|play'], c: ['Yes, I can play basketball.', 'Yes, I can swim.', 'No, I like football.'] }
           ],
           snow: { vi: 'Kể về môn thể thao', l: [[['football'], 'bóng đá'], [['I', 'play', 'football.'], 'Mình chơi bóng đá.'], [['After school,', 'I', 'play football', 'with my team', 'in the park.'], 'Sau giờ học, mình chơi bóng đá với đội ở công viên.']], x: ['plays', 'eat'] },
           cb: ['b', 'Kim, our team lost the match. How do you feel?', 'Kim ơi, đội mình thua trận rồi. Em thấy thế nào?', [
@@ -1024,7 +1024,7 @@
             ['In basketball, you throw the ball into a basket.', true, 'Yes! That is how you score.', 'Đúng! Đó là cách ghi điểm.'],
             ['A team is one person who plays alone.', false, 'No! A team is a group of players.', 'Sai! Một đội là một nhóm người chơi.']
           ],
-          qa: ['Who do you play sports with?', 'Bạn chơi thể thao với ai?', 'I play badminton with my dad.', ['with|play', 'dad|mum|mom|friends|friend|brother|sister|team|classmates|cousin']]
+          qa: ['Who do you play sports with?', 'Bạn chơi thể thao với ai?', 'I play badminton with my dad.', ['dad|mum|mom|friends|friend|brother|sister|team|classmates|cousin|cousins|family|grandpa']]
         },
         {
           title: 'Clever Chess', titleVi: 'Cờ vua thông minh', icon: '♟️',
@@ -1050,8 +1050,8 @@
             { vi: 'Em muốn nói sau trận đấu: Trận hay lắm! Mình chơi lại nhé!', a: ['Good game!', "Let's", 'play', 'again!'], x: ['plays', 'eat'] }
           ],
           talk: [
-            { q: 'Can you play chess?', vi: 'Bạn có biết chơi cờ vua không?', hint: 'Yes, I can play chess.', k: ["yes|no|can|can't|cannot", 'chess|play|little'], c: ['Yes, I can play chess.', 'Yes, I can eat chess.', 'No, chess is a fish.'] },
-            { q: 'What do you say after a game?', vi: 'Bạn nói gì sau một trận đấu?', hint: 'Good game!', k: ['good|game|well|played|thank|again'], c: ['Good game!', 'Good night, ruler!', 'I am a chess piece.'] }
+            { q: 'Can you play chess?', vi: 'Bạn có biết chơi cờ vua không?', hint: 'Yes, I can play chess.', k: ['yes|no|sometimes|always|usually|never|often', 'chess|play|little'], c: ['Yes, I can play chess.', 'Yes, I can swim.', "No, I can't ride a bike."] },
+            { q: 'What do you say after a game?', vi: 'Bạn nói gì sau một trận đấu?', hint: 'Good game!', k: ['game|played|thank|thanks|fun'], c: ['Good game!', 'Good morning!', "Sorry, I'm late."] }
           ],
           snow: { vi: 'Kể về trò chơi cờ vua', l: [[['chess'], 'cờ vua'], [['I', 'play', 'chess.'], 'Mình chơi cờ vua.'], [['On Sundays,', 'I', 'play chess', 'with my grandpa', 'in the living room.'], 'Vào Chủ nhật, mình chơi cờ vua với ông trong phòng khách.']], x: ['plays', 'eat'] },
           cb: ['b', 'Kim, I won this game. What do you say?', 'Kim ơi, thầy thắng ván này rồi. Em nói gì nào?', [
@@ -1119,8 +1119,8 @@
             { vi: 'Em muốn xin lỗi: Xin lỗi! Mình không cố ý.', a: ['Sorry!', 'I', "didn't mean", 'to.'], x: ['Thanks!', 'eat'] }
           ],
           talk: [
-            { q: 'Your friend gives you a gift. What do you say?', vi: 'Bạn của bạn tặng bạn một món quà. Bạn nói gì?', hint: 'Thank you so much!', k: ['thank|thanks'], c: ['Thank you so much!', 'Give me more!', 'Sorry, I am a gift.'] },
-            { q: "You stepped on your friend's foot. What do you say?", vi: 'Bạn giẫm phải chân bạn mình. Bạn nói gì?', hint: 'Sorry! Are you okay?', k: ['sorry|okay|ok'], c: ['Sorry! Are you okay?', 'Hello! I am a foot.', 'Thank you for your foot!'] }
+            { q: 'Your friend gives you a gift. What do you say?', vi: 'Bạn của bạn tặng bạn một món quà. Bạn nói gì?', hint: 'Thank you so much!', k: ['thank|thanks'], c: ['Thank you so much!', 'Sorry! Are you okay?', 'Good morning!'] },
+            { q: "You stepped on your friend's foot. What do you say?", vi: 'Bạn giẫm phải chân bạn mình. Bạn nói gì?', hint: 'Sorry! Are you okay?', k: ['sorry|okay|ok'], c: ['Sorry! Are you okay?', 'Thank you so much!', 'Let me help you!'] }
           ],
           snow: { vi: 'Nói lời lịch sự', l: [[['please'], 'làm ơn'], [['Water,', 'please.', 'Thank you!'], 'Cho mình nước nhé. Cảm ơn!'], [['Excuse me.', 'Can I', 'have', 'some water,', 'please?'], 'Xin lỗi. Cho mình xin chút nước nhé?']], x: ['eat', 'Go away!'] },
           cb: ['b', 'Hana, I broke your pencil. Robo is very sorry.', 'Hana ơi, Robo làm gãy bút chì của bạn rồi. Robo rất xin lỗi.', [
@@ -1160,8 +1160,8 @@
             { vi: 'Em muốn kể: Mình chia bánh quy cho các bạn.', a: ['I', 'share', 'my cookies', 'with my friends.'], x: ['shares', 'eat'] }
           ],
           talk: [
-            { q: 'Your friend has a lot of books. What can you say?', vi: 'Bạn của bạn mang rất nhiều sách. Bạn có thể nói gì?', hint: 'Let me help you!', k: ['help|let|carry|can'], c: ['Let me help you!', 'Let me eat your books!', 'Your books are Monday.'] },
-            { q: 'Someone helps you. What do you say?', vi: 'Có người giúp bạn. Bạn nói gì?', hint: "Thank you! That's very kind of you.", k: ['thank|thanks|kind'], c: ["Thank you! That's very kind of you.", 'Go away, please!', 'I am a kind door.'] }
+            { q: 'Your friend has a lot of books. What can you say?', vi: 'Bạn của bạn mang rất nhiều sách. Bạn có thể nói gì?', hint: 'Let me help you!', k: ['help|carry|hold'], c: ['Let me help you!', 'Wow, you have a lot of books!', 'Thank you so much!'] },
+            { q: 'Someone helps you. What do you say?', vi: 'Có người giúp bạn. Bạn nói gì?', hint: "Thank you! That's very kind of you.", k: ['thank|thanks|kind'], c: ["Thank you! That's very kind of you.", 'Sorry! Are you okay?', 'Let me help you!'] }
           ],
           snow: { vi: 'Đề nghị giúp đỡ lịch sự', l: [[['help'], 'giúp đỡ'], [['Let me', 'help', 'you!'], 'Để mình giúp bạn!'], [['Your bag', 'looks heavy.', 'Let me', 'help you', 'carry it!'], 'Cặp của bạn trông nặng quá. Để mình giúp bạn mang nhé!']], x: ['helps', 'eat'] },
           cb: ['b', 'Hana, I have one cookie, but we are two. What should we do?', 'Hana ơi, mình có một chiếc bánh quy, nhưng tụi mình có hai người. Làm sao đây?', [
@@ -1201,8 +1201,8 @@
             { vi: 'Em muốn nói: Bạn chơi trước rồi. Giờ đến lượt mình.', a: ['You played first.', 'Now', "it's", 'my turn.'], x: ['eat', 'yours'] }
           ],
           talk: [
-            { q: 'What do you do at the bus stop?', vi: 'Bạn làm gì ở trạm xe buýt?', hint: 'I wait in line.', k: ['wait|stand|line|queue|patient'], c: ['I wait in line.', 'I eat the bus stop.', 'The bus is a pencil case.'] },
-            { q: 'Your friends are on the slide. What do you do?', vi: 'Các bạn đang chơi cầu trượt. Bạn làm gì?', hint: 'I take turns and wait patiently.', k: ['take|turns|wait|patient|patiently|line'], c: ['I take turns and wait patiently.', 'I push my friends down.', 'The slide is my lunch.'] }
+            { q: 'What do you do at the bus stop?', vi: 'Bạn làm gì ở trạm xe buýt?', hint: 'I wait in line.', k: ['wait|stand|line|queue|patient'], c: ['I wait in line.', 'I go to school by bus.', 'The bus stop is near my house.'] },
+            { q: 'Your friends are on the slide. What do you do?', vi: 'Các bạn đang chơi cầu trượt. Bạn làm gì?', hint: 'I take turns and wait patiently.', k: ['take|turns|wait|patient|patiently|line'], c: ['I take turns and wait patiently.', 'I go down the slide first.', 'I play on the swings.'] }
           ],
           snow: { vi: 'Nói về việc xếp hàng', l: [[['wait'], 'chờ đợi'], [['Please', 'wait', 'in line.'], 'Hãy xếp hàng nhé.'], [['At the canteen,', 'we', 'wait in line', 'and take turns', 'patiently.'], 'Ở căng tin, chúng mình xếp hàng và lần lượt một cách kiên nhẫn.']], x: ['waits', 'eat'] },
           cb: ['b', 'Hana, a boy pushed in front of us in the line. What can we say?', 'Hana ơi, một bạn trai chen lên trước tụi mình trong hàng. Mình có thể nói gì?', [
@@ -1216,7 +1216,7 @@
             ['We take turns on the slide.', true, 'Yes! Taking turns is fair for everyone.', 'Đúng! Lần lượt là công bằng với mọi người.'],
             ['It is polite to push in front of people in a line.', false, 'No! We should wait in line patiently.', 'Sai! Mình nên xếp hàng kiên nhẫn.']
           ],
-          qa: ['Where do you wait in line?', 'Bạn xếp hàng ở đâu?', 'I wait in line at the canteen.', ['canteen|bus|shop|supermarket|school|library|cinema|stop|line']]
+          qa: ['Where do you wait in line?', 'Bạn xếp hàng ở đâu?', 'I wait in line at the canteen.', ['canteen|bus|shop|supermarket|school|library|cinema|stop']]
         }
       ],
       mystery: {
@@ -1273,8 +1273,8 @@
             { vi: 'Em muốn kể: Bố mình rất thích cơm tấm.', a: ['My dad', 'loves', 'broken rice.'], x: ['love', 'eat'] }
           ],
           talk: [
-            { q: 'What Vietnamese food do you like?', vi: 'Bạn thích món ăn Việt Nam nào?', hint: 'I like pho and spring rolls.', k: ['pho|rice|rolls|banh|mi|sticky|noodles|bun|soup|spring|broken'], c: ['I like pho and spring rolls.', 'I like pencils and rulers.', 'Food is a Monday.'] },
-            { q: 'What do you usually have for breakfast?', vi: 'Bạn thường ăn gì vào bữa sáng?', hint: 'I usually have sticky rice.', k: ['have|eat|usually', 'pho|rice|banh|bread|milk|noodles|egg|eggs|sticky|cereal'], c: ['I usually have sticky rice.', 'I usually have a schoolbag.', 'Breakfast is in my wardrobe.'] }
+            { q: 'What Vietnamese food do you like?', vi: 'Bạn thích món ăn Việt Nam nào?', hint: 'I like pho and spring rolls.', k: ['pho|rice|rolls|banh|mi|sticky|noodles|bun|soup|spring|broken'], c: ['I like pho and spring rolls.', 'I like hamburgers and pizza.', 'I like Vietnamese music.'] },
+            { q: 'What do you usually have for breakfast?', vi: 'Bạn thường ăn gì vào bữa sáng?', hint: 'I usually have sticky rice.', k: ['pho|rice|banh|bread|milk|noodles|egg|eggs|sticky|cereal|soup|cake'], c: ['I usually have sticky rice.', 'I usually have breakfast at six.', 'I usually have lunch at school.'] }
           ],
           snow: { vi: 'Gọi món ăn sáng', l: [[['pho'], 'phở'], [['I', 'want', 'pho.'], 'Mình muốn ăn phở.'], [["I'd like", 'a big bowl', 'of chicken pho', 'for breakfast,', 'please.'], 'Cho cháu một bát phở gà to cho bữa sáng ạ.']], x: ['wants', 'eat'] },
           cb: ['b', 'Linh, would you like to try my new spicy noodles?', 'Linh ơi, cháu có muốn thử món mì cay mới của chú không?', [
@@ -1314,8 +1314,8 @@
             { vi: 'Em muốn tả: Quả xoài này ngọt và mọng nước.', a: ['This mango', 'is', 'sweet', 'and juicy.'], x: ['are', 'eat'] }
           ],
           talk: [
-            { q: 'What is your favourite fruit?', vi: 'Loại trái cây yêu thích nhất của bạn là gì?', hint: 'My favourite fruit is mango.', k: ['mango|watermelon|banana|apple|orange|grapes|papaya|pineapple|dragon|lychee|longan|strawberry|fruit'], c: ['My favourite fruit is mango.', 'My favourite fruit is a chair.', 'Fruit is Wednesday.'] },
-            { q: 'Do you like vegetables?', vi: 'Bạn có thích ăn rau không?', hint: 'Yes, I like carrots and broccoli.', k: ["yes|no|like|love|don't", 'vegetables|carrots|carrot|broccoli|cabbage|beans|tomatoes|spinach'], c: ['Yes, I like carrots and broccoli.', 'Yes, I like eating my desk.', 'Vegetables are my shoes.'] }
+            { q: 'What is your favourite fruit?', vi: 'Loại trái cây yêu thích nhất của bạn là gì?', hint: 'My favourite fruit is mango.', k: ['mango|mangoes|watermelon|banana|bananas|apple|apples|orange|oranges|grapes|papaya|pineapple|dragon|lychee|longan|strawberry|strawberries'], c: ['My favourite fruit is mango.', 'My favourite food is pizza.', 'My favourite vegetable is carrot.'] },
+            { q: 'Do you like vegetables?', vi: 'Bạn có thích ăn rau không?', hint: 'Yes, I like carrots and broccoli.', k: ['yes|no|sometimes|always|usually|never|often', 'vegetables|carrots|carrot|broccoli|cabbage|beans|tomatoes|spinach'], c: ['Yes, I like carrots and broccoli.', 'Yes, I like mangoes and bananas.', 'No, I like candy.'] }
           ],
           snow: { vi: 'Kể về trái cây yêu thích', l: [[['a mango'], 'một quả xoài'], [['I', 'like', 'mangoes.'], 'Mình thích xoài.'], [['In summer,', 'I', 'love eating', 'sweet yellow mangoes', 'with my family.'], 'Vào mùa hè, mình thích ăn xoài vàng ngọt cùng gia đình.']], x: ['likes', 'eat'] },
           cb: ['b', "Linh, you didn't eat your broccoli. Why?", 'Linh ơi, cháu chưa ăn bông cải xanh. Sao vậy?', [
@@ -1355,8 +1355,8 @@
             { vi: 'Em muốn từ chối lịch sự: Thôi ạ, cảm ơn. Cháu no rồi.', a: ['No more,', 'thank you.', "I'm", 'full.'], x: ['hungry', 'eat'] }
           ],
           talk: [
-            { q: 'Is candy healthy food or junk food?', vi: 'Kẹo là đồ ăn lành mạnh hay đồ ăn vặt?', hint: "It's junk food.", k: ['junk|unhealthy|bad'], c: ["It's junk food.", "It's a vegetable.", "It's my teacher."] },
-            { q: 'What healthy food do you eat every day?', vi: 'Bạn ăn món lành mạnh nào mỗi ngày?', hint: 'I eat rice, fish and vegetables.', k: ['rice|fish|vegetables|fruit|eggs|egg|milk|meat|chicken|tofu|soup|beans'], c: ['I eat rice, fish and vegetables.', 'I eat chips and candy all day.', 'I eat my pencil case.'] }
+            { q: 'Is candy healthy food or junk food?', vi: 'Kẹo là đồ ăn lành mạnh hay đồ ăn vặt?', hint: "It's junk food.", k: ['junk|unhealthy|bad'], c: ["It's junk food.", "It's healthy food.", "It's sweet."] },
+            { q: 'What healthy food do you eat every day?', vi: 'Bạn ăn món lành mạnh nào mỗi ngày?', hint: 'I eat rice, fish and vegetables.', k: ['rice|fish|vegetables|fruit|eggs|egg|milk|meat|chicken|tofu|soup|beans'], c: ['I eat rice, fish and vegetables.', 'I eat chips and candy.', 'I eat breakfast at six.'] }
           ],
           snow: { vi: 'Khuyên ăn uống lành mạnh', l: [[['fresh fruit'], 'trái cây tươi'], [['Eat', 'fresh', 'fruit.'], 'Hãy ăn trái cây tươi.'], [['You', 'should eat', 'fresh fruit', 'every day', 'because it is healthy.'], 'Bạn nên ăn trái cây tươi mỗi ngày vì nó tốt cho sức khỏe.']], x: ['junk', 'eats'] },
           cb: ['b', "Linh, it's a party! Would you like a fizzy drink?", 'Linh ơi, tiệc rồi! Cháu có muốn uống nước ngọt có ga không?', [
@@ -1424,8 +1424,8 @@
             { vi: 'Em muốn kể: Mình đẩy xe hàng trong siêu thị.', a: ['I', 'push', 'the trolley', 'in the supermarket.'], x: ['pushes', 'eat'] }
           ],
           talk: [
-            { q: 'What is on your shopping list?', vi: 'Trong danh sách mua sắm của bạn có gì?', hint: 'Milk, eggs and rice.', k: ['milk|eggs|egg|rice|bread|fruit|bananas|apples|vegetables|fish|meat|water|juice'], c: ['Milk, eggs and rice.', 'A bus, a desk and a cloud.', 'My list is Tuesday.'] },
-            { q: 'Who goes shopping with you?', vi: 'Ai đi mua sắm cùng bạn?', hint: 'My mum goes shopping with me.', k: ['mum|mom|dad|grandma|grandpa|sister|brother|family|parents'], c: ['My mum goes shopping with me.', 'My trolley goes to school.', 'Shopping is my pencil.'] }
+            { q: 'What is on your shopping list?', vi: 'Trong danh sách mua sắm của bạn có gì?', hint: 'Milk, eggs and rice.', k: ['milk|eggs|egg|rice|bread|fruit|bananas|apples|vegetables|fish|meat|water|juice'], c: ['Milk, eggs and rice.', 'I go shopping on Sunday.', 'The supermarket is near my house.'] },
+            { q: 'Who goes shopping with you?', vi: 'Ai đi mua sắm cùng bạn?', hint: 'My mum goes shopping with me.', k: ['mum|mom|dad|grandma|grandpa|sister|brother|family|parents'], c: ['My mum goes shopping with me.', 'I go shopping on Sunday.', 'We go to the supermarket by car.'] }
           ],
           snow: { vi: 'Đi siêu thị cùng mẹ', l: [[['some milk'], 'một ít sữa'], [['We', 'need', 'some milk.'], 'Nhà mình cần ít sữa.'], [['At the supermarket,', 'we', 'buy', 'a bottle of milk', 'and a dozen eggs.'], 'Ở siêu thị, nhà mình mua một chai sữa và một tá trứng.']], x: ['needs', 'eat'] },
           cb: ['b', "Peter, the list says one bag of rice, but it's very heavy. What can we do?", 'Peter ơi, danh sách ghi một túi gạo, nhưng nó nặng lắm. Mình làm sao đây?', [
@@ -1465,8 +1465,8 @@
             { vi: 'Em muốn nói: Bộ LEGO đó đắt quá!', a: ['That LEGO set', 'is', 'very', 'expensive!'], x: ['are', 'cheap'] }
           ],
           talk: [
-            { q: 'How much is this ice cream?', vi: 'Cây kem này bao nhiêu tiền?', hint: "It's ten thousand dong.", k: ['thousand|dong|hundred|ten|twenty|five|fifteen'], c: ["It's ten thousand dong.", "It's a chocolate Monday.", "It's on my head."] },
-            { q: 'Is a LEGO set cheap or expensive?', vi: 'Một bộ LEGO rẻ hay đắt?', hint: "It's expensive.", k: ['cheap|expensive|dear'], c: ["It's expensive.", "It's a banana.", "It's very sleepy."] }
+            { q: 'How much is this ice cream?', vi: 'Cây kem này bao nhiêu tiền?', hint: "It's ten thousand dong.", k: ['thousand|dong|hundred|ten|twenty|five|fifteen'], c: ["It's ten thousand dong.", "It's chocolate ice cream.", "It's very cold and sweet."] },
+            { q: 'Is a LEGO set cheap or expensive?', vi: 'Một bộ LEGO rẻ hay đắt?', hint: "It's expensive.", k: ['cheap|expensive|dear'], c: ["It's expensive.", "It's a big LEGO car.", "It's very fun."] }
           ],
           snow: { vi: 'Hỏi giá khi mua đồ', l: [[['How much?'], 'Bao nhiêu tiền?'], [['How much', 'is', 'it?'], 'Cái này bao nhiêu tiền?'], [['Excuse me,', 'how much', 'is', 'this red ball,', 'please?'], 'Xin lỗi, quả bóng đỏ này bao nhiêu tiền ạ?']], x: ['are', 'many'] },
           cb: ['b', 'Peter, this toy car is expensive. What do you think?', 'Peter ơi, chiếc ô tô đồ chơi này đắt lắm. Con nghĩ sao?', [
@@ -1506,8 +1506,8 @@
             { vi: 'Em muốn xin hóa đơn: Xin lỗi, cho chúng cháu xin hóa đơn ạ.', a: ['Excuse me,', 'can we have', 'the bill,', 'please?'], x: ['has', 'eat'] }
           ],
           talk: [
-            { q: 'What would you like to eat?', vi: 'Bạn muốn ăn gì?', hint: "I'd like chicken rice, please.", k: ["like|i'd|have|want", 'rice|chicken|pho|noodles|pizza|banh|soup|fish|spring|please'], c: ["I'd like chicken rice, please.", "I'd like a pencil soup.", 'I am the menu.'] },
-            { q: 'What do you say when you want to pay?', vi: 'Bạn nói gì khi muốn thanh toán?', hint: 'Can we have the bill, please?', k: ['bill|pay|check'], c: ['Can we have the bill, please?', 'Can we have the moon, please?', 'I want to eat the bill.'] }
+            { q: 'What would you like to eat?', vi: 'Bạn muốn ăn gì?', hint: "I'd like chicken rice, please.", k: ['rice|chicken|pho|noodles|pizza|banh|soup|fish|spring|rolls|egg|beef|pork|bread|vegetables'], c: ["I'd like chicken rice, please.", "I'd like orange juice, please.", "I'd like a table for two, please."] },
+            { q: 'What do you say when you want to pay?', vi: 'Bạn nói gì khi muốn thanh toán?', hint: 'Can we have the bill, please?', k: ['bill|pay|check'], c: ['Can we have the bill, please?', 'Can I see the menu, please?', "I'd like some water, please."] }
           ],
           snow: { vi: 'Gọi đồ uống lịch sự', l: [[['orange juice'], 'nước cam'], [["I'd like", 'orange juice,', 'please.'], 'Cho cháu nước cam ạ.'], [['Excuse me.', "I'd like", 'a glass of', 'cold orange juice,', 'please.'], 'Xin lỗi. Cho cháu một ly nước cam mát lạnh ạ.']], x: ['likes', 'eat'] },
           cb: ['b', "Sorry, we don't have chicken rice today. What would you like instead?", 'Xin lỗi, hôm nay hết cơm gà rồi. Cháu muốn đổi món gì?', [
@@ -1575,8 +1575,8 @@
             { vi: 'Em muốn kể: Mình ngửi hoa bằng mũi.', a: ['I', 'smell', 'the flowers', 'with my nose.'], x: ['smells', 'with my feet.'] }
           ],
           talk: [
-            { q: 'What do you see with your eyes right now?', vi: 'Bây giờ bạn nhìn thấy gì bằng mắt?', hint: 'I see a book and a lamp.', k: ['see|look|can', 'book|lamp|table|window|tree|tv|picture|door|chair|lego|pencil|flower|sky|cat|dog'], c: ['I see a book and a lamp.', 'I see with my shoes.', 'My eyes are Tuesday.'] },
-            { q: 'What do you use to hear music?', vi: 'Bạn dùng gì để nghe nhạc?', hint: 'I use my ears.', k: ['ears|ear'], c: ['I use my ears.', 'I use my elbows.', 'I use my lunch box.'] }
+            { q: 'What do you see with your eyes right now?', vi: 'Bây giờ bạn nhìn thấy gì bằng mắt?', hint: 'I see a book and a lamp.', k: ['see|look|can|watch', 'book|lamp|table|window|tree|tv|picture|door|chair|lego|pencil|flower|sky|cat|dog'], c: ['I see a book and a lamp.', 'I see with my eyes.', 'I hear music.'] },
+            { q: 'What do you use to hear music?', vi: 'Bạn dùng gì để nghe nhạc?', hint: 'I use my ears.', k: ['ears|ear'], c: ['I use my ears.', 'I use my eyes.', 'I use my nose.'] }
           ],
           snow: { vi: 'Nói về các giác quan', l: [[['my nose'], 'mũi của mình'], [['I', 'smell', 'with my nose.'], 'Mình ngửi bằng mũi.'], [['In the garden,', 'I', 'smell', 'the lovely roses', 'with my nose.'], 'Trong vườn, mình ngửi những bông hồng thơm bằng mũi.']], x: ['smells', 'my ears'] },
           cb: ['b', 'Zoe, close your eyes. I have a mystery fruit. What can you do?', 'Zoe ơi, nhắm mắt lại. Thầy có một loại quả bí ẩn. Cháu có thể làm gì?', [
@@ -1616,8 +1616,8 @@
             { vi: 'Em muốn tả: Ớt làm canh có vị cay.', a: ['Chilli', 'makes', 'the soup', 'spicy.'], x: ['make', 'sweet.'] }
           ],
           talk: [
-            { q: 'How does candy taste?', vi: 'Kẹo có vị như thế nào?', hint: "It's sweet.", k: ['sweet'], c: ["It's sweet.", "It's salty like the sea.", "It's a pencil."] },
-            { q: 'Do you like spicy food?', vi: 'Bạn có thích đồ ăn cay không?', hint: "No, I don't. It's too hot for me.", k: ["yes|no|like|love|don't|do"], c: ["No, I don't. It's too hot for me.", 'Yes, I like spicy pencils.', 'Spicy food is my teacher.'] }
+            { q: 'How does candy taste?', vi: 'Kẹo có vị như thế nào?', hint: "It's sweet.", k: ['sweet'], c: ["It's sweet.", "It's salty.", "It's sour."] },
+            { q: 'Do you like spicy food?', vi: 'Bạn có thích đồ ăn cay không?', hint: "No, I don't. It's too hot for me.", k: ['yes|no|sometimes|always|usually|never|often', 'spicy|hot|chilli|chili'], c: ["No, I don't. It's too hot for me.", 'Yes, I like sweet food.', "No, I don't like vegetables."] }
           ],
           snow: { vi: 'Tả vị của thức ăn', l: [[['sweet'], 'ngọt'], [['Mangoes', 'are', 'sweet.'], 'Xoài có vị ngọt.'], [['Ripe yellow mangoes', 'are', 'very sweet,', 'but lemons', 'are sour.'], 'Xoài vàng chín rất ngọt, còn chanh thì chua.']], x: ['is', 'bitter'] },
           cb: ['b', 'Zoe, this medicine is bitter, but it helps you. What do you say?', 'Zoe ơi, thuốc này đắng, nhưng nó giúp cháu khỏe. Cháu nói gì nào?', [
@@ -1657,8 +1657,8 @@
             { vi: 'Em muốn tả: Vỏ cây sần sùi nhưng lá thì nhẵn.', a: ['The tree bark', 'is rough,', 'but the leaves', 'are smooth.'], x: ['is smooth,', 'eat'] }
           ],
           talk: [
-            { q: 'How does your pillow feel?', vi: 'Cái gối của bạn sờ vào thấy thế nào?', hint: "It's soft.", k: ['soft|smooth|warm|fluffy'], c: ["It's soft.", "It's a rock.", "It's very salty."] },
-            { q: 'What is hard in your classroom?', vi: 'Trong lớp học có đồ vật gì cứng?', hint: 'The desk is hard.', k: ['desk|table|chair|board|door|wall|floor|ruler|window|hard'], c: ['The desk is hard.', 'The desk is a kitten.', 'Hard is my favourite soup.'] }
+            { q: 'How does your pillow feel?', vi: 'Cái gối của bạn sờ vào thấy thế nào?', hint: "It's soft.", k: ['soft|smooth|warm|fluffy'], c: ["It's soft.", "It's hard.", "It's white and blue."] },
+            { q: 'What is hard in your classroom?', vi: 'Trong lớp học có đồ vật gì cứng?', hint: 'The desk is hard.', k: ['desk|desks|table|chair|chairs|board|door|wall|floor|ruler|window'], c: ['The desk is hard.', 'My teddy bear is soft.', 'The sofa is soft.'] }
           ],
           snow: { vi: 'Tả cảm giác khi chạm', l: [[['soft'], 'mềm'], [['The kitten', 'is', 'soft.'], 'Chú mèo con mềm mại.'], [['When I touch it,', 'the little kitten', 'feels', 'very soft', 'and warm.'], 'Khi mình chạm vào, chú mèo nhỏ thấy rất mềm và ấm.']], x: ['hard', 'are'] },
           cb: ['b', 'Zoe, be careful! The pot is very hot. What should you do?', 'Zoe ơi, cẩn thận! Cái nồi rất nóng. Cháu nên làm gì?', [
@@ -1672,7 +1672,7 @@
             ['A rock feels hard.', true, 'Yes! Rocks are hard.', 'Đúng! Hòn đá cứng.'],
             ['Ice feels hot.', false, 'No! Ice feels cold.', 'Sai! Đá lạnh mà.']
           ],
-          qa: ['What is soft in your bedroom?', 'Trong phòng ngủ của bạn có gì mềm?', 'My pillow and my teddy bear are soft.', ['pillow|teddy|blanket|bed|toy|cushion|bear|soft']]
+          qa: ['What is soft in your bedroom?', 'Trong phòng ngủ của bạn có gì mềm?', 'My pillow and my teddy bear are soft.', ['pillow|teddy|blanket|bed|toy|cushion|bear']]
         }
       ],
       mystery: {
@@ -1726,8 +1726,8 @@
             { vi: 'Em muốn giải thích: Vi trùng có thể làm con bị ốm.', a: ['Germs', 'can', 'make you', 'sick.'], x: ['cans', 'eat'] }
           ],
           talk: [
-            { q: 'When do you wash your hands?', vi: 'Bạn rửa tay khi nào?', hint: 'I wash my hands before meals.', k: ['before|after|when', 'meals|eating|lunch|dinner|breakfast|toilet|playing|school|home'], c: ['I wash my hands before meals.', 'I wash my hands with juice.', 'My hands are Wednesday.'] },
-            { q: 'What do you use to wash your hands?', vi: 'Bạn dùng gì để rửa tay?', hint: 'I use soap and water.', k: ['soap|water'], c: ['I use soap and water.', 'I use crayons and paper.', 'I use a big fizzy drink.'] }
+            { q: 'When do you wash your hands?', vi: 'Bạn rửa tay khi nào?', hint: 'I wash my hands before meals.', k: ['before|after|when', 'meals|eating|lunch|dinner|breakfast|toilet|playing|school|home'], c: ['I wash my hands before meals.', 'I wash my hands with soap.', 'I wash my hands in the bathroom.'] },
+            { q: 'What do you use to wash your hands?', vi: 'Bạn dùng gì để rửa tay?', hint: 'I use soap and water.', k: ['soap|water'], c: ['I use soap and water.', 'I use a towel.', 'I use a toothbrush.'] }
           ],
           snow: { vi: 'Nói về thói quen rửa tay', l: [[['soap'], 'xà phòng'], [['I', 'use', 'soap.'], 'Mình dùng xà phòng.'], [['Before meals,', 'I', 'wash my hands', 'with soap', 'for twenty seconds.'], 'Trước bữa ăn, mình rửa tay bằng xà phòng trong hai mươi giây.']], x: ['uses', 'eat'] },
           cb: ['b', "Jack, there's no soap in the bathroom. What can you do?", 'Jack ơi, trong phòng tắm hết xà phòng rồi. Cháu có thể làm gì?', [
@@ -1767,8 +1767,8 @@
             { vi: 'Em muốn nhờ: Dán giúp mình miếng băng lên vết xước nhé.', a: ['Please', 'put', 'a plaster', 'on my cut.'], x: ['puts', 'eat'] }
           ],
           talk: [
-            { q: "What's the matter?", vi: 'Bạn bị làm sao vậy?', hint: 'I have a cold.', k: ['cold|cough|runny|nose|cut|headache|fever|sore|stomachache|toothache'], c: ['I have a cold.', 'I have a pencil.', 'It is Monday.'] },
-            { q: 'What do you need for a small cut?', vi: 'Bạn cần gì cho một vết xước nhỏ?', hint: 'I need a plaster.', k: ['plaster|bandage|band|aid|clean|water'], c: ['I need a plaster.', 'I need a pizza.', 'I need a fizzy drink.'] }
+            { q: "What's the matter?", vi: 'Bạn bị làm sao vậy?', hint: 'I have a cold.', k: ['cold|cough|runny|nose|cut|headache|fever|sore|stomachache|toothache'], c: ['I have a cold.', "I'm fine, thank you.", 'I have a new bike.'] },
+            { q: 'What do you need for a small cut?', vi: 'Bạn cần gì cho một vết xước nhỏ?', hint: 'I need a plaster.', k: ['plaster|bandage|band|aid|clean|water'], c: ['I need a plaster.', 'I need a tissue.', 'I need some cough medicine.'] }
           ],
           snow: { vi: 'Kể với bác sĩ khi bị ốm', l: [[['a cough'], 'bị ho'], [['I', 'have', 'a cough.'], 'Mình bị ho.'], [['Doctor,', 'I', 'have', 'a bad cough', 'and a runny nose.'], 'Thưa bác sĩ, cháu bị ho nặng và sổ mũi ạ.']], x: ['has', 'eat'] },
           cb: ['b', 'Jack, your friend Lan fell down and has a cut on her knee. What can you do?', 'Jack ơi, bạn Lan bị ngã và trầy đầu gối. Cháu có thể làm gì?', [
@@ -1808,8 +1808,8 @@
             { vi: 'Em muốn khuyên: Bạn không nên ăn quá nhiều kẹo.', a: ['You', "shouldn't", 'eat', 'too much candy.'], x: ['eats', 'should'] }
           ],
           talk: [
-            { q: 'I have a sore throat. What should I do?', vi: 'Mình bị đau họng. Mình nên làm gì?', hint: 'You should drink warm water.', k: ['should|drink|rest|see|go', 'warm|water|tea|rest|doctor|bed|honey'], c: ['You should drink warm water.', 'You should eat lots of ice.', 'You should run in the rain.'] },
-            { q: 'I feel very tired. What is your advice?', vi: 'Mình thấy rất mệt. Bạn khuyên gì?', hint: 'You should get some rest.', k: ['should|rest|sleep|bed|early|go'], c: ['You should get some rest.', 'You should play games all night.', 'You should eat a pencil.'] }
+            { q: 'I have a sore throat. What should I do?', vi: 'Mình bị đau họng. Mình nên làm gì?', hint: 'You should drink warm water.', k: ['warm|water|tea|rest|doctor|bed|honey|medicine'], c: ['You should drink warm water.', 'You should eat ice cream.', 'You should wear a coat.'] },
+            { q: 'I feel very tired. What is your advice?', vi: 'Mình thấy rất mệt. Bạn khuyên gì?', hint: 'You should get some rest.', k: ['rest|sleep|bed|early|nap'], c: ['You should get some rest.', 'You should wash your hands.', 'You should wear a coat.'] }
           ],
           snow: { vi: 'Đưa lời khuyên', l: [[['rest'], 'nghỉ ngơi'], [['You', 'should', 'rest.'], 'Bạn nên nghỉ ngơi.'], [['You', 'should', 'drink warm water', 'and get some rest', 'because you have a cold.'], 'Bạn nên uống nước ấm và nghỉ ngơi vì bạn bị cảm.']], x: ["shouldn't", 'eat'] },
           cb: ['b', 'Jack, your friend wants to eat ten candies. What advice can you give?', 'Jack ơi, bạn của cháu muốn ăn mười cái kẹo. Cháu có thể khuyên gì?', [
