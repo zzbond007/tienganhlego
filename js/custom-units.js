@@ -34,7 +34,7 @@
 
   /** Kiểm tra & chuẩn hóa. Trả về { ok, data, errors[], warnings[] } – data ở dạng "thân thiện" đã đủ trường. */
   function parse(input) {
-    const errors = [], warnings = [];
+    const errors = [], warnings = [], quality = [];
     let obj = input;
     if (typeof input === 'string') {
       let text = input.trim();
@@ -86,10 +86,14 @@
         if (seen.has(id)) { warnings.push(`${tag}: từ "${en}" bị trùng – đã bỏ qua.`); return; }
         seen.add(id);
         const pos = POS.indexOf(w.pos) !== -1 ? w.pos : (en.indexOf(' ') !== -1 ? 'phrase' : 'noun');
-        const ex = str(w.example, 140) || `I know the word "${en}".`;
+        // Câu ví dụ là xương sống của cả bài (truyện tranh, lắp câu, luyện nói) → BẮT BUỘC, không tự bịa câu vô nghĩa
+        const ex = str(w.example, 140);
+        if (!ex) { errors.push(`${tag}: từ "${en}" thiếu câu ví dụ "example" (vd: "I can ${en} very fast."). Hãy dùng Prompt AI để tạo đủ.`); return; }
+        if (!str(w.ipa, 60)) quality.push(`${tag}: từ "${en}" chưa có phiên âm "ipa".`);
+        if (!w.emoji) quality.push(`${tag}: từ "${en}" chưa có emoji – dùng 🧱.`);
         words.push({
           en, pos, ipa: str(w.ipa, 60), vi: str(w.vi, 80), emoji: emo(w.emoji, '🧱'),
-          example: ex, exampleVi: str(w.exampleVi, 160) || (hasText(w.example) ? '' : `Mình biết từ "${en}".`),
+          example: ex, exampleVi: str(w.exampleVi, 160),
           clue: str(w.clue, 140) || `It means "${str(w.vi, 80)}" in Vietnamese.`
         });
       });
@@ -113,7 +117,9 @@
 
     data.mystery = cleanMystery(obj.mystery, warnings);
     if (!errors.length && !data.lessons.length) errors.push('Không có bài học hợp lệ nào.');
-    return { ok: errors.length === 0, data, errors, warnings };
+    // Phần nào phải tự tạo → báo "chất lượng thấp" (vàng) thay vì "Hợp lệ" (xanh)
+    warnings.forEach((w) => { if (/tự tạo/.test(w)) quality.push(w); });
+    return { ok: errors.length === 0, data, errors, warnings, quality };
   }
 
   /* ---------- Từng phần của bài học: hợp lệ thì giữ, thiếu thì tự sinh ---------- */
@@ -171,7 +177,7 @@
       out = words.slice(0, 2).map((w, i) => {
         const bricks = global.Curriculum.chunkSentence(w.example, 4);
         const other = words[(i + 2) % words.length];
-        const extra = other.example.split(' ').filter((x) => bricks.join(' ').indexOf(x) === -1).slice(0, 2);
+        const extra = other.example.split(/\s+/).map((x) => x.replace(/^[^A-Za-z0-9']+|[^A-Za-z0-9']+$/g, '')).filter((x) => x.length > 1 && bricks.join(' ').indexOf(x) === -1).slice(0, 2);
         return { vi: `Em muốn nói: ${w.exampleVi || w.vi}`, bricks, extra };
       }).filter((s) => s.bricks.length >= 2);
     }
@@ -195,8 +201,8 @@
       out = words.slice(0, 2).map((w, i) => {
         const wrong = words.filter((x) => x !== w).slice(i, i + 2).map((x) => x.example);
         return {
-          q: `Can you say a sentence with "${core(w.en)}"?`,
-          vi: `Hãy nói một câu có "${core(w.en)}" (${w.vi}).`,
+          q: `How do you say this in English: "${w.exampleVi || w.vi}"?`,
+          vi: `Con nói câu này bằng tiếng Anh thế nào: "${w.exampleVi || w.vi}"?`,
           hint: w.example,
           keywords: [core(w.en).split(' ').sort((a, b) => b.length - a.length)[0].toLowerCase()],
           choices: [w.example].concat(wrong)

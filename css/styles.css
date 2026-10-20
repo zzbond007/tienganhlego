@@ -1307,3 +1307,13 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .collection-bar b { color: var(--green-d); font-size: 18px; }
 .item.equipped[class*="tier-"] { box-shadow: 0 5px 0 var(--green-d); }
 .word-card .hearme-btn { width: 100%; }
+.studio-line.studio-hidden { opacity: .85; font-style: italic; cursor: default; }
+.mastery-note { margin-top: 14px; display: grid; gap: 8px; justify-items: center; text-align: center; background: #FFF7ED; box-shadow: 0 5px 0 #FED7AA; }
+.word-brick.role-off { --bc: #64748B; --bcd: #334155; color: #fff; }
+#buildNext small { font-weight: 800; }
+.vb-list { display: grid; gap: 8px; max-height: 420px; overflow-y: auto; }
+.vb-row { display: flex; gap: 10px; align-items: center; padding: 6px 4px; border-bottom: 1px dashed var(--card-edge); }
+.vi-peek { margin-top: 4px; }
+.rv-clue { margin-top: 10px; font-size: 18px; font-weight: 700; }
+.import-report.low { background: #FFFBEB; border: 3px solid #FCD34D; }
+.speak-mode-note { display: grid; gap: 6px; background: #EFF6FF; box-shadow: 0 5px 0 #BFDBFE; margin: 8px 0 14px; }

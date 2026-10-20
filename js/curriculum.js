@@ -52,9 +52,15 @@
             { vi: 'Em muốn nói: Mình bắt xe buýt đến trường lúc bảy giờ.', a: ['I', 'catch', 'the school bus', 'at', "seven o'clock."], x: ['teeth', 'never'] }
           ],
           talk: [
-            { q: 'What do you do after you wake up?', vi: 'Bạn làm gì sau khi thức dậy?', hint: 'I brush my teeth and get dressed.', k: ['brush|wash|dressed|breakfast|eat|shower', 'teeth|dressed|face|breakfast|shower'], c: ['I brush my teeth and get dressed.', 'I go to bed at nine.', "It's a red bus."] },
-            { q: 'How do you go to school?', vi: 'Bạn đến trường bằng cách nào?', hint: 'I catch the school bus.', k: ['bus|bike|walk|car|motorbike|foot|ride'], c: ['I catch the school bus.', 'I have breakfast.', "I'm nine years old."] }
-          ]
+            { q: 'What do you do after you wake up?', vi: 'Bạn làm gì sau khi thức dậy?', hint: 'I brush my teeth and get dressed.', k: ['brush|brushing|wash|washing|dressed|breakfast|shower|clothes|uniform|teeth|face'], c: ['I brush my teeth and get dressed.', "I go to bed at nine o'clock.", 'I do my homework after school.'] },
+            { q: 'How do you go to school?', vi: 'Bạn đến trường bằng cách nào?', hint: 'I catch the school bus.', k: ['bus|bike|walk|car|motorbike|foot|ride|cycle|train|scooter'], c: ['I catch the school bus.', 'I go to school at seven.', 'I go to the park after school.'] }
+          ],
+          fact: ['Brushing your teeth twice a day helps stop holes in your teeth.', 'Đánh răng hai lần mỗi ngày giúp răng con không bị sâu đấy.'],
+          tf: [
+            ['We should brush our teeth twice a day.', true, 'Yes! Brush in the morning and before bed.', 'Đúng! Con đánh răng vào buổi sáng và trước khi đi ngủ.'],
+            ['We have breakfast in the evening.', false, 'No! We have breakfast in the morning. We have dinner in the evening.', 'Sai! Mình ăn sáng vào buổi sáng. Buổi tối là bữa tối.']
+          ],
+          qa: ['What do you have for breakfast?', 'Con thường ăn sáng món gì?', 'I have bread and milk for breakfast.', ['have|eat|drink|had|ate', 'bread|milk|rice|noodles|pho|egg|eggs|banh|cereal|sticky|cake|banana|fruit|soup|porridge|yogurt|juice|sandwich']]
         },
         {
           title: 'What Time Is It?', titleVi: 'Bây giờ là mấy giờ?', icon: '🕖',
@@ -80,9 +86,15 @@
             { vi: 'Em muốn hỏi bạn: Bạn đi ngủ lúc mấy giờ?', a: ['What time', 'do you', 'go to bed?'], x: ['does', 'lunch'] }
           ],
           talk: [
-            { q: 'What time do you have lunch?', vi: 'Bạn ăn trưa lúc mấy giờ?', hint: "I have lunch at eleven o'clock.", k: ['lunch|have|eat', "o'clock|oclock|clock|half|past|quarter|eleven|twelve|one|at"], c: ["I have lunch at eleven o'clock.", 'I go to bed at lunch.', "It's a sandwich."] },
-            { q: 'What time do you go to bed?', vi: 'Bạn đi ngủ lúc mấy giờ?', hint: "I go to bed at nine o'clock.", k: ['bed|sleep', "o'clock|oclock|clock|half|past|quarter|nine|ten|eight|at"], c: ["I go to bed at nine o'clock.", 'I have breakfast in bed.', "It's half past Monday."] }
-          ]
+            { q: 'What time do you have lunch?', vi: 'Bạn ăn trưa lúc mấy giờ?', hint: "I have lunch at eleven o'clock.", k: ['lunch|eat|have', "o'clock|oclock|half|past|quarter|eleven|twelve|one|noon|midday"], c: ["I have lunch at eleven o'clock.", "I go to bed at nine o'clock.", 'I have lunch at school.'] },
+            { q: 'What time do you go to bed?', vi: 'Bạn đi ngủ lúc mấy giờ?', hint: "I go to bed at nine o'clock.", k: ['bed|sleep', "o'clock|oclock|half|past|quarter|seven|eight|nine|ten|eleven"], c: ["I go to bed at nine o'clock.", "I wake up at six o'clock.", 'I go to bed in my bedroom.'] }
+          ],
+          fact: ['A day has twenty-four hours, and an hour has sixty minutes.', 'Một ngày có hai mươi bốn giờ, và một giờ có sáu mươi phút.'],
+          tf: [
+            ['Half past six means six thirty.', true, 'Yes! Half past means thirty minutes after the hour.', 'Đúng! "Half past" là quá ba mươi phút.'],
+            ['Quarter past eight means eight forty-five.', false, 'No! Quarter past eight means eight fifteen.', 'Sai! "Quarter past eight" là tám giờ mười lăm phút.']
+          ],
+          qa: ['What time do you get up?', 'Con thức dậy lúc mấy giờ?', "I get up at six o'clock.", ['get|wake|getting|waking', "o'clock|oclock|half|past|quarter|five|six|seven|eight"]]
         },
         {
           title: 'How Often?', titleVi: 'Bao lâu một lần?', icon: '📅',
@@ -108,9 +120,15 @@
             { vi: 'Em muốn hỏi: Bạn có thường đi bộ đến trường không?', a: ['Do you', 'usually', 'walk', 'to school?'], x: ['Does', 'lunch'] }
           ],
           talk: [
-            { q: 'How often do you play LEGO?', vi: 'Bạn chơi LEGO bao lâu một lần?', hint: 'I usually play LEGO after school.', k: ['always|usually|sometimes|never|often|every', 'play|lego'], c: ['I usually play LEGO after school.', 'I am a LEGO brick.', 'At half past bed.'] },
-            { q: 'Do you always do your homework?', vi: 'Bạn có luôn làm bài tập về nhà không?', hint: 'Yes, I always do my homework.', k: ['yes|no|always|usually|sometimes', 'homework|do|it'], c: ['Yes, I always do my homework.', 'No, I am homework.', 'Homework is a bus.'] }
-          ]
+            { q: 'How often do you play LEGO?', vi: 'Bạn chơi LEGO bao lâu một lần?', hint: 'I usually play LEGO after school.', k: ['always|usually|sometimes|never|often|every|once|twice|weekend|weekends', 'play|lego'], c: ['I usually play LEGO after school.', 'I play LEGO in my bedroom.', 'I usually read books after school.'] },
+            { q: 'Do you always do your homework?', vi: 'Bạn có luôn làm bài tập về nhà không?', hint: 'Yes, I always do my homework.', k: ['yes|no|always|usually|sometimes|never|often', 'homework'], c: ['Yes, I always do my homework.', 'Yes, I always brush my teeth.', "I do my homework at seven o'clock."] }
+          ],
+          fact: ['The Moon goes around the Earth about once a month.', 'Mặt Trăng quay quanh Trái Đất khoảng mỗi tháng một vòng.'],
+          tf: [
+            ['"Never" means zero times.', true, 'Yes! Never means not even once.', 'Đúng! "Never" nghĩa là chưa một lần nào.'],
+            ['"Always" means only one time.', false, 'No! Always means every time.', 'Sai! "Always" nghĩa là lúc nào cũng vậy.']
+          ],
+          qa: ['How often do you read books?', 'Con có thường đọc sách không?', 'I usually read books at night.', ['always|usually|sometimes|never|often|every|once|twice', 'read|reading|books|book|stories|comics']]
         }
       ]
     },
@@ -153,9 +171,15 @@
             { vi: 'Em muốn nói: Mình có môn Tin học vào thứ Hai.', a: ['I have', 'IT', 'on', 'Monday.'], x: ['at', 'has'] }
           ],
           talk: [
-            { q: 'What subjects do you have today?', vi: 'Hôm nay bạn học những môn gì?', hint: 'I have Maths and English.', k: ['have|study|learn', 'science|art|music|pe|it|maths|math|english|history|geography|vietnamese'], c: ['I have Maths and English.', 'I have a toothache.', 'It is seven o\'clock.'] },
-            { q: "What's your favourite subject?", vi: 'Môn học yêu thích của bạn là gì?', hint: 'My favourite subject is Art.', k: ['favourite|favorite|like|love', 'science|art|music|pe|it|maths|math|english|history|geography|vietnamese|subject'], c: ['My favourite subject is Art.', 'My favourite bus is red.', 'I go to bed at nine.'] }
-          ]
+            { q: 'What subjects do you have today?', vi: 'Hôm nay bạn học những môn gì?', hint: 'I have Maths and English.', k: ['science|art|music|pe|maths|math|english|history|geography|vietnamese|ict|computing|informatics|computer|computers'], c: ['I have Maths and English.', 'I have a pencil and a ruler.', "I have lessons at seven o'clock."] },
+            { q: "What's your favourite subject?", vi: 'Môn học yêu thích của bạn là gì?', hint: 'My favourite subject is Art.', k: ['favourite|favorite|like|love|best', 'science|art|music|pe|maths|math|english|history|geography|vietnamese|ict|computing|informatics|computer|computers'], c: ['My favourite subject is Art.', 'My favourite colour is blue.', 'I have Art on Monday.'] }
+          ],
+          fact: ['The first computers were as big as a whole room!', 'Những chiếc máy tính đầu tiên to bằng cả một căn phòng đấy!'],
+          tf: [
+            ['We use computers in IT.', true, 'Yes! In IT we learn to use computers.', 'Đúng! Giờ Tin học, mình học dùng máy tính.'],
+            ['We sing songs in PE.', false, 'No! We sing in Music. We run and jump in PE.', 'Sai! Mình hát trong giờ Âm nhạc. Giờ Thể dục thì chạy nhảy.']
+          ],
+          qa: ['What do you do in Art?', 'Con làm gì trong giờ Mĩ thuật?', 'I draw and paint pictures.', ['draw|paint|drawing|painting|colour|color|make|cut|design']]
         },
         {
           title: 'Why Do You Like It?', titleVi: 'Vì sao em thích?', icon: '🧪',
@@ -181,9 +205,15 @@
             { vi: 'Em muốn trả lời: Bởi vì mình thích làm thí nghiệm.', a: ['Because', 'I love', 'doing', 'experiments.'], x: ['Why', 'does'] }
           ],
           talk: [
-            { q: 'Why do you like Science?', vi: 'Tại sao bạn thích môn Khoa học?', hint: 'Because I love doing experiments.', k: ['because', 'experiment|experiments|fun|cool|love|like|interesting|exciting'], c: ['Because I love doing experiments.', 'Because it is a bus.', "At seven o'clock."] },
-            { q: 'Do you want to join the robotics club?', vi: 'Bạn có muốn tham gia câu lạc bộ người máy không?', hint: "Yes, I'd love to join the robotics club!", k: ['yes|no|sure|love|want', 'join|club|robot|robotics|love|to'], c: ["Yes, I'd love to join the robotics club!", 'Yes, I have a fever.', 'No, it is lunch.'] }
-          ]
+            { q: 'Why do you like Science?', vi: 'Tại sao bạn thích môn Khoa học?', hint: 'Because I love doing experiments.', k: ['experiment|experiments|fun|cool|interesting|exciting|learn|discover|love|enjoy|plants|animals|magnets'], c: ['Because I love doing experiments.', 'Because it is on Monday.', 'I have Science and Art.'] },
+            { q: 'Do you want to join the robotics club?', vi: 'Bạn có muốn tham gia câu lạc bộ người máy không?', hint: "Yes, I'd love to join the robotics club!", k: ['yes|no|sure|love|want', 'robot|robots|robotics|club|join'], c: ["Yes, I'd love to join the robotics club!", "Yes, I'd love to play football!", 'The club is on Friday.'] }
+          ],
+          fact: ['There are seven continents on Earth, like Asia and Africa.', 'Trái Đất có bảy châu lục, ví dụ như châu Á và châu Phi.'],
+          tf: [
+            ['In Geography, we learn about maps and countries.', true, 'Yes! Geography is about places on Earth.', 'Đúng! Môn Địa lí học về các nơi trên Trái Đất.'],
+            ['In History, we learn about the future.', false, 'No! History is about the past.', 'Sai! Môn Lịch sử học về quá khứ.']
+          ],
+          qa: ['Why do you like your favourite subject?', 'Vì sao con thích môn học yêu thích của mình?', 'Because it is fun and interesting.', ['fun|interesting|exciting|cool|love|easy|good|teacher|experiments|draw|sing|play|learn|enjoy']]
         },
         {
           title: 'How Do You Feel?', titleVi: 'Em cảm thấy thế nào?', icon: '🤩',
@@ -209,9 +239,15 @@
             { vi: 'Em muốn nói với bạn: Tớ rất tự hào về cậu!', a: ["I'm", 'so', 'proud', 'of you!'], x: ['nervous', 'are'] }
           ],
           talk: [
-            { q: 'How do you feel before a test?', vi: 'Bạn cảm thấy thế nào trước bài kiểm tra?', hint: 'I feel nervous before a test.', k: ['feel|am|im', 'nervous|confident|excited|worried|happy|calm|okay|ok|fine|scared|bored'], c: ['I feel nervous before a test.', 'I feel a bowl of noodles.', 'It is a test bus.'] },
-            { q: 'What makes you proud?', vi: 'Điều gì khiến bạn tự hào?', hint: "I'm proud when I finish my LEGO set.", k: ['proud', 'when|because|of|my|finish|win|help'], c: ["I'm proud when I finish my LEGO set.", 'I am proud of a toothache.', 'Proud is a colour.'] }
-          ]
+            { q: 'How do you feel before a test?', vi: 'Bạn cảm thấy thế nào trước bài kiểm tra?', hint: 'I feel nervous before a test.', k: ['nervous|confident|excited|worried|happy|calm|okay|ok|fine|scared|bored|relaxed|good|great|ready|afraid'], c: ['I feel nervous before a test.', 'I feel proud after the test.', 'I study for the test at home.'] },
+            { q: 'What makes you proud?', vi: 'Điều gì khiến bạn tự hào?', hint: "I'm proud when I finish my LEGO set.", k: ['proud', 'finish|finished|win|won|help|helping|helped|build|built|make|made|get|good|score|pass|learn|draw'], c: ["I'm proud when I finish my LEGO set.", 'I feel nervous when I have a test.', 'I feel bored when it rains.'] }
+          ],
+          fact: ['When you feel nervous, your heart beats faster.', 'Khi con hồi hộp, tim con sẽ đập nhanh hơn.'],
+          tf: [
+            ['Taking deep breaths can help you feel calm.', true, 'Yes! Slow, deep breaths help your body relax.', 'Đúng! Hít thở sâu và chậm giúp cơ thể thư giãn.'],
+            ['"Bored" means very excited.', false, 'No! Bored means you have nothing fun to do.', 'Sai! "Bored" là cảm giác chán vì chẳng có gì vui để làm.']
+          ],
+          qa: ['How do you feel on your birthday?', 'Con cảm thấy thế nào vào ngày sinh nhật?', 'I feel very happy and excited.', ['happy|excited|great|good|glad|proud|wonderful|fun|amazing|special']]
         }
       ]
     },
@@ -254,9 +290,15 @@
             { vi: 'Em muốn khen: Món mì Ý này ngon tuyệt!', a: ['This', 'spaghetti', 'is', 'delicious!'], x: ['are', 'nervous'] }
           ],
           talk: [
-            { q: "What's your favourite food?", vi: 'Món ăn yêu thích của bạn là gì?', hint: 'My favourite food is crispy pizza.', k: ['favourite|favorite|like|love', 'pizza|noodles|spaghetti|cake|rice|chicken|fish|pho|burger|ice|bread|fries|egg|eggs|food'], c: ['My favourite food is crispy pizza.', 'My favourite food is a bus.', 'I eat at the library.'] },
-            { q: 'Would you like a slice of cake?', vi: 'Bạn có muốn một miếng bánh không?', hint: 'Yes, please! It looks delicious.', k: ['yes|no|sure', 'please|thanks|thank|delicious|love'], c: ['Yes, please! It looks delicious.', 'Yes, I am a cake.', 'No, it is foggy.'] }
-          ]
+            { q: "What's your favourite food?", vi: 'Món ăn yêu thích của bạn là gì?', hint: 'My favourite food is crispy pizza.', k: ['favourite|favorite|like|love|best', 'pizza|noodles|spaghetti|cake|rice|chicken|fish|pho|burger|bread|fries|egg|eggs|soup|sandwich|salad|beef|pork|vegetables|banh|meat|chips|sushi|dumplings'], c: ['My favourite food is crispy pizza.', 'My favourite drink is lemonade.', 'I eat lunch at home with my family.'] },
+            { q: 'Would you like a slice of cake?', vi: 'Bạn có muốn một miếng bánh không?', hint: 'Yes, please! It looks delicious.', k: ['yes|no|sure', 'please|thanks|thank|delicious|love|yummy'], c: ['Yes, please! It looks delicious.', 'Yes, it is a big cake.', "I'd like noodles."] }
+          ],
+          fact: ['People in China made noodles about four thousand years ago.', 'Người Trung Quốc đã làm ra mì sợi từ khoảng bốn nghìn năm trước.'],
+          tf: [
+            ['Spaghetti is a kind of pasta from Italy.', true, 'Yes! Spaghetti is a famous Italian food.', 'Đúng! Mì Ý spaghetti là món ăn nổi tiếng của nước Ý.'],
+            ['Pizza comes from Japan.', false, 'No! Pizza comes from Italy.', 'Sai! Pizza đến từ nước Ý.']
+          ],
+          qa: ['What do you usually eat for dinner?', 'Con thường ăn gì vào bữa tối?', 'I usually eat rice, fish and vegetables.', ['pizza|noodles|spaghetti|cake|rice|chicken|fish|pho|burger|bread|fries|egg|eggs|soup|sandwich|salad|beef|pork|vegetables|banh|meat|chips|sushi|dumplings|tofu|shrimp']]
         },
         {
           title: 'Cool Drinks', titleVi: 'Đồ uống mát lạnh', icon: '🥤',
@@ -282,9 +324,15 @@
             { vi: 'Em muốn gọi: Cho mình một ly sinh tố xoài.', a: ["I'd like", 'a mango', 'smoothie,', 'please.'], x: ['bottle', 'likes'] }
           ],
           talk: [
-            { q: 'What would you like to drink?', vi: 'Bạn muốn uống gì?', hint: "I'd like a lemonade, please.", k: ['like|want|please|have', 'lemonade|smoothie|water|juice|milk|tea|coke|soda|chocolate'], c: ["I'd like a lemonade, please.", "I'd like a raincoat, please.", 'I drink a bus.'] },
-            { q: 'Are you vegetarian?', vi: 'Bạn có ăn chay không?', hint: "No, I'm not. I eat meat and fish.", k: ['yes|no', "am|not|eat|im|i'm"], c: ["No, I'm not. I eat meat and fish.", 'Yes, I am a vegetable bus.', 'It is half past six.'] }
-          ]
+            { q: 'What would you like to drink?', vi: 'Bạn muốn uống gì?', hint: "I'd like a lemonade, please.", k: ['lemonade|smoothie|water|juice|milk|tea|coke|soda|chocolate|cocoa|milkshake|coconut'], c: ["I'd like a lemonade, please.", "I'd like a bowl of noodles, please.", "I'd like a slice of cake, please."] },
+            { q: 'Are you vegetarian?', vi: 'Bạn có ăn chay không?', hint: "No, I'm not. I eat meat and fish.", k: ['yes|no', 'not|meat|fish|chicken|vegetables|vegetarian|eat|beef|pork|tofu'], c: ["No, I'm not. I eat meat and fish.", "Yes, I'd like a smoothie.", "I'd like a bottle of water."] }
+          ],
+          fact: ['More than half of your body is water!', 'Hơn một nửa cơ thể con là nước đấy!'],
+          tf: [
+            ['Lemons taste sour.', true, 'Yes! That is why we add sugar to lemonade.', 'Đúng! Vì thế mình cho đường vào nước chanh.'],
+            ['A vegetarian eats a lot of meat.', false, 'No! A vegetarian does not eat meat.', 'Sai! Người ăn chay không ăn thịt.']
+          ],
+          qa: ['What do you like to drink when it is hot?', 'Khi trời nóng con thích uống gì?', 'I like to drink cold lemonade.', ['lemonade|smoothie|water|juice|milk|tea|coke|soda|chocolate|cocoa|milkshake|coconut']]
         },
         {
           title: 'At the Bistro', titleVi: 'Gọi món & tính tiền', icon: '🧾',
@@ -310,9 +358,15 @@
             { vi: 'Em muốn nói lịch sự: Cho mình xin hóa đơn ạ.', a: ['Can I', 'have', 'the bill,', 'please?'], x: ['has', 'order'] }
           ],
           talk: [
-            { q: 'Hello! What would you like to order?', vi: 'Xin chào! Bạn muốn gọi món gì?', hint: "I'd like a bowl of noodles, please.", k: ['like|want|have|can', 'please|noodles|pizza|spaghetti|rice|cake|chicken|burger|smoothie|lemonade|water'], c: ["I'd like a bowl of noodles, please.", 'I would like to be a pilot.', 'The bill is my friend.'] },
-            { q: 'Your meal is finished. What do you say to the waiter?', vi: 'Bạn ăn xong rồi. Bạn nói gì với người phục vụ?', hint: 'Can I have the bill, please?', k: ['bill|pay|much', 'please|can|how|altogether'], c: ['Can I have the bill, please?', 'Can I have a fever, please?', 'Turn left, please.'] }
-          ]
+            { q: 'Hello! What would you like to order?', vi: 'Xin chào! Bạn muốn gọi món gì?', hint: "I'd like a bowl of noodles, please.", k: ['pizza|noodles|spaghetti|cake|rice|chicken|fish|pho|burger|bread|fries|egg|eggs|soup|sandwich|salad|beef|pork|vegetables|banh|meat|chips|sushi|dumplings|lemonade|smoothie|water|juice|milk|tea|coke|soda|chocolate|cocoa|milkshake|coconut'], c: ["I'd like a bowl of noodles, please.", 'Can I have the bill, please?', "It's fifty thousand dong altogether."] },
+            { q: 'Your meal is finished. What do you say to the waiter?', vi: 'Bạn ăn xong rồi. Bạn nói gì với người phục vụ?', hint: 'Can I have the bill, please?', k: ['bill|pay|check|much|altogether'], c: ['Can I have the bill, please?', 'Can I have the menu, please?', "I'd like a lemonade, please."] }
+          ],
+          fact: ['In Japan, people do not usually give the waiter a tip.', 'Ở Nhật Bản, mọi người thường không cho người phục vụ tiền boa.'],
+          tf: [
+            ['A waiter brings food to your table.', true, 'Yes! The waiter takes your order and brings your food.', 'Đúng! Người phục vụ ghi món và mang đồ ăn ra cho con.'],
+            ['You ask for the bill before you order.', false, 'No! You ask for the bill after you eat.', 'Sai! Con xin hóa đơn sau khi ăn xong.']
+          ],
+          qa: ['What do you say when you want to order food?', 'Con nói gì khi muốn gọi món?', "I'd like a bowl of pho, please.", ['like|want|have|please|can', 'pizza|noodles|spaghetti|cake|rice|chicken|fish|pho|burger|bread|fries|egg|eggs|soup|sandwich|salad|beef|pork|vegetables|banh|meat|chips|sushi|dumplings|lemonade|smoothie|water|juice|milk|tea|coke|soda|chocolate|cocoa|milkshake|coconut']]
         }
       ]
     },
@@ -355,9 +409,15 @@
             { vi: 'Em muốn hỏi: Bạn có thể bơi dưới nước không?', a: ['Can', 'you', 'swim', 'underwater?'], x: ['Do', 'swims'] }
           ],
           talk: [
-            { q: 'What sports can you play?', vi: 'Bạn có thể chơi môn thể thao nào?', hint: 'I can play badminton and football.', k: ['can|play|like', 'badminton|football|soccer|basketball|tennis|swim|skate|volleyball|chess|martial|ride|run|table'], c: ['I can play badminton and football.', 'I can play a toothache.', 'I am a dojo.'] },
-            { q: 'Can you ride a bike?', vi: 'Bạn có biết đạp xe không?', hint: "Yes, I can.", k: ['yes|no', "can|can't|cannot|cant"], c: ['Yes, I can.', 'Yes, I am a bike.', 'It is a bike day.'] }
-          ]
+            { q: 'What sports can you play?', vi: 'Bạn có thể chơi môn thể thao nào?', hint: 'I can play badminton and football.', k: ['badminton|football|soccer|basketball|tennis|swim|swimming|skate|skating|volleyball|chess|martial|arts|ride|table|baseball|bike|cycling|karate|judo'], c: ['I can play badminton and football.', 'I can play the guitar.', 'I play after school.'] },
+            { q: 'Can you ride a bike?', vi: 'Bạn có biết đạp xe không?', hint: 'Yes, I can ride a bike.', k: ['yes|no', 'ride|bike|bicycle|cycle'], c: ['Yes, I can ride a bike.', 'Yes, I can swim underwater.', 'I ride my bike to school.'] }
+          ],
+          fact: ['A badminton shuttlecock can fly faster than a racing car!', 'Quả cầu lông có thể bay nhanh hơn cả xe đua đấy!'],
+          tf: [
+            ['Swimming makes your heart and body strong.', true, 'Yes! Swimming is great exercise.', 'Đúng! Bơi là môn thể thao rất tốt cho sức khỏe.'],
+            ['You play badminton with a big ball.', false, 'No! You play badminton with a shuttlecock.', 'Sai! Cầu lông chơi bằng quả cầu.']
+          ],
+          qa: ['What can you do after school?', 'Sau giờ học con có thể làm gì?', 'I can ride a bike and swim.', ['ride|swim|play|skate|run|dance|draw|read|cook|sing|jump|football|badminton|bike|chess']]
         },
         {
           title: "What's the Matter?", titleVi: 'Em bị làm sao?', icon: '🤒',
@@ -383,9 +443,15 @@
             { vi: 'Em muốn nói: Mình bị sốt và đau đầu.', a: ['I have', 'a fever', 'and', 'a headache.'], x: ['has', 'am'] }
           ],
           talk: [
-            { q: "What's the matter with you?", vi: 'Bạn bị làm sao thế?', hint: 'I have a headache.', k: ['have|got|feel', 'headache|toothache|fever|stomachache|stomach|sore|throat|cold|cough|ill|sick'], c: ['I have a headache.', 'I have a crispy pizza.', 'I am the matter.'] },
-            { q: 'Do you have a fever?', vi: 'Bạn có bị sốt không?', hint: "No, I don't. I feel fine.", k: ['yes|no', "do|don't|dont|have|feel|fine|ok|okay"], c: ["No, I don't. I feel fine.", 'Yes, I have a fever bus.', 'Fever is my friend.'] }
-          ]
+            { q: "What's the matter with you?", vi: 'Bạn bị làm sao thế?', hint: 'I have a headache.', k: ['headache|toothache|fever|stomachache|stomach|sore|throat|cold|cough|ill|sick|earache|backache'], c: ['I have a headache.', 'You should see a doctor.', 'I have a new bike.'] },
+            { q: 'Do you have a fever?', vi: 'Bạn có bị sốt không?', hint: "No, I don't. I feel fine.", k: ['yes|no', 'fever|fine|okay|ok|well|hot|temperature|good|great'], c: ["No, I don't. I feel fine.", 'Yes, you should take a rest.', 'I have a sore throat.'] }
+          ],
+          fact: ['Your body makes a fever to help fight germs.', 'Cơ thể con bị sốt là để giúp chống lại vi trùng đấy.'],
+          tf: [
+            ['When you have a cold, you often sneeze.', true, 'Yes! A cold often makes you sneeze and cough.', 'Đúng! Bị cảm lạnh thường làm con hắt hơi và ho.'],
+            ['Eating lots of sweets is good for your teeth.', false, 'No! Too many sweets can give you a toothache.', 'Sai! Ăn nhiều kẹo có thể làm con bị đau răng.']
+          ],
+          qa: ['How do you feel today?', 'Hôm nay con cảm thấy thế nào?', "I feel great. I'm not ill.", ['fine|great|good|well|okay|ok|happy|tired|ill|sick|headache|cold|sore|fever|toothache|stomachache']]
         },
         {
           title: 'Good Advice', titleVi: 'Lời khuyên hay', icon: '👍',
@@ -411,9 +477,15 @@
             { vi: 'Em muốn khuyên bạn: Bạn không nên ăn quá nhiều kẹo.', a: ['You', "shouldn't", 'eat', 'too many sweets.'], x: ['eats', 'rest'] }
           ],
           talk: [
-            { q: 'I have a toothache. What should I do?', vi: 'Mình bị đau răng. Mình nên làm gì?', hint: 'You should see a dentist.', k: ['should|go|see', 'dentist|doctor|rest'], c: ['You should see a dentist.', 'You should eat more sweets.', 'You should catch the bus to the moon.'] },
-            { q: 'I have a fever. Can I play badminton?', vi: 'Mình bị sốt. Mình chơi cầu lông được không?', hint: "No, you shouldn't. You should take a rest.", k: ["no|shouldn't|shouldnt|should|not", 'rest|doctor|bed|water|sleep'], c: ["No, you shouldn't. You should take a rest.", 'Yes, play all night!', 'Badminton is a fever.'] }
-          ]
+            { q: 'I have a toothache. What should I do?', vi: 'Mình bị đau răng. Mình nên làm gì?', hint: 'You should see a dentist.', k: ['dentist|doctor|brush|rest|medicine'], c: ['You should see a dentist.', 'You should eat more sweets.', 'You should play football.'] },
+            { q: 'I have a fever. Can I play badminton?', vi: 'Mình bị sốt. Mình chơi cầu lông được không?', hint: "No, you shouldn't. You should take a rest.", k: ["no|shouldn't|shouldnt|not|can't|cant", 'rest|doctor|bed|water|sleep|home|medicine'], c: ["No, you shouldn't. You should take a rest.", 'Yes, you can play badminton.', 'Yes, play with your friends after school.'] }
+          ],
+          fact: ['Washing your hands with soap washes away lots of germs.', 'Rửa tay bằng xà phòng giúp rửa trôi rất nhiều vi trùng.'],
+          tf: [
+            ['You should see a dentist when you have a toothache.', true, 'Yes! A dentist can make your teeth better.', 'Đúng! Nha sĩ sẽ giúp chữa răng cho con.'],
+            ['You should eat lots of candy when you have a stomachache.', false, 'No! You should rest and drink warm water.', 'Sai! Con nên nghỉ ngơi và uống nước ấm.']
+          ],
+          qa: ['What should you do when you feel tired?', 'Khi thấy mệt con nên làm gì?', 'I should take a rest and go to bed early.', ['rest|sleep|bed|relax|water|nap|lie']]
         }
       ]
     },
@@ -456,9 +528,15 @@
             { vi: 'Em muốn nói: Mẹ mình là bác sĩ thú y.', a: ['My mother', 'is', 'a', 'vet.'], x: ['an', 'are'] }
           ],
           talk: [
-            { q: 'What does your mother do?', vi: 'Mẹ bạn làm nghề gì?', hint: 'She is a teacher.', k: ['she|mother|mom|mum|is|works', 'teacher|doctor|nurse|engineer|worker|farmer|driver|cook|vet|pilot|architect|programmer|office|business|seller|is|a|an'], c: ['She is a teacher.', 'She is a crispy pizza.', 'She has a toothache.'] },
-            { q: 'Do you want to be an astronaut?', vi: 'Bạn có muốn làm phi hành gia không?', hint: 'Yes, I do! I want to fly to the Moon.', k: ['yes|no', "do|don't|dont|want|would|like"], c: ['Yes, I do! I want to fly to the Moon.', 'Yes, I am the Moon.', 'Astronaut is delicious.'] }
-          ]
+            { q: 'What does your mother do?', vi: 'Mẹ bạn làm nghề gì?', hint: 'She is a teacher.', k: ['teacher|doctor|nurse|engineer|worker|farmer|driver|cook|chef|vet|pilot|architect|programmer|business|businessman|businesswoman|seller|shopkeeper|firefighter|police|policeman|policewoman|dentist|singer|housewife|homemaker|accountant|officer|scientist|astronaut|detective|designer|footballer|artist|writer|lawyer|builder|banker|office'], c: ['She is a teacher.', 'She is tall and kind.', 'She goes to work by bus.'] },
+            { q: 'Do you want to be an astronaut?', vi: 'Bạn có muốn làm phi hành gia không?', hint: 'Yes, I do! I want to fly to the Moon.', k: ['yes|no', 'astronaut|space|moon|fly|rocket|stars|planet|planets|want|like'], c: ['Yes, I do! I want to fly to the Moon.', 'Yes, I can ride a bike.', 'An astronaut works in space.'] }
+          ],
+          fact: ['Astronauts on the space station can see about sixteen sunrises every day!', 'Các phi hành gia trên trạm vũ trụ có thể thấy khoảng mười sáu lần mặt trời mọc mỗi ngày!'],
+          tf: [
+            ['A vet helps sick animals.', true, 'Yes! A vet is a doctor for animals.', 'Đúng! Bác sĩ thú y là bác sĩ chữa bệnh cho con vật.'],
+            ['A programmer puts out fires.', false, 'No! A firefighter puts out fires. A programmer writes code.', 'Sai! Lính cứu hỏa mới dập lửa. Lập trình viên thì viết mã máy tính.']
+          ],
+          qa: ['What does your father do?', 'Bố con làm nghề gì?', 'He is an engineer.', ['teacher|doctor|nurse|engineer|worker|farmer|driver|cook|chef|vet|pilot|architect|programmer|business|businessman|businesswoman|seller|shopkeeper|firefighter|police|policeman|policewoman|dentist|singer|housewife|homemaker|accountant|officer|scientist|astronaut|detective|designer|footballer|artist|writer|lawyer|builder|banker|office']]
         },
         {
           title: 'Where Do They Work?', titleVi: 'Họ làm việc ở đâu?', icon: '🏥',
@@ -484,9 +562,15 @@
             { vi: 'Em muốn nói: Y tá làm việc ở bệnh viện.', a: ['A nurse', 'works', 'in', 'a hospital.'], x: ['work', 'school bus'] }
           ],
           talk: [
-            { q: 'Where does a firefighter work?', vi: 'Lính cứu hỏa làm việc ở đâu?', hint: 'A firefighter works at a fire station.', k: ['work|works|at|in', 'fire|station'], c: ['A firefighter works at a fire station.', 'A firefighter works in a pizza.', 'At half past seven.'] },
-            { q: 'Where does a doctor work?', vi: 'Bác sĩ làm việc ở đâu?', hint: 'A doctor works in a hospital.', k: ['work|works|in|at', 'hospital|clinic'], c: ['A doctor works in a hospital.', 'A doctor works in a smoothie.', 'A doctor is a bus.'] }
-          ]
+            { q: 'Where does a firefighter work?', vi: 'Lính cứu hỏa làm việc ở đâu?', hint: 'A firefighter works at a fire station.', k: ['station'], c: ['A firefighter works at a fire station.', 'A firefighter works in a hospital.', 'A firefighter puts out fires.'] },
+            { q: 'Where does a doctor work?', vi: 'Bác sĩ làm việc ở đâu?', hint: 'A doctor works in a hospital.', k: ['hospital|clinic'], c: ['A doctor works in a hospital.', 'A doctor works at a fire station.', 'A doctor helps sick people.'] }
+          ],
+          fact: ['The pilot and co-pilot of a plane often eat different meals, so they do not both get sick.', 'Phi công và cơ phó thường ăn các suất ăn khác nhau để không cùng bị ốm.'],
+          tf: [
+            ['A nurse works in a hospital.', true, 'Yes! Nurses look after sick people in hospitals.', 'Đúng! Y tá chăm sóc người bệnh ở bệnh viện.'],
+            ['A pilot works at a fire station.', false, 'No! A pilot flies planes. A firefighter works at a fire station.', 'Sai! Phi công lái máy bay. Lính cứu hỏa mới làm ở trạm cứu hỏa.']
+          ],
+          qa: ['Where do your parents work?', 'Bố mẹ con làm việc ở đâu?', 'They work in an office.', ['office|hospital|school|shop|factory|farm|market|home|bank|station|restaurant|company|airport|supermarket|hotel']]
         },
         {
           title: 'Dream Big', titleVi: 'Ước mơ lớn', icon: '🌟',
@@ -512,9 +596,15 @@
             { vi: 'Em muốn nói: Lính cứu hỏa cứu người khỏi đám cháy.', a: ['Firefighters', 'save', 'people', 'from fires.'], x: ['saves', 'code'] }
           ],
           talk: [
-            { q: 'What would you like to be in the future?', vi: 'Sau này bạn muốn làm nghề gì?', hint: "I'd like to be an architect.", k: ['like|want|would', 'be|become'], c: ["I'd like to be an architect.", "I'd like a bowl of noodles.", 'I am in the future bus.'] },
-            { q: 'Why do you want that job?', vi: 'Tại sao bạn muốn làm nghề đó?', hint: 'Because I want to help people.', k: ['because', 'want|like|love|help|save|build|make|fly'], c: ['Because I want to help people.', 'Because it is Tuesday.', 'Because I have a fever.'] }
-          ]
+            { q: 'What would you like to be in the future?', vi: 'Sau này bạn muốn làm nghề gì?', hint: "I'd like to be an architect.", k: ['teacher|doctor|nurse|engineer|worker|farmer|driver|cook|chef|vet|pilot|architect|programmer|business|businessman|businesswoman|seller|shopkeeper|firefighter|police|policeman|policewoman|dentist|singer|housewife|homemaker|accountant|officer|scientist|astronaut|detective|designer|footballer|artist|writer|lawyer|builder|banker'], c: ["I'd like to be an architect.", "I'd like to go to Da Nang.", 'I like playing football.'] },
+            { q: 'Why do you want that job?', vi: 'Tại sao bạn muốn làm nghề đó?', hint: 'Because I want to help people.', k: ['help|save|build|design|make|fly|love|like|fun|cool|interesting|people|animals|code|computers|buildings|space'], c: ['Because I want to help people.', 'I want to be a vet.', 'I work in a hospital.'] }
+          ],
+          fact: ['The tallest building in the world is more than eight hundred metres tall!', 'Tòa nhà cao nhất thế giới cao hơn tám trăm mét đấy!'],
+          tf: [
+            ['A programmer writes code for computers.', true, 'Yes! Programmers make apps and games.', 'Đúng! Lập trình viên tạo ra ứng dụng và trò chơi.'],
+            ['An architect saves people from fires.', false, 'No! An architect designs buildings. A firefighter saves people from fires.', 'Sai! Kiến trúc sư thiết kế nhà cửa. Lính cứu hỏa mới cứu người khỏi đám cháy.']
+          ],
+          qa: ['What job would you like to do in the future?', 'Sau này con muốn làm nghề gì?', "I'd like to be a doctor.", ['teacher|doctor|nurse|engineer|worker|farmer|driver|cook|chef|vet|pilot|architect|programmer|business|businessman|businesswoman|seller|shopkeeper|firefighter|police|policeman|policewoman|dentist|singer|housewife|homemaker|accountant|officer|scientist|astronaut|detective|designer|footballer|artist|writer|lawyer|builder|banker']]
         }
       ]
     },
@@ -557,9 +647,15 @@
             { vi: 'Em muốn hỏi: Cá voi xanh sống ở đâu?', a: ['Where', 'does', 'the blue whale', 'live?'], x: ['do', 'lives'] }
           ],
           talk: [
-            { q: "What's your favourite animal?", vi: 'Con vật yêu thích của bạn là gì?', hint: 'My favourite animal is the elephant.', k: ['favourite|favorite|like|love', 'cheetah|whale|giraffe|crocodile|elephant|dog|cat|tiger|lion|panda|monkey|rabbit|bird|horse|dolphin|dinosaur|rex|bear|fish|animal'], c: ['My favourite animal is the elephant.', 'My favourite animal is a menu.', 'I like half past.'] },
-            { q: 'Which animal has a very long neck?', vi: 'Con vật nào có cái cổ rất dài?', hint: 'The giraffe has a long neck.', k: ['giraffe|giraffes'], c: ['The giraffe has a long neck.', 'The crocodile has a long neck.', 'The bus has a long neck.'] }
-          ]
+            { q: "What's your favourite animal?", vi: 'Con vật yêu thích của bạn là gì?', hint: 'My favourite animal is the elephant.', k: ['favourite|favorite|like|love|best', 'cheetah|whale|giraffe|crocodile|elephant|dog|cat|tiger|lion|panda|monkey|rabbit|bird|horse|dolphin|dinosaur|rex|bear|fish|penguin|zebra|kangaroo|owl|snake|parrot|koala|fox|wolf|hippo|turtle'], c: ['My favourite animal is the elephant.', 'My favourite food is pizza.', 'The elephant is very big.'] },
+            { q: 'Which animal has a very long neck?', vi: 'Con vật nào có cái cổ rất dài?', hint: 'The giraffe has a long neck.', k: ['giraffe|giraffes'], c: ['The giraffe has a long neck.', 'The crocodile has a long tail.', 'The elephant has a long nose.'] }
+          ],
+          fact: ['The blue whale is the biggest animal that has ever lived on Earth.', 'Cá voi xanh là loài vật to lớn nhất từng sống trên Trái Đất.'],
+          tf: [
+            ['Elephants flap their big ears to stay cool.', true, 'Yes! Big ears help elephants cool down on hot days.', 'Đúng! Đôi tai to giúp voi mát hơn vào ngày nóng.'],
+            ['A giraffe has a very short neck.', false, 'No! A giraffe has a very long neck.', 'Sai! Hươu cao cổ có cái cổ rất dài.']
+          ],
+          qa: ['Which wild animal would you like to see?', 'Con muốn được xem con vật hoang dã nào?', "I'd like to see an elephant.", ['cheetah|whale|giraffe|crocodile|elephant|dog|cat|tiger|lion|panda|monkey|rabbit|bird|horse|dolphin|dinosaur|rex|bear|fish|penguin|zebra|kangaroo|owl|snake|parrot|koala|fox|wolf|hippo|turtle']]
         },
         {
           title: 'Dino Park', titleVi: 'Công viên khủng long', icon: '🦕',
@@ -585,9 +681,15 @@
             { vi: 'Em muốn nói: Cá heo là loài vật thông minh.', a: ['Dolphins', 'are', 'intelligent', 'animals.'], x: ['is', 'has'] }
           ],
           talk: [
-            { q: 'Which dinosaur do you like?', vi: 'Bạn thích loài khủng long nào?', hint: 'I like the Triceratops.', k: ['like|love|favourite|favorite', 'rex|trex|triceratops|dinosaur|stegosaurus|raptor|velociraptor|brachiosaurus|diplodocus|pterodactyl'], c: ['I like the Triceratops.', 'I like the bill.', 'Dinosaurs like homework.'] },
-            { q: 'Is a crocodile dangerous?', vi: 'Cá sấu có nguy hiểm không?', hint: "Yes, it is. It's very dangerous.", k: ['yes|no', "is|isn't|dangerous|it"], c: ["Yes, it is. It's very dangerous.", 'No, it is a smoothie.', 'Yes, it is a pilot.'] }
-          ]
+            { q: 'Which dinosaur do you like?', vi: 'Bạn thích loài khủng long nào?', hint: 'I like the Triceratops.', k: ['rex|trex|triceratops|stegosaurus|raptor|velociraptor|brachiosaurus|diplodocus|pterodactyl|spinosaurus|ankylosaurus'], c: ['I like the Triceratops.', 'I like the giraffe.', 'Dinosaurs lived long ago.'] },
+            { q: 'Is a crocodile dangerous?', vi: 'Cá sấu có nguy hiểm không?', hint: "Yes, it is. It's very dangerous.", k: ['yes|no', 'dangerous|scary|teeth|bite|careful|strong'], c: ["Yes, it is. It's very dangerous.", 'No, it is very small.', 'Yes, it is very heavy.'] }
+          ],
+          fact: ['Birds are the living relatives of dinosaurs!', 'Chim chính là họ hàng còn sống của khủng long đấy!'],
+          tf: [
+            ['The Triceratops had three horns.', true, 'Yes! "Tri" means three.', 'Đúng! "Tri" nghĩa là ba, khủng long ba sừng.'],
+            ['The T-Rex ate only plants.', false, 'No! The T-Rex ate meat.', 'Sai! Khủng long bạo chúa ăn thịt.']
+          ],
+          qa: ['Do you like dinosaurs? Why?', 'Con có thích khủng long không? Vì sao?', 'Yes, I do. Because they are big and strong.', ['yes|no|love|like', 'big|strong|cool|scary|heavy|interesting|huge|dangerous|fun|amazing|fast|old|teeth']]
         },
         {
           title: 'The Great Race', titleVi: 'Cuộc đua lớn', icon: '💨',
@@ -613,9 +715,15 @@
             { vi: 'Em muốn so sánh: Cá sấu nguy hiểm hơn ếch.', a: ['A crocodile', 'is', 'more dangerous', 'than', 'a frog.'], x: ['dangerouser', 'the'] }
           ],
           talk: [
-            { q: 'Which animal is faster, a horse or a cheetah?', vi: 'Con nào nhanh hơn, ngựa hay báo săn?', hint: 'A cheetah is faster than a horse.', k: ['cheetah', 'faster|fast'], c: ['A cheetah is faster than a horse.', 'A horse is faster than a rocket.', 'A cheetah is a menu.'] },
-            { q: 'Which animal is the tallest?', vi: 'Con vật nào cao nhất?', hint: 'The giraffe is the tallest animal.', k: ['giraffe|giraffes', 'tallest|tall|is'], c: ['The giraffe is the tallest animal.', 'The frog is the tallest animal.', 'The tallest is lunch.'] }
-          ]
+            { q: 'Which animal is faster, a horse or a cheetah?', vi: 'Con nào nhanh hơn, ngựa hay báo săn?', hint: 'A cheetah is faster than a horse.', k: ['cheetah|cheetahs', 'faster|fast|quicker|fastest'], c: ['A cheetah is faster than a horse.', 'The horse is faster.', 'A horse is very graceful.'] },
+            { q: 'Which animal is the tallest?', vi: 'Con vật nào cao nhất?', hint: 'The giraffe is the tallest animal.', k: ['giraffe|giraffes'], c: ['The giraffe is the tallest animal.', 'The elephant is the tallest animal.', 'The blue whale is the biggest animal.'] }
+          ],
+          fact: ['A cheetah can run about one hundred kilometres an hour!', 'Báo săn có thể chạy khoảng một trăm ki-lô-mét một giờ!'],
+          tf: [
+            ['A giraffe is taller than an elephant.', true, 'Yes! A giraffe is the tallest animal.', 'Đúng! Hươu cao cổ là con vật cao nhất.'],
+            ['A cat is bigger than an elephant.', false, 'No! An elephant is much bigger than a cat.', 'Sai! Voi to hơn mèo rất nhiều.']
+          ],
+          qa: ['Who is taller, you or your best friend?', 'Ai cao hơn, con hay bạn thân của con?', 'My best friend is taller than me.', ['taller|tall|shorter|short|same|tallest']]
         }
       ]
     },
@@ -658,9 +766,15 @@
             { vi: 'Em muốn nói: Trời nắng và ấm áp.', a: ["It's", 'sunny', 'and', 'warm.'], x: ['Its', 'are'] }
           ],
           talk: [
-            { q: "What's the weather like today?", vi: 'Hôm nay thời tiết thế nào?', hint: "It's sunny and warm.", k: ["it's|it|its|is", 'sunny|warm|hot|cold|rainy|windy|foggy|cloudy|stormy|cool|freezing|nice|raining'], c: ["It's sunny and warm.", "It's a bowl of noodles.", 'I have a stormy toothache.'] },
-            { q: 'Do you like stormy weather?', vi: 'Bạn có thích thời tiết bão bùng không?', hint: "No, I don't. I like sunny weather.", k: ['yes|no', "like|don't|dont|do"], c: ["No, I don't. I like sunny weather.", 'Yes, I am a storm.', 'Stormy is my teacher.'] }
-          ]
+            { q: "What's the weather like today?", vi: 'Hôm nay thời tiết thế nào?', hint: "It's sunny and warm.", k: ['sunny|warm|hot|cold|rainy|windy|foggy|cloudy|stormy|cool|freezing|nice|raining|snowy|snowing|wet|dry|lovely|fine'], c: ["It's sunny and warm.", "It's Monday today.", "I'm going to the park."] },
+            { q: 'Do you like stormy weather?', vi: 'Bạn có thích thời tiết bão bùng không?', hint: "No, I don't. I like sunny weather.", k: ['yes|no', 'like|love|hate|enjoy|scared|scary|sunny|stormy|storm|storms'], c: ["No, I don't. I like sunny weather.", "It's stormy today.", "Yes, it's very cold."] }
+          ],
+          fact: ['Lightning is hotter than the surface of the Sun!', 'Tia sét còn nóng hơn bề mặt Mặt Trời đấy!'],
+          tf: [
+            ['Fog is a cloud near the ground.', true, 'Yes! Fog is made of tiny drops of water in the air.', 'Đúng! Sương mù là những giọt nước li ti trong không khí.'],
+            ['It snows when it is very hot.', false, 'No! It snows when it is freezing cold.', 'Sai! Tuyết rơi khi trời lạnh cóng.']
+          ],
+          qa: ['What is your favourite weather?', 'Con thích kiểu thời tiết nào nhất?', 'I like sunny and warm weather.', ['sunny|warm|hot|cold|rainy|windy|foggy|cloudy|stormy|cool|freezing|nice|raining|snowy|snowing|wet|dry|lovely|fine']]
         },
         {
           title: 'Packing Time', titleVi: 'Xếp đồ đi chơi', icon: '🧳',
@@ -686,9 +800,15 @@
             { vi: 'Em muốn nói: Mình đeo kính râm khi trời nắng.', a: ['I wear', 'sunglasses', 'when', "it's sunny."], x: ['wears', 'because'] }
           ],
           talk: [
-            { q: "It's raining. What should you take?", vi: 'Trời đang mưa. Bạn nên mang theo gì?', hint: 'I should take a raincoat.', k: ['raincoat|umbrella|coat|jacket'], c: ['I should take a raincoat.', 'I should take a crispy pizza.', 'I should take a toothache.'] },
-            { q: 'What do you pack in your suitcase?', vi: 'Bạn xếp gì vào va li?', hint: 'I pack my clothes and my toothbrush.', k: ['pack|bring|take|put', 'clothes|toothbrush|sweater|sunglasses|raincoat|shirt|book|toys|lego|shoes|hat|jacket'], c: ['I pack my clothes and my toothbrush.', 'I pack a blue whale.', 'I pack the fire station.'] }
-          ]
+            { q: "It's raining. What should you take?", vi: 'Trời đang mưa. Bạn nên mang theo gì?', hint: 'I should take a raincoat.', k: ['raincoat|umbrella|coat|jacket|boots'], c: ['I should take a raincoat.', 'I should take my sunglasses.', 'I should wear a sweater.'] },
+            { q: 'What do you pack in your suitcase?', vi: 'Bạn xếp gì vào va li?', hint: 'I pack my clothes and my toothbrush.', k: ['clothes|toothbrush|sweater|sunglasses|raincoat|shirt|shirts|book|books|toys|lego|shoes|hat|jacket|towel|passport|swimsuit|trousers|shorts|socks|toothpaste|t-shirt|dress'], c: ['I pack my clothes and my toothbrush.', "It's a big blue suitcase.", 'I pack it on Friday night.'] }
+          ],
+          fact: ['Sunglasses protect your eyes from the strong light of the Sun.', 'Kính râm bảo vệ mắt con khỏi ánh nắng gay gắt của Mặt Trời.'],
+          tf: [
+            ['You wear a sweater when it is cold.', true, 'Yes! A sweater keeps you warm.', 'Đúng! Áo len giữ ấm cho con.'],
+            ['You wear sunglasses to keep warm.', false, 'No! Sunglasses protect your eyes. A sweater keeps you warm.', 'Sai! Kính râm bảo vệ mắt. Áo len mới giữ ấm.']
+          ],
+          qa: ['What do you take to school when it rains?', 'Khi trời mưa con mang gì đến trường?', 'I take my raincoat and umbrella.', ['raincoat|umbrella|coat|jacket|boots']]
         },
         {
           title: 'At the Airport', titleVi: 'Ở sân bay', icon: '🛂',
@@ -714,9 +834,15 @@
             { vi: 'Em muốn hỏi lịch sự: Cho tôi xem hộ chiếu của bạn.', a: ['Can I', 'see', 'your passport,', 'please?'], x: ['sees', 'menu'] }
           ],
           talk: [
-            { q: 'Where would you like to go on holiday?', vi: 'Bạn muốn đi nghỉ mát ở đâu?', hint: "I'd like to go to Da Nang.", k: ['go|like|want|visit|travel', 'to|nang|long|quoc|trang|lat|beach|japan|korea|paris|london|pa|hue|hoi|mountain|sea'], c: ["I'd like to go to Da Nang.", "I'd like to go to a toothache.", 'I go on holiday at seven.'] },
-            { q: 'What do you do at the beach?', vi: 'Bạn làm gì ở bãi biển?', hint: 'I build a sandcastle and swim.', k: ['build|swim|play|sandcastle|run|eat|relax|surf|walk|collect'], c: ['I build a sandcastle and swim.', 'I do my homework in the sea bus.', 'I see a dentist.'] }
-          ]
+            { q: 'Where would you like to go on holiday?', vi: 'Bạn muốn đi nghỉ mát ở đâu?', hint: "I'd like to go to Da Nang.", k: ['nang|halong|ha|quoc|nha|trang|lat|dalat|beach|japan|korea|paris|london|sapa|sa|hue|hoi|mountain|mountains|sea|singapore|thailand|china|america|france|england|camping|island|countryside|grandparents|vung|tau|hanoi|saigon|city'], c: ["I'd like to go to Da Nang.", "I'd like to go by plane.", "I'd like to go in the summer."] },
+            { q: 'What do you do at the beach?', vi: 'Bạn làm gì ở bãi biển?', hint: 'I build a sandcastle and swim.', k: ['build|swim|swimming|sandcastle|sandcastles|play|surf|relax|collect|shells|run|walk|fly|kite|dig|sunbathe'], c: ['I build a sandcastle and swim.', 'I go to the beach in summer.', 'I pack my suitcase.'] }
+          ],
+          fact: ['Big passenger planes fly about ten kilometres above the ground!', 'Máy bay chở khách thường bay cao khoảng mười ki-lô-mét so với mặt đất đấy!'],
+          tf: [
+            ['You need a passport to travel to another country.', true, 'Yes! You show your passport at the airport.', 'Đúng! Con cần trình hộ chiếu ở sân bay.'],
+            ['You build a sandcastle on a mountain.', false, 'No! You build a sandcastle at the beach.', 'Sai! Mình xây lâu đài cát ở bãi biển.']
+          ],
+          qa: ['Where did you go on your last holiday?', 'Kỳ nghỉ vừa rồi con đã đi đâu?', 'I went to the beach in Nha Trang.', ['went|go|visited|travelled|traveled|stayed', 'nang|halong|ha|quoc|nha|trang|lat|dalat|beach|sapa|hue|hoi|mountain|mountains|sea|countryside|grandparents|vung|tau|hanoi|saigon|city|zoo|park|home|japan|korea|thailand|singapore']]
         }
       ]
     },
@@ -759,9 +885,15 @@
             { vi: 'Em muốn kể: Cuối tuần trước mình đã thăm ông bà.', a: ['I', 'visited', 'my grandparents', 'last weekend.'], x: ['visit', 'tomorrow'] }
           ],
           talk: [
-            { q: 'Where were you yesterday?', vi: 'Hôm qua bạn ở đâu?', hint: 'I was at home yesterday.', k: ['was|went', 'at|in|home|school|park|bookshop|zoo|house|grandparents|beach'], c: ['I was at home yesterday.', 'I am a yesterday.', 'I was a crispy pizza.'] },
-            { q: 'What did you do last weekend?', vi: 'Cuối tuần trước bạn đã làm gì?', hint: 'I visited my grandparents.', k: ['visited|played|went|watched|saw|had|ate|read|did|made|built|swam|cooked|stayed|helped'], c: ['I visited my grandparents.', 'I visit my grandparents tomorrow.', 'I am last weekend.'] }
-          ]
+            { q: 'Where were you yesterday?', vi: 'Hôm qua bạn ở đâu?', hint: 'I was at home yesterday.', k: ['was|went|stayed', 'home|school|park|bookshop|zoo|house|grandparents|beach|museum|cinema|library|market|supermarket|pool|mall|farm|hospital|pharmacy|restaurant|countryside|playground'], c: ['I was at home yesterday.', 'I was very happy yesterday.', 'I am at school today.'] },
+            { q: 'What did you do last weekend?', vi: 'Cuối tuần trước bạn đã làm gì?', hint: 'I visited my grandparents.', k: ['visited|played|went|watched|saw|had|ate|read|did|made|built|swam|cooked|stayed|helped|bought|rode|took|drew|painted|cleaned|walked|studied|listened'], c: ['I visited my grandparents.', 'I visit my grandparents every Sunday.', 'I will play football next weekend.'] }
+          ],
+          fact: ['Starlight takes many years to reach Earth, so we see the stars as they were in the past!', 'Ánh sáng sao mất nhiều năm mới tới Trái Đất, nên ta nhìn thấy các ngôi sao như chúng trong quá khứ!'],
+          tf: [
+            ['"Was" is the past of "is".', true, 'Yes! Today I am happy. Yesterday I was happy.', 'Đúng! "Was" là thì quá khứ của "is".'],
+            ['Last weekend is in the future.', false, 'No! Last weekend is in the past.', 'Sai! Cuối tuần trước là chuyện đã qua.']
+          ],
+          qa: ['Where were you last Sunday?', 'Chủ nhật tuần trước con ở đâu?', 'I was at home with my family.', ['home|school|park|bookshop|zoo|house|grandparents|beach|museum|cinema|library|market|supermarket|pool|mall|farm|hospital|pharmacy|restaurant|countryside|playground']]
         },
         {
           title: 'The Museum Trip', titleVi: 'Chuyến đi bảo tàng', icon: '🦴',
@@ -787,9 +919,15 @@
             { vi: 'Em muốn kể: Chúng mình đã rất vui ở buổi diễu hành.', a: ['We', 'had', 'a great time', 'at the parade.'], x: ['have', 'has'] }
           ],
           talk: [
-            { q: 'Did you go to the museum last weekend?', vi: 'Cuối tuần trước bạn có đi bảo tàng không?', hint: 'Yes, I did. I took lots of photos.', k: ['yes|no', "did|didn't|didnt|went"], c: ['Yes, I did. I took lots of photos.', 'Yes, I do a museum.', 'No, I am a souvenir.'] },
-            { q: 'What did you buy on your holiday?', vi: 'Bạn đã mua gì trong kỳ nghỉ?', hint: 'I bought a souvenir for my friend.', k: ['bought|buy|got', 'souvenir|toy|gift|present|hat|book|lego|candy|shirt|postcard|for'], c: ['I bought a souvenir for my friend.', 'I buy a fever yesterday.', 'I bought the weather.'] }
-          ]
+            { q: 'Did you go to the museum last weekend?', vi: 'Cuối tuần trước bạn có đi bảo tàng không?', hint: 'Yes, I did. I took lots of photos.', k: ['yes|no', "went|museum|photos|took|saw|visited|did|didn't|didnt"], c: ['Yes, I did. I took lots of photos.', 'Yes, I go there every day.', 'I went to the zoo yesterday.'] },
+            { q: 'What did you buy on your holiday?', vi: 'Bạn đã mua gì trong kỳ nghỉ?', hint: 'I bought a souvenir for my friend.', k: ['bought|got', 'souvenir|toy|toys|gift|present|hat|book|lego|candy|shirt|postcard|keyring|sweets|cake|bag'], c: ['I bought a souvenir for my friend.', 'I took lots of photos.', 'I will buy a hat tomorrow.'] }
+          ],
+          fact: ['The Louvre in Paris is the most visited art museum in the world.', 'Bảo tàng Louvre ở Paris là bảo tàng nghệ thuật đông khách nhất thế giới.'],
+          tf: [
+            ['A souvenir helps you remember a trip.', true, 'Yes! You keep it to remember a happy holiday.', 'Đúng! Con giữ quà lưu niệm để nhớ về chuyến đi vui vẻ.'],
+            ['"Bought" is the past of "bring".', false, 'No! "Bought" is the past of "buy". The past of "bring" is "brought".', 'Sai! "Bought" là quá khứ của "buy". Quá khứ của "bring" là "brought".']
+          ],
+          qa: ['What did you do last summer?', 'Mùa hè năm ngoái con đã làm gì?', 'I went to the beach and swam.', ['visited|played|went|watched|saw|had|ate|read|did|made|built|swam|cooked|stayed|helped|bought|rode|took|drew|painted|cleaned|walked|studied|listened']]
         },
         {
           title: 'Solve the Mystery', titleVi: 'Phá giải bí ẩn', icon: '🕵️',
@@ -815,9 +953,15 @@
             { vi: 'Em muốn kể: Thám tử đã tìm thấy một manh mối trong vườn.', a: ['The detective', 'found', 'a clue', 'in the garden.'], x: ['find', 'finds'] }
           ],
           talk: [
-            { q: 'Oh no! What happened?', vi: 'Ôi không! Chuyện gì đã xảy ra thế?', hint: 'I lost my backpack at the park.', k: ['lost|broke|fell|forgot|dropped|missed', 'my|backpack|bag|bike|book|key|keys|pencil'], c: ['I lost my backpack at the park.', 'I lose a parade tomorrow.', 'It is a delicious clue.'] },
-            { q: 'Did you watch a film yesterday?', vi: 'Hôm qua bạn có xem phim không?', hint: 'Yes, I did. I watched a funny film.', k: ['yes|no', "did|didn't|didnt|watched"], c: ['Yes, I did. I watched a funny film.', 'Yes, I watch a bus.', 'A film is my dentist.'] }
-          ]
+            { q: 'Oh no! What happened?', vi: 'Ôi không! Chuyện gì đã xảy ra thế?', hint: 'I lost my backpack at the park.', k: ['lost|broke|fell|forgot|dropped|missed|hurt|broken|cut'], c: ['I lost my backpack at the park.', 'I am at the park now.', 'I found my backpack at the park.'] },
+            { q: 'Did you watch a film yesterday?', vi: 'Hôm qua bạn có xem phim không?', hint: 'Yes, I did. I watched a funny film.', k: ['yes|no', "watched|film|movie|did|didn't|didnt|cinema|cartoon"], c: ['Yes, I did. I watched a funny film.', 'Yes, I watch TV every day.', 'I will watch a film tomorrow.'] }
+          ],
+          fact: ['Detectives use fingerprints because no two people have the same fingerprints.', 'Thám tử dùng dấu vân tay vì không có hai người nào có vân tay giống nhau.'],
+          tf: [
+            ['A witness is a person who saw what happened.', true, 'Yes! A witness tells the detective what they saw.', 'Đúng! Nhân chứng kể cho thám tử những gì họ đã thấy.'],
+            ['A clue helps you hide the answer.', false, 'No! A clue helps you find the answer.', 'Sai! Manh mối giúp con tìm ra câu trả lời.']
+          ],
+          qa: ['What did you watch last night?', 'Tối qua con đã xem gì?', 'I watched a cartoon on TV.', ['watched|saw|watch|see', 'cartoon|cartoons|film|movie|tv|show|video|football|match|news|programme|program']]
         }
       ]
     },
@@ -861,8 +1005,14 @@
           ],
           talk: [
             { q: 'Where can you watch a film?', vi: 'Bạn có thể xem phim ở đâu?', hint: 'At the cinema.', k: ['cinema|movie|movies|theater|theatre'], c: ['At the cinema.', 'At the pharmacy.', 'At the post office.'] },
-            { q: 'Where can you buy medicine?', vi: 'Bạn có thể mua thuốc ở đâu?', hint: 'At the pharmacy.', k: ['pharmacy|drugstore|chemist|hospital'], c: ['At the pharmacy.', 'At the library.', 'At the planetarium.'] }
-          ]
+            { q: 'Where can you buy medicine?', vi: 'Bạn có thể mua thuốc ở đâu?', hint: 'At the pharmacy.', k: ['pharmacy|drugstore|chemist|chemists|hospital'], c: ['At the pharmacy.', 'At the library.', 'At the post office.'] }
+          ],
+          fact: ['A planetarium shows thousands of stars on its round ceiling.', 'Cung thiên văn chiếu hàng nghìn ngôi sao lên trần nhà hình vòm.'],
+          tf: [
+            ['You can send letters at the post office.', true, 'Yes! You buy stamps and send letters there.', 'Đúng! Con mua tem và gửi thư ở bưu điện.'],
+            ['You can buy medicine at the cinema.', false, 'No! You buy medicine at the pharmacy.', 'Sai! Con mua thuốc ở hiệu thuốc.']
+          ],
+          qa: ['What places are near your house?', 'Gần nhà con có những địa điểm nào?', 'There is a park and a pharmacy near my house.', ['park|pharmacy|library|cinema|school|market|supermarket|hospital|shop|shops|bookshop|post|restaurant|cafe|zoo|museum|pool|playground|bank|temple|pagoda|church']]
         },
         {
           title: 'Where Is It?', titleVi: 'Nó ở đâu?', icon: '🚦',
@@ -888,9 +1038,15 @@
             { vi: 'Em muốn nói: Hiệu thuốc ở giữa bưu điện và công viên.', a: ['The pharmacy', 'is', 'between', 'the post office', 'and', 'the park.'], x: ['next', 'are'] }
           ],
           talk: [
-            { q: 'Where is the library?', vi: 'Thư viện ở đâu?', hint: "It's next to the cinema.", k: ["it's|it|its|library|is", 'next|between|across|near|corner|behind|opposite|front'], c: ["It's next to the cinema.", "It's half past the cinema.", "It's a sore throat."] },
-            { q: 'Where is your school?', vi: 'Trường của bạn ở đâu?', hint: "It's next to the park.", k: ["it's|it|its|school|is", 'next|between|across|near|corner|behind|opposite|front|on|in'], c: ["It's next to the park.", "It's a delicious school.", 'My school is a T-Rex.'] }
-          ]
+            { q: 'Where is the library?', vi: 'Thư viện ở đâu?', hint: "It's next to the cinema.", k: ['next|between|across|near|corner|behind|opposite|front|beside'], c: ["It's next to the cinema.", "It's a big library.", "It opens at eight o'clock."] },
+            { q: 'Where is your school?', vi: 'Trường của bạn ở đâu?', hint: "It's next to the park.", k: ['next|between|across|near|corner|behind|opposite|front|beside|street|road'], c: ["It's next to the park.", "It's a big school.", 'I walk to school.'] }
+          ],
+          fact: ['The first traffic lights were used in London more than one hundred and fifty years ago.', 'Đèn giao thông đầu tiên được dùng ở Luân Đôn từ hơn một trăm năm mươi năm trước.'],
+          tf: [
+            ['A red traffic light means stop.', true, 'Yes! Red means stop and green means go.', 'Đúng! Đèn đỏ là dừng lại, đèn xanh là đi.'],
+            ['A green traffic light means stop.', false, 'No! Green means go.', 'Sai! Đèn xanh nghĩa là được đi.']
+          ],
+          qa: ['What is next to your school?', 'Cạnh trường con có gì?', 'There is a bookshop next to my school.', ['park|pharmacy|library|cinema|market|supermarket|hospital|shop|shops|bookshop|post|restaurant|cafe|zoo|museum|pool|playground|bank|house|houses|road|street|river|temple|pagoda']]
         },
         {
           title: 'Direction Mission', titleVi: 'Nhiệm vụ chỉ đường', icon: '🧭',
@@ -916,9 +1072,15 @@
             { vi: 'Em muốn chỉ đường: Đi thẳng rồi rẽ phải.', a: ['Go', 'straight ahead', 'and', 'turn right.'], x: ['Goes', 'turns'] }
           ],
           talk: [
-            { q: 'Excuse me, how can I get to the post office?', vi: 'Xin lỗi, làm sao để đến bưu điện?', hint: 'Go straight ahead and turn left.', k: ['go|turn|walk', 'straight|left|right|ahead'], c: ['Go straight ahead and turn left.', 'Go to bed and have lunch.', "It's sunny and warm."] },
-            { q: 'Excuse me, is the cinema near here?', vi: 'Xin lỗi, rạp chiếu phim có gần đây không?', hint: 'Yes. Turn right at the traffic lights.', k: ['yes|no|turn|go', 'right|left|straight|near|next|lights'], c: ['Yes. Turn right at the traffic lights.', 'Yes. I have a toothache.', 'No. I am a cinema.'] }
-          ]
+            { q: 'Excuse me, how can I get to the post office?', vi: 'Xin lỗi, làm sao để đến bưu điện?', hint: 'Go straight ahead and turn left.', k: ['straight|left|right|ahead|corner|next|opposite|across'], c: ['Go straight ahead and turn left.', 'The post office is very big.', 'You can buy stamps there.'] },
+            { q: 'Excuse me, is the cinema near here?', vi: 'Xin lỗi, rạp chiếu phim có gần đây không?', hint: 'Yes. Turn right at the traffic lights.', k: ['yes|no|turn|go', 'right|left|straight|lights|next|opposite|corner'], c: ['Yes. Turn right at the traffic lights.', 'Yes. The film starts at seven.', 'I like watching films.'] }
+          ],
+          fact: ['A compass needle points north, so it helps people find their way.', 'Kim la bàn chỉ về hướng bắc, nên nó giúp mọi người tìm đường.'],
+          tf: [
+            ['We say "Excuse me" before we ask a stranger for help.', true, 'Yes! It is a polite way to start.', 'Đúng! Đó là cách mở lời lịch sự.'],
+            ['"Go straight ahead" means turn left.', false, 'No! "Go straight ahead" means do not turn.', 'Sai! "Go straight ahead" là đi thẳng, không rẽ.']
+          ],
+          qa: ['How do you get to school from your house?', 'Từ nhà đến trường con đi thế nào?', 'I go straight ahead and turn right.', ['straight|left|right|ahead|turn|walk|bus|bike|car|motorbike|ride']]
         }
       ]
     },
@@ -961,9 +1123,15 @@
             { vi: 'Em muốn từ chối khéo: Mình rất muốn, nhưng mình bận rồi.', a: ["I'd love to,", 'but', "I'm", 'busy.'], x: ['and', 'because'] }
           ],
           talk: [
-            { q: 'Would you like to play LEGO with me?', vi: 'Bạn có muốn chơi LEGO với mình không?', hint: "Yes, I'd love to!", k: ['love|sure|yes|okay|ok|great|awesome|busy|sorry|course'], c: ["Yes, I'd love to!", 'Yes, I have a stomachache bus.', 'LEGO is a pharmacy.'] },
-            { q: "Let's go to the cinema on Sunday!", vi: 'Chủ nhật mình đi xem phim nhé!', hint: 'That sounds awesome!', k: ['sounds|great|awesome|good|sure|ok|okay|love|busy|sorry|yes|cool'], c: ['That sounds awesome!', 'That sounds like a toothache.', 'Turn right at the bill.'] }
-          ]
+            { q: 'Would you like to play LEGO with me?', vi: 'Bạn có muốn chơi LEGO với mình không?', hint: "Yes, I'd love to!", k: ['love|sure|yes|okay|ok|great|busy|sorry|course|cool|awesome|no|fun'], c: ["Yes, I'd love to!", 'I play LEGO every day.', 'I like playing football.'] },
+            { q: "Let's go to the cinema on Sunday!", vi: 'Chủ nhật mình đi xem phim nhé!', hint: 'That sounds awesome!', k: ['sounds|great|awesome|good|sure|ok|okay|love|busy|sorry|yes|cool|idea|fun|no'], c: ['That sounds awesome!', 'The cinema is next to the park.', 'I went to the cinema yesterday.'] }
+          ],
+          fact: ['People sing "Happy Birthday" in many languages all over the world.', 'Mọi người hát bài "Chúc mừng sinh nhật" bằng nhiều thứ tiếng trên khắp thế giới.'],
+          tf: [
+            ['"I\'d love to" means yes.', true, 'Yes! It is a happy way to say yes.', 'Đúng! Đó là cách nhận lời thật vui vẻ.'],
+            ['"I\'m busy" means you can come.', false, 'No! "I\'m busy" means you cannot come now.', 'Sai! "I\'m busy" nghĩa là bây giờ con không đến được.']
+          ],
+          qa: ['What do you like to do with your friends at the weekend?', 'Cuối tuần con thích làm gì cùng bạn bè?', 'I like to play football with my friends.', ['play|football|badminton|lego|games|ride|bike|swim|read|draw|cinema|film|park|run|chess|dance|sing|cook']]
         },
         {
           title: 'What Do You Think?', titleVi: 'Bạn nghĩ sao?', icon: '💭',
@@ -989,9 +1157,15 @@
             { vi: 'Em muốn hỏi ý kiến bạn: Bạn nghĩ sao?', a: ['What', 'do you', 'think?'], x: ['does', 'agree'] }
           ],
           talk: [
-            { q: 'In my opinion, LEGO is the best toy. What do you think?', vi: 'Theo mình, LEGO là đồ chơi tuyệt nhất. Bạn nghĩ sao?', hint: 'I agree with you!', k: ['agree|think|right|yes|no|opinion|true'], c: ['I agree with you!', 'I agree with a toothache.', 'I think it is half past.'] },
-            { q: 'I think homework is fun. Do you agree?', vi: 'Mình nghĩ bài tập về nhà rất vui. Bạn đồng ý không?', hint: "Yes, I agree with you.", k: ['agree|think|yes|no|right|so'], c: ['Yes, I agree with you.', 'Yes, homework is a dinosaur.', 'I agree with the bus.'] }
-          ]
+            { q: 'In my opinion, LEGO is the best toy. What do you think?', vi: 'Theo mình, LEGO là đồ chơi tuyệt nhất. Bạn nghĩ sao?', hint: 'I agree with you!', k: ['agree|disagree|think|right|yes|no|opinion|true|so'], c: ['I agree with you!', 'I have a lot of LEGO bricks.', 'I play LEGO after school.'] },
+            { q: 'I think homework is fun. Do you agree?', vi: 'Mình nghĩ bài tập về nhà rất vui. Bạn đồng ý không?', hint: "Yes, I agree with you.", k: ['agree|disagree|think|yes|no|right|so'], c: ['Yes, I agree with you.', "I do my homework at seven o'clock.", 'My homework is on the table.'] }
+          ],
+          fact: ['In Bulgaria, nodding your head can mean "no"!', 'Ở Bun-ga-ri, gật đầu có thể có nghĩa là "không" đấy!'],
+          tf: [
+            ['"You\'re right" means you agree.', true, 'Yes! You think the same as your friend.', 'Đúng! Con nghĩ giống bạn mình.'],
+            ['"I don\'t think so" means you agree.', false, 'No! It means you do not agree.', 'Sai! Câu đó nghĩa là con không đồng ý.']
+          ],
+          qa: ['In your opinion, what is the best toy?', 'Theo con, đồ chơi nào tuyệt nhất?', 'In my opinion, LEGO is the best toy.', ['lego|doll|dolls|car|cars|robot|robots|ball|bike|puzzle|teddy|kite|game|games|blocks|bricks']]
         },
         {
           title: 'Champion Manners', titleVi: 'Ứng xử của nhà vô địch', icon: '🏆',
@@ -1017,9 +1191,15 @@
             { vi: 'Em muốn đáp lời bạn: Không vấn đề gì đâu!', a: ['No', 'problem', 'at all!'], x: ['Not', 'any'] }
           ],
           talk: [
-            { q: 'Could you help me with my homework?', vi: 'Bạn giúp mình làm bài tập được không?', hint: 'No problem at all!', k: ['problem|sure|course|yes|ok|okay|sorry|busy|help'], c: ['No problem at all!', 'No, I am a T-Rex.', 'Yes, it is foggy.'] },
-            { q: 'Thank you so much for your help!', vi: 'Cảm ơn bạn rất nhiều vì đã giúp mình!', hint: "You're welcome.", k: ['welcome|problem|pleasure|worries'], c: ["You're welcome.", "You're a lemonade.", 'Turn left at the castle.'] }
-          ]
+            { q: 'Could you help me with my homework?', vi: 'Bạn giúp mình làm bài tập được không?', hint: 'No problem at all!', k: ['problem|sure|course|yes|ok|okay|sorry|busy|help'], c: ['No problem at all!', "You're welcome.", 'Congratulations!'] },
+            { q: 'Thank you so much for your help!', vi: 'Cảm ơn bạn rất nhiều vì đã giúp mình!', hint: "You're welcome.", k: ['welcome|problem|pleasure|worries'], c: ["You're welcome.", 'Congratulations!', 'Could you help me with this?'] }
+          ],
+          fact: ['In Japan, people often bow to say thank you.', 'Ở Nhật Bản, mọi người thường cúi chào để nói cảm ơn.'],
+          tf: [
+            ['We say "Congratulations!" when a friend wins.', true, 'Yes! It shows you are happy for your friend.', 'Đúng! Câu đó cho thấy con vui cùng bạn.'],
+            ['We say "You\'re welcome" when we need help.', false, 'No! We say "Could you help me?" when we need help.', 'Sai! Khi cần giúp đỡ, con nói "Could you help me?".']
+          ],
+          qa: ['How do you help your family at home?', 'Con giúp gia đình việc gì ở nhà?', 'I wash the dishes and clean my room.', ['wash|clean|cook|tidy|sweep|help|water|feed|make|fold|dishes|room|floor|bed']]
         }
       ]
     }
