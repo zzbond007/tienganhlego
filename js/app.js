@@ -712,7 +712,14 @@
     const cat = App.lockerCat;
     const owns = (id) => S.owns(id);
     // Tầng sau ẩn ❓ cho tới khi mở; đồ bí mật 🎁 mở bằng Hành trình nói
-    const items = LG.ITEMS[cat].map((it) => Object.assign({ gate: LG.shopGate ? LG.shopGate(cat, it, owns) : { visible: true } }, it));
+    const items = LG.ITEMS[cat].map((it) => Object.assign({ gate: LG.shopGate ? LG.shopGate(cat, it, owns) : { visible: true } }, it))
+      // Sắp xếp: món đã mở theo giá tăng dần → món ❓ tầng sau → 🎁 bí mật (theo mốc phút nói)
+      .sort((a, b) => {
+        const ka = a.secret && !owns(a.id) ? 3 : !a.gate.visible ? 2 : 1, kb = b.secret && !owns(b.id) ? 3 : !b.gate.visible ? 2 : 1;
+        if (ka !== kb) return ka - kb;
+        if (ka === 3) return a.milestone - b.milestone;
+        return (a.tierNum || 0) - (b.tierNum || 0) || ((a.price || 0) + (a.gold || 0) * 200) - ((b.price || 0) + (b.gold || 0) * 200);
+      });
     const allItems = [].concat(...Object.values(LG.ITEMS));
     const hiddenN = items.filter((it) => !it.secret && !it.gate.visible).length;
     screenEl.innerHTML = `<div class="screen-inner">
@@ -1525,7 +1532,7 @@
           </div>
           <div>
             <div class="reflex-q" id="reflexQ"></div>
-            <div class="opt-grid">${R.opts.map((w, k) => `<button class="opt-brick" data-action="reflex-pick" data-i="${k}" style="--oc:${BRICK_COLORS[k]};--ocd:${LG.shade(BRICK_COLORS[k], -0.3)}">
+            <div class="opt-grid">${R.opts.map((w, k) => `<button class="opt-brick wait" data-action="reflex-pick" data-i="${k}" style="--oc:${BRICK_COLORS[k]};--ocd:${LG.shade(BRICK_COLORS[k], -0.3)}">
               <span class="o-emoji">${w.emoji}</span><span class="o-word">${esc(round.mode === 'word' ? w.vi : w.en)}</span></button>`).join('')}</div>
           </div>
         </div>
@@ -1551,7 +1558,7 @@
       const fig = $('#reflexFig svg');
       if (fig) fig.classList.add('talking');
       const R = this.r, tk = this.token, at = R.i;
-      const open = () => { if (tk === this.token && R.i === at) R.ready = true; };
+      const open = () => { if (tk === this.token && R.i === at) { R.ready = true; $$('.opt-brick.wait', overlay).forEach((b) => b.classList.remove('wait')); } };
       Speech.speak(round.mode === 'word' ? round.w.en.replace(/\.\.\./g, '') : round.w.clue, { pitch: 0.95 })
         .then(() => { if (fig) fig.classList.remove('talking'); setTimeout(open, 250); });
       setTimeout(open, 6000);
@@ -2937,8 +2944,9 @@
             </div>
             <div class="step-foot"><button class="brick-btn btn-green btn-xl" data-action="gym-next">${bi('Next ▶', 'Tiếp tục')}</button></div>`
           : `<div class="tf-row">
-              <button class="tf-btn tf-true" data-action="gym-tf" data-v="1"><span>👍</span>True<small>Đúng</small></button>
-              <button class="tf-btn tf-false" data-action="gym-tf" data-v="0"><span>👎</span>False<small>Sai</small></button>
+              <button class="tf-btn tf-true" data-action="gym-tf" data-v="1"${r.state.ready ? '' : ' disabled'}><span>👍</span>True<small>Đúng</small></button>
+              <button class="tf-btn tf-false" data-action="gym-tf" data-v="0"${r.state.ready ? '' : ' disabled'}><span>👎</span>False<small>Sai</small></button>
+              ${r.state.ready ? '' : '<small class="vi tf-wait">👂 Nghe hết câu rồi mới chọn được nhé</small>'}
             </div>`}`;
       } else {
         const st = r.state;
@@ -2978,8 +2986,9 @@
       const fig = $('#gymBody .gym-fig svg');
       if (fig) fig.classList.add('talking');
       const tk = this.token;
-      Speech.speak(r.type === 'tf' ? r.en : r.q, { pitch: 0.95 }).then(() => { if (fig) fig.classList.remove('talking'); setTimeout(() => { if (tk === this.token) r.state.ready = true; }, 200); });
-      setTimeout(() => { r.state.ready = true; }, 7000);
+      const open = () => { if (tk !== this.token) return; r.state.ready = true; if (this.round() !== r) return; $$('[data-action="gym-tf"]', overlay).forEach((b) => { b.disabled = false; }); const w = $('.tf-wait', overlay); if (w) w.remove(); };
+      Speech.speak(r.type === 'tf' ? r.en : r.q, { pitch: 0.95 }).then(() => { if (fig) fig.classList.remove('talking'); setTimeout(open, 200); });
+      setTimeout(open, 9000);
     },
 
     pickTF(v, el) {
@@ -3184,8 +3193,8 @@
       if (it.type === 'tf') {
         html = `${head('listen', 'True or False?', 'Nghe câu nói rồi chọn Đúng hay Sai (không hiện chữ)')}
           <button class="brick-btn btn-blue" data-action="check-say">${bi('🔊 Listen', 'Nghe')}</button>
-          <div class="tf-row"><button class="tf-btn tf-true" data-action="check-pick" data-v="1"><span>👍</span>True<small>Đúng</small></button>
-          <button class="tf-btn tf-false" data-action="check-pick" data-v="0"><span>👎</span>False<small>Sai</small></button></div>`;
+          <div class="tf-row"><button class="tf-btn tf-true" data-action="check-pick" data-v="1" disabled><span>👍</span>True<small>Đúng</small></button>
+          <button class="tf-btn tf-false" data-action="check-pick" data-v="0" disabled><span>👎</span>False<small>Sai</small></button><small class="vi tf-wait">👂 Nghe hết câu rồi mới chọn được</small></div>`;
       } else if (it.type === 'pic' || it.type === 'word') {
         const others = shuffle(Object.values(WORDS).filter((x) => x.zoneId === it.w.zoneId && x.id !== it.w.id && x.emoji !== it.w.emoji)).slice(0, 3);
         it.opts = shuffle([it.w].concat(others));
@@ -3215,7 +3224,10 @@
 
     say() {
       const it = this.item(); if (!it) return;
-      Speech.speak(it.type === 'tf' ? it.t.en : it.type === 'talk' ? it.t.q : it.w ? it.w.en.replace(/\.\.\./g, '') : '');
+      const tk = this.token, at = this.i;
+      const open = () => { if (tk !== this.token || this.i !== at) return; $$('[data-action="check-pick"]', overlay).forEach((b) => { b.disabled = false; }); const w = $('.tf-wait', overlay); if (w) w.remove(); };
+      Speech.speak(it.type === 'tf' ? it.t.en : it.type === 'talk' ? it.t.q : it.w ? it.w.en.replace(/\.\.\./g, '') : '').then(() => setTimeout(open, 200));
+      setTimeout(open, 9000);
     },
 
     record(ok, extra) {
