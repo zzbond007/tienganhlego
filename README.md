@@ -29,6 +29,14 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**📈 Bản v1.7 – Cấp độ thích ứng & Bài kiểm tra kỹ năng:**
+- *3 cấp độ* (🌱 Làm quen → 🌿 Vững vàng → 🚀 Thành thạo). Bắt đầu ở Cấp 1: ngưỡng mảnh ghép 60%, câu mẫu hiện sẵn, gạch có màu,
+  tiếng Việt hiện sẵn. Cấp 2: 65%, câu mẫu sau 1 gợi ý/lần nói đầu. Cấp 3: 70%, con tự nói trước. Tự lên cấp khi 5 bài gần nhất
+  đúng ≥ 85% và ≥ 60% câu tự nói không gợi ý; xuống cấp khi < 55% (bố mẹ có thể chọn cấp cố định trong Góc Bố Mẹ).
+- *📝 Bài kiểm tra kỹ năng* sau mỗi 6 bài mới (hoặc 14 ngày): 15 câu – Nghe (Đúng/Sai, nghe chọn hình), Từ vựng, Ngữ pháp
+  (lắp câu không màu), Nói (tự trả lời, không câu mẫu). Không gợi ý, không báo đúng/sai giữa chừng, thưởng theo điểm thật và chỉ
+  cho bài đến hạn. Phần Nói không có nhận diện giọng thì ghi âm để bố mẹ chấm 👍/👎. Góc Bố Mẹ lưu lịch sử điểm từng kỹ năng.
+
 **🛠️ Bản v1.6 – khắc phục theo báo cáo đánh giá 20/10/2026:**
 - *Chấm nói theo ý định* (`Listener.judge`): chấp nhận câu trả lời ngắn tự nhiên ("Yes, I do.", "At six o'clock."),
   từ chối câu giống phương án sai; từ khóa chỉ gồm từ mang nghĩa. Kiểm định: 276/276 câu mẫu đạt, 550/552 phương án sai bị loại

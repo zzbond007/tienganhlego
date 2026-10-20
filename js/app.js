@@ -148,6 +148,15 @@
     $('#avatarChip').innerHTML = LG.renderMinifig(S.state.avatar);
   }
 
+  /* Cấp độ thích ứng: bắt đầu dễ (cấp 1), tự tăng khi con đã quen & thành thạo (xem Store.recordLessonSkill) */
+  const LEVELS = {
+    1: { icon: '🌱', en: 'Explorer', vi: 'Làm quen', mastery: 0.6, model: 'show', hintSteps: 1, colorMonths: 99, viFrom: 99 },
+    2: { icon: '🌿', en: 'Builder', vi: 'Vững vàng', mastery: 0.65, model: 'after1', hintSteps: 2, colorMonths: 2, viFrom: 4 },
+    3: { icon: '🚀', en: 'Master', vi: 'Thành thạo', mastery: 0.7, model: 'hidden', hintSteps: 3, colorMonths: 1, viFrom: 1 }
+  };
+  const diff = () => LEVELS[S.skillLevel()];
+  const levelChipHTML = () => { const d = diff(); return `<span class="chip level-chip" style="box-shadow:0 4px 0 var(--card-edge)" title="Cấp độ">${d.icon}<small>Cấp ${S.skillLevel()} · ${d.vi}</small></span>`; };
+
   /* Tốc độ giọng đọc: trên iPad giọng máy đọc khá nhanh → thêm mức Rất chậm, mặc định Chậm */
   const SPEEDS = [
     { v: 0.5, icon: '🐌', en: 'Very slow', vi: 'Rất chậm' },
@@ -474,6 +483,7 @@
         <div class="hero-actions">
           ${next ? `<button class="brick-btn btn-red" data-action="start-lesson" data-lesson="${next.id}">${bi('▶ Next lesson: ' + esc(next.title), 'Bài tiếp theo: ' + esc(next.titleVi))}</button>`
             : `<button class="brick-btn btn-green" data-action="go" data-screen="diorama">${bi('🏆 All lessons done!', 'Đã học hết – xem Sa bàn')}</button>`}
+          ${(() => { const cs = checkStatus(); return cs.due ? `<button class="brick-btn btn-orange check-due" data-action="skill-check">${bi('📝 Skill Check is ready!', 'Bài kiểm tra kỹ năng đã sẵn sàng – làm thật để nhận thưởng theo điểm')}</button>` : ''; })()}
           <button class="brick-btn btn-purple" data-action="gym">${bi('🎧 Listening & Speaking Gym', `Luyện Nghe – Nói mỗi ngày (3 phút)${S.gymToday() ? ' · hôm nay: ' + S.gymToday() + ' lượt' : ''}${S.speakToday() ? ' · 🎤 đã nói ' + S.speakToday() + ' lần' : ''}${S.gymToday() < GYM_GOLD_PER_DAY ? ' · 🥇 còn ' + (GYM_GOLD_PER_DAY - S.gymToday()) + ' Gold' : ''}`)}</button>
           ${due ? `<button class="brick-btn btn-orange" data-action="review" data-zone="">${bi(`🔧 Tune-up time (${due})`, `Trạm bảo trì: ${due} từ cần ôn`)}</button>` : ''}
           ${(() => { const mz = ZONES.find((z) => mysteryOpen(z) && !(S.mystery(z.id) || {}).done); return mz ? `<button class="brick-btn btn-yellow" data-action="mystery" data-zone="${mz.id}">${bi('🕵️ Mystery Mission!', 'Nhiệm vụ thám tử: ' + esc(mz.short || mz.name))}</button>` : ''; })()}
@@ -856,6 +866,27 @@
     App.gate = { q: `${a} × ${b} − ${c} = ?`, ans: a * b - c, input: '' };
   }
 
+  async function fillCheckHistory() {
+    const box = $('#checkHistory');
+    if (!box) return;
+    const checks = S.state.checks.slice().reverse();
+    if (!checks.length) { box.innerHTML = `<p class="vi">Chưa có bài kiểm tra nào. ${checkStatus().ready ? 'Bé có thể làm bài đầu tiên ngay.' : 'Bài đầu tiên mở sau khi bé học xong 3 bài.'}</p>`; return; }
+    const clips = await VoiceBook.list();
+    const fmt = (d) => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+    const cell = (v) => (typeof v === 'number' ? `<b style="color:${v >= 80 ? '#15803D' : v >= 60 ? '#B45309' : '#B91C1C'}">${v}%</b>` : '—');
+    box.innerHTML = `<div style="overflow-x:auto"><table class="map-table"><thead><tr><th>Ngày</th><th>Cấp</th>${Object.keys(SKILLS).map((k) => `<th>${SKILLS[k][0]} ${SKILLS[k][1]}</th>`).join('')}<th>Tổng</th></tr></thead><tbody>
+      ${checks.slice(0, 12).map((c) => `<tr><td>${fmt(c.date)}${c.rewarded ? '' : ' <small class="vi">(làm thêm)</small>'}</td><td>${c.level || 1}</td>${Object.keys(SKILLS).map((k) => `<td>${k === 'speak' && c.speakPending && !Object.keys(c.speakGrades || {}).length ? '⏳ chờ chấm' : cell(c.scores[k])}</td>`).join('')}<td>${cell(checkPct(c))}</td></tr>`).join('')}
+    </tbody></table></div>
+    ${checks.filter((c) => c.speakPending).slice(0, 3).map((c) => {
+      const cl = clips.filter((x) => x.checkId === c.id);
+      if (!cl.length) return '';
+      return `<div class="card grade-box"><b>🎤 Chấm phần Nói – bài ngày ${fmt(c.date)}</b><span class="vi">Nghe con trả lời; 👍 nếu con trả lời đúng ý câu hỏi bằng câu tiếng Anh dễ hiểu (không cần hoàn hảo).</span>
+        ${cl.map((x) => { const g = (c.speakGrades || {})[x.id]; return `<div class="vb-row"><button class="brick-btn btn-blue btn-round btn-sm" data-action="vb-play" data-id="${x.id}">▶</button><div class="grow">“${esc(x.text)}”</div>
+          <button class="brick-btn btn-sm ${g === true ? 'btn-green' : 'btn-white'}" data-action="grade-speak" data-check="${c.id}" data-clip="${x.id}" data-v="1">👍</button>
+          <button class="brick-btn btn-sm ${g === false ? 'btn-orange' : 'btn-white'}" data-action="grade-speak" data-check="${c.id}" data-clip="${x.id}" data-v="0">👎</button></div>`; }).join('')}</div>`;
+    }).join('')}`;
+  }
+
   async function fillVoiceBook() {
     const box = $('#voiceBook');
     if (!box) return;
@@ -914,6 +945,15 @@
         <div class="card stat"><b>${ZONES.filter((z) => (S.mystery(z.id) || {}).done).length}/${ZONES.filter((z) => z.mystery).length}</b><span>Mystery đã giải</span><small>Detective missions</small></div>
         <div class="card stat"><b>${Object.values(S.state.snow).filter((v) => v >= 3).length}</b><span>Câu Super Builder</span><small>Snowball Level 3</small></div>
         <div class="card stat"><b>🎤 ${S.speakToday()}</b><span>Lần nói hôm nay</span><small>Tổng: ${S.speakTotal()} lần con đã nói tiếng Anh</small></div>
+      </div>
+
+      <h3 class="section-title">📈 Cấp độ & Kiểm tra kỹ năng <span class="vi">Skill level & Skill Checks – đo tiến bộ thật, không chỉ đếm bài đã xong</span></h3>
+      <div class="card">
+        <div class="setting-row"><label>Cấp độ học hiện tại: ${levelChipHTML()}<small>Tự động: 5 bài gần nhất đúng ≥ 85% và ≥ 60% câu tự nói (không gợi ý) → lên cấp; dưới 55% → xuống cấp. Cấp 1: ngưỡng mảnh ghép 60%, hiện câu mẫu sẵn · Cấp 2: 65%, câu mẫu sau 1 gợi ý · Cấp 3: 70%, tự nói trước.</small></label>
+          <select class="select-lg" data-change="skillLevel">${['auto', 1, 2, 3].map((v) => `<option value="${v}"${(v === 'auto' ? S.state.skill.auto !== false : S.state.skill.auto === false && S.skillLevel() === v) ? ' selected' : ''}>${v === 'auto' ? '🤖 Tự động' : `${LEVELS[v].icon} Cấp ${v} – ${LEVELS[v].vi}`}</option>`).join('')}</select></div>
+        ${S.state.skill.recent.length ? `<p class="vi">5 bài gần nhất: đúng trung bình <b>${Math.round(S.state.skill.recent.slice(-5).reduce((a, r) => a + r.acc, 0) / Math.min(5, S.state.skill.recent.length) * 100)}%</b> · tự nói không cần gợi ý <b>${Math.round(S.state.skill.recent.slice(-5).reduce((a, r) => a + (r.free || 0), 0) / Math.min(5, S.state.skill.recent.length) * 100)}%</b></p>` : ''}
+        <div class="btn-row"><button class="brick-btn btn-orange btn-sm" data-action="skill-check">${bi('📝 Start a Skill Check', checkStatus().due ? 'Đến hạn kiểm tra – có thưởng theo điểm' : 'Làm thêm (không tính thưởng)')}</button></div>
+        <div id="checkHistory"></div>
       </div>
 
       <h3 class="section-title">🎙️ Sổ giọng nói <span class="vi">Voice Notebook – nghe lại giọng con theo từng bài để thấy tiến bộ</span></h3>
@@ -1007,6 +1047,7 @@
       <p class="vi" style="margin-top:24px;text-align:center">🔐 Không quảng cáo · Không thu thập dữ liệu · Mọi tiến độ chỉ lưu trên thiết bị này (IndexedDB).</p>
     </div>`;
     fillVoiceBook();
+    fillCheckHistory();
   }
 
   async function handleParentChange(key, el) {
@@ -1015,6 +1056,7 @@
     if (key === 'accent') { st.accent = el.value; S.save(); applySettings(); Speech.speak('Hello! This is my new voice.'); }
     if (key === 'rate') { st.rate = Number(el.value); S.save(); applySettings(); Speech.speak('This is my reading speed.'); }
     if (key === 'micMode') { st.micMode = el.value; S.save(); }
+    if (key === 'skillLevel') { if (el.value === 'auto') { S.state.skill.auto = true; S.save(); } else S.setSkillLevel(Number(el.value), false); toast('Saved!', 'Đã đổi cấp độ học', 'good'); renderParent(); }
     if (key === 'speakMode') { st.speakMode = el.value; S.save(); toast('Saved!', el.value === 'optional' ? 'Đã tắt bắt buộc luyện nói' : 'Đã bật bắt buộc luyện nói 🎤', 'good'); }
     if (key === 'book') { st.book = el.value; S.save(); renderParent(); }
     if (key === 'school-unit') { st.schoolUnit = Number(el.value); S.save(); renderMap(); }
@@ -1120,7 +1162,7 @@
       this.token++;
       this.z = z; this.l = l; this.step = 0;
       this.stats = { correct: 0, total: 0 };
-      this.spokeN = 0; this.vbSaved = 0;
+      this.spokeN = 0; this.vbSaved = 0; this.talkCount = 0; this.talkFree = 0;
       this.studs = 0; this.gold = 0; this.combo = 0;
       Speech.cancel();
       overlay.hidden = false;
@@ -1132,6 +1174,7 @@
             <div class="lesson-step-name" id="stepName"></div>
           </div>
           <div class="lesson-earned">
+            ${levelChipHTML()}
             ${speedChipHTML()}
             <span class="chip" id="lsStudChip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="stud-icon"></i><b id="lsStuds">0</b></span>
             <span class="chip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="gold-icon"></i><b id="lsGold">0</b></span>
@@ -1538,7 +1581,7 @@
       const C = this.c, cm = this.l.comic;
       const name = this.z.chars[p.who].name;
       // Giảm dần tiếng Việt: tháng 1–3 hiện sẵn, từ tháng 4 bấm 🇻🇳 mới hiện (tập nghe – hiểu bằng tiếng Anh)
-      const viMode = typeof this.z.month === 'number' && this.z.month >= 4 ? 'tap' : 'show';
+      const viMode = typeof this.z.month === 'number' && this.z.month >= diff().viFrom ? 'tap' : 'show';
       const bIdx = cm.blanks.findIndex((b) => b.panel === i);
       let line, showVi = true;
       if (C.phase === 'fill' && bIdx !== -1) {
@@ -1747,7 +1790,7 @@
       B.placed = [];
       B.first = true; B.hinted = false; B.solved = false; B.goldUp = false; B.spoken = false; B.sayTries = 0;
       // Màu gạch là "giàn giáo": tháng 1–2 hiện màu; từ tháng 3 tắt màu (bấm 🎨 để xem – tính là gợi ý)
-      B.colorOn = !(typeof this.z.month === 'number' && this.z.month >= 3);
+      B.colorOn = !(typeof this.z.month === 'number' && this.z.month > diff().colorMonths);
       const lvl = s.level;
       const situ = lvl
         ? `<div class="card situation snow studs-top"><div class="s-vi">🗨️ ${esc(s.situ || '')}${s.situ ? ': ' : ''}${esc(s.vi)}</div><div class="s-en">${[
@@ -2014,9 +2057,9 @@
       this.stopStudio();
       if (T.ti >= this.l.talk.length) { this.setupTalkBranch(); return; }
       const item = this.l.talk[T.ti];
-      T.first = true; T.attempts = 0; T.done = false; T.mode = this.useMic() ? 'mic' : 'fallback'; T.rating = 0; T.choiceOpts = null; T.branch = false; T.tried = false; T.voiced = false; T.hintLevel = 0;
+      T.first = true; T.attempts = 0; T.done = false; T.mode = this.useMic() ? 'mic' : 'fallback'; T.rating = 0; T.choiceOpts = null; T.branch = false; T.tried = false; T.voiced = false; T.hintLevel = 0; T.hintStep = 0;
       // Câu mẫu ẩn cho tới khi con tự nói một lần (hoặc dùng gợi ý mức 3) – tránh "nhại lại"
-      this.studio = { state: 'idle', text: item.hint, hidden: true };
+      this.studio = { state: 'idle', text: item.hint, hidden: diff().model !== 'show' };
       const charB = this.z.chars.b;
       this.body().innerHTML = `<div class="step">
         <div class="step-head"><h2>🎙️ Role-Play Talk</h2><span class="vi">${esc(charB.name)} hỏi con một câu. Hãy trả lời bằng tiếng Anh nhé! (Câu ${T.ti + 1}/${this.talkTotal()})</span></div>
@@ -2152,7 +2195,11 @@
      *  Con tự nói trước; mỗi mức gợi ý giảm một chút thưởng, dùng hết 3 mức thì không có Gold. */
     showHint() {
       const T = this.t, item = this.l.talk[T.ti];
-      T.hintLevel = Math.min(3, (T.hintLevel || 0) + 1);
+      const steps = diff().hintSteps;
+      T.hintStep = Math.min(steps, (T.hintStep || 0) + 1);
+      // Cấp 1: gợi ý đầu tiên là cả câu; cấp 2: từ khóa → cả câu; cấp 3: từ khóa → nửa câu → cả câu
+      T.hintLevel = steps === 1 ? 3 : steps === 2 ? (T.hintStep === 1 ? 1 : 3) : T.hintStep;
+      if (diff().model === 'after1' && this.studio && this.studio.hidden) { this.studio.hidden = false; if (T.mode === 'fallback') setTimeout(() => this.renderTalkMode(), 0); }
       const hb = $('#hintBox');
       const words = item.hint.replace(/[.!?]+$/, '').split(/\s+/);
       let html, say;
@@ -2170,7 +2217,7 @@
         say = item.hint;
         if (this.studio) { this.studio.hidden = false; if (T.mode === 'fallback') this.renderTalkMode(); }
       }
-      if (hb) hb.innerHTML = `<div class="hint-box">${html}</div>${T.hintLevel < 3 ? `<button class="brick-btn btn-yellow btn-sm" data-action="talk-hint" style="margin-top:8px">${bi(`💡 More help (${T.hintLevel}/3)`, 'Gợi ý thêm')}</button>` : ''}`;
+      if (hb) hb.innerHTML = `<div class="hint-box">${html}</div>${T.hintStep < steps ? `<button class="brick-btn btn-yellow btn-sm" data-action="talk-hint" style="margin-top:8px">${bi(`💡 More help (${T.hintStep}/${steps})`, 'Gợi ý thêm')}</button>` : ''}`;
       return say;
     },
 
@@ -2184,9 +2231,11 @@
       const p = praise();
       Speech.speak(p.en);
       const hl = T.hintLevel || 0;
-      this.earn(Math.max(2, 5 - hl), el);
-      // Gold chỉ khi con tự tạo câu (không dùng hết gợi ý)
-      if ((spoken || T.voiced || (T.rating === 3 && T.first)) && hl < 3) this.earnGold(1, el);
+      this.earn(Math.max(2, 5 - (T.hintStep || 0)), el);
+      this.talkCount = (this.talkCount || 0) + 1;
+      if (!T.hintStep) this.talkFree = (this.talkFree || 0) + 1;
+      // Gold khi con nói được; ở cấp 3 phải tự tạo câu (không dùng tới câu mẫu đầy đủ)
+      if ((spoken || T.voiced || (T.rating === 3 && T.first)) && !(S.skillLevel() === 3 && hl >= 3)) this.earnGold(1, el);
       fx.confetti(24);
       this.renderTalkMode();
     },
@@ -2488,7 +2537,7 @@
       Sfx.playWhoosh();
       const acc = this.stats.total ? this.stats.correct / this.stats.total : 1;
       // Ngưỡng thành thạo: dưới 70% chỉ mở một nửa mảnh ghép; luyện lại đạt ≥ 70% mới mở nốt
-      const MASTERY = 0.7;
+      const MASTERY = diff().mastery;
       const give = acc >= MASTERY ? this.l.parts : this.l.parts.slice(0, Math.ceil(this.l.parts.length / 2));
       U.locked = this.l.parts.filter((i) => give.indexOf(i) === -1 && !S.parts(this.z.id)[i]);
       U.newly = S.unlockParts(this.z.id, give);
@@ -2506,7 +2555,7 @@
           ${lootParts.map((i, k) => `<div class="loot-item" style="animation-delay:${k * 0.12}s">${LG.renderPart(this.z.id, i)}<small>${esc(m.parts[i].n)}</small></div>`).join('')}
           <div class="loot-item" style="animation-delay:${lootParts.length * 0.12}s;display:grid;place-items:center;min-height:120px"><i class="stud-icon" style="width:48px;height:48px"></i><small>+${bonus} Studs</small></div>
         </div>
-        ${U.locked.length ? `<div class="card mastery-note"><b>🔒 ${U.locked.length} mảnh ghép đang chờ con!</b><span class="vi">Lần này con đúng ${Math.round(acc * 100)}% (cần 70%). Luyện lại bài này thật kỹ để mở nốt mảnh ghép nhé – con làm được mà! 💪</span>
+        ${U.locked.length ? `<div class="card mastery-note"><b>🔒 ${U.locked.length} mảnh ghép đang chờ con!</b><span class="vi">Lần này con đúng ${Math.round(acc * 100)}% (cần ${Math.round(diff().mastery * 100)}%). Luyện lại bài này thật kỹ để mở nốt mảnh ghép nhé – con làm được mà! 💪</span>
           <button class="brick-btn btn-orange btn-sm" data-action="start-lesson" data-lesson="${this.l.id}" data-force="1">${bi('🔁 Practice again', 'Luyện lại bài này')}</button></div>` : ''}
         ${lootParts.length || U.locked.length ? '' : '<p class="vi" style="margin-top:10px">Con đã có đủ mảnh ghép của bài này – đây là nút xu thưởng thêm cho lần ôn lại!</p>'}`;
         this.earn(bonus, $('#lootBox'));
@@ -2546,6 +2595,9 @@
       U.finished = true;
       const l = this.l, z = this.z;
       S.completeLesson(l.id, { stars: U.stars, accuracy: Math.round(U.acc * 100) });
+      const lvChange = S.recordLessonSkill({ lesson: l.id, acc: U.acc, free: this.talkCount ? this.talkFree / this.talkCount : 0 });
+      if (lvChange === 'up') setTimeout(() => { fx.confetti(60); toast(`${diff().icon} Level up! Level ${S.skillLevel()}`, `Con đã lên Cấp ${S.skillLevel()} – ${diff().vi}! Bài học sẽ thử thách hơn một chút 💪`, 'good'); }, 1600);
+      if (lvChange === 'down') setTimeout(() => toast(`${diff().icon} Level ${S.skillLevel()}`, `Mình học chậm lại một chút ở Cấp ${S.skillLevel()} – ${diff().vi} cho chắc nhé!`, 'warm'), 1600);
       l.words.forEach((w) => S.learnWord(w.id));
       $$('.lp-brick', overlay).forEach((b) => { b.classList.add('on'); b.classList.remove('current'); });
       const nextL = z.lessons[l.index + 1] || (() => { const zi = ZONES.indexOf(z); return ZONES[zi + 1] ? ZONES[zi + 1].lessons[0] : null; })();
@@ -3013,6 +3065,224 @@
   };
 
   /* =========================================================
+     📝 BÀI KIỂM TRA KỸ NĂNG (Skill Check) – đo tiến bộ THẬT, chống "bấm cho qua"
+     - Mở sau mỗi 6 bài mới (hoặc 14 ngày), ~8 phút, 4 phần: Nghe · Từ vựng · Ngữ pháp · Nói
+     - Không gợi ý, không màu gạch, không báo đúng/sai cho tới cuối; thưởng theo ĐIỂM, chỉ lần kiểm tra đến hạn
+     - Phần Nói: có nhận diện giọng thì chấm tự động; không có (iPad Màn hình chính) thì ghi âm để BỐ MẸ chấm 👍/👎
+     ========================================================= */
+  const CHECK_EVERY_LESSONS = 6, CHECK_EVERY_DAYS = 14;
+  const SKILLS = { listen: ['👂', 'Nghe', 'Listening'], vocab: ['🔤', 'Từ vựng', 'Vocabulary'], grammar: ['🧱', 'Ngữ pháp', 'Grammar'], speak: ['🎤', 'Nói', 'Speaking'] };
+  function checkStatus() {
+    const done = S.lessonsDoneCount();
+    const last = S.state.checks[S.state.checks.length - 1];
+    if (done < 3) return { due: false, ready: false, need: 3 - done };
+    if (!last) return { due: true, ready: true };
+    const days = (Date.now() - last.date) / 86400000;
+    const newL = done - (last.lessonsDone || 0);
+    return { due: newL >= CHECK_EVERY_LESSONS || (days >= CHECK_EVERY_DAYS && newL >= 2), ready: true, newL, days: Math.floor(days) };
+  }
+  const checkPct = (c) => { const v = Object.keys(SKILLS).map((k) => c.scores[k]).filter((x) => typeof x === 'number'); return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : 0; };
+
+  const Check = {
+    token: 0,
+    start() {
+      const st = checkStatus();
+      if (!st.ready) { toast('Learn a little more first!', `Học thêm ${st.need} bài nữa để làm Bài kiểm tra kỹ năng nhé!`, 'warm'); return; }
+      closeModal();
+      this.token++;
+      this.rewarded = st.due;
+      Speech.cancel(); Listener.stop();
+      const lessons = [];
+      ZONES.forEach((z) => z.lessons.forEach((l) => { if (S.isLessonDone(l.id)) lessons.push({ z, l }); }));
+      const recent = lessons.slice(-12);
+      const pool = shuffle(recent.length >= 4 ? recent : lessons);
+      const words = shuffle([].concat(...pool.map((x) => x.l.words)));
+      const items = [];
+      // 👂 Nghe: 3 câu Đúng/Sai (chỉ nghe) + 2 câu nghe từ → chọn hình
+      shuffle([].concat(...pool.map((x) => x.l.tf || []))).slice(0, 3).forEach((t) => items.push({ skill: 'listen', type: 'tf', t }));
+      words.slice(0, 2).forEach((w) => items.push({ skill: 'listen', type: 'pic', w }));
+      // 🔤 Từ vựng: nhìn hình + nghĩa → chọn từ tiếng Anh
+      words.slice(2, 6).forEach((w) => items.push({ skill: 'vocab', type: 'word', w }));
+      // 🧱 Ngữ pháp: lắp câu không màu, không gợi ý
+      shuffle([].concat(...pool.map((x) => x.l.build))).slice(0, 3).forEach((b) => items.push({ skill: 'grammar', type: 'build', b }));
+      // 🎤 Nói: trả lời câu hỏi đã học, không có câu mẫu
+      shuffle([].concat(...pool.map((x) => x.l.talk.map((t) => Object.assign({ lessonTitle: x.l.title }, t))))).slice(0, 3).forEach((t) => items.push({ skill: 'speak', type: 'talk', t }));
+      this.items = items.filter((it) => it.type !== 'pic' || it.w);
+      this.i = 0; this.res = []; this.id = 'ck' + Date.now();
+      this.pending = 0;
+      overlay.hidden = false;
+      overlay.innerHTML = `<div class="lesson-top">
+          <button class="brick-btn btn-white btn-round" data-action="check-close" aria-label="Close">✕</button>
+          <div style="text-align:center"><b class="en" style="font-size:22px">📝 Skill Check</b><div class="lesson-step-name">Bài kiểm tra kỹ năng – không gợi ý, làm thật bằng khả năng của con nhé!</div></div>
+          <div class="lesson-earned">${speedChipHTML()}</div>
+        </div>
+        <div class="lesson-body" id="checkBody"></div>`;
+      this.intro();
+    },
+
+    intro() {
+      $('#checkBody').innerHTML = `<div class="step"><div class="card check-intro studs-top">
+        <h3>📝 Skill Check</h3>
+        <p class="vi">Bài kiểm tra ${this.items.length} câu, khoảng 8 phút: ${Object.values(SKILLS).map((s) => `${s[0]} ${s[1]}`).join(' · ')}.</p>
+        <ul class="vi check-rules"><li>Không có gợi ý, không có màu gạch.</li><li>Kết quả hiện ở cuối bài – cứ bình tĩnh làm hết sức mình.</li><li>${this.rewarded ? 'Phần thưởng tính theo <b>điểm thật</b> của con.' : 'Đây là bài làm thêm – không có thưởng, chỉ để luyện tập.'}</li></ul>
+        <button class="brick-btn btn-green btn-xl" data-action="check-go">${bi('Start ▶', 'Bắt đầu')}</button>
+      </div></div>`;
+    },
+
+    item() { return this.items[this.i]; },
+
+    render() {
+      const it = this.item();
+      if (!it) return this.finish();
+      const body = $('#checkBody');
+      const meter = `<div class="review-meter">${this.items.map((x, k) => `<i class="${k < this.i ? 'done' : k === this.i ? 'cur' : ''}"></i>`).join('')}</div>`;
+      const head = (sk, en, vi) => `<div class="check-kicker">${SKILLS[sk][0]} ${SKILLS[sk][2]} · <span class="vi">${SKILLS[sk][1]}</span> — ${en}<small class="vi" style="display:block">${vi}</small></div>`;
+      this.answered = false;
+      let html = '';
+      if (it.type === 'tf') {
+        html = `${head('listen', 'True or False?', 'Nghe câu nói rồi chọn Đúng hay Sai (không hiện chữ)')}
+          <button class="brick-btn btn-blue" data-action="check-say">${bi('🔊 Listen', 'Nghe')}</button>
+          <div class="tf-row"><button class="tf-btn tf-true" data-action="check-pick" data-v="1"><span>👍</span>True<small>Đúng</small></button>
+          <button class="tf-btn tf-false" data-action="check-pick" data-v="0"><span>👎</span>False<small>Sai</small></button></div>`;
+      } else if (it.type === 'pic' || it.type === 'word') {
+        const others = shuffle(Object.values(WORDS).filter((x) => x.zoneId === it.w.zoneId && x.id !== it.w.id && x.emoji !== it.w.emoji)).slice(0, 3);
+        it.opts = shuffle([it.w].concat(others));
+        html = it.type === 'pic'
+          ? `${head('listen', 'Listen and choose the picture', 'Nghe từ tiếng Anh rồi chọn hình đúng')}<button class="brick-btn btn-blue" data-action="check-say">${bi('🔊 Listen', 'Nghe')}</button>
+            <div class="opt-grid">${it.opts.map((o, k) => `<button class="opt-brick" data-action="check-pick" data-v="${k}" style="--oc:${BRICK_COLORS[k]};--ocd:${LG.shade(BRICK_COLORS[k], -0.3)};min-height:110px"><span class="o-emoji" style="font-size:48px">${o.emoji}</span></button>`).join('')}</div>`
+          : `${head('vocab', 'Which English word?', 'Chọn từ tiếng Anh đúng với hình & nghĩa')}<div class="big-emoji">${it.w.emoji}</div><div class="q-vi">${esc(it.w.vi)}</div>
+            <div class="opt-grid">${it.opts.map((o, k) => `<button class="opt-brick" data-action="check-pick" data-v="${k}" style="--oc:${BRICK_COLORS[k]};--ocd:${LG.shade(BRICK_COLORS[k], -0.3)};min-height:90px"><span class="o-word">${esc(o.en)}</span></button>`).join('')}</div>`;
+      } else if (it.type === 'build') {
+        it.bricks = it.bricks || shuffle(it.b.answer.concat((it.b.extra || []).filter((x) => it.b.answer.indexOf(x) === -1)).map((t, id) => ({ t, id })));
+        it.placed = it.placed || [];
+        html = `${head('grammar', 'Build the sentence', 'Chạm các viên gạch theo đúng thứ tự (có gạch gây nhiễu)')}
+          <div class="card situation studs-top"><div class="s-vi">🗨️ ${esc(it.b.vi)}</div></div>
+          <div class="baseplate" id="ckPlate">${it.placed.map((id) => `<button class="word-brick role-off" data-action="check-brick" data-id="${id}">${esc(it.bricks[id].t)}</button>`).join('') || '<div class="placeholder">⬇️</div>'}</div>
+          <div class="tray-bricks">${it.bricks.filter((b) => it.placed.indexOf(b.id) === -1).map((b) => `<button class="word-brick role-off" data-action="check-brick" data-id="${b.id}">${esc(b.t)}</button>`).join('')}</div>
+          <div class="step-foot"><button class="brick-btn btn-green btn-xl" data-action="check-build-done"${it.placed.length ? '' : ' disabled'}>${bi('✓ Done', 'Xong')}</button></div>`;
+      } else {
+        html = `${head('speak', 'Answer the question', 'Nghe câu hỏi rồi TỰ trả lời bằng một câu tiếng Anh (không có câu mẫu)')}
+          <div class="talk-q">“${esc(it.t.q)}”</div>
+          <button class="brick-btn btn-blue" data-action="check-say">${bi('🔊 Listen again', 'Nghe lại')}</button>
+          <div class="mic-wrap"><button class="mic-btn" data-action="check-speak" id="ckMic">🎙️</button><div class="transcript" id="ckNote">Tap the mic and answer! <small class="vi">Chạm micro rồi trả lời to, rõ</small></div></div>
+          ${Recorder.supported || Lesson.useMic() ? '' : `<div class="step-foot"><button class="brick-btn btn-white" data-action="check-skip">${bi('Skip (no microphone)', 'Bỏ qua – thiết bị không có micro')}</button></div>`}`;
+      }
+      body.innerHTML = `<div class="step">${meter}<div class="card check-card studs-top">${html}</div></div>`;
+      if (it.type !== 'word' && it.type !== 'build') setTimeout(() => this.say(), 350);
+    },
+
+    say() {
+      const it = this.item(); if (!it) return;
+      Speech.speak(it.type === 'tf' ? it.t.en : it.type === 'talk' ? it.t.q : it.w ? it.w.en.replace(/\.\.\./g, '') : '');
+    },
+
+    record(ok, extra) {
+      if (this.answered) return;
+      this.answered = true;
+      this.res.push(Object.assign({ skill: this.item().skill, ok }, extra || {}));
+      Sfx.playBrickClick();
+      const tk = this.token;
+      setTimeout(() => { if (tk === this.token) { this.i++; this.render(); } }, 350);
+    },
+
+    pick(v) {
+      const it = this.item();
+      if (!it || this.answered) return;
+      if (it.type === 'tf') this.record((v === 1) === it.t.ok);
+      else this.record(it.opts[v] === it.w);
+    },
+
+    brick(id) {
+      const it = this.item(); if (!it || it.type !== 'build') return;
+      const k = it.placed.indexOf(id);
+      if (k === -1) it.placed.push(id); else it.placed.splice(k, 1);
+      Sfx.playBrickClick();
+      this.render();
+    },
+
+    buildDone() {
+      const it = this.item();
+      const texts = it.placed.map((id) => it.bricks[id].t);
+      this.record(texts.length === it.b.answer.length && texts.every((t, i) => t === it.b.answer[i]));
+    },
+
+    async speak() {
+      const it = this.item(), tk = this.token;
+      if (!it || this.answered || this.busy) return;
+      this.busy = true;
+      const btn = $('#ckMic');
+      const note = $('#ckNote');
+      let res;
+      if (Lesson.useMic()) {
+        // Có nhận diện giọng: chấm theo ý định (không có câu mẫu cho con xem)
+        res = await new Promise((resolve) => {
+          if (btn) btn.classList.add('listening');
+          const ok = Listener.start({
+            onResult: (alts) => resolve({ heard: true, judged: Listener.judge(alts, { q: it.t.q, keywords: it.t.keywords, hint: it.t.hint, wrong: it.t.choices.slice(1) }) }),
+            onError: () => resolve(null),
+            onEnd: () => {}
+          });
+          if (!ok) resolve(null);
+        });
+        if (btn) btn.classList.remove('listening');
+      }
+      if (!res) {
+        // Ghi âm: bố mẹ sẽ nghe & chấm trong Góc Bố Mẹ
+        res = await Lesson.voiceCheck('', (mode) => { if (btn) btn.classList.toggle('listening', mode !== 'idle'); if (note && mode === 'rec') note.innerHTML = 'Speak now… <small class="vi">Con nói đi – nói xong tự dừng</small>'; });
+        res = res.ok ? { heard: true, clip: res.clip } : { heard: false };
+      }
+      this.busy = false;
+      if (tk !== this.token) return;
+      if (!res.heard) { Sfx.playGentleOops(); if (note) note.innerHTML = "I can't hear you! <small class=\"vi\">Mình chưa nghe thấy – nói TO và RÕ hơn nhé!</small>"; return; }
+      S.recordSpeak();
+      if (res.judged) this.record(res.judged.ok, { text: res.judged.text });
+      else {
+        this.pending++;
+        if (res.clip) VoiceBook.add({ kind: 'check', checkId: this.id, title: '📝 Skill Check', text: it.t.q, blob: res.clip });
+        this.record(null, { pending: true });
+      }
+    },
+
+    skip() { this.record(null, { skipped: true }); },
+
+    finish() {
+      const scores = {};
+      Object.keys(SKILLS).forEach((k) => {
+        const r = this.res.filter((x) => x.skill === k && x.ok !== null);
+        scores[k] = r.length ? Math.round((r.filter((x) => x.ok).length / r.length) * 100) : null;
+      });
+      const rec = { id: this.id, date: Date.now(), lessonsDone: S.lessonsDoneCount(), level: S.skillLevel(), scores, speakPending: this.pending, speakGrades: {}, rewarded: this.rewarded };
+      S.addCheck(rec);
+      const overall = checkPct(rec);
+      let studs = 0, gold = 0;
+      if (this.rewarded) { studs = Math.round(overall * 0.4); gold = overall >= 80 ? 2 : overall >= 60 ? 1 : 0; S.addStuds(studs); if (gold) S.addGold(gold); updateWallet(); }
+      // Kết quả kiểm tra thấp → hạ cấp để con học chắc hơn (chế độ tự động)
+      if (S.state.skill.auto !== false && overall < 50 && S.skillLevel() > 1) S.setSkillLevel(S.skillLevel() - 1, true);
+      const prev = S.state.checks[S.state.checks.length - 2];
+      Sfx.playSuccessFanfare(); fx.confetti(40);
+      $('#checkBody').innerHTML = `<div class="step"><div class="card lesson-done studs-top">
+        <h3>📝 Skill Check Complete!</h3><span class="vi">Con đã hoàn thành bài kiểm tra kỹ năng!</span>
+        <div class="check-scores">${Object.keys(SKILLS).map((k) => {
+          const v = scores[k], p = prev && prev.scores[k];
+          const trend = typeof v === 'number' && typeof p === 'number' ? (v > p ? ' ⬆️' : v < p ? ' ⬇️' : ' ➡️') : '';
+          return `<div class="check-score"><b>${SKILLS[k][0]} ${typeof v === 'number' ? v + '%' : (k === 'speak' && this.pending ? '⏳' : '—')}${trend}</b><small>${SKILLS[k][1]}</small></div>`;
+        }).join('')}</div>
+        ${this.pending ? `<p class="vi">🎤 ${this.pending} câu trả lời nói đã được ghi âm – bố mẹ sẽ nghe & chấm trong Góc Bố Mẹ.</p>` : ''}
+        ${this.rewarded ? `<div class="reward-row"><span class="reward"><i class="stud-icon"></i>+${studs} Studs</span>${gold ? `<span class="reward"><i class="gold-icon"></i>+${gold} Gold</span>` : ''}</div>` : '<p class="vi">Bài làm thêm – không tính thưởng.</p>'}
+        <div class="btn-row center"><button class="brick-btn btn-white" data-action="check-exit" data-screen="map">${bi('🌍 Map', 'Bản đồ')}</button></div>
+      </div></div>`;
+      Speech.speak('Great job! You finished your skill check!');
+    },
+
+    close() {
+      this.token++;
+      Speech.cancel(); Listener.stop(); Lesson.stopStudio();
+      Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = '';
+      render();
+    }
+  };
+
+  /* =========================================================
      LEGO MYSTERY MISSION (Nhiệm vụ thám tử cuối mỗi Vùng đất)
      ========================================================= */
   const Mystery = {
@@ -3151,7 +3421,7 @@
   function go(screen) {
     App.screen = screen;
     if (screen !== 'parent') { App.parentOk = false; App.gate = null; }
-    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
+    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
     closeModal();
     render();
     screenEl.scrollTop = 0;
@@ -3167,10 +3437,10 @@
     'go': (el) => go(el.dataset.screen),
     'modal-close': () => closeModal(),
     'open-zone': (el) => openZone(el.dataset.zone),
-    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
+    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
     'ws-open': (el) => { App.wsZone = el.dataset.zone; const z = zoneById(el.dataset.zone); if (z) S.state.settings.roadmap = z.stage; go('workshop'); },
     'ws-zone': (el) => { App.wsZone = el.dataset.zone; renderWorkshop(); },
-    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Lesson.stopStudio(); } Review.start(zid); },
+    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Check.token++; Lesson.stopStudio(); } Review.start(zid); },
     'mystery': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Mystery.start(el.dataset.zone); },
     'mystery-close': () => Mystery.close(),
     'mystery-exit': (el) => { Mystery.close(); go(el.dataset.screen); },
@@ -3193,6 +3463,25 @@
     'gym-mic': () => Gym.mic(),
     'gym-next': () => Gym.next(),
     'gym-close': () => Gym.close(),
+    'grade-speak': (el) => {
+      const c = S.state.checks.find((x) => x.id === el.dataset.check);
+      if (!c) return;
+      c.speakGrades = c.speakGrades || {};
+      c.speakGrades[el.dataset.clip] = el.dataset.v === '1';
+      const g = Object.values(c.speakGrades);
+      c.scores.speak = Math.round((g.filter(Boolean).length / g.length) * 100);
+      S.save(); fillCheckHistory();
+    },
+    'skill-check': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Check.start(); },
+    'check-go': () => Check.render(),
+    'check-say': () => Check.say(),
+    'check-pick': (el) => Check.pick(Number(el.dataset.v)),
+    'check-brick': (el) => Check.brick(Number(el.dataset.id)),
+    'check-build-done': () => Check.buildDone(),
+    'check-speak': () => Check.speak(),
+    'check-skip': () => Check.skip(),
+    'check-close': () => Check.close(),
+    'check-exit': (el) => { Check.close(); go(el.dataset.screen); },
     'gym-exit': (el) => { Gym.close(); go(el.dataset.screen); },
     'gym-again': () => Gym.start(),
     'fact-vi': (el) => { const v = el.nextElementSibling; if (v) v.hidden = false; el.remove(); },
