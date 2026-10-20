@@ -21,6 +21,7 @@ const CORE_ASSETS = [
   './js/curriculum-stage2.js',
   './js/curriculum-stage3.js',
   './js/speak-missions.js',
+  './js/word-photos.js',
   './js/curriculum.js',
   './js/custom-units.js',
   './js/app.js',

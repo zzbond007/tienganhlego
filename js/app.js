@@ -3558,9 +3558,11 @@
      ========================================================= */
   const Pic = {
     token: 0,
+    photo(w) { const P = window.WordPhotos || {}; return P[w.id] || null; },
     lines(l) {
       const out = [];
       l.words.forEach((w) => {
+        if (!this.photo(w)) return;   // chỉ dùng ẢNH THẬT – không dùng icon để bé khỏi nhầm
         const core = w.en.replace(/\.\.\.|…|[?!]/g, '').replace(/\.$/, '').trim();
         const ex = String(w.ex || '');
         if (!core || !ex) return;
@@ -3584,7 +3586,8 @@
     },
     chipHTML(line, i) {
       const showWord = this.lv === 1 || this.done[i] || this.phase === 'listen-done';
-      return `<span class="pic-chip role-${G.wordRole(line.w)}" style="${roleVars(G.wordRole(line.w), 'pc')}"><span class="pc-emoji">${line.w.emoji}</span>${showWord ? `<small class="pc-word">${esc(line.word)}</small>` : ''}</span>`;
+      const ph = this.photo(line.w);
+      return `<span class="pic-chip role-${G.wordRole(line.w)}" style="${roleVars(G.wordRole(line.w), 'pc')}"><img class="pc-photo" src="${esc(ph.src)}" alt="" loading="lazy" draggable="false">${showWord ? `<small class="pc-word">${esc(line.word)}</small>` : ''}</span>`;
     },
     render() {
       const z = this.o.zone, chars = [z.chars.a, z.chars.b];
@@ -3743,7 +3746,7 @@
     el() { return this.o.container(); },
     gridHTML(r, lit = -1, hits = null) {
       return `<div class="beat-grid">${r.order.map((w, i) => `<div class="beat-card${i === lit ? ' lit' : ''}${hits && hits[i] === true ? ' hit' : hits && hits[i] === false ? ' miss' : ''}" data-i="${i}">
-        <span class="bc-emoji">${w.emoji}</span>${r.showWord ? `<b class="bc-word">${esc(w.en.replace(/\.\.\./g, ''))}</b>` : '<b class="bc-word hidden-w">?</b>'}
+        ${(window.WordPhotos || {})[w.id] ? `<img class="bc-photo" src="${esc(window.WordPhotos[w.id].src)}" alt="" draggable="false">` : `<span class="bc-emoji">${w.emoji}</span>`}${r.showWord ? `<b class="bc-word">${esc(w.en.replace(/\.\.\./g, ''))}</b>` : '<b class="bc-word hidden-w">?</b>'}
         ${hits && hits[i] === true ? '<i class="bc-tick">✓</i>' : ''}</div>`).join('')}</div>`;
     },
     renderIntro() {
