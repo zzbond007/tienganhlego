@@ -983,6 +983,9 @@
         <div id="checkHistory"></div>
       </div>
 
+      ${(window.WordPhotoCredits || []).length ? `<details class="card photo-credits"><summary>📷 Nguồn ảnh từ vựng (${window.WordPhotoCredits.length} ảnh thật – Wikimedia Commons / Openverse, giấy phép mở)</summary>
+        <ul>${window.WordPhotoCredits.map((c) => `<li><b>${esc(c.key.replace(/-/g, ' '))}</b>: ${esc(c.title)} – ${esc(c.author)} · ${esc(c.license)}${c.source ? ` · <a href="${esc(c.source)}" target="_blank" rel="noopener">nguồn</a>` : ''}</li>`).join('')}</ul></details>` : ''}
+
       <h3 class="section-title">🎙️ Sổ giọng nói <span class="vi">Voice Notebook – nghe lại giọng con theo từng bài để thấy tiến bộ</span></h3>
       <div class="card" id="voiceBook"><p class="vi">Đang tải…</p></div>
 
@@ -1299,7 +1302,7 @@
         <div class="word-grid">${words.map((w, i) => `
           <div class="word-card role-${roles[i]}" data-i="${i}" style="${roleVars(roles[i], 'wc')}">
             <span class="wc-role">${G.ROLES[roles[i]].dot} ${G.ROLES[roles[i]].en}</span>
-            <div class="wc-emoji">${w.emoji}</div>
+            ${(window.WordPhotos || {})[w.id] ? `<img class="wc-photo" src="${esc(window.WordPhotos[w.id].src)}" alt="${esc(w.en)}" loading="lazy" draggable="false">` : `<div class="wc-emoji">${w.emoji}</div>`}
             <div class="wc-word">${esc(w.en)}</div>
             <span class="wc-pos pos-${w.pos}">${esc(w.posLabel)}</span>
             <div class="wc-ipa">${esc(w.ipa)}</div>
