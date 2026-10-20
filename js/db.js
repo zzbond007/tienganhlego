@@ -49,6 +49,8 @@
       mysteries: {},        // { z1: { done, stars, at } } – LEGO Mystery Mission
       gym: {},              // { 'YYYY-MM-DD': số lượt Listening & Speaking Gym }
       speak: {},            // { 'YYYY-MM-DD': số lần con đã nói/ghi âm có tiếng (luyện nói) }
+      skill: { level: 1, auto: true, recent: [], changedAt: 0 },  // Cấp độ thích ứng 1–3 + 8 bài gần nhất
+      checks: [],           // Lịch sử Bài kiểm tra kỹ năng
       snow: {},             // { z1l1: 3 } – tầng Snowball cao nhất đã lắp (1..3)
       branches: {},         // { 'z1l1:cb': ['yes','no'] } – các hướng hội thoại bé đã thử
       customUnits: [],      // [{ id: 'c1', addedAt, data: {...JSON bố mẹ nhập} }]
@@ -129,6 +131,9 @@
     out.owned = Array.from(new Set([].concat(base.owned, Array.isArray(saved.owned) ? saved.owned : [])));
     out.studs = Math.max(0, Number(saved.studs) || 0);
     out.goldBricks = Math.max(0, Number(saved.goldBricks) || 0);
+    out.skill = Object.assign({}, base.skill, saved.skill || {});
+    out.skill.recent = Array.isArray(out.skill.recent) ? out.skill.recent.slice(-8) : [];
+    out.checks = Array.isArray(saved.checks) ? saved.checks.slice(-40) : [];
     return out;
   }
 
@@ -409,6 +414,29 @@
     totalSeconds() { return Object.values(this.state.daily).reduce((a, b) => a + b, 0); },
     gymToday() { return this.state.gym[todayKey()] || 0; },
     recordGym() { const k = todayKey(); this.state.gym[k] = (this.state.gym[k] || 0) + 1; this.save(); },
+    /* ---------- Cấp độ thích ứng ----------
+       Ghi kết quả mỗi bài (độ chính xác, tỉ lệ câu nói KHÔNG cần gợi ý). Chế độ tự động: 5 bài gần nhất
+       trung bình ≥ 85% chính xác và ≥ 60% câu tự nói → lên cấp; < 55% → xuống cấp. Trả về 'up' | 'down' | null. */
+    skillLevel() { return Math.min(3, Math.max(1, Number(this.state.skill.level) || 1)); },
+    recordLessonSkill(entry) {
+      const sk = this.state.skill;
+      sk.recent = (sk.recent || []).concat([Object.assign({ date: Date.now() }, entry)]).slice(-8);
+      let change = null;
+      const last = sk.recent.slice(-5);
+      const sinceChange = sk.recent.filter((r) => r.date > (sk.changedAt || 0)).length;
+      if (sk.auto !== false && last.length >= 5 && sinceChange >= 5) {
+        const acc = last.reduce((a, r) => a + r.acc, 0) / last.length;
+        const free = last.reduce((a, r) => a + (r.free || 0), 0) / last.length;
+        if (acc >= 0.85 && free >= 0.6 && sk.level < 3) { sk.level++; change = 'up'; }
+        else if (acc < 0.55 && sk.level > 1) { sk.level--; change = 'down'; }
+        if (change) sk.changedAt = Date.now();
+      }
+      this.save();
+      return change;
+    },
+    setSkillLevel(level, auto) { const sk = this.state.skill; sk.level = Math.min(3, Math.max(1, level)); sk.auto = !!auto; sk.changedAt = Date.now(); this.save(); },
+    addCheck(rec) { this.state.checks.push(rec); this.state.checks = this.state.checks.slice(-40); this.save(); },
+
     speakToday() { return this.state.speak[todayKey()] || 0; },
     speakTotal() { return Object.keys(this.state.speak).reduce((a, k) => a + (this.state.speak[k] || 0), 0); },
     recordSpeak() { const k = todayKey(); this.state.speak[k] = (this.state.speak[k] || 0) + 1; this.save(); },

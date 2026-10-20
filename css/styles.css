@@ -1317,3 +1317,19 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .rv-clue { margin-top: 10px; font-size: 18px; font-weight: 700; }
 .import-report.low { background: #FFFBEB; border: 3px solid #FCD34D; }
 .speak-mode-note { display: grid; gap: 6px; background: #EFF6FF; box-shadow: 0 5px 0 #BFDBFE; margin: 8px 0 14px; }
+
+/* ---------- Cấp độ & Bài kiểm tra kỹ năng ---------- */
+.level-chip small { font-size: 11px; }
+.check-due { animation: micPulse 2.2s infinite; }
+.check-intro { text-align: center; display: grid; gap: 12px; justify-items: center; }
+.check-rules { text-align: left; margin: 0; }
+.check-card { text-align: center; display: grid; gap: 14px; justify-items: center; }
+.check-kicker { font-weight: 800; font-size: 18px; }
+.check-card .opt-grid { width: 100%; }
+.check-card .tf-row { display: flex; gap: 16px; justify-content: center; }
+.check-scores { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+.check-score { background: #F8FAFC; border-radius: 14px; padding: 10px; display: grid; }
+.check-score b { font-size: 22px; }
+.grade-box { margin-top: 12px; display: grid; gap: 8px; background: #FFFBEB; box-shadow: 0 5px 0 #FDE68A; }
+.grade-box .grow { flex: 1; }
+.review-meter i.done { background: #94A3B8; }
