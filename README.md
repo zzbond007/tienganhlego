@@ -29,6 +29,14 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**📖 Bản v1.9 – Đọc tiếng Anh qua hình & nói theo nhịp:**
+- *📖 Picture Story* (mỗi bài, ngay sau Bước 1): câu ví dụ của 5 từ vựng hiện thành bảng đọc, từ vựng được THAY BẰNG HÌNH,
+  mỗi dòng có một nhân vật LEGO. Nghe mẫu → đọc to từng dòng (micro kiểm tra con đọc đủ dài) → Cấp 2–3 đọc liền cả đoạn
+  (lưu vào Sổ giọng nói). Cấp 1 có chữ nhỏ dưới hình; Cấp 2–3 chỉ có hình, đọc xong dòng mới hiện chữ – luyện phản xạ
+  nhìn hình nói tiếng Anh, không dịch qua tiếng Việt. 137/138 bài có bảng đọc.
+- *🥁 Beat Talk* (nút trên Bản đồ): 8 ô từ đã học sáng lần lượt theo nhịp trống; 3 vòng: nghe mẫu → con đọc theo nhịp →
+  nhanh hơn, xáo trộn, chỉ còn hình. Micro chấm từng nhịp; nhịp nhanh dần theo tháng & cấp; thưởng tối đa 3 lượt/ngày.
+
 **🎙️ Bản v1.8 – Hành trình nói mỗi ngày, chống "bấm cho qua", Tủ đồ bí ẩn:**
 - *Đo thời gian NÓI thật* (giây có giọng nói, không tính bấm chọn). Mục tiêu mỗi ngày theo cấp: 60 / 90 / 120 giây
   (+40 Studs, gấp đôi mục tiêu +1 Gold), chuỗi ngày nói liên tiếp, biểu đồ 7 ngày trong Góc Bố Mẹ.
