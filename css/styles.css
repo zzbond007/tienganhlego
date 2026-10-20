@@ -1333,3 +1333,27 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .grade-box { margin-top: 12px; display: grid; gap: 8px; background: #FFFBEB; box-shadow: 0 5px 0 #FDE68A; }
 .grade-box .grow { flex: 1; }
 .review-meter i.done { background: #94A3B8; }
+
+/* ---------- 🎙️ Hành trình nói & Talk Time ---------- */
+.talk-btn { animation: micPulse 2.6s infinite; }
+.talk-meter { display: grid; gap: 4px; background: #fff; border-radius: 14px; padding: 8px 12px; box-shadow: 0 4px 0 var(--card-edge); }
+.tm-row { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.tm-bar { height: 12px; border-radius: 99px; background: #E2E8F0; overflow: hidden; }
+.tm-bar.big { height: 18px; width: 100%; }
+.tm-bar i { display: block; height: 100%; background: linear-gradient(90deg, #22C55E, #FACC15, #F97316); border-radius: 99px; transition: width .2s; }
+.talk-mission { display: grid; gap: 12px; justify-items: center; text-align: center; }
+.tmn-emoji { font-size: 56px; letter-spacing: 6px; }
+.talk-mission .talk-q { border: 0; background: #EFF6FF; border-radius: 14px; padding: 10px 16px; font-size: 22px; font-weight: 800; cursor: pointer; }
+.talk-mission .talk-q .vi { display: block; font-size: 14px; font-weight: 600; }
+.frames { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+.frames small { width: 100%; }
+.frame-chip { border: 0; border-radius: 10px; padding: 8px 14px; font-weight: 800; font-size: 17px; background: #FEF3C7; box-shadow: 0 4px 0 #FCD34D; cursor: pointer; }
+.tt-target { font-weight: 700; }
+.tt-model { border: 0; background: #F0FDF4; border-radius: 12px; padding: 10px 14px; text-align: left; cursor: pointer; font-size: 16px; }
+.tt-model small { display: block; }
+.item.mystery { background: repeating-linear-gradient(45deg, #F1F5F9, #F1F5F9 10px, #E2E8F0 10px, #E2E8F0 20px); }
+.item.mystery.secret { background: repeating-linear-gradient(45deg, #FDF2F8, #FDF2F8 10px, #FCE7F3 10px, #FCE7F3 20px); }
+.mystery-q { font-size: 64px; height: 110px; display: grid; place-items: center; filter: drop-shadow(0 4px 0 rgba(0,0,0,.12)); }
+.locker-tip { margin: 0 0 10px; font-weight: 700; }
+.bar.talk { background: linear-gradient(180deg, #FB923C, #F97316); }
+.bar.talk.goal { background: linear-gradient(180deg, #4ADE80, #16A34A); }

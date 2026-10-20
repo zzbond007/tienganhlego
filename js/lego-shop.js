@@ -17,15 +17,19 @@
     common: { en: 'Common', vi: 'Thường', color: '#64748B' },
     rare: { en: 'Rare', vi: 'Hiếm', color: '#0284C7' },
     epic: { en: 'Epic', vi: 'Sử thi', color: '#7C3AED' },
-    legendary: { en: 'Legendary', vi: 'Huyền thoại', color: '#D97706' }
+    legendary: { en: 'Legendary', vi: 'Huyền thoại', color: '#D97706' },
+    secret: { en: 'Secret', vi: 'Bí mật', color: '#DB2777' }
   };
+  /* Kinh tế xu v1.8: giá cao hơn (×5) để đồ có giá trị, chia 4 tầng; tầng sau ẩn ❓ cho tới khi mua đủ món tầng trước */
   function tierOf(it) {
+    if (it.secret) return 'secret';
     if (it.gold) return 'legendary';
-    if (it.price <= 80) return 'common';
-    if (it.price <= 250) return 'rare';
-    if (it.price <= 600) return 'epic';
+    if (it.price <= 300) return 'common';
+    if (it.price <= 900) return 'rare';
+    if (it.price <= 2500) return 'epic';
     return 'legendary';
   }
+  const TIER_NUM = { common: 1, rare: 2, epic: 3, legendary: 4 };
 
   /* ---------------- Mũ & tóc mới ---------------- */
   const HAIR = `<path d="M14 33 C13 14 20 8 30 8 C40 8 47 14 46 33 L42.5 31 C43 22 38 19 30 19 C25 19 22 21 19 24 L17.5 31 Z" fill="#6B3A12" stroke="#4A260A"/>`;
@@ -196,7 +200,24 @@
     { id: 'buddy-wizard', en: 'Wizard', vi: 'Phù thủy tốt bụng', price: 700 },
     { id: 'buddy-robot', en: 'Robot Pal', vi: 'Bạn Robot', gold: 10 }
   ];
-  Object.keys(I).forEach((cat) => I[cat].forEach((it) => { if (it.price === undefined) it.price = 0; it.tier = tierOf(it); }));
+  // Nâng giá các món có từ trước (×5, làm tròn 10; Gold ×2) – món đã mua vẫn giữ nguyên
+  Object.keys(I).forEach((cat) => I[cat].forEach((it) => {
+    if (it.price === undefined) it.price = 0;
+    if (!it.scaled) { if (it.price > 0) it.price = Math.round((it.price * 5) / 10) * 10; if (it.gold) it.gold *= 2; it.scaled = true; }
+  }));
+  /** Gọi sau khi mọi gói đồ đã nạp (lego-shop2…): gán tầng cho từng món. */
+  function finalizeShop() {
+    Object.keys(LG.ITEMS).forEach((cat) => LG.ITEMS[cat].forEach((it) => { if (it.price === undefined) it.price = 0; it.scaled = true; it.tier = tierOf(it); it.tierNum = it.secret ? 0 : (it.price || it.gold) ? TIER_NUM[it.tier] : 0; }));
+  }
+  /** Món này đã hiện trong Tủ đồ chưa? Tầng N mở khi con sở hữu đủ món tầng N-1 cùng nhóm.
+   *  Trả về { visible, need, prevTier } – need = số món còn phải mua ở tầng trước. */
+  function shopGate(cat, it, owns) {
+    if (owns(it.id) || !it.tierNum || it.tierNum <= 1) return { visible: true, need: 0 };
+    const prev = LG.ITEMS[cat].filter((x) => x.tierNum === it.tierNum - 1);
+    const want = Math.min(it.tierNum === 4 ? 1 : 2, prev.length);
+    const have = prev.filter((x) => owns(x.id)).length;
+    return { visible: have >= want, need: Math.max(0, want - have), prevTier: it.tierNum - 1 };
+  }
 
   /* ---------------- Khung cảnh nhân vật (scene) ---------------- */
   /** Nhân vật + bạn đồng hành (trái) + xe (giữa trái) + thú cưng (phải). Chỉ có nhân vật → giống renderMinifig. */
@@ -212,6 +233,12 @@
     if (buddy !== 'none-buddy') s += `<g transform="translate(${ride !== 'none-ride' ? -162 : -76} 13) scale(.88)">${buddyInner(buddy)}</g>`;
     s += LG.minifigInner(c);
     if (pet !== 'none-pet') { s += `<g transform="translate(70 70)">${PETS[pet]}</g>`; x1 = 136; }
+    // 🏞️ Phông nền (lego-shop2.js) vẽ phía sau toàn bộ khung cảnh
+    const SC = LG.SCENES || {};
+    if (c.scene && c.scene !== 'none-scene' && typeof SC[c.scene] === 'function') {
+      if (x1 - x0 < 140) { const pad = (140 - (x1 - x0)) / 2; x0 -= pad; x1 += pad; }
+      s = `<g class="scene-bg">${SC[c.scene](x0, -4, x1 - x0, 128)}</g>` + s;
+    }
     const cls = opts.cls ? ' ' + opts.cls : '';
     const wide = x1 - x0 > 90 ? ' fig-scene' : '';
     return `<svg class="fig${wide}${cls}" viewBox="${x0} -4 ${x1 - x0} 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${s}</svg>`;
@@ -221,6 +248,7 @@
   function renderItemPreview(cat, id) {
     if (cat === 'pet') return `<svg class="fig item-solo" viewBox="-4 -6 72 62" aria-hidden="true">${PETS[id] || ''}${id === 'none-pet' ? emptyMark() : ''}</svg>`;
     if (cat === 'ride') return `<svg class="fig item-solo" viewBox="-4 -4 92 70" aria-hidden="true">${RIDES[id] || ''}${id === 'none-ride' ? emptyMark() : ''}</svg>`;
+    if (cat === 'scene') { const f = (LG.SCENES || {})[id]; return `<svg class="fig item-solo" viewBox="0 0 160 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${typeof f === 'function' && id !== 'none-scene' ? f(0, 0, 160, 110) : emptyMark()}</svg>`; }
     if (cat === 'buddy') return `<svg class="fig" viewBox="-12 -4 84 128" aria-hidden="true">${buddyInner(id) || emptyMark(true)}</svg>`;
     return '';
   }
@@ -228,5 +256,5 @@
     return `<circle cx="${tall ? 30 : 32}" cy="${tall ? 60 : 28}" r="18" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-dasharray="6 5"/><path d="M${tall ? 22 : 24} ${tall ? 52 : 20} l16 16 M${tall ? 38 : 40} ${tall ? 52 : 20} l-16 16" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>`;
   }
 
-  Object.assign(LG, { TIERS, tierOf, PETS, RIDES, BUDDIES, renderScene, renderItemPreview });
+  Object.assign(LG, { TIERS, tierOf, finalizeShop, shopGate, PETS, RIDES, BUDDIES, renderScene, renderItemPreview });
 })(window);

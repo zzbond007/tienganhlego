@@ -483,6 +483,8 @@
         <div class="hero-actions">
           ${next ? `<button class="brick-btn btn-red" data-action="start-lesson" data-lesson="${next.id}">${bi('▶ Next lesson: ' + esc(next.title), 'Bài tiếp theo: ' + esc(next.titleVi))}</button>`
             : `<button class="brick-btn btn-green" data-action="go" data-screen="diorama">${bi('🏆 All lessons done!', 'Đã học hết – xem Sa bàn')}</button>`}
+          <button class="brick-btn btn-red talk-btn" data-action="talk-time">${bi(`🎙️ Talk Time · ${Talk.doneCount()}/3`, 'Nhiệm vụ nói mỗi ngày – nói càng dài càng nhiều sao')}</button>
+          ${talkMeterHTML()}
           ${(() => { const cs = checkStatus(); return cs.due ? `<button class="brick-btn btn-orange check-due" data-action="skill-check">${bi('📝 Skill Check is ready!', 'Bài kiểm tra kỹ năng đã sẵn sàng – làm thật để nhận thưởng theo điểm')}</button>` : ''; })()}
           <button class="brick-btn btn-purple" data-action="gym">${bi('🎧 Listening & Speaking Gym', `Luyện Nghe – Nói mỗi ngày (3 phút)${S.gymToday() ? ' · hôm nay: ' + S.gymToday() + ' lượt' : ''}${S.speakToday() ? ' · 🎤 đã nói ' + S.speakToday() + ' lần' : ''}${S.gymToday() < GYM_GOLD_PER_DAY ? ' · 🥇 còn ' + (GYM_GOLD_PER_DAY - S.gymToday()) + ' Gold' : ''}`)}</button>
           ${due ? `<button class="brick-btn btn-orange" data-action="review" data-zone="">${bi(`🔧 Tune-up time (${due})`, `Trạm bảo trì: ${due} từ cần ôn`)}</button>` : ''}
@@ -697,16 +699,22 @@
     { key: 'acc', en: 'Accessories', vi: 'Phụ kiện' },
     { key: 'pet', en: '🐶 Pets', vi: 'Thú cưng' },
     { key: 'ride', en: '🛹 Rides', vi: 'Xe' },
-    { key: 'buddy', en: '🧑‍🤝‍🧑 Buddies', vi: 'Bạn đồng hành' }
+    { key: 'buddy', en: '🧑‍🤝‍🧑 Buddies', vi: 'Bạn đồng hành' },
+    { key: 'scene', en: '🏞️ Scenes', vi: 'Phông nền' }
   ];
   const priceHTML = (it) => it.gold ? `<i class="gold-icon"></i>${it.gold}` : `<i class="stud-icon"></i>${it.price}`;
   const canAfford = (it) => it.gold ? S.state.goldBricks >= it.gold : S.state.studs >= it.price;
 
   function renderLocker() {
     const st = S.state;
+    if (LG.finalizeShop) LG.finalizeShop();
+    if (!LG.ITEMS[App.lockerCat]) App.lockerCat = 'hat';
     const cat = App.lockerCat;
-    const items = LG.ITEMS[cat];
+    const owns = (id) => S.owns(id);
+    // Tầng sau ẩn ❓ cho tới khi mở; đồ bí mật 🎁 mở bằng Hành trình nói
+    const items = LG.ITEMS[cat].map((it) => Object.assign({ gate: LG.shopGate ? LG.shopGate(cat, it, owns) : { visible: true } }, it));
     const allItems = [].concat(...Object.values(LG.ITEMS));
+    const hiddenN = items.filter((it) => !it.secret && !it.gate.visible).length;
     screenEl.innerHTML = `<div class="screen-inner">
       <div class="screen-head"><div><h2>🧑‍🚀 Minifigure Locker</h2><span class="vi">Cửa hàng & Tủ đồ – dùng LEGO Studs kiếm được khi học để mua trang phục, thú cưng, xe và bạn đồng hành! Đồ ⭐ Huyền thoại mua bằng 🥇 Gold.</span></div>
         <div class="btn-row"><span class="chip" style="box-shadow:0 4px 0 var(--card-edge)"><i class="stud-icon"></i><b>${st.studs}</b><small>Studs</small></span>
@@ -714,7 +722,7 @@
       <div class="locker">
         <div class="card fig-stage studs-top">
           <div id="bigFig">${LG.renderScene(st.avatar, { cls: 'fig-big' })}</div>
-          <div class="collection-bar">🏆 Bộ sưu tập: <b>${allItems.filter((it) => it.price + (it.gold || 0) > 0 && S.owns(it.id)).length}</b> / ${allItems.filter((it) => it.price + (it.gold || 0) > 0).length} món</div>
+          <div class="collection-bar">🏆 Bộ sưu tập: <b>${allItems.filter((it) => (it.price || it.gold || it.secret) && S.owns(it.id)).length}</b> / ${allItems.filter((it) => it.price || it.gold || it.secret).length} món</div>
           <div class="name-tag">${esc(st.profile.name)}</div>
           <div class="btn-row center">
             <button class="brick-btn btn-blue btn-sm" data-action="fig-hello">${bi('👋 Say hi', 'Chào bạn')}</button>
@@ -724,13 +732,24 @@
         </div>
         <div>
           <div class="cat-tabs">${CATS.map((c) => `<button class="cat-tab${c.key === cat ? ' active' : ''}" data-action="locker-cat" data-cat="${c.key}">${c.en}<small>${c.vi}</small></button>`).join('')}</div>
+          ${hiddenN ? `<p class="vi locker-tip">❓ Còn ${hiddenN} món bí ẩn ở nhóm này – mua đồ ở tầng thấp để mở tầng tiếp theo! 🎁 Đồ bí mật mở bằng cách NÓI tiếng Anh thật nhiều.</p>` : ''}
           <div class="item-grid">${items.map((it) => {
             const owned = S.owns(it.id);
+            if (it.secret && !owned) {
+              return `<button class="item mystery secret" data-action="locker-mystery" data-id="${it.id}"><span class="tier-badge" style="--tc:#DB2777">🎁 Bí mật</span>
+                <div class="mystery-q">🎁</div><b>Secret item</b><small>Nói tiếng Anh tổng cộng ${it.milestone} phút để mở</small>
+                <span class="price">🎤 ${Math.min(it.milestone, S.talkMinTotal()).toFixed(1)}/${it.milestone} phút</span></button>`;
+            }
+            if (!it.gate.visible) {
+              return `<button class="item mystery" data-action="locker-mystery" data-id="${it.id}"><span class="tier-badge" style="--tc:#475569">❓ Tầng ${it.tierNum}</span>
+                <div class="mystery-q">❓</div><b>Mystery item</b><small>Mua thêm ${it.gate.need} món ${LG.TIERS[['', 'common', 'rare', 'epic', 'legendary'][it.gate.prevTier]].vi.toLowerCase()} để mở</small>
+                <span class="price">🔒</span></button>`;
+            }
             const equipped = st.avatar[cat] === it.id;
             const cfg = Object.assign({}, st.avatar, { [cat]: it.id });
             const cant = !owned && !canAfford(it);
             const tier = LG.TIERS[it.tier || 'common'];
-            const solo = cat === 'pet' || cat === 'ride' || cat === 'buddy';
+            const solo = cat === 'pet' || cat === 'ride' || cat === 'buddy' || cat === 'scene';
             return `<button class="item tier-${it.tier || 'common'}${owned ? ' owned' : ''}${equipped ? ' equipped' : ''}${cant ? ' cant' : ''}" data-action="locker-item" data-id="${it.id}">
               ${it.price || it.gold ? `<span class="tier-badge" style="--tc:${tier.color}">${it.tier === 'legendary' ? '⭐ ' : ''}${tier.vi}</span>` : ''}
               ${solo ? LG.renderItemPreview(cat, it.id) : LG.renderMinifig(cfg)}
@@ -962,6 +981,9 @@
       <h3 class="section-title">⏱️ Số phút học 7 ngày qua <span class="vi">Minutes per day</span></h3>
       <div class="card"><div class="bars">${days.map((d, i) => `<div class="bar-col${i === 6 ? ' today' : ''}"><span>${Math.round(d.seconds / 60)}</span><div class="bar" style="height:${Math.max(3, (d.seconds / maxSec) * 120)}px"></div><small>${d.date.toLocaleDateString('vi-VN', { weekday: 'short' })}</small></div>`).join('')}</div></div>
 
+      <h3 class="section-title">🎤 Số giây NÓI tiếng Anh 7 ngày qua <span class="vi">Đo bằng giọng nói thật của con (không tính bấm chọn) · mục tiêu hiện tại ${talkGoalSec()} giây/ngày · tổng ${S.talkMinTotal().toFixed(1)} phút · 🔥 ${S.talkStreak()} ngày liên tiếp</span></h3>
+      <div class="card"><div class="bars">${(() => { const tdays = days.map((d) => ({ date: d.date, sec: S.talkSecOn(d.key || S.todayKey(d.date)) })); const mx = Math.max(talkGoalSec(), ...tdays.map((d) => d.sec)); return tdays.map((d, i) => `<div class="bar-col${i === 6 ? ' today' : ''}"><span>${d.sec}</span><div class="bar talk${d.sec >= talkGoalSec() ? ' goal' : ''}" style="height:${Math.max(3, (d.sec / mx) * 120)}px"></div><small>${d.date.toLocaleDateString('vi-VN', { weekday: 'short' })}</small></div>`).join(''); })()}</div></div>
+
       <div class="p-grid" style="margin-top:22px">
         <div class="card p-section"><h3>🧩 Từ/mẫu câu bé hay nhầm</h3><span class="vi">Frequent mistakes – bấm 🔊 để nghe lại cùng bé</span>
           <div class="list-rows">${mistakes.length ? mistakes.map((m) => `<div class="row-item"><div class="grow">${esc(m.text)}<small>${esc(m.vi)}</small></div><span class="cnt">×${m.count}</span><button class="btn-mini" data-action="say-text" data-text="${esc(m.text)}">🔊</button></div>`).join('') : '<div class="empty-note">Chưa có lỗi nào – tuyệt vời! 🎉</div>'}</div>
@@ -1163,6 +1185,7 @@
       this.z = z; this.l = l; this.step = 0;
       this.stats = { correct: 0, total: 0 };
       this.spokeN = 0; this.vbSaved = 0; this.talkCount = 0; this.talkFree = 0;
+      this.payRate = !S.isLessonDone(l.id) ? 1 : l.parts.some((i) => !S.parts(z.id)[i]) ? 0.6 : 0.3;
       this.studs = 0; this.gold = 0; this.combo = 0;
       Speech.cancel();
       overlay.hidden = false;
@@ -1221,6 +1244,8 @@
     },
 
     earn(n, el) {
+      // Học lại bài đã xong: thưởng ít hơn (chống "cày" xu); luyện lại để mở mảnh còn thiếu: 60%
+      n = Math.round(n * (this.payRate || 1));
       if (n <= 0) return;
       this.studs += n;
       S.addStuds(n);
@@ -1476,6 +1501,7 @@
 
     renderReflex() {
       const R = this.r;
+      R.ready = false;
       if (R.i >= R.rounds.length) {
         praise();
         Speech.speak('Foundation complete!');
@@ -1524,14 +1550,19 @@
       if (!round) return;
       const fig = $('#reflexFig svg');
       if (fig) fig.classList.add('talking');
+      const R = this.r, tk = this.token, at = R.i;
+      const open = () => { if (tk === this.token && R.i === at) R.ready = true; };
       Speech.speak(round.mode === 'word' ? round.w.en.replace(/\.\.\./g, '') : round.w.clue, { pitch: 0.95 })
-        .then(() => { if (fig) fig.classList.remove('talking'); });
+        .then(() => { if (fig) fig.classList.remove('talking'); setTimeout(open, 250); });
+      setTimeout(open, 6000);
     },
 
     reflexPick(k, el) {
       const R = this.r, round = R.rounds[R.i];
       const w = R.opts[k];
       if (!round || el.classList.contains('right')) return;
+      // Nghe hết rồi mới chọn – chặn bấm đoán cho qua
+      if (!R.ready) { toast('Listen first! 👂', 'Nghe hết câu rồi mới chọn nhé!', 'warm'); return; }
       if (w === round.w) {
         $$('.opt-brick', overlay).forEach((b) => { b.style.pointerEvents = 'none'; });
         el.classList.add('right');
@@ -1540,8 +1571,8 @@
         Sfx.playBrickClick();
         this.answered(R.first, true);
         if (R.first) { S.recordAnswer(w.id, true); this.combo++; }
-        const mult = !R.first ? 1 : this.combo >= 4 ? 3 : this.combo >= 2 ? 2 : 1;
-        this.earn(2 * mult, el);
+        const mult = !R.first ? 0 : this.combo >= 4 ? 3 : this.combo >= 2 ? 2 : 1;
+        this.earn(2 * mult, el);   // chỉ thưởng khi đúng NGAY lần đầu
         if (mult > 1) {
           $('#comboBox').innerHTML = `<span class="combo-badge">Combo x${mult}! 🔥</span>`;
           Sfx.playCombo(mult);
@@ -1680,7 +1711,7 @@
         this.answered(C.first, true);
         el.classList.add('right');
         Sfx.playBrickClick();
-        this.earn(3, el);
+        if (C.first) this.earn(3, el);
         C.filled[C.blankIdx] = true;
         const panelIdx = b.panel;
         C.blankIdx++; C.opts = null; C.first = true;
@@ -2057,7 +2088,7 @@
       this.stopStudio();
       if (T.ti >= this.l.talk.length) { this.setupTalkBranch(); return; }
       const item = this.l.talk[T.ti];
-      T.first = true; T.attempts = 0; T.done = false; T.mode = this.useMic() ? 'mic' : 'fallback'; T.rating = 0; T.choiceOpts = null; T.branch = false; T.tried = false; T.voiced = false; T.hintLevel = 0; T.hintStep = 0;
+      T.first = true; T.attempts = 0; T.done = false; T.mode = this.useMic() ? 'mic' : 'fallback'; T.rating = 0; T.choiceOpts = null; T.branch = false; T.tried = false; T.voiced = false; T.hintLevel = 0; T.hintStep = 0; T.longBonus = false;
       // Câu mẫu ẩn cho tới khi con tự nói một lần (hoặc dùng gợi ý mức 3) – tránh "nhại lại"
       this.studio = { state: 'idle', text: item.hint, hidden: diff().model !== 'show' };
       const charB = this.z.chars.b;
@@ -2231,7 +2262,7 @@
       const p = praise();
       Speech.speak(p.en);
       const hl = T.hintLevel || 0;
-      this.earn(Math.max(2, 5 - (T.hintStep || 0)), el);
+      this.earn(!spoken && !T.voiced && !T.first ? 1 : Math.max(2, 5 - (T.hintStep || 0)), el);
       this.talkCount = (this.talkCount || 0) + 1;
       if (!T.hintStep) this.talkFree = (this.talkFree || 0) + 1;
       // Gold khi con nói được; ở cấp 3 phải tự tạo câu (không dùng tới câu mẫu đầy đủ)
@@ -2470,6 +2501,14 @@
         Gym.voiced(); return;
       }
       this.countSpoken();
+      // Thưởng NÓI DÀI: trả lời dài hơn câu mẫu (thêm lý do, chi tiết) → +2 Studs
+      if (!T.branch && this.l && this.l.talk[T.ti]) {
+        const expect = this.l.talk[T.ti].hint.split(/\s+/).length * 0.42;
+        if ((Recorder.voiceMs || 0) / 1000 >= Math.max(2, expect * 1.4) && !T.longBonus) {
+          T.longBonus = true; this.earn(2, $('#talkMode'));
+          toast('🗣️ Long answer! +2', 'Con trả lời dài và đầy đủ – tuyệt vời!', 'good');
+        }
+      }
       if (!T.branch && this.l && (this.vbSaved || 0) < 1) {
         this.vbSaved = (this.vbSaved || 0) + 1;
         VoiceBook.add({ kind: 'talk', lesson: this.l.id, title: this.l.title, text: this.l.talk[T.ti].q, blob: Recorder.lastBlob });
@@ -2938,12 +2977,15 @@
       if (!r) return;
       const fig = $('#gymBody .gym-fig svg');
       if (fig) fig.classList.add('talking');
-      Speech.speak(r.type === 'tf' ? r.en : r.q, { pitch: 0.95 }).then(() => { if (fig) fig.classList.remove('talking'); });
+      const tk = this.token;
+      Speech.speak(r.type === 'tf' ? r.en : r.q, { pitch: 0.95 }).then(() => { if (fig) fig.classList.remove('talking'); setTimeout(() => { if (tk === this.token) r.state.ready = true; }, 200); });
+      setTimeout(() => { r.state.ready = true; }, 7000);
     },
 
     pickTF(v, el) {
       const r = this.round();
       if (!r || r.type !== 'tf' || r.state.done) return;
+      if (!r.state.ready) { toast('Listen first! 👂', 'Nghe hết câu rồi mới chọn Đúng/Sai nhé!', 'warm'); return; }
       r.state.done = true;
       r.state.right = v === r.ok;
       if (r.state.right) { this.score++; Sfx.playBrickClick(); praise(); } else { Sfx.playGentleOops(); S.addMistake('gym:' + r.en.slice(0, 40), r.en, r.whyVi); }
@@ -3283,6 +3325,192 @@
   };
 
   /* =========================================================
+     🎙️ HÀNH TRÌNH NÓI MỖI NGÀY – đo thời gian NÓI THẬT (không phải số lần bấm)
+     - Mục tiêu giây nói mỗi ngày theo cấp (60 / 90 / 120 giây) + chuỗi ngày đạt mục tiêu
+     - Mốc tổng số phút nói → mở VẬT PHẨM BÍ MẬT trong Tủ đồ (không mua được bằng xu)
+     - Talk Time: 3 câu hỏi mở mỗi ngày, khung câu giúp nói DÀI hơn, sao theo số giây nói
+     ========================================================= */
+  const TALK_GOAL = { 1: 60, 2: 90, 3: 120 };
+  const JOURNEY = [5, 15, 30, 60, 120, 240, 480, 900];
+  const JOURNEY_TITLES = { 5: ['🐣', 'Chú chim non', 'First Words'], 15: ['🗣️', 'Người kể chuyện nhí', 'Little Talker'], 30: ['🎤', 'Ca sĩ tiếng Anh', 'Mic Star'], 60: ['🦜', 'Vẹt thông thái', 'Chatty Parrot'], 120: ['🚀', 'Phi hành gia ngôn ngữ', 'Word Astronaut'], 240: ['🧙', 'Phù thủy từ vựng', 'Word Wizard'], 480: ['🏆', 'Nhà hùng biện', 'Super Speaker'], 900: ['👑', 'Vua tiếng Anh', 'English Legend'] };
+  const talkGoalSec = () => TALK_GOAL[S.skillLevel()] || 60;
+  const secretItems = () => [].concat(...Object.keys(LG.ITEMS).map((cat) => LG.ITEMS[cat].filter((it) => it.secret).map((it) => Object.assign({ cat }, it))));
+
+  /** Mỗi lần con thực sự nói (Recorder/Listener báo về) → cộng giờ nói, kiểm tra mục tiêu ngày & mốc hành trình. */
+  function onTalk(ms) {
+    const before = S.talkMinTotal();
+    S.addTalkMs(ms);
+    const sec = S.talkSecToday(), goal = talkGoalSec(), k = S.todayKey();
+    const got = S.state.talkGoal[k] || 0;
+    if (got < 1 && sec >= goal) {
+      S.state.talkGoal[k] = 1; S.addStuds(40); S.save(); updateWallet();
+      setTimeout(() => { fx.confetti(50); Sfx.playSuccessFanfare(); toast(`🎤 Daily goal! ${goal}s`, `Hôm nay con đã nói đủ ${goal} giây tiếng Anh! +40 Studs · 🔥 ${S.talkStreak()} ngày liên tiếp`, 'good'); }, 400);
+    } else if (got === 1 && sec >= goal * 2) {
+      S.state.talkGoal[k] = 2; S.addGold(1); S.save(); updateWallet();
+      setTimeout(() => toast('🥇 Double goal!', `Con nói gấp đôi mục tiêu hôm nay! +1 Gold`, 'good'), 400);
+    }
+    const after = S.talkMinTotal();
+    JOURNEY.forEach((m) => {
+      if (before < m && after >= m && S.state.journey.indexOf(m) === -1) {
+        S.state.journey.push(m);
+        const gifts = secretItems().filter((it) => it.milestone === m);
+        gifts.forEach((it) => { if (!S.owns(it.id)) S.state.owned.push(it.id); });
+        S.save();
+        setTimeout(() => celebrateJourney(m, gifts), 1200);
+      }
+    });
+    const meter = $('#talkMeter'); if (meter) meter.outerHTML = talkMeterHTML();
+  }
+  Recorder.onVoice = (ms) => onTalk(ms);
+  Listener.onHeard = (text) => onTalk(String(text).trim().split(/\s+/).length * 420);
+
+  function celebrateJourney(m, gifts) {
+    const t = JOURNEY_TITLES[m] || ['⭐', 'Cột mốc mới', 'Milestone'];
+    fx.confetti(80); Sfx.playSparkle();
+    openModal(`<div style="text-align:center;display:grid;gap:10px;justify-items:center">
+      <div style="font-size:56px">${t[0]}</div>
+      <h2 class="en">${m} minutes of English!</h2><p class="vi">Con đã nói tiếng Anh tổng cộng <b>${m} phút</b> – danh hiệu mới: <b>${t[1]}</b> (${t[2]})!</p>
+      ${gifts.map((it) => `<div class="card" style="display:grid;justify-items:center;gap:6px;background:#FFFBEB"><b>🎁 Secret item unlocked!</b>${['pet', 'ride', 'buddy', 'scene'].indexOf(it.cat) !== -1 ? LG.renderItemPreview(it.cat, it.id) : LG.renderMinifig({ [it.cat]: it.id })}<b>${esc(it.en)}</b><small class="vi">${esc(it.vi)} – đã vào Tủ đồ của con!</small></div>`).join('')}
+      <button class="brick-btn btn-green" data-action="modal-close">${bi('Awesome! 🎉', 'Tuyệt quá!')}</button></div>`);
+    Speech.speak(`Amazing! You have spoken English for ${m} minutes!`);
+  }
+
+  function talkMeterHTML() {
+    const sec = S.talkSecToday(), goal = talkGoalSec(), pct = Math.min(100, Math.round((sec / goal) * 100));
+    const total = S.talkMinTotal(), next = JOURNEY.find((m) => total < m);
+    return `<div class="talk-meter" id="talkMeter">
+      <div class="tm-row"><b>🎤 ${sec}/${goal}s</b><small class="vi">giây nói hôm nay${S.talkStreak() ? ` · 🔥 ${S.talkStreak()} ngày` : ''}</small></div>
+      <div class="tm-bar"><i style="width:${pct}%"></i></div>
+      <small class="vi">🗺️ Hành trình: ${total.toFixed(1)} phút${next ? ` · còn ${(next - total).toFixed(1)} phút tới 🎁 bí mật` : ' · 👑 hoàn thành!'}</small>
+    </div>`;
+  }
+
+  /* ---------- Talk Time: 3 nhiệm vụ nói mở mỗi ngày ---------- */
+  const Talk = {
+    token: 0,
+    todays() {
+      const all = window.SpeakMissions || [];
+      const lv = S.skillLevel(), k = S.todayKey();
+      const pool = all.filter((m) => m.level === lv);
+      const list = pool.length ? pool : all;
+      if (!list.length) return [];
+      const day = Math.floor(new Date(k + 'T00:00:00').getTime() / 86400000);
+      const start = (day * 3) % list.length;
+      return [0, 1, 2].map((i) => list[(start + i) % list.length]);
+    },
+    state() {
+      const k = S.todayKey();
+      if (!S.state.talkDay || S.state.talkDay.date !== k) S.state.talkDay = { date: k, best: {} };
+      return S.state.talkDay;
+    },
+    doneCount() { const st = this.state(); return this.todays().filter((m) => (st.best[m.id] || 0) >= m.target).length; },
+    start() {
+      closeModal();
+      this.list = this.todays();
+      if (!this.list.length) { toast('Coming soon', 'Chưa có nhiệm vụ nói', 'warm'); return; }
+      this.token++; this.i = 0;
+      Speech.cancel(); Listener.stop();
+      overlay.hidden = false;
+      overlay.innerHTML = `<div class="lesson-top">
+          <button class="brick-btn btn-white btn-round" data-action="talk-close" aria-label="Close">✕</button>
+          <div style="text-align:center"><b class="en" style="font-size:22px">🎙️ Talk Time</b><div class="lesson-step-name">Nói mỗi ngày – nói càng DÀI, càng nhiều sao!</div></div>
+          <div class="lesson-earned">${speedChipHTML()}</div>
+        </div>
+        <div class="lesson-body" id="talkBody"></div>`;
+      this.render();
+    },
+    render() {
+      const m = this.list[this.i];
+      if (!m) return this.finish();
+      const st = this.state(), best = st.best[m.id] || 0;
+      const lv = S.skillLevel();
+      this.cur = { rec: false, tried: best > 0, clip: null };
+      const showModel = lv === 1 || best > 0;
+      $('#talkBody').innerHTML = `<div class="step">
+        <div class="review-meter">${this.list.map((x, k) => `<i class="${(st.best[x.id] || 0) >= x.target ? 'ok' : k === this.i ? 'cur' : ''}"></i>`).join('')}</div>
+        <div class="card talk-mission studs-top">
+          <div class="tmn-emoji">${m.emoji}</div>
+          <button class="talk-q" data-action="tt-say">🔊 “${esc(m.q)}”<span class="vi">${esc(m.vi)}</span></button>
+          <div class="frames"><small class="vi">🧱 Gạch câu giúp con nói dài hơn – chạm để nghe:</small>
+            ${m.frames.map((f) => `<button class="frame-chip" data-action="tt-frame" data-t="${esc(f)}">${esc(f)}</button>`).join('')}</div>
+          <div class="tt-target">🎯 Nói ít nhất <b>${m.target} giây</b> · ⭐ ${m.target}s · ⭐⭐ ${Math.round(m.target * 1.5)}s · ⭐⭐⭐ ${m.target * 2}s</div>
+          <div class="tm-bar big"><i id="ttBar" style="width:${Math.min(100, (best / (m.target * 2)) * 100)}%"></i></div>
+          <div id="ttStatus" class="vi">${best ? `Kỷ lục của con: <b>${best.toFixed(1)} giây</b> ${this.stars(m, best)}` : 'Chạm 🎤 rồi nói thật nhiều nhé! Nói xong im lặng một lúc, máy tự dừng.'}</div>
+          <div class="btn-row center">
+            <button class="mic-btn" data-action="tt-rec" id="ttMic" aria-label="Record">🎙️</button>
+          </div>
+          <div id="ttModel">${showModel ? this.modelHTML(m) : `<small class="vi">💡 Câu mẫu sẽ mở sau lần nói đầu tiên của con.</small>`}</div>
+        </div>
+        <div class="step-foot"><button class="brick-btn btn-white" data-action="tt-next">${bi(this.i + 1 < this.list.length ? 'Next ▶' : 'Finish ▶', this.i + 1 < this.list.length ? 'Câu tiếp' : 'Hoàn thành')}</button></div>
+      </div>`;
+      setTimeout(() => this.say(), 350);
+    },
+    modelHTML(m) { return `<button class="tt-model" data-action="say-text" data-text="${esc(m.model)}">💬 Example: ${esc(m.model)}<small class="vi">${esc(m.modelVi)}</small></button>`; },
+    stars(m, sec) { const n = sec >= m.target * 2 ? 3 : sec >= m.target * 1.5 ? 2 : sec >= m.target ? 1 : 0; return n ? '⭐'.repeat(n) : ''; },
+    say() { const m = this.list[this.i]; if (m) Speech.speak(m.q); },
+    async rec() {
+      const m = this.list[this.i], tk = this.token, cur = this.cur;
+      if (!m || !cur) return;
+      const mic = $('#ttMic'), status = $('#ttStatus'), bar = $('#ttBar');
+      if (cur.rec) { cur.stop && cur.stop(); return; }
+      if (!Recorder.supported) { toast('No microphone', 'Thiết bị chưa ghi âm được – con nói to theo câu mẫu nhé!', 'warm'); return; }
+      Speech.cancel();
+      cur.rec = true;
+      if (mic) { mic.classList.add('listening'); mic.textContent = '⏹️'; }
+      let timer;
+      const stopNow = async () => {
+        if (!cur.rec) return; cur.rec = false; clearInterval(timer);
+        await Recorder.stop();
+        if (tk !== this.token) return;
+        if (mic) { mic.classList.remove('listening'); mic.textContent = '🎙️'; }
+        const sec = (Recorder.voiceMs || 0) / 1000;
+        if (!Recorder.heardVoice(300)) { Sfx.playGentleOops(); if (status) status.innerHTML = "I can't hear you! <small>Mình chưa nghe thấy – nói TO và RÕ hơn nhé!</small>"; return; }
+        const st = this.state(), prev = st.best[m.id] || 0;
+        const starsNow = this.stars(m, sec).length, starsPrev = this.stars(m, prev).length;
+        if (sec > prev) { st.best[m.id] = Math.round(sec * 10) / 10; S.save(); }
+        if (starsNow > starsPrev) {
+          const studs = (starsNow - starsPrev) * 5; S.addStuds(studs); updateWallet();
+          fx.confetti(20 * starsNow); Sfx.playSuccessFanfare();
+          toast(`${'⭐'.repeat(starsNow)} ${sec.toFixed(1)}s!`, `Con đã nói ${sec.toFixed(1)} giây! +${studs} Studs`, 'good');
+        } else if (sec < m.target) toast(`${sec.toFixed(1)}s – say more!`, 'Nói dài thêm nhé: dùng một viên gạch câu như "because…" hoặc "and then…"', 'warm');
+        else praise();
+        if (!prev && Recorder.lastBlob) VoiceBook.add({ kind: 'mission', title: '🎙️ Talk Time', text: m.q, blob: Recorder.lastBlob });
+        const best = st.best[m.id];
+        if (status) status.innerHTML = `Lần này: <b>${sec.toFixed(1)} giây</b> ${this.stars(m, sec)} · Kỷ lục: <b>${best.toFixed(1)}s</b> ${this.stars(m, best)}<br><small>🔊 Đang phát lại giọng con…</small>`;
+        if (bar) bar.style.width = Math.min(100, (best / (m.target * 2)) * 100) + '%';
+        const mb = $('#ttModel'); if (mb && !$('.tt-model', mb)) mb.innerHTML = this.modelHTML(m);
+        await Recorder.play(Recorder.lastBlob);
+        if (tk === this.token && status) status.innerHTML = status.innerHTML.replace(/<br><small>🔊[^<]*<\/small>/, '');
+      };
+      cur.stop = stopNow;
+      try {
+        await Recorder.start({ maxMs: 60000, autoStop: true, silenceMs: 2200, minVoiceMs: 600, onAuto: stopNow });
+        Sfx.playMicOn();
+        timer = setInterval(() => {
+          const s2 = (Recorder.voiceMs || 0) / 1000;
+          if (status) status.innerHTML = `🎤 Đang nghe… <b>${s2.toFixed(1)} giây</b> ${this.stars(m, s2)}`;
+          if (bar) bar.style.width = Math.min(100, (s2 / (m.target * 2)) * 100) + '%';
+        }, 200);
+      } catch (e) {
+        cur.rec = false; if (mic) { mic.classList.remove('listening'); mic.textContent = '🎙️'; }
+        toast('Microphone is off', 'Chưa dùng được micro – hãy cho phép micro nhé', 'warm');
+      }
+    },
+    next() { if (this.cur && this.cur.rec) return; this.i++; this.render(); },
+    finish() {
+      const done = this.doneCount();
+      Sfx.playSuccessFanfare(); fx.confetti(40);
+      $('#talkBody').innerHTML = `<div class="step"><div class="card lesson-done studs-top">
+        <h3>🎙️ Talk Time ${done >= 3 ? 'Complete!' : 'Done for now!'}</h3><span class="vi">Hôm nay con đã hoàn thành ${done}/3 nhiệm vụ nói.</span>
+        ${talkMeterHTML()}
+        <div class="btn-row center"><button class="brick-btn btn-purple" data-action="talk-time">${bi('🔁 Practise again', 'Nói lại để phá kỷ lục')}</button>
+        <button class="brick-btn btn-white" data-action="talk-exit" data-screen="map">${bi('🌍 Map', 'Bản đồ')}</button></div>
+      </div></div>`;
+    },
+    close() { this.token++; if (this.cur && this.cur.rec) { this.cur.rec = false; Recorder.stop(); } Speech.cancel(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; render(); }
+  };
+
+  /* =========================================================
      LEGO MYSTERY MISSION (Nhiệm vụ thám tử cuối mỗi Vùng đất)
      ========================================================= */
   const Mystery = {
@@ -3421,7 +3649,7 @@
   function go(screen) {
     App.screen = screen;
     if (screen !== 'parent') { App.parentOk = false; App.gate = null; }
-    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
+    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
     closeModal();
     render();
     screenEl.scrollTop = 0;
@@ -3437,10 +3665,10 @@
     'go': (el) => go(el.dataset.screen),
     'modal-close': () => closeModal(),
     'open-zone': (el) => openZone(el.dataset.zone),
-    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
+    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
     'ws-open': (el) => { App.wsZone = el.dataset.zone; const z = zoneById(el.dataset.zone); if (z) S.state.settings.roadmap = z.stage; go('workshop'); },
     'ws-zone': (el) => { App.wsZone = el.dataset.zone; renderWorkshop(); },
-    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Check.token++; Lesson.stopStudio(); } Review.start(zid); },
+    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Lesson.stopStudio(); } Review.start(zid); },
     'mystery': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Mystery.start(el.dataset.zone); },
     'mystery-close': () => Mystery.close(),
     'mystery-exit': (el) => { Mystery.close(); go(el.dataset.screen); },
@@ -3472,7 +3700,14 @@
       c.scores.speak = Math.round((g.filter(Boolean).length / g.length) * 100);
       S.save(); fillCheckHistory();
     },
-    'skill-check': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Check.start(); },
+    'talk-time': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Talk.start(); },
+    'tt-say': () => Talk.say(),
+    'tt-frame': (el) => Speech.speak(el.dataset.t.replace(/…|\.\.\./g, '')),
+    'tt-rec': () => Talk.rec(),
+    'tt-next': () => Talk.next(),
+    'talk-close': () => Talk.close(),
+    'talk-exit': (el) => { Talk.close(); go(el.dataset.screen); },
+    'skill-check': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Check.start(); },
     'check-go': () => Check.render(),
     'check-say': () => Check.say(),
     'check-pick': (el) => Check.pick(Number(el.dataset.v)),
@@ -3542,6 +3777,7 @@
     'vb-clear': async () => { if (await confirmModal({ en: 'Delete all recordings?', vi: 'Xóa toàn bộ sổ giọng nói?', text: '<p>Các bản ghi giọng con sẽ bị xóa khỏi thiết bị này.</p>', ok: 'Delete', okVi: 'Xóa' })) { await VoiceBook.clear(); fillVoiceBook(); } },
     'locker-cat': (el) => { App.lockerCat = el.dataset.cat; renderLocker(); },
     'locker-item': (el) => lockerItem(el.dataset.id),
+    'locker-mystery': (el) => { Sfx.playGentleOops(); const it = LG.ITEMS[App.lockerCat].find((x) => x.id === el.dataset.id); toast(it && it.secret ? '🎁 Secret!' : '❓ Mystery!', it && it.secret ? `Nói tiếng Anh tổng cộng ${it.milestone} phút (Talk Time, bài học, Gym…) để mở món bí mật này!` : 'Mua đủ đồ ở tầng thấp hơn để mở món này nhé!', 'warm'); },
     'fig-hello': () => { const f = $('#bigFig svg'); if (f) bounceEl(f); Speech.speak(`Hi! I'm ${S.state.profile.name}. I love building with LEGO!`, { pitch: 1.15 }); },
     'fig-random': () => {
       const av = {};

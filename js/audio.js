@@ -356,6 +356,7 @@
         for (let i = 0; i < ev.results.length; i++) {
           for (let j = 0; j < ev.results[i].length; j++) alts.push(ev.results[i][j].transcript);
         }
+        if (this.onHeard && alts[0]) { try { this.onHeard(alts[0]); } catch (e) { /* */ } }
         handlers.onResult && handlers.onResult(alts);
       };
       rec.onerror = (ev) => {
@@ -625,6 +626,8 @@
           if (this._url) URL.revokeObjectURL(this._url);
           const blob = new Blob(this._chunks, { type: this._rec.mimeType || 'audio/mp4' });
           this.lastBlob = blob; this._decoded = null;
+          // Báo thời gian nói thật cho app (chỉ khi thật sự có tiếng nói)
+          if (this.onVoice && this.voiceMs >= 250 && (this.peak || 0) >= 0.07) { try { this.onVoice(this.voiceMs); } catch (e) { /* */ } }
           this._url = URL.createObjectURL(blob);
           this.release();   // giữ micro nếu đang trong buổi học (_hold), tránh iPad hỏi quyền lại
           resolve(this._url);
