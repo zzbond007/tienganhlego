@@ -29,6 +29,18 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🎙️ Bản v1.8 – Hành trình nói mỗi ngày, chống "bấm cho qua", Tủ đồ bí ẩn:**
+- *Đo thời gian NÓI thật* (giây có giọng nói, không tính bấm chọn). Mục tiêu mỗi ngày theo cấp: 60 / 90 / 120 giây
+  (+40 Studs, gấp đôi mục tiêu +1 Gold), chuỗi ngày nói liên tiếp, biểu đồ 7 ngày trong Góc Bố Mẹ.
+- *🎙️ Talk Time*: 3 câu hỏi mở mỗi ngày (90 nhiệm vụ, 3 cấp, 7 dạng: về bản thân, tả tranh, kể chuyện, nêu ý kiến,
+  tưởng tượng, "Would you rather", thế giới LEGO). Gạch câu giúp nói dài hơn, sao theo số giây nói (⭐ mục tiêu,
+  ⭐⭐ ×1,5, ⭐⭐⭐ ×2), phá kỷ lục mới được thêm thưởng. Bước 5 có thưởng "trả lời dài".
+- *🗺️ Hành trình nói*: mốc 5 / 15 / 30 / 60 / 120 / 240 / 480 / 900 phút → danh hiệu + 🎁 vật phẩm bí mật (không mua được bằng xu).
+- *Chống bấm cho qua*: phải nghe hết câu mới chọn được (Bước 2, Gym, Bài kiểm tra); chỉ thưởng khi đúng NGAY lần đầu;
+  học lại bài đã xong chỉ nhận 30% xu (60% khi luyện lại để mở mảnh còn thiếu).
+- *Tủ đồ v2*: 152 món trong 9 nhóm (thêm 🏞️ Phông nền: Hạ Long, vũ trụ, đáy biển…; nón lá, áo dài, xích lô, đèn ông sao…),
+  giá ×5, 4 tầng – tầng sau hiện ❓ cho tới khi mua đủ món tầng trước; đồ Huyền thoại mua bằng Gold; 8 đồ 🎁 bí mật theo phút nói.
+
 **📈 Bản v1.7 – Cấp độ thích ứng & Bài kiểm tra kỹ năng:**
 - *3 cấp độ* (🌱 Làm quen → 🌿 Vững vàng → 🚀 Thành thạo). Bắt đầu ở Cấp 1: ngưỡng mảnh ghép 60%, câu mẫu hiện sẵn, gạch có màu,
   tiếng Việt hiện sẵn. Cấp 2: 65%, câu mẫu sau 1 gợi ý/lần nói đầu. Cấp 3: 70%, con tự nói trước. Tự lên cấp khi 5 bài gần nhất
@@ -53,7 +65,7 @@ Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact
 - *Importer*: bắt buộc câu ví dụ; thiếu phần nào thì báo "⚠️ chất lượng thấp" thay vì "Hợp lệ"; sửa gạch nhiễu bị cắt lỗi.
 - Nhãn "giọng mẫu (máy đọc)" thay cho "bản xứ"; Góc Bố Mẹ giải thích giới hạn chấm nói khi mở từ Màn hình chính.
 
-**🛍️ Cửa hàng nhân vật (Tủ đồ):** 86 món để mua (cùng 13 lựa chọn miễn phí ban đầu), chia 8 nhóm – mũ & tóc, khuôn mặt, trang phục, quần, phụ kiện, 🐶 thú cưng,
+**🛍️ Cửa hàng nhân vật (Tủ đồ):** xem v1.8 bên trên – 152 món, 9 nhóm – mũ & tóc, khuôn mặt, trang phục, quần, phụ kiện, 🐶 thú cưng,
 🛹 xe, 🧑‍🤝‍🧑 bạn đồng hành. Độ hiếm: Thường (≤ 80 Studs) · Hiếm (≤ 250) · Sử thi (≤ 600) · ⭐ Huyền thoại (đến 900 Studs
 hoặc mua bằng 🥇 Gold Brick: vương miện kim cương, áo giáp vàng, rồng con, kỳ lân, tên lửa, bạn Robot). Thú cưng, xe và
 bạn đồng hành xuất hiện cùng nhân vật ở Bản đồ, Tủ đồ và Hộ chiếu.
