@@ -245,6 +245,7 @@
 
     cancel() {
       this._token++;
+      this._chain++;
       this._slowId++;
       if (this.supported) { try { synth.cancel(); } catch (e) { /* */ } }
     },
@@ -254,6 +255,33 @@
      * opts.rate, opts.onWord(index) – karaoke theo từ (dùng boundary event, có dự phòng hẹn giờ).
      */
     speak(text, opts = {}) {
+      // Câu dài / nhiều câu: đọc từng cụm (tách ở dấu chấm, hỏi, than, phẩy) và NGHỈ giữa các cụm
+      // để bé kịp nghe và bắt chữ. Karaoke vẫn đánh dấu đúng từ.
+      const clean = String(text || '').replace(/_{2,}/g, 'blank').trim();
+      const chunks = opts.noChunk ? [clean] : (clean.match(/[^.!?,;:]+[.!?,;:]*["”’)]*\s*/g) || [clean]).map((c) => c.trim()).filter(Boolean)
+        .reduce((acc, c) => { const last = acc[acc.length - 1]; if (last && /(^|\s)(Mr|Mrs|Ms|Dr|St|a\.m|p\.m)\.$/i.test(last)) acc[acc.length - 1] = last + ' ' + c; else acc.push(c); return acc; }, []);
+      if (chunks.length < 2) return this._speakOne(clean, opts);
+      const chain = ++this._chain;
+      const onWord = typeof opts.onWord === 'function' ? opts.onWord : null;
+      return (async () => {
+        let offset = 0;
+        for (let k = 0; k < chunks.length; k++) {
+          if (chain !== this._chain) return;
+          const c = chunks[k], n = c.split(/\s+/).filter(Boolean).length, off = offset;
+          await this._speakOne(c, Object.assign({}, opts, { onWord: onWord ? (i) => { if (i >= 0 && chain === this._chain) onWord(off + i); } : null }));
+          offset += n;
+          if (k < chunks.length - 1 && chain === this._chain) {
+            const slow = (opts.rate || this.rate) <= 0.7;
+            await new Promise((r) => setTimeout(r, /[.!?]["”’)]*$/.test(c) ? (slow ? 550 : 350) : (slow ? 300 : 150)));
+          }
+        }
+        if (onWord && chain === this._chain) onWord(-1);
+      })();
+    },
+
+    _chain: 0,
+
+    _speakOne(text, opts = {}) {
       const clean = String(text || '').replace(/_{2,}/g, 'blank').trim();
       const words = clean.split(/\s+/).filter(Boolean);
       const rate = opts.rate || this.rate;
@@ -346,6 +374,9 @@
 
   /* ---------------- Listener (Speech Recognition) ---------------- */
   const SR = global.SpeechRecognition || global.webkitSpeechRecognition || null;
+  const NUM_WORDS = { 0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten',
+    11: 'eleven', 12: 'twelve', 13: 'thirteen', 14: 'fourteen', 15: 'fifteen', 16: 'sixteen', 17: 'seventeen', 18: 'eighteen', 19: 'nineteen',
+    20: 'twenty', 30: 'thirty', 40: 'forty', 50: 'fifty', 60: 'sixty', 70: 'seventy', 80: 'eighty', 90: 'ninety', 100: 'one hundred' };
 
   const Listener = {
     supported: !!SR,
@@ -414,8 +445,43 @@
         .replace(/\bp\.\s?e\.?/g, 'pe')
         .replace(/[^a-z0-9'\s-]/g, ' ')
         .replace(/-/g, ' ')
+        .replace(/\b\d+\b/g, (n) => NUM_WORDS[n] || n)   // máy nhận diện hay ghi số: "2 cats" = "two cats"
         .replace(/\s+/g, ' ')
         .trim();
+    },
+
+    /** Hai từ "nghe giống nhau" – chấp nhận lỗi phát âm nhỏ của bé / lỗi nghe nhầm của máy
+     *  (ruler ~ rula, pencil ~ pencils, elephant ~ elefant). Từ ngắn (≤ 3 chữ) phải đúng. */
+    similar(a, b) {
+      if (a === b) return true;
+      if (!a || !b) return false;
+      const strip = (w) => w.replace(/'s$/, '').replace(/(es|s)$/, '');
+      if (strip(a) === strip(b)) return true;
+      const key = (w) => strip(w).replace(/ph/g, 'f').replace(/ck/g, 'k').replace(/(.)\1+/g, '$1').replace(/r$/, '').replace(/[aeiouy]+$/, '');
+      if (Math.min(a.length, b.length) >= 4 && key(a) === key(b)) return true;
+      const m = Math.min(a.length, b.length);
+      if (m < 4) return false;
+      const maxD = m >= 7 ? 2 : 1;
+      if (Math.abs(a.length - b.length) > maxD) return false;
+      // Levenshtein có giới hạn
+      let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+      for (let i = 1; i <= a.length; i++) {
+        const cur = [i];
+        let rowMin = i;
+        for (let j = 1; j <= b.length; j++) {
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+          rowMin = Math.min(rowMin, cur[j]);
+        }
+        if (rowMin > maxD) return false;
+        prev = cur;
+      }
+      return prev[b.length] <= maxD;
+    },
+
+    /** Thay các từ máy nghe được bằng từ gần giống trong câu mẫu/từ khóa, để chấm theo ý chứ không bắt lỗi chính tả. */
+    snap(raw, vocabText) {
+      const vocab = [...new Set(this.normalize(vocabText).split(' ').filter((w) => w.length > 1))];
+      return this.normalize(raw).split(' ').map((w) => (vocab.indexOf(w) !== -1 ? w : vocab.find((v) => this.similar(w, v)) || w)).join(' ');
     },
 
     /**
@@ -434,8 +500,9 @@
      *  Trả về { ok, score (0..1), text, reason: 'full'|'short'|'model'|'wrong'|'partial' }
      */
     judge(transcripts, item = {}) {
-      const list = (Array.isArray(transcripts) ? transcripts : [transcripts]).filter(Boolean);
       const kws = item.keywords || [];
+      const vocab = [item.hint || '', kws.join(' ').replace(/\|/g, ' '), (item.wrong || []).join(' ')].join(' ');
+      const list = (Array.isArray(transcripts) ? transcripts : [transcripts]).filter(Boolean).map((t) => this.snap(t, vocab));
       const words = (s) => this.normalize(s).split(' ').filter((w) => w.length > 1);
       const overlap = (a, b) => { const A = words(a), B = new Set(words(b)); return A.length ? A.filter((w) => B.has(w)).length / A.length : 0; };
       const sim = (a, b) => Math.min(overlap(a, b), overlap(b, a));
@@ -467,7 +534,8 @@
     },
 
     score(transcripts, keywords = [], hint = '') {
-      const list = Array.isArray(transcripts) ? transcripts : [transcripts];
+      const vocab = hint + ' ' + keywords.join(' ').replace(/\|/g, ' ');
+      const list = (Array.isArray(transcripts) ? transcripts : [transcripts]).filter(Boolean).map((t) => this.snap(t, vocab));
       let best = 0, bestText = list[0] || '';
       for (const raw of list) {
         const t = ' ' + this.normalize(raw) + ' ';
@@ -516,7 +584,7 @@
         // Dùng chung AudioContext với hiệu ứng âm thanh (iPad giới hạn số AudioContext)
         let ctx = (global.Sfx && global.Sfx.ctx) || this._ctx;
         if (!ctx) ctx = this._ctx = new AC();
-        if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
+        if (ctx.state !== 'running' && ctx.resume) { try { const p = ctx.resume(); if (p && p.catch) p.catch(() => {}); } catch (e) { /* */ } }   // iPad: 'suspended' hoặc 'interrupted'
         // Mỗi lần ghi tạo nút nguồn mới: nút cũ có thể ngừng nhận dữ liệu khi micro được giữ mở lâu
         if (this._anSrc) { try { this._anSrc.disconnect(); } catch (e) { /* */ } }
         const src = ctx.createMediaStreamSource(this._stream);
@@ -554,42 +622,91 @@
     /* ---- Nhận biết giọng nói (VAD đơn giản theo độ lớn âm thanh) ----
        voiceMs: tổng thời gian có tiếng nói trong lần ghi gần nhất (ms); null = không đo được (không có Analyser). */
     voiceMs: null,
+    peak: 0,
+    _floor: 0.01,
+    /* Ngưỡng nghe giọng (v1.9.2 – sửa lỗi "nói to mà không ghi nhận"):
+       - Bản cũ đo ồn nền trong 250 ms đầu – đúng lúc loa phát tiếng "bíp" báo bật micro → ồn nền bị tính rất to,
+         ngưỡng bị đẩy lên gấp 3 lần (tới 0.2) → bé phải hét mới được tính. Ồn nền còn bị kéo lên dần bởi chính
+         những đoạn nói nhỏ (cuối từ, phụ âm) → càng nói ngưỡng càng cao.
+       - Bản mới: tiếng bíp phát trước khi ghi, chỉ bỏ 150 ms đầu (tiếng chạm), ồn nền lấy mức THẤP (tụt nhanh, tăng rất chậm) và bị chặn trần, ngưỡng nằm
+         trong khoảng 0.016 – 0.055; chỉ tính đoạn có tiếng liên tục ≥ 150 ms; "đủ to" tính tương đối theo ồn nền. */
+    _thr(floor) { return Math.max(0.016, Math.min(0.055, floor * 2.6)); },
+    _peakNeed(floor) { return Math.max(0.03, Math.min(0.07, floor * 4)); },
     _vad(opts) {
       clearInterval(this._vadTimer);
       this.voiceMs = this._an ? 0 : null;
+      this.peak = 0; this._floor = 0.01; this._liveMax = 0;
       if (!this._an) return;
       const STEP = 50, buf = new Uint8Array(this._an.fftSize);
-      // Chặt hơn để tiếng ồn nền (quạt, TV, tiếng bấm màn hình) không bị tính là con nói:
-      //  - bỏ qua 250 ms đầu (tiếng chạm nút), dùng nó để đo độ ồn nền
-      //  - ngưỡng = max(0.045, ồn nền × 3.2), ồn nền cập nhật liên tục khi không có tiếng nói
-      //  - chỉ tính những đoạn có tiếng liên tục ≥ 150 ms (tiếng nói thật), và phải có lúc đủ to (peak)
-      let floor = 0, nFloor = 0, lastVoice = 0, run = 0;
+      const SKIP = 150, cal = [];
+      let floor = 0.01, calibrated = false, lastVoice = 0, run = 0;
       const started = Date.now();
-      this.peak = 0;
       this._vadTimer = setInterval(() => {
         if (!this._an || !this.isRecording()) { clearInterval(this._vadTimer); return; }
         this._an.getByteTimeDomainData(buf);
         let sum = 0;
         for (let i = 0; i < buf.length; i++) { const v = (buf[i] - 128) / 128; sum += v * v; }
         const rms = Math.sqrt(sum / buf.length);
+        this._liveMax = Math.max(this._liveMax, rms);
         const now = Date.now();
-        if (now - started < 250) { floor = (floor * nFloor + rms) / (++nFloor); return; }
-        const thr = Math.max(0.045, Math.min(0.2, floor * 3.2));
+        if (now - started < SKIP) { cal.push(rms); return; }
+        if (!calibrated) {
+          calibrated = true;
+          // Lấy mức thấp nhất của đoạn đầu (bỏ qua tiếng bíp / tiếng chạm), chặn trần để không đẩy ngưỡng lên cao
+          const sorted = cal.concat([rms]).sort((x, y) => x - y);
+          floor = Math.min(0.02, sorted[0] || 0.01);
+        }
+        const thr = this._thr(floor);
         if (rms > thr) {
           run++;
           if (run === 3) this.voiceMs += 3 * STEP; else if (run > 3) this.voiceMs += STEP;
           if (run >= 3) { lastVoice = now; this.peak = Math.max(this.peak, rms); }
         } else {
           run = 0;
-          floor = floor * 0.9 + rms * 0.1;
+          // Ồn nền: tụt nhanh khi yên lặng hơn, tăng rất chậm (không để đoạn nói nhỏ kéo ngưỡng lên)
+          floor = rms < floor ? floor * 0.7 + rms * 0.3 : Math.min(0.02, floor * 0.985 + rms * 0.015);
         }
+        this._floor = floor;
         // Tự dừng khi con đã nói xong (im lặng sau khi có tiếng) – tiện cho bé, không cần bấm Dừng
-        if (opts.autoStop && this.voiceMs >= (opts.minVoiceMs || 300) && now - lastVoice > (opts.silenceMs || 1100)) {
+        if (opts.autoStop && this.voiceMs >= (opts.minVoiceMs || 300) && now - lastVoice > (opts.silenceMs || 1300)) {
           clearInterval(this._vadTimer);
           if (opts.onAuto) opts.onAuto('silence');
         }
       }, STEP);
     },
+
+    /** Đo lại trên CHÍNH file ghi âm (sau khi dừng). Dùng khi bộ đo trực tiếp không nhận được dữ liệu
+     *  (iPad có lúc tạm dừng AudioContext khi chuyển chế độ micro/loa) – bé nói thật thì file ghi âm có tiếng. */
+    async _offlineVoice(blob) {
+      const ctx = (global.Sfx && global.Sfx.ctx) || this._ctx;
+      if (!ctx || !ctx.decodeAudioData || !blob || !blob.arrayBuffer || !blob.size) return null;
+      try {
+        const ab = await blob.arrayBuffer();
+        const audio = await Promise.race([
+          new Promise((res, rej) => { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); }),
+          new Promise((res) => setTimeout(() => res(null), 2500))
+        ]);
+        if (!audio) return null;
+        this._decoded = audio;
+        const data = audio.getChannelData(0), sr = audio.sampleRate, hop = Math.round(sr * 0.05);
+        const frames = [];
+        for (let i = Math.round(sr * 0.15); i + hop <= data.length; i += hop) {
+          let sum = 0;
+          for (let j = i; j < i + hop; j++) sum += data[j] * data[j];
+          frames.push(Math.sqrt(sum / hop));
+        }
+        if (!frames.length) return { voiceMs: 0, peak: 0, floor: 0.01 };
+        const sorted = frames.slice().sort((x, y) => x - y);
+        const floor = Math.min(0.02, sorted[Math.floor(sorted.length * 0.15)]);
+        const thr = this._thr(floor);
+        let run = 0, ms = 0, peak = 0;
+        frames.forEach((r) => {
+          if (r > thr) { run++; if (run === 3) ms += 150; else if (run > 3) ms += 50; if (run >= 3) peak = Math.max(peak, r); } else run = 0;
+        });
+        return { voiceMs: ms, peak, floor };
+      } catch (e) { return null; }
+    },
+
     /** Âm lượng tức thời (RMS 0..1) của micro khi đang ghi – dùng cho Beat Talk chấm từng nhịp. */
     rms() {
       if (!this._an || !this.isRecording()) return 0;
@@ -601,7 +718,7 @@
       return Math.sqrt(sum / this._tdBuf.length);
     },
     /** Đã nghe thấy giọng con chưa? (true nếu không đo được – không chặn bé vì lỗi thiết bị) */
-    heardVoice(minMs = 300) { return this.voiceMs === null || (this.voiceMs >= minMs && (this.peak || 0) >= 0.07); },
+    heardVoice(minMs = 300) { return this.voiceMs === null || (this.voiceMs >= minMs && (this.peak || 0) >= this._peakNeed(this._floor || 0.01)); },
 
     /** start({ maxMs, autoStop, silenceMs, onAuto(reason) }) */
     async start(opts = {}) {
@@ -616,6 +733,11 @@
       // buổi học, chỉ nhả khi đóng bài / Gym hoặc khi app chạy nền (releaseAll). Mỗi lần ghi dùng một bản sao track
       // (clone không cần xin quyền lại) để MediaRecorder và bộ đo âm lượng luôn nhận dữ liệu mới.
       this._hold = true;
+      // Tiếng "bíp" phát TRƯỚC khi bắt đầu ghi: không lọt vào phần đo ồn nền, bé nghe bíp xong là nói
+      if (opts.beep !== false && global.Sfx && global.Sfx.playMicOn) {
+        try { global.Sfx.playMicOn(); } catch (e) { /* */ }
+        await new Promise((r) => setTimeout(r, 260));
+      }
       this._dropClone();
       try {
         this._stream = new MediaStream(this._base.getAudioTracks().map((t) => t.clone()));
@@ -652,11 +774,23 @@
           if (this._url) URL.revokeObjectURL(this._url);
           const blob = new Blob(this._chunks, { type: this._rec.mimeType || 'audio/mp4' });
           this.lastBlob = blob; this._decoded = null;
-          // Báo thời gian nói thật cho app (chỉ khi thật sự có tiếng nói)
-          if (this.onVoice && this.voiceMs >= 250 && (this.peak || 0) >= 0.07) { try { this.onVoice(this.voiceMs); } catch (e) { /* */ } }
           this._url = URL.createObjectURL(blob);
           this.release();   // giữ micro nếu đang trong buổi học (_hold), tránh iPad hỏi quyền lại
-          resolve(this._url);
+          const report = () => {
+            // Báo thời gian nói thật cho app (chỉ khi thật sự có tiếng nói)
+            if (this.onVoice && this.voiceMs >= 250 && (this.peak || 0) >= this._peakNeed(this._floor || 0.01)) { try { this.onVoice(this.voiceMs); } catch (e) { /* */ } }
+            resolve(this._url);
+          };
+          // Bộ đo trực tiếp "câm" (không nhận được tín hiệu nào) hoặc chưa nghe thấy giọng → đo lại trên file ghi âm
+          const liveDead = this.voiceMs !== null && (this._liveMax || 0) < 0.002;
+          if (this.voiceMs === null || liveDead || !this.heardVoice(250)) {
+            this._offlineVoice(blob).then((off) => {
+              if (off && (liveDead || this.voiceMs === null || off.voiceMs > (this.voiceMs || 0))) {
+                this.voiceMs = off.voiceMs; this.peak = off.peak; this._floor = off.floor;
+              } else if (liveDead && !off) this.voiceMs = null;   // không đo được → không chặn bé vì lỗi thiết bị
+              report();
+            });
+          } else report();
         };
         this._rec.stop();
       });
