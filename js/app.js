@@ -157,11 +157,12 @@
   const diff = () => LEVELS[S.skillLevel()];
   const levelChipHTML = () => { const d = diff(); return `<span class="chip level-chip" style="box-shadow:0 4px 0 var(--card-edge)" title="Cấp độ">${d.icon}<small>Cấp ${S.skillLevel()} · ${d.vi}</small></span>`; };
 
-  /* Tốc độ giọng đọc: trên iPad giọng máy đọc khá nhanh → thêm mức Rất chậm, mặc định Chậm */
+  /* Tốc độ giọng đọc: trên iPad giọng máy đọc khá nhanh → có mức Siêu chậm, mặc định Rất chậm */
   const SPEEDS = [
-    { v: 0.5, icon: '🐌', en: 'Very slow', vi: 'Rất chậm' },
-    { v: 0.65, icon: '🐢', en: 'Slow', vi: 'Chậm' },
-    { v: 0.8, icon: '🚶', en: 'Normal', vi: 'Vừa' },
+    { v: 0.4, icon: '🐌', en: 'Extra slow', vi: 'Siêu chậm' },
+    { v: 0.5, icon: '🐢', en: 'Very slow', vi: 'Rất chậm' },
+    { v: 0.65, icon: '🚶', en: 'Slow', vi: 'Chậm' },
+    { v: 0.8, icon: '🏃', en: 'Normal', vi: 'Vừa' },
     { v: 0.95, icon: '🐇', en: 'Natural', vi: 'Tự nhiên' }
   ];
   const speedOf = (v) => SPEEDS.reduce((a, b) => (Math.abs(b.v - v) < Math.abs(a.v - v) ? b : a));
@@ -169,7 +170,7 @@
     const st = S.state.settings;
     Sfx.enabled = st.sfx !== false;
     Speech.setAccent(st.accent);
-    Speech.rate = Number(st.rate) || 0.65;
+    Speech.rate = Number(st.rate) || 0.5;
   }
   function speedChipHTML() {
     const sp = speedOf(Speech.rate);
@@ -1016,6 +1017,10 @@
           <div class="setting-row"><label>Tốc độ đọc<small>Speech speed</small></label><select class="select-lg" data-change="rate">${SPEEDS.map((sp) => `<option value="${sp.v}"${speedOf(Number(st.settings.rate)).v === sp.v ? ' selected' : ''}>${sp.icon} ${sp.vi} – ${sp.en}</option>`).join('')}</select></div>
           <div class="setting-row"><label>Hiệu ứng âm thanh<small>Brick click & fanfare</small></label><button class="toggle${st.settings.sfx !== false ? ' on' : ''}" data-action="toggle-sfx" aria-label="SFX"></button></div>
           <div class="setting-row"><label>Chế độ luyện nói<small>${Listener.supported ? 'Trình duyệt có hỗ trợ nhận diện giọng nói' : 'Trình duyệt không hỗ trợ nhận diện – dùng Ghi âm & Chọn câu'}</small></label><select class="select-lg" data-change="micMode"><option value="auto"${st.settings.micMode === 'auto' ? ' selected' : ''}>🎙️ Tự động (Micro chấm điểm)</option><option value="fallback"${st.settings.micMode === 'fallback' ? ' selected' : ''}>🎤 Ghi âm nghe lại + Chọn câu</option></select></div>
+          <div class="setting-row"><label>Thử micro<small>Con nói thử 4 giây – xem máy có nghe rõ giọng không</small></label><button class="brick-btn btn-blue btn-sm" data-action="mic-test">${bi('🎤 Test', 'Thử')}</button></div>
+          <div id="micTest" class="vi" style="margin:-4px 0 8px"></div>
+          <p class="vi" style="font-size:13px;margin:0 0 8px">ℹ️ Cách chấm nói: micro chỉ cần nghe thấy giọng con đủ lâu (từ ngắn ≈ 0,3 giây, câu dài hơn thì lâu hơn), không chấm điểm phát âm.
+            Nếu máy có nhận diện giọng nói thì khớp khoảng 60% số từ là đạt, phát âm gần đúng vẫn được tính. Chấm trượt 2 lần liền thì tự chuyển sang ghi âm cho con nghe lại giọng mình.</p>
           ${(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) ? `<div class="card speak-mode-note"><b>ℹ️ Chấm nội dung câu nói</b><span class="vi">App đang mở từ Màn hình chính: trên iPad chế độ này thường KHÔNG có nhận diện giọng nói, nên app chỉ kiểm tra được con <b>có nói</b> (đủ to, đủ dài) rồi cho con nghe lại để tự so sánh. Muốn app chấm <b>nội dung</b> câu nói (đúng/sai), hãy mở trang bằng <b>Safari</b> thường khi luyện nói. Bố mẹ có thể nghe lại giọng con trong 🎙️ Sổ giọng nói bên trên.</span></div>` : ''}
           <div class="setting-row"><label>Bắt buộc luyện nói<small>Bật: con phải nói (hoặc ghi âm có tiếng) mới thu được gạch & qua câu hỏi. Tắt khi con học ở nơi cần yên lặng.</small></label><select class="select-lg" data-change="speakMode"><option value="required"${st.settings.speakMode !== 'optional' ? ' selected' : ''}>🎤 Bật – phải nói mới qua</option><option value="optional"${st.settings.speakMode === 'optional' ? ' selected' : ''}>🔇 Tắt – nói là tùy chọn</option></select></div>
           <div class="setting-row"><label>Bộ sách trên lớp<small>School book</small></label><select class="select-lg" data-change="book"><option value="none"${!SCHOOL_BOOKS[book] ? ' selected' : ''}>Không – học theo Lộ trình</option>${Object.keys(SCHOOL_BOOKS).map((k) => `<option value="${k}"${book === k ? ' selected' : ''}>${esc(SCHOOL_BOOKS[k].name)}</option>`).join('')}</select></div>
@@ -1388,7 +1393,8 @@
       if (D.rec !== null) return;
       if (!D.heard.has(i)) { toast('Listen first!', 'Nghe giọng mẫu trước đã nhé!', 'warm'); return; }
       Speech.cancel();
-      if (this.useMic()) {
+      // Máy nhận diện chấm trượt 2 lần → chuyển sang ghi âm (nghe thấy giọng là được) + phát lại cho con nghe
+      if (this.useMic() && (D.tries[i] || 0) < 2) {
         const w = this.l.words[i];
         D.rec = i;
         this.sayItBtn(i, 'listen');
@@ -1424,9 +1430,8 @@
       D.rec = i;
       this.sayItBtn(i, 'rec');
       try {
-        await Recorder.start({ maxMs: 5000, autoStop: true, silenceMs: 900, minVoiceMs: 200, onAuto: () => this.sayItStop(i) });
+        await Recorder.start({ maxMs: 5000, autoStop: true, silenceMs: 900, minVoiceMs: 300, onAuto: () => this.sayItStop(i) });
         if (tk !== this.token) { Recorder.stop(); return; }
-        Sfx.playMicOn();
       } catch (e) {
         D.rec = null;
         this.noMic = true;           // chưa cấp quyền micro → không chặn bé
@@ -1504,7 +1509,7 @@
       if (D.tries[i] >= 5) {
         this.enableCollect(i, true);
         toast("Let's keep going!", 'Không sao! Con thu thập gạch rồi lần sau nói to hơn nhé 💪', 'warm');
-      } else toast(said ? `I heard ${said}` : "I can't hear you!", said ? 'Gần đúng rồi! Nghe mẫu rồi nói lại nhé' : 'Mình chưa nghe thấy giọng con – nói TO và RÕ hơn nhé!', 'warm');
+      } else toast(said ? `I heard ${said}` : "I can't hear you!", D.tries[i] === 2 && this.useMic() ? 'Lần sau micro sẽ ghi âm để con nghe lại giọng mình – bấm 🎤 nói lại nhé!' : said ? 'Gần đúng rồi! Nghe mẫu rồi nói lại nhé' : 'Con nói gần micro hơn, rõ từng từ nhé!', 'warm');
     },
 
     /** 📖 Picture Story ngay sau Bước 1: đọc các câu có từ vựng được thay bằng hình, rồi sang Bước 2. */
@@ -2053,7 +2058,7 @@
       } else {
         B.sayTries++;
         Sfx.playGentleOops();
-        toast(res.said ? `I heard “${res.said}”` : "I can't hear you!", res.said ? 'Nghe lại câu mẫu rồi đọc lại nhé' : 'Đọc TO và RÕ hơn nhé!', 'warm');
+        toast(res.said ? `I heard “${res.said}”` : "I can't hear you!", res.retryRec ? 'Lần sau micro sẽ ghi âm để con nghe lại giọng mình – bấm đọc lại nhé!' : res.said ? 'Nghe lại câu mẫu rồi đọc lại nhé' : 'Con nói gần micro hơn, rõ từng từ nhé!', 'warm');
       }
       const nx = $('#buildNext');
       if (nx && (B.spoken || B.sayTries >= 5 || !B.mustSay)) nx.innerHTML = B.nextHTML;
@@ -2074,15 +2079,32 @@
               done(Recorder.heardVoice(opts.minVoiceMs || 400) ? { ok: true, clip: Recorder.lastBlob } : { ok: false });
             };
             await Recorder.start({ maxMs: opts.maxMs || 8000, autoStop: true, silenceMs: opts.silenceMs || 1000, minVoiceMs: opts.minVoiceMs || 400, onAuto: stop });
-            Sfx.playMicOn();
           } catch (e) { this.noMic = true; done({ ok: true }); }
         };
         Speech.cancel();
-        if (this.useMic()) {
+        // Máy nhận diện giọng chấm trượt 2 lần liền cùng một câu (giọng trẻ em, máy nghe nhầm) → lần sau chuyển sang
+        // ghi âm + nhận biết có giọng nói và cho con nghe lại, để bé đã cố gắng nói không bị kẹt mãi.
+        const key = String(text || '').toLowerCase();
+        this.srMiss = this.srMiss || {};
+        const miss = () => { this.srMiss[key] = (this.srMiss[key] || 0) + 1; };
+        if (this.useMic() && (this.srMiss[key] || 0) < 2) {
           ui('listen');
           const ok = Listener.start({
-            onResult: (alts) => { const r = Listener.judge(alts, { hint: text }); done({ ok: r.ok, said: r.text }); },
-            onError: (code) => { if (code === 'no-speech' || code === 'aborted') done({ ok: false }); else { if (code === 'network') Listener.blocked = true; viaRecorder(); } },
+            onResult: (alts) => {
+              let r;
+              if (text) {
+                // Đọc theo câu mẫu: chấm theo ý – khớp ≥ 60% số từ (câu ngắn ≤ 3 từ: ≥ 50%), chấp nhận phát âm gần đúng
+                const n = Listener.normalize(text).split(' ').filter((w) => w.length > 1).length;
+                const sc = Listener.score(alts, [], text);
+                r = { ok: sc.score >= (n <= 3 ? 0.5 : 0.6), text: sc.text };
+              } else r = { ok: true, text: alts[0] };
+              if (r.ok) delete this.srMiss[key]; else miss();
+              done({ ok: r.ok, said: r.text, retryRec: !r.ok && this.srMiss[key] >= 2 });
+            },
+            onError: (code) => {
+              if (code === 'no-speech' || code === 'aborted') { miss(); done({ ok: false, retryRec: this.srMiss[key] >= 2 }); }
+              else { if (code === 'network') Listener.blocked = true; viaRecorder(); }
+            },
             onEnd: () => {}
           });
           if (!ok) viaRecorder();
@@ -2129,7 +2151,7 @@
       this.stopStudio();
       if (T.ti >= this.l.talk.length) { this.setupTalkBranch(); return; }
       const item = this.l.talk[T.ti];
-      T.first = true; T.attempts = 0; T.done = false; T.mode = this.useMic() ? 'mic' : 'fallback'; T.rating = 0; T.choiceOpts = null; T.branch = false; T.tried = false; T.voiced = false; T.hintLevel = 0; T.hintStep = 0; T.longBonus = false;
+      T.first = true; T.attempts = 0; T.noSpeech = 0; T.done = false; T.mode = this.useMic() ? 'mic' : 'fallback'; T.rating = 0; T.choiceOpts = null; T.branch = false; T.tried = false; T.voiced = false; T.hintLevel = 0; T.hintStep = 0; T.longBonus = false;
       // Câu mẫu ẩn cho tới khi con tự nói một lần (hoặc dùng gợi ý mức 3) – tránh "nhại lại"
       this.studio = { state: 'idle', text: item.hint, hidden: diff().model !== 'show' };
       const charB = this.z.chars.b;
@@ -2241,15 +2263,19 @@
             Sfx.playGentleOops();
             encourage();
             this.showHint();
-            if (T.attempts >= 2) toast('Try choosing the answer!', 'Thử chọn câu trả lời bên dưới nhé!', 'warm');
+            if (T.attempts >= 3) {
+              // Máy nhận diện nghe nhầm giọng trẻ em nhiều lần → chuyển sang Phòng thu (ghi âm, nghe lại, có giọng là được)
+              T.mode = 'fallback';
+              this.renderTalkMode('🎤 Máy chưa nghe rõ giọng con – mình chuyển sang Phòng thu: con nói câu trả lời, nghe lại giọng mình rồi so với mẫu nhé!');
+            } else if (T.attempts >= 2) toast('Try choosing the answer!', 'Thử chọn câu trả lời bên dưới nhé!', 'warm');
           }
         },
         onError: (code) => {
           const b = $('#micBtn'); if (b) b.classList.remove('listening');
-          if (code === 'no-speech') { T.tried = true; const cb = $('[data-action="talk-choose"]', overlay); if (cb) cb.hidden = false; }
-          if (Listener.blocked || code === 'unsupported' || code === 'start-failed') {
+          if (code === 'no-speech') { T.tried = true; T.noSpeech = (T.noSpeech || 0) + 1; const cb = $('[data-action="talk-choose"]', overlay); if (cb) cb.hidden = false; }
+          if (Listener.blocked || code === 'unsupported' || code === 'start-failed' || T.noSpeech >= 2) {
             T.mode = 'fallback';
-            this.renderTalkMode('🎙️ Micro chưa dùng được trên thiết bị này (thường gặp khi mở app từ Màn hình chính iPad). Con dùng Phòng thu: nghe mẫu – ghi âm – so sánh giọng nhé!');
+            this.renderTalkMode(T.noSpeech >= 2 && !Listener.blocked ? '🎤 Máy chưa nghe thấy giọng con – mình chuyển sang Phòng thu: con nói câu trả lời, nghe lại giọng mình rồi so với mẫu nhé!' : '🎙️ Micro chưa dùng được trên thiết bị này (thường gặp khi mở app từ Màn hình chính iPad). Con dùng Phòng thu: nghe mẫu – ghi âm – so sánh giọng nhé!');
             return;
           }
           const trEl = $('#transcript');
@@ -2508,7 +2534,6 @@
           Speech.cancel();
           await Recorder.start();
           if (tk !== this.token) { Recorder.stop(); return; }
-          Sfx.playMicOn();
           st.state = 'recording';
           if (this.t && !this.t.branch) this.t.rating = 0;
           this.refreshStudio();
@@ -3531,7 +3556,6 @@
       cur.stop = stopNow;
       try {
         await Recorder.start({ maxMs: 60000, autoStop: true, silenceMs: 2200, minVoiceMs: 600, onAuto: stopNow });
-        Sfx.playMicOn();
         timer = setInterval(() => {
           const s2 = (Recorder.voiceMs || 0) / 1000;
           if (status) status.innerHTML = `🎤 Đang nghe… <b>${s2.toFixed(1)} giây</b> ${this.stars(m, s2)}`;
@@ -3687,7 +3711,6 @@
       try {
         await new Promise(async (resolve) => {
           await Recorder.start({ maxMs: 90000, autoStop: true, silenceMs: 2500, minVoiceMs: 1500, onAuto: async () => { await Recorder.stop(); resolve(); } });
-          Sfx.playMicOn();
           const iv = setInterval(() => { if (!Recorder.isRecording()) { clearInterval(iv); return; } if (note) note.textContent = `🎤 Đang nghe… ${((Recorder.voiceMs || 0) / 1000).toFixed(1)} giây`; }, 200);
         });
       } catch (e) { /* micro lỗi */ }
@@ -3778,7 +3801,7 @@
       const foot = $('#beatFoot'); if (foot) foot.innerHTML = '<small class="vi">🎵 Nhạc đang chạy…</small>';
       let recOk = false;
       if (r.rec && Recorder.supported) {
-        try { await Recorder.start({ maxMs: 60000 }); recOk = true; } catch (e) { recOk = false; }
+        try { await Recorder.start({ maxMs: 60000, beep: false }); recOk = true; } catch (e) { recOk = false; }
       }
       if (tk !== this.token) { if (recOk) Recorder.stop(); return; }
       const spb = 60 / r.bpm;
@@ -3808,7 +3831,7 @@
           const stage = $('#beatStage');
           if (stage) stage.innerHTML = this.gridHTML(r, i, r.rec ? hits.map((h, k) => (k < i ? h : null)) : null);
           if (cnt) cnt.textContent = '';
-          if (!r.rec) Speech.speak(w.en.replace(/\.\.\./g, ''), { rate: 1 });
+          if (!r.rec) Speech.speak(w.en.replace(/\.\.\./g, ''), { rate: Math.min(0.85, Speech.rate + 0.25), noChunk: true });
           if (r.rec && recOk) {
             const sorted = floorSamples.slice().sort((a, b) => a - b);
             const p50 = sorted.length ? sorted[Math.floor(sorted.length * 0.5)] : 0.02;
@@ -4177,6 +4200,25 @@
     'vb-clear': async () => { if (await confirmModal({ en: 'Delete all recordings?', vi: 'Xóa toàn bộ sổ giọng nói?', text: '<p>Các bản ghi giọng con sẽ bị xóa khỏi thiết bị này.</p>', ok: 'Delete', okVi: 'Xóa' })) { await VoiceBook.clear(); fillVoiceBook(); } },
     'locker-cat': (el) => { App.lockerCat = el.dataset.cat; renderLocker(); },
     'locker-item': (el) => lockerItem(el.dataset.id),
+    'mic-test': async (el) => {
+      const out = $('#micTest');
+      if (!Recorder.supported || el.disabled) { if (out) out.textContent = 'Thiết bị này không ghi âm được.'; return; }
+      el.disabled = true;
+      try {
+        await Recorder.start({ maxMs: 4000, onAuto: () => {} });
+        let live = setInterval(() => { if (out) out.textContent = `🎤 Con nói đi… âm lượng ${'▮'.repeat(Math.min(20, Math.round(Recorder.rms() * 120)))}`; }, 100);
+        await sleep(4000);
+        clearInterval(live);
+        await Recorder.stop();
+        const sec = ((Recorder.voiceMs || 0) / 1000).toFixed(1), ok = Recorder.heardVoice(300);
+        if (out) out.innerHTML = Recorder.voiceMs === null ? 'Không đo được âm lượng trên thiết bị này – app sẽ không chặn bé vì lỗi micro.'
+          : ok ? `✅ Nghe thấy giọng ${sec} giây (độ to ${Math.round((Recorder.peak || 0) * 100)}, ồn nền ${Math.round((Recorder._floor || 0) * 100)}). Micro hoạt động tốt.`
+          : `⚠️ Chỉ nghe thấy ${sec} giây có tiếng (độ to ${Math.round((Recorder.peak || 0) * 100)}). Kiểm tra: không che micro (cạnh trên iPad), bỏ ốp dày, nói cách iPad khoảng 30–40 cm.`;
+        Recorder.releaseAll();
+        if (Recorder.lastBlob) await Recorder.play(Recorder.lastBlob);
+      } catch (e) { if (out) out.textContent = 'Chưa cấp quyền micro – vào Cài đặt iPad › Safari › Micro để cho phép.'; }
+      el.disabled = false;
+    },
     'locker-mystery': (el) => { Sfx.playGentleOops(); const it = LG.ITEMS[App.lockerCat].find((x) => x.id === el.dataset.id); toast(it && it.secret ? '🎁 Secret!' : '❓ Mystery!', it && it.secret ? `Nói tiếng Anh tổng cộng ${it.milestone} phút (Talk Time, bài học, Gym…) để mở món bí mật này!` : 'Mua đủ đồ ở tầng thấp hơn để mở món này nhé!', 'warm'); },
     'fig-hello': () => { const f = $('#bigFig svg'); if (f) bounceEl(f); Speech.speak(`Hi! I'm ${S.state.profile.name}. I love building with LEGO!`, { pitch: 1.15 }); },
     'fig-random': () => {

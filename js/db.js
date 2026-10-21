@@ -60,7 +60,7 @@
       customUnits: [],      // [{ id: 'c1', addedAt, data: {...JSON bố mẹ nhập} }]
       settings: {
         accent: 'en-US',
-        rate: 0.65,
+        rate: 0.5,
         rateV2: true,
         sfx: true,
         book: 'none',       // 'none' | 'gs4'
@@ -179,6 +179,9 @@
       if (!saved) saved = lsGet(LS_STATE);
       this.state = merge(defaults(), saved);
       if (quick) this.state.settings = Object.assign(this.state.settings, quick);
+      // v1.9.2: bé phản ánh giọng mẫu vẫn nhanh → hạ một lần về "Rất chậm" (bố mẹ chỉnh lại được trong Cài đặt)
+      const st = this.state.settings;
+      if (!st.rateV3) { st.rate = Math.min(Number(st.rate) || 0.5, 0.5); st.rateV3 = true; }
       return this.state;
     },
 

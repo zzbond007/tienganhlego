@@ -29,6 +29,17 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🎤 Bản v1.9.2 – Sửa lỗi "nói to mà không được ghi nhận", giọng mẫu chậm hơn:**
+- *Lỗi chính*: tiếng "bíp" bật micro bị tính vào độ ồn nền → ngưỡng nghe bị đẩy lên rất cao, bé phải hét mới được tính;
+  ồn nền còn bị chính giọng nói nhỏ kéo lên dần. Nay: bíp phát TRƯỚC khi ghi, ồn nền lấy mức thấp và có trần,
+  ngưỡng 0.016–0.055. Nếu bộ đo trực tiếp không nhận tín hiệu (iPad tạm dừng âm thanh) → đo lại trên chính file ghi âm.
+- *Chấm nhận diện giọng nói dễ hơn cho trẻ*: chấp nhận phát âm gần đúng (rula = ruler, favorite = favourite,
+  số "2" = "two"); đọc theo câu mẫu chỉ cần khớp ~60% số từ (câu ≤ 3 từ: 50%). Máy chấm trượt 2 lần liền →
+  tự chuyển sang ghi âm + phát lại giọng con (Role-Play: sau 3 lần chuyển sang Phòng thu).
+- *Góc Bố Mẹ*: nút 🎤 Thử micro (đo 4 giây, báo độ to / ồn nền, phát lại) và giải thích cách chấm nói.
+- *Giọng mẫu chậm hơn*: thêm mức 🐌 Siêu chậm, mặc định 🐢 Rất chậm (máy đang dùng được hạ một lần về Rất chậm);
+  câu dài đọc theo từng cụm, nghỉ giữa các câu/dấu phẩy để bé kịp nghe và bắt chữ; Beat Talk không còn đọc tốc độ 1.0.
+
 **📖 Bản v1.9 – Đọc tiếng Anh qua hình & nói theo nhịp:**
 - *📖 Picture Story* (mỗi bài, ngay sau Bước 1): câu ví dụ của 5 từ vựng hiện thành bảng đọc, từ vựng được THAY BẰNG HÌNH,
   mỗi dòng có một nhân vật LEGO. Nghe mẫu → đọc to từng dòng (micro kiểm tra con đọc đủ dài) → Cấp 2–3 đọc liền cả đoạn
