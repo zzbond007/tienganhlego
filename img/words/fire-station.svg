@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="fire-station-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6e3f5"/><stop offset="0.86" stop-color="#eaf5fb"/><stop offset="0.86" stop-color="#9ea4a9"/><stop offset="1" stop-color="#868c91"/></linearGradient>
+<linearGradient id="fire-station-brick" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a5432c"/><stop offset="1" stop-color="#7f2f1d"/></linearGradient>
+<pattern id="fire-station-bricks" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 12 H24 M12 0 V6 M0 6 H24 M0 6 V12 M24 6 V12" stroke="#5f2214" stroke-opacity="0.35" stroke-width="1"/></pattern>
+<linearGradient id="fire-station-truck" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4a3a"/><stop offset="1" stop-color="#b3150d"/></linearGradient>
+<linearGradient id="fire-station-win" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8eefc"/><stop offset="1" stop-color="#6aa3cc"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#fire-station-bg)"/>
+<rect x="40" y="70" width="320" height="190" fill="url(#fire-station-brick)"/>
+<rect x="40" y="70" width="320" height="190" fill="url(#fire-station-bricks)"/>
+<path d="M30 74 L200 24 L370 74Z" fill="#5a5f66"/>
+<rect x="160" y="18" width="80" height="26" fill="#7f2f1d"/>
+<path d="M150 18 h100 l-10 -10 h-80z" fill="#5a5f66"/>
+<g fill="url(#fire-station-win)" stroke="#e8e2d8" stroke-width="3"><rect x="70" y="90" width="44" height="36"/><rect x="178" y="90" width="44" height="36"/><rect x="286" y="90" width="44" height="36"/></g>
+<rect x="56" y="140" width="136" height="120" fill="#2b2e33" stroke="#e8e2d8" stroke-width="5"/>
+<rect x="208" y="140" width="136" height="120" fill="#e7e3dc" stroke="#e8e2d8" stroke-width="5"/>
+<g stroke="#bdb6aa" stroke-width="2"><path d="M210 164 h132M210 188 h132M210 212 h132M210 236 h132"/></g>
+<g fill="#9ec8e6"><rect x="220" y="150" width="20" height="10"/><rect x="250" y="150" width="20" height="10"/><rect x="282" y="150" width="20" height="10"/><rect x="312" y="150" width="20" height="10"/></g>
+<rect x="62" y="186" width="124" height="58" rx="4" fill="url(#fire-station-truck)"/>
+<rect x="70" y="194" width="50" height="22" rx="3" fill="#bfe1f5"/>
+<rect x="128" y="194" width="50" height="22" rx="3" fill="#bfe1f5"/>
+<rect x="62" y="226" width="124" height="6" fill="#e9e9e9"/>
+<g fill="#ffd34a"><circle cx="76" cy="236" r="4"/><circle cx="172" cy="236" r="4"/></g>
+<rect x="100" y="176" width="48" height="10" rx="3" fill="#1e5fc9"/>
+<g fill="#1a1a1a"><circle cx="90" cy="250" r="12"/><circle cx="158" cy="250" r="12"/></g>
+<g fill="#888"><circle cx="90" cy="250" r="5"/><circle cx="158" cy="250" r="5"/></g>
+<rect x="0" y="258" width="400" height="5" fill="#c2c6ca"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="dinosaur-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4f2fb"/><stop offset=".75" stop-color="#f3eedb"/><stop offset=".75" stop-color="#b9cf8a"/><stop offset="1" stop-color="#93b267"/></linearGradient>
+<linearGradient id="dinosaur-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cc46a"/><stop offset=".6" stop-color="#6a9a3e"/><stop offset="1" stop-color="#46702a"/></linearGradient>
+<linearGradient id="dinosaur-far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ea552"/><stop offset="1" stop-color="#3b5f22"/></linearGradient>
+<radialGradient id="dinosaur-sh"><stop offset="0" stop-color="#1c3a10" stop-opacity=".35"/><stop offset="1" stop-color="#1c3a10" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#dinosaur-bg)"/>
+<path d="M0 200 Q60 170 120 196 L120 225 L0 225Z" fill="#b6c9a0" opacity=".6"/>
+<ellipse cx="190" cy="262" rx="150" ry="12" fill="url(#dinosaur-sh)"/>
+<!-- far legs -->
+<path d="M150 200 L146 258 L168 258 L172 200Z" fill="url(#dinosaur-far)"/>
+<path d="M240 196 L242 256 L264 256 L262 196Z" fill="url(#dinosaur-far)"/>
+<!-- body + neck + tail -->
+<path d="M20 214 Q80 206 120 170 Q160 130 220 134 Q262 138 280 150 Q300 120 308 80 Q314 46 336 38 Q362 32 372 46 Q376 58 360 60 Q340 62 334 90 Q326 150 300 186 Q280 214 232 220 L150 222 Q90 226 20 214Z" fill="url(#dinosaur-skin)"/>
+<!-- near legs -->
+<path d="M126 196 L120 260 L146 260 L150 206Z" fill="url(#dinosaur-skin)"/>
+<path d="M268 190 L270 260 L296 260 L292 182Z" fill="url(#dinosaur-skin)"/>
+<g fill="#3d5f22"><path d="M120 260 l6 -4 l6 4 l6 -4 l6 4z"/><path d="M270 260 l6 -4 l6 4 l6 -4 l6 4z"/></g>
+<!-- belly / highlights -->
+<path d="M150 214 Q210 220 270 200" stroke="#c9dea0" stroke-width="7" fill="none" opacity=".6" stroke-linecap="round"/>
+<path d="M140 150 Q200 128 260 144" stroke="#d6eaa8" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>
+<path d="M314 70 Q318 50 340 44" stroke="#d6eaa8" stroke-width="4" fill="none" opacity=".6" stroke-linecap="round"/>
+<g fill="#4c7a2c" opacity=".5"><circle cx="180" cy="170" r="6"/><circle cx="210" cy="160" r="5"/><circle cx="240" cy="176" r="6"/><circle cx="160" cy="186" r="4"/><circle cx="200" cy="190" r="5"/></g>
+<circle cx="352" cy="45" r="3.5" fill="#1a1a1a"/>
+<path d="M360 54 Q366 56 370 52" stroke="#2c4a18" stroke-width="2" fill="none"/>
+<!-- plants -->
+<g fill="#4f8a35"><path d="M372 262 Q360 220 380 196 Q384 230 388 262Z"/><path d="M386 262 Q392 230 400 220 L400 262Z"/><path d="M14 262 Q8 236 24 220 Q24 244 28 262Z"/></g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="stamp-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4ead8"/><stop offset="1" stop-color="#e3d3b6"/></linearGradient>
+<mask id="stamp-m"><rect width="400" height="300" fill="#fff"/><g fill="#000"><circle cx="95" cy="45" r="7"/><circle cx="95" cy="255" r="7"/><circle cx="116" cy="45" r="7"/><circle cx="116" cy="255" r="7"/><circle cx="137" cy="45" r="7"/><circle cx="137" cy="255" r="7"/><circle cx="158" cy="45" r="7"/><circle cx="158" cy="255" r="7"/><circle cx="179" cy="45" r="7"/><circle cx="179" cy="255" r="7"/><circle cx="200" cy="45" r="7"/><circle cx="200" cy="255" r="7"/><circle cx="221" cy="45" r="7"/><circle cx="221" cy="255" r="7"/><circle cx="242" cy="45" r="7"/><circle cx="242" cy="255" r="7"/><circle cx="263" cy="45" r="7"/><circle cx="263" cy="255" r="7"/><circle cx="284" cy="45" r="7"/><circle cx="284" cy="255" r="7"/><circle cx="305" cy="45" r="7"/><circle cx="305" cy="255" r="7"/><circle cx="95" cy="45" r="7"/><circle cx="305" cy="45" r="7"/><circle cx="95" cy="66" r="7"/><circle cx="305" cy="66" r="7"/><circle cx="95" cy="87" r="7"/><circle cx="305" cy="87" r="7"/><circle cx="95" cy="108" r="7"/><circle cx="305" cy="108" r="7"/><circle cx="95" cy="129" r="7"/><circle cx="305" cy="129" r="7"/><circle cx="95" cy="150" r="7"/><circle cx="305" cy="150" r="7"/><circle cx="95" cy="171" r="7"/><circle cx="305" cy="171" r="7"/><circle cx="95" cy="192" r="7"/><circle cx="305" cy="192" r="7"/><circle cx="95" cy="213" r="7"/><circle cx="305" cy="213" r="7"/><circle cx="95" cy="234" r="7"/><circle cx="305" cy="234" r="7"/><circle cx="95" cy="255" r="7"/><circle cx="305" cy="255" r="7"/></g></mask>
+<linearGradient id="stamp-pic" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0f0"/><stop offset="1" stop-color="#e7f6fb"/></linearGradient>
+<filter id="stamp-sh" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<rect width="400" height="300" fill="url(#stamp-bg)"/>
+<rect x="101" y="53" width="210" height="210" fill="#6b5330" opacity="0.35" filter="url(#stamp-sh)"/>
+<g transform="rotate(-4 200 150)">
+<rect x="95" y="45" width="210" height="210" fill="#fffdf7" mask="url(#stamp-m)"/>
+<rect x="115" y="65" width="170" height="170" fill="#c0392b"/>
+<rect x="123" y="73" width="154" height="154" fill="url(#stamp-pic)"/>
+<path d="M123 190 Q170 170 200 185 T277 180 V227 H123Z" fill="#7cbf5a"/>
+<path d="M123 205 Q180 195 277 205 V227 H123Z" fill="#5a9a40"/>
+<circle cx="245" cy="105" r="16" fill="#ffd34d"/>
+<path d="M150 190 C150 160 165 140 180 130" stroke="#3c7a2a" stroke-width="5" fill="none"/>
+<g transform="translate(182 128)"><circle cx="0" cy="-14" r="10" fill="#f06292"/><circle cx="13" cy="-4" r="10" fill="#f06292"/><circle cx="8" cy="12" r="10" fill="#f06292"/><circle cx="-8" cy="12" r="10" fill="#f06292"/><circle cx="-13" cy="-4" r="10" fill="#f06292"/><circle r="7" fill="#ffd34d"/></g>
+<path d="M155 165 C140 150 130 160 135 168 C140 172 150 170 155 165Z" fill="#4c9a3a"/>
+<path d="M128 92 Q148 82 168 92 T208 92" fill="none" stroke="#555" stroke-width="2" opacity="0.5"/>
+<path d="M128 106 Q148 96 168 106 T208 106" fill="none" stroke="#555" stroke-width="2" opacity="0.5"/>
+</g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="sunny-and-warm-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fb3ec"/><stop offset="1" stop-color="#bfe6fb"/></linearGradient>
+<radialGradient id="sunny-and-warm-sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fffbe0"/><stop offset="0.5" stop-color="#ffe14d"/><stop offset="1" stop-color="#ffb21a"/></radialGradient>
+<radialGradient id="sunny-and-warm-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fff6b0" stop-opacity="0.9"/><stop offset="1" stop-color="#fff6b0" stop-opacity="0"/></radialGradient>
+<linearGradient id="sunny-and-warm-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f8fc9"/><stop offset="1" stop-color="#5fc3e6"/></linearGradient>
+<linearGradient id="sunny-and-warm-sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7dfa4"/><stop offset="1" stop-color="#e7c37c"/></linearGradient>
+<linearGradient id="sunny-and-warm-trunk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a2b"/><stop offset="1" stop-color="#b27c44"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#sunny-and-warm-sky)"/>
+<circle cx="210" cy="96" r="110" fill="url(#sunny-and-warm-glow)"/>
+<g stroke="#ffd23a" stroke-width="7" stroke-linecap="round" opacity="0.9"><path d="M210 18 v-14M210 174 v14M132 96 h-14M288 96 h14M155 41 l-10 -10M265 151 l10 10M265 41 l10 -10M155 151 l-10 10"/></g>
+<circle cx="210" cy="96" r="58" fill="url(#sunny-and-warm-sun)"/>
+<rect y="186" width="400" height="40" fill="url(#sunny-and-warm-sea)"/>
+<g stroke="#fff" stroke-width="2" opacity="0.6"><path d="M30 200 h40M150 206 h50M260 198 h40M320 214 h50M90 218 h30"/></g>
+<path d="M0 222 C100 210 300 214 400 226 L400 300 L0 300Z" fill="url(#sunny-and-warm-sand)"/>
+<path d="M58 270 C60 230 66 190 80 156 L88 158 C76 192 70 232 70 270Z" fill="url(#sunny-and-warm-trunk)"/>
+<g fill="#2e9a3e"><path d="M84 156 C60 140 34 146 20 164 C44 150 64 152 84 160Z"/><path d="M84 156 C70 128 44 120 26 128 C52 130 70 140 84 160Z"/><path d="M84 156 C100 130 128 126 146 136 C120 136 102 146 86 160Z"/><path d="M84 156 C110 150 134 160 144 180 C122 164 104 160 86 160Z"/><path d="M84 156 C86 132 100 116 114 112 C100 126 92 140 86 160Z"/></g>
+<g transform="translate(300 266)"><path d="M-60 0 C-30 -64 30 -64 60 0Z" fill="#ff5a5a"/><path d="M-20 -46 C-10 -52 10 -52 20 -46 L10 0 L-10 0Z" fill="#fff"/><rect x="-2" y="-50" width="4" height="54" fill="#8a7a6a"/></g>
+<ellipse cx="300" cy="272" rx="44" ry="6" fill="#c9a060" opacity="0.6"/>
+</svg>

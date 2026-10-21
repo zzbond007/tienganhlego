@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="scarf-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3ede4"/><stop offset="1" stop-color="#e2d8c9"/></linearGradient>
+<linearGradient id="scarf-k" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e1f24"/><stop offset="0.5" stop-color="#d63a33"/><stop offset="1" stop-color="#a1242a"/></linearGradient>
+<linearGradient id="scarf-k2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8322d"/><stop offset="1" stop-color="#8c1b20"/></linearGradient>
+<pattern id="scarf-rib" width="8" height="10" patternUnits="userSpaceOnUse"><path d="M0 0 l4 5 l4 -5 M0 5 l4 5 l4 -5" fill="none" stroke="#000" stroke-opacity="0.12" stroke-width="1.5"/></pattern>
+<radialGradient id="scarf-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#5b4a35" stop-opacity="0.3"/><stop offset="1" stop-color="#5b4a35" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#scarf-bg)"/>
+<ellipse cx="200" cy="272" rx="140" ry="12" fill="url(#scarf-sh)"/>
+<path d="M110 70 C120 30 280 30 290 70 C300 110 260 135 200 135 C140 135 100 110 110 70Z" fill="url(#scarf-k2)"/>
+<path d="M135 75 C140 55 260 55 265 75 C268 95 245 108 200 108 C155 108 132 95 135 75Z" fill="#e2d8c9"/>
+<path d="M135 75 C140 55 260 55 265 75" fill="none" stroke="#7c171b" stroke-width="3"/>
+<path d="M170 110 L140 250 L190 255 L212 118Z" fill="url(#scarf-k)"/>
+<path d="M205 115 L235 255 L285 245 L240 108Z" fill="url(#scarf-k)"/>
+<path d="M170 110 L140 250 L190 255 L212 118Z M205 115 L235 255 L285 245 L240 108Z M110 70 C120 30 280 30 290 70 C300 110 260 135 200 135 C140 135 100 110 110 70Z" fill="url(#scarf-rib)"/>
+<g fill="#f2f2f2"><path d="M163 145 l42 6 l-4 14 l-42 -6z"/><path d="M155 185 l42 6 l-4 14 l-42 -6z"/><path d="M220 150 l40 -7 l4 14 l-40 7z"/><path d="M228 190 l40 -7 l4 14 l-40 7z"/></g>
+<rect x="190" y="105" width="38" height="30" rx="10" fill="#b5282b"/>
+<g stroke="#b5282b" stroke-width="4" stroke-linecap="round"><path d="M145 250 v18M155 251 v18M165 252 v18M175 253 v18M185 254 v18M240 254 v18M250 252 v18M260 250 v18M270 248 v18M280 246 v18"/></g>
+<path d="M130 60 C150 45 180 42 200 42" fill="none" stroke="#fff" stroke-width="5" opacity="0.3" stroke-linecap="round"/>
+</svg>

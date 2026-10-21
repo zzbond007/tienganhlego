@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="butterfly-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf6ff"/><stop offset="1" stop-color="#e6f3dc"/></linearGradient>
+<radialGradient id="butterfly-w" cx=".25" cy=".7" r=".9"><stop offset="0" stop-color="#ffc04d"/><stop offset=".55" stop-color="#f57c00"/><stop offset="1" stop-color="#b34700"/></radialGradient>
+<radialGradient id="butterfly-sh"><stop offset="0" stop-color="#000" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<g id="butterfly-half">
+<path d="M200 140 Q170 40 70 40 Q20 46 34 100 Q48 140 196 150Z" fill="url(#butterfly-w)" stroke="#1a1a1a" stroke-width="7" stroke-linejoin="round"/>
+<path d="M196 154 Q90 150 76 210 Q78 252 130 248 Q180 240 200 166Z" fill="url(#butterfly-w)" stroke="#1a1a1a" stroke-width="7" stroke-linejoin="round"/>
+<g stroke="#1a1a1a" stroke-width="3.5" fill="none">
+<path d="M196 146 Q130 90 80 56 M194 148 Q120 110 50 98 M194 150 Q130 130 60 128"/>
+<path d="M196 160 Q140 180 96 214 M198 164 Q160 210 140 244"/>
+</g>
+<g fill="#fff"><circle cx="64" cy="54" r="5"/><circle cx="46" cy="72" r="4"/><circle cx="40" cy="92" r="4"/><circle cx="84" cy="50" r="4"/><circle cx="96" cy="232" r="4"/><circle cx="114" cy="242" r="4"/><circle cx="84" cy="218" r="3.5"/></g>
+<path d="M60 50 Q30 60 40 104" stroke="#1a1a1a" stroke-width="10" fill="none" opacity=".6"/>
+</g>
+</defs>
+<rect width="400" height="300" fill="url(#butterfly-bg)"/>
+<ellipse cx="200" cy="270" rx="120" ry="10" fill="url(#butterfly-sh)"/>
+<use href="#butterfly-half"/>
+<use href="#butterfly-half" transform="translate(400 0) scale(-1 1)"/>
+<!-- body -->
+<ellipse cx="200" cy="168" rx="8" ry="56" fill="#2b2118"/>
+<circle cx="200" cy="112" r="11" fill="#2b2118"/>
+<ellipse cx="198" cy="150" rx="2.5" ry="30" fill="#6b5a48" opacity=".7"/>
+<path d="M196 104 Q180 70 164 60 M204 104 Q220 70 236 60" stroke="#2b2118" stroke-width="3" fill="none"/>
+<circle cx="164" cy="60" r="4" fill="#2b2118"/><circle cx="236" cy="60" r="4" fill="#2b2118"/>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="ladybird-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1f9ec"/><stop offset="1" stop-color="#dcebcf"/></linearGradient>
+<linearGradient id="ladybird-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fd46a"/><stop offset="1" stop-color="#3f8f2c"/></linearGradient>
+<radialGradient id="ladybird-shell" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ff6a5a"/><stop offset=".6" stop-color="#e01e1e"/><stop offset="1" stop-color="#8f0d0d"/></radialGradient>
+<radialGradient id="ladybird-sh"><stop offset="0" stop-color="#1d4a12" stop-opacity=".45"/><stop offset="1" stop-color="#1d4a12" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#ladybird-bg)"/>
+<!-- leaf -->
+<path d="M20 250 Q80 120 230 80 Q350 60 390 40 Q370 190 250 240 Q140 280 20 250Z" fill="url(#ladybird-leaf)"/>
+<path d="M30 246 Q200 170 386 46" stroke="#cdeeb0" stroke-width="4" fill="none"/>
+<g stroke="#b9e294" stroke-width="2" fill="none" opacity=".8"><path d="M120 206 Q130 160 150 130 M180 178 Q200 140 230 110 M250 136 Q280 110 310 90 M140 200 Q190 220 230 226 M220 160 Q270 180 300 180"/></g>
+<ellipse cx="210" cy="190" rx="90" ry="40" fill="url(#ladybird-sh)"/>
+<!-- legs -->
+<g stroke="#111" stroke-width="5" stroke-linecap="round" fill="none">
+<path d="M150 150 L118 140 M150 180 L116 192 M170 206 L150 230 M250 150 L282 140 M250 180 L284 192 M230 206 L250 230"/>
+</g>
+<!-- head -->
+<ellipse cx="200" cy="96" rx="40" ry="28" fill="#141414"/>
+<ellipse cx="180" cy="94" rx="9" ry="7" fill="#fff"/><ellipse cx="220" cy="94" rx="9" ry="7" fill="#fff"/>
+<path d="M186 74 Q176 54 162 48 M214 74 Q224 54 238 48" stroke="#141414" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- shell -->
+<ellipse cx="200" cy="168" rx="78" ry="70" fill="url(#ladybird-shell)"/>
+<path d="M200 100 L200 238" stroke="#2a0505" stroke-width="4"/>
+<g fill="#141414">
+<circle cx="200" cy="112" r="14"/>
+<circle cx="160" cy="140" r="14"/><circle cx="240" cy="140" r="14"/>
+<circle cx="152" cy="190" r="13"/><circle cx="248" cy="190" r="13"/>
+<circle cx="182" cy="218" r="10"/><circle cx="218" cy="218" r="10"/>
+</g>
+<ellipse cx="166" cy="124" rx="22" ry="10" fill="#fff" opacity=".35" transform="rotate(-30 166 124)"/>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="zebra-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f3fb"/><stop offset=".72" stop-color="#f6ecd2"/><stop offset=".72" stop-color="#d9c58e"/><stop offset="1" stop-color="#c6ad6c"/></linearGradient>
+<linearGradient id="zebra-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d6d6d6"/></linearGradient>
+<radialGradient id="zebra-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<path id="zebra-shape" d="M100 124 Q150 100 230 104 Q270 104 290 96 L314 56 Q322 44 336 48 L344 70 Q338 100 330 130 Q326 160 312 172 L304 254 L290 254 L286 186 Q270 192 250 190 L244 254 L230 254 L226 190 L170 190 L160 254 L146 254 L144 186 Q130 180 126 172 L114 254 L100 254 L98 172 Q88 148 100 124Z"/>
+<path id="zebra-head" d="M314 48 Q332 32 350 46 L388 110 Q394 128 378 132 Q362 134 354 122 L318 82 Q306 64 314 48Z"/>
+<clipPath id="zebra-clip"><use href="#zebra-shape"/></clipPath>
+<clipPath id="zebra-hclip"><use href="#zebra-head"/></clipPath>
+</defs>
+<rect width="400" height="300" fill="url(#zebra-bg)"/>
+<ellipse cx="210" cy="256" rx="140" ry="10" fill="url(#zebra-sh)"/>
+<use href="#zebra-shape" fill="url(#zebra-body)"/>
+<g clip-path="url(#zebra-clip)" fill="#1b1b1b">
+<path d="M112 110 Q104 150 112 200 L122 200 Q116 150 124 110Z"/>
+<path d="M146 104 Q136 150 148 210 L158 210 Q148 150 160 104Z"/>
+<path d="M176 102 Q166 150 176 200 L188 200 Q178 150 190 102Z"/>
+<path d="M206 102 Q198 150 206 200 L218 200 Q210 150 220 102Z"/>
+<path d="M236 104 Q228 150 236 200 L248 200 Q240 150 250 104Z"/>
+<path d="M264 102 Q258 150 266 200 L276 200 Q268 150 278 102Z"/>
+<path d="M288 96 Q292 140 302 172 L312 166 Q302 140 300 92Z"/>
+<path d="M296 84 L340 100 L338 108 L292 92Z"/><path d="M304 68 L344 82 L342 90 L300 76Z"/>
+<path d="M80 200 L330 200 L330 206 L80 206Z"/><path d="M80 218 L330 218 L330 224 L80 224Z"/><path d="M80 236 L330 236 L330 242 L80 242Z"/>
+</g>
+<use href="#zebra-shape" fill="none" stroke="#555" stroke-width="1.5"/>
+<!-- mane -->
+<path d="M286 98 Q296 72 310 52 Q318 42 326 44 L322 52 Q312 64 304 84 Q298 98 296 104Z" fill="#1b1b1b"/>
+<!-- head -->
+<use href="#zebra-head" fill="url(#zebra-body)"/>
+<g clip-path="url(#zebra-hclip)" fill="#1b1b1b">
+<path d="M310 66 L346 54 L348 60 L312 74Z"/><path d="M318 84 L356 70 L358 78 L322 92Z"/><path d="M334 102 L366 90 L368 98 L338 110Z"/>
+<path d="M366 112 L400 104 L400 140 L360 140Z" fill="#262626"/>
+</g>
+<use href="#zebra-head" fill="none" stroke="#555" stroke-width="1.5"/>
+<path d="M322 44 L318 22 L334 40Z" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<path d="M334 44 L338 22 L346 44Z" fill="#fff" stroke="#555" stroke-width="1.5"/>
+<ellipse cx="344" cy="66" rx="4" ry="3.5" fill="#111"/>
+<circle cx="380" cy="120" r="2.5" fill="#000"/>
+<path d="M98 130 Q78 150 84 190" stroke="#1b1b1b" stroke-width="5" fill="none" stroke-linecap="round"/>
+<g fill="#222"><rect x="100" y="248" width="14" height="7"/><rect x="146" y="248" width="14" height="7"/><rect x="230" y="248" width="14" height="7"/><rect x="290" y="248" width="14" height="7"/></g>
+</svg>

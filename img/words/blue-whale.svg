@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="blue-whale-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc4e6"/><stop offset="0.5" stop-color="#2f86b8"/><stop offset="1" stop-color="#14466e"/></linearGradient>
+<linearGradient id="blue-whale-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3e5f7d"/><stop offset="0.5" stop-color="#5f84a3"/><stop offset="0.8" stop-color="#8fb0c6"/><stop offset="1" stop-color="#b9cfdc"/></linearGradient>
+<linearGradient id="blue-whale-ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#blue-whale-bg)"/>
+<g fill="url(#blue-whale-ray)"><path d="M60 0 L90 0 L40 300 L10 300Z"/><path d="M180 0 L200 0 L170 300 L140 300Z"/><path d="M300 0 L330 0 L350 300 L310 300Z"/></g>
+<path d="M30 150 C40 118 90 104 160 106 C240 108 310 124 352 140 L382 112 C388 110 392 114 388 120 L372 150 L390 178 C392 184 386 186 382 182 L352 160 C300 178 230 196 150 194 C80 192 36 178 30 150Z" fill="url(#blue-whale-body)"/>
+<path d="M32 156 C60 176 110 186 160 186 C110 182 60 172 32 156Z" fill="#d7e3ea" opacity="0.6"/>
+<g stroke="#5c7890" stroke-width="1.6" opacity="0.7" fill="none"><path d="M40 164 C70 176 110 182 150 184"/><path d="M44 170 C74 182 112 188 148 190"/><path d="M50 176 C78 186 112 192 140 193"/></g>
+<path d="M120 182 C130 204 150 222 172 226 C164 210 156 196 150 186Z" fill="#4e7190"/>
+<path d="M262 126 L276 110 L284 128Z" fill="#46677f"/>
+<circle cx="82" cy="146" r="3.5" fill="#152230"/>
+<path d="M30 152 C50 156 80 156 112 150" stroke="#2c4458" stroke-width="2" fill="none"/>
+<g fill="#4a6a84" opacity="0.5"><circle cx="190" cy="130" r="3"/><circle cx="220" cy="140" r="2.5"/><circle cx="240" cy="125" r="2"/><circle cx="160" cy="124" r="2.5"/><circle cx="290" cy="140" r="2"/></g>
+<path d="M70 112 C110 104 170 104 220 112" stroke="#fff" stroke-width="4" opacity="0.2" fill="none" stroke-linecap="round"/>
+<g fill="#fff" opacity="0.6"><circle cx="40" cy="110" r="4"/><circle cx="48" cy="92" r="3"/><circle cx="42" cy="76" r="2"/></g>
+</svg>

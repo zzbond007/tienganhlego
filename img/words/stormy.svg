@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="stormy-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3140"/><stop offset="1" stop-color="#5f6b7c"/></linearGradient>
+<radialGradient id="stormy-cloud" cx="0.45" cy="0.3" r="0.8"><stop offset="0" stop-color="#7e8796"/><stop offset="1" stop-color="#363d4a"/></radialGradient>
+<linearGradient id="stormy-bolt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbd0"/><stop offset="1" stop-color="#ffd84a"/></linearGradient>
+<radialGradient id="stormy-flash" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fff7c0" stop-opacity="0.55"/><stop offset="1" stop-color="#fff7c0" stop-opacity="0"/></radialGradient>
+<linearGradient id="stormy-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4d5e"/><stop offset="1" stop-color="#1e2a36"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#stormy-sky)"/>
+<circle cx="210" cy="190" r="110" fill="url(#stormy-flash)"/>
+<g stroke="#b9c6d6" stroke-width="2" stroke-linecap="round" opacity="0.55"><path d="M40 120 l-14 40M70 140 l-14 40M100 120 l-14 40M130 150 l-14 40M290 130 l-14 40M320 150 l-14 40M350 120 l-14 40M380 150 l-14 40M60 190 l-14 40M110 200 l-14 40M300 200 l-14 40M360 190 l-14 40"/></g>
+<rect y="236" width="400" height="64" fill="url(#stormy-sea)"/>
+<g fill="none" stroke="#8fa3b5" stroke-width="3" opacity="0.7"><path d="M0 250 q20 -14 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0"/><path d="M-20 272 q20 -14 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0"/></g>
+<path d="M210 110 L176 186 L204 186 L184 250 L250 160 L220 160 L244 110Z" fill="url(#stormy-bolt)" stroke="#fff6b0" stroke-width="2"/>
+<g fill="url(#stormy-cloud)"><circle cx="90" cy="70" r="52"/><circle cx="160" cy="50" r="62"/><circle cx="240" cy="56" r="60"/><circle cx="320" cy="74" r="54"/><circle cx="40" cy="96" r="40"/><circle cx="370" cy="100" r="40"/><rect x="20" y="80" width="370" height="50" rx="25"/></g>
+<path d="M30 126 C120 136 280 136 380 126" stroke="#23293a" stroke-width="10" opacity="0.4" fill="none"/>
+</svg>

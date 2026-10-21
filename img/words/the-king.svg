@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="the-king-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4efe6"/><stop offset="1" stop-color="#e2d8c6"/></linearGradient>
+<linearGradient id="the-king-wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e1a17"/><stop offset=".35" stop-color="#5a504a"/><stop offset=".55" stop-color="#2d2723"/><stop offset="1" stop-color="#0d0b0a"/></linearGradient>
+<radialGradient id="the-king-sh"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#the-king-bg)"/>
+<!-- board -->
+<path d="M0 230 L400 230 L400 300 L0 300Z" fill="#c9a66b"/>
+<g fill="#7a5530"><path d="M0 230 L70 230 L50 300 L0 300Z"/><path d="M140 230 L210 230 L200 300 L120 300Z"/><path d="M280 230 L350 230 L360 300 L280 300Z"/></g>
+<ellipse cx="200" cy="262" rx="80" ry="12" fill="url(#the-king-sh)"/>
+<!-- king -->
+<g>
+<path d="M134 262 Q132 246 148 242 L252 242 Q268 246 266 262Z" fill="url(#the-king-wood)"/>
+<rect x="150" y="230" width="100" height="14" rx="5" fill="url(#the-king-wood)"/>
+<path d="M164 230 Q178 190 180 140 L220 140 Q222 190 236 230Z" fill="url(#the-king-wood)"/>
+<rect x="166" y="128" width="68" height="12" rx="5" fill="url(#the-king-wood)"/>
+<path d="M170 128 Q160 96 176 84 L224 84 Q240 96 230 128Z" fill="url(#the-king-wood)"/>
+<rect x="172" y="76" width="56" height="10" rx="4" fill="url(#the-king-wood)"/>
+<!-- cross -->
+<rect x="193" y="30" width="14" height="48" rx="2" fill="url(#the-king-wood)"/>
+<rect x="180" y="42" width="40" height="13" rx="2" fill="url(#the-king-wood)"/>
+<path d="M186 150 Q184 200 172 228" stroke="#8a7d72" stroke-width="4" fill="none" opacity=".6"/>
+<path d="M180 92 Q176 108 180 124" stroke="#8a7d72" stroke-width="4" fill="none" opacity=".6"/>
+</g>
+</svg>

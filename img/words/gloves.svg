@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="gloves-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf0f6"/><stop offset="1" stop-color="#d3dde8"/></linearGradient>
+<linearGradient id="gloves-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f4d8c"/><stop offset="0.5" stop-color="#3d7cc9"/><stop offset="1" stop-color="#1c4580"/></linearGradient>
+<linearGradient id="gloves-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e6e6"/><stop offset="1" stop-color="#b8b8b8"/></linearGradient>
+<radialGradient id="gloves-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#34465e" stop-opacity="0.3"/><stop offset="1" stop-color="#34465e" stop-opacity="0"/></radialGradient>
+<g id="gloves-one">
+<path d="M-38 70 L-40 -5 C-42 -20 -60 -40 -62 -55 C-64 -68 -48 -72 -42 -60 L-30 -35 L-32 -95 C-32 -108 -16 -108 -16 -95 L-14 -50 L-12 -110 C-12 -124 6 -124 6 -110 L6 -50 L10 -100 C10 -114 28 -114 28 -100 L24 -45 L30 -82 C32 -95 48 -93 46 -80 L40 -5 L40 70Z" fill="url(#gloves-g)"/>
+<path d="M-16 -60 L-14 -20 M6 -60 L6 -20 M24 -55 L22 -20" stroke="#163a6c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<rect x="-42" y="40" width="84" height="38" rx="6" fill="url(#gloves-c)"/>
+<g stroke="#9a9a9a" stroke-width="2"><path d="M-32 42 v34M-22 42 v34M-12 42 v34M-2 42 v34M8 42 v34M18 42 v34M28 42 v34"/></g>
+<path d="M-6 -110 L-5 -70" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+<path d="M-12 0 l50 0 M-12 14 l50 0" stroke="#e8eef6" stroke-width="5" opacity="0.8"/>
+</g>
+</defs>
+<rect width="400" height="300" fill="url(#gloves-bg)"/>
+<ellipse cx="200" cy="270" rx="150" ry="12" fill="url(#gloves-sh)"/>
+<use href="#gloves-one" transform="translate(140 178) rotate(-12)"/>
+<use href="#gloves-one" transform="translate(262 178) scale(-1 1) rotate(-12)"/>
+</svg>

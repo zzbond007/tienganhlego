@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="waiter-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6ede0"/><stop offset="1" stop-color="#e8d8bf"/></linearGradient>
+<linearGradient id="waiter-vest" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#121418"/><stop offset="0.4" stop-color="#3a3e46"/><stop offset="1" stop-color="#101216"/></linearGradient>
+<linearGradient id="waiter-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9dde2"/><stop offset="0.4" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd4da"/></linearGradient>
+<radialGradient id="waiter-face" cx="0.45" cy="0.4" r="0.6"><stop offset="0" stop-color="#f8d2b0"/><stop offset="1" stop-color="#d9a07a"/></radialGradient>
+<linearGradient id="waiter-tray" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a8f96"/><stop offset="0.5" stop-color="#eef0f2"/><stop offset="1" stop-color="#8a8f96"/></linearGradient>
+<radialGradient id="waiter-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#4a3a20" stop-opacity="0.3"/><stop offset="1" stop-color="#4a3a20" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#waiter-bg)"/>
+<ellipse cx="200" cy="292" rx="100" ry="8" fill="url(#waiter-sh)"/>
+<path d="M150 128 C150 112 170 106 200 106 C230 106 250 112 250 128 L256 300 L144 300Z" fill="url(#waiter-shirt)"/>
+<path d="M150 128 C150 116 166 110 182 108 L200 160 L218 108 C234 110 250 116 250 128 L254 260 L146 260Z" fill="url(#waiter-vest)"/>
+<path d="M144 258 h112 l2 42 h-116z" fill="#1c1e22"/><g fill="#c9a24a"><circle cx="200" cy="190" r="3"/><circle cx="200" cy="214" r="3"/><circle cx="200" cy="238" r="3"/></g>
+<path d="M184 112 L200 118 L216 112 L216 126 L200 120 L184 126Z" fill="#111"/>
+<path d="M150 128 C126 140 118 170 118 196 C118 210 136 212 140 200 L146 160Z" fill="url(#waiter-shirt)"/>
+<ellipse cx="130" cy="206" rx="10" ry="9" fill="#f0c8a4"/>
+<path d="M250 128 C276 128 300 120 312 104 L322 112 C312 136 284 152 256 158Z" fill="url(#waiter-shirt)"/>
+<ellipse cx="318" cy="102" rx="10" ry="8" fill="#f0c8a4"/>
+<ellipse cx="318" cy="92" rx="62" ry="10" fill="url(#waiter-tray)"/>
+<path d="M290 88 L296 50 Q300 46 304 50 L310 88Z" fill="#fff" fill-opacity="0.5" stroke="#bfc6cc"/>
+<path d="M292 76 L308 76 L309 86 L291 86Z" fill="#c43a4a" opacity="0.8"/>
+<path d="M326 88 C326 70 336 60 346 60 C356 60 366 70 366 88Z" fill="#f2f2f0" stroke="#c9c9c4"/>
+<rect x="343" y="52" width="6" height="8" rx="3" fill="#999"/>
+<rect x="184" y="94" width="32" height="16" fill="#d9a07a"/>
+<ellipse cx="200" cy="66" rx="32" ry="36" fill="url(#waiter-face)"/>
+<path d="M168 60 C166 36 182 26 200 26 C222 26 236 38 232 60 C226 46 210 40 196 42 C184 44 174 50 168 60Z" fill="#3a2a1c"/>
+<g fill="#2a1a0c"><circle cx="188" cy="68" r="3.2"/><circle cx="212" cy="68" r="3.2"/></g>
+<path d="M190 84 Q200 91 210 84" stroke="#a0523a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</svg>

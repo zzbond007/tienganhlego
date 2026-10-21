@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="sweater-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efe6"/><stop offset="1" stop-color="#e6d9c8"/></linearGradient>
+<linearGradient id="sweater-wool" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f5a7a"/><stop offset="0.35" stop-color="#3b88b0"/><stop offset="0.65" stop-color="#2f7aa2"/><stop offset="1" stop-color="#1a4c68"/></linearGradient>
+<pattern id="sweater-knit" width="12" height="10" patternUnits="userSpaceOnUse"><path d="M0 0 L6 8 L12 0" stroke="#174560" stroke-opacity="0.45" stroke-width="1.5" fill="none"/></pattern>
+<radialGradient id="sweater-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#3a2a1a" stop-opacity="0.3"/><stop offset="1" stop-color="#3a2a1a" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#sweater-bg)"/>
+<ellipse cx="200" cy="282" rx="140" ry="9" fill="url(#sweater-sh)"/>
+<path d="M160 30 C176 44 224 44 240 30 L300 50 C320 58 330 76 336 100 L368 230 C370 242 346 250 340 240 L298 128 L296 260 C260 272 140 272 104 260 L102 128 L60 240 C54 250 30 242 32 230 L64 100 C70 76 80 58 100 50Z" fill="url(#sweater-wool)"/>
+<path d="M160 30 C176 44 224 44 240 30 L300 50 C320 58 330 76 336 100 L368 230 C370 242 346 250 340 240 L298 128 L296 260 C260 272 140 272 104 260 L102 128 L60 240 C54 250 30 242 32 230 L64 100 C70 76 80 58 100 50Z" fill="url(#sweater-knit)"/>
+<path d="M160 30 C176 44 224 44 240 30 L246 36 C230 56 170 56 154 36Z" fill="#174a66"/>
+<g fill="#e9eef2"><path d="M104 140 h192 v14 h-192z"/><path d="M104 174 h192 v14 h-192z"/></g>
+<g fill="#c4343a"><path d="M104 156 h192 v16 h-192z"/></g>
+<g fill="#fff"><path d="M120 164 l6 -6 6 6 -6 6z M150 164 l6 -6 6 6 -6 6z M180 164 l6 -6 6 6 -6 6z M210 164 l6 -6 6 6 -6 6z M240 164 l6 -6 6 6 -6 6z M270 164 l6 -6 6 6 -6 6z"/></g>
+<g stroke="#174560" stroke-width="2" opacity="0.6"><path d="M106 246 C140 256 260 256 294 246"/><path d="M106 252 C140 262 260 262 294 252"/><path d="M34 226 l26 10M36 220 l26 10M366 226 l-26 10M364 220 l-26 10"/></g>
+<path d="M120 60 C116 100 116 200 118 250" stroke="#fff" stroke-width="10" opacity="0.12" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="trex-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7e2c2"/><stop offset="0.84" stop-color="#eed1a4"/><stop offset="0.84" stop-color="#b79a6a"/><stop offset="1" stop-color="#a38658"/></linearGradient>
+<linearGradient id="trex-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#55633a"/><stop offset="0.6" stop-color="#77854a"/><stop offset="1" stop-color="#c3b77a"/></linearGradient>
+<linearGradient id="trex-leg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4f5d32"/><stop offset="1" stop-color="#6e7c42"/></linearGradient>
+<radialGradient id="trex-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#3a2a10" stop-opacity="0.4"/><stop offset="1" stop-color="#3a2a10" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#trex-bg)"/>
+<ellipse cx="190" cy="284" rx="150" ry="10" fill="url(#trex-sh)"/>
+<path d="M176 170 C168 200 150 236 140 270 L128 282 L170 282 L168 270 C182 240 204 214 214 196Z" fill="#4f5d32"/>
+<path d="M10 150 C60 146 110 132 150 118 L190 160 C140 172 70 168 10 150Z" fill="url(#trex-skin)"/>
+<path d="M140 120 C160 92 220 86 252 104 C280 120 288 160 270 190 C250 218 196 216 170 196 C146 176 132 146 140 120Z" fill="url(#trex-skin)"/>
+<path d="M236 112 C246 92 258 80 272 72 L300 96 C290 108 282 124 280 140Z" fill="url(#trex-skin)"/>
+<path d="M256 52 C268 28 320 22 362 34 C384 40 392 52 388 66 L386 80 C370 94 340 102 312 106 C286 108 262 98 256 82Z" fill="url(#trex-skin)"/>
+<path d="M270 88 C300 104 350 100 384 86 L382 100 C356 118 304 122 276 106Z" fill="#a9a26a"/>
+<path d="M286 94 C320 98 356 92 386 78" stroke="#2a2e16" stroke-width="3" fill="none"/>
+<g fill="#fbf7e6"><path d="M300 95 l3 7 3 -7z"/><path d="M314 96 l3 7 3 -7z"/><path d="M328 95 l3 7 3 -7z"/><path d="M342 93 l3 7 3 -7z"/><path d="M356 89 l3 7 3 -7z"/><path d="M370 84 l3 6 3 -6z"/><path d="M320 97 l3 -6 3 6z"/><path d="M348 92 l3 -6 3 6z"/></g>
+<path d="M300 40 Q316 30 332 40" stroke="#3c4424" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="316" cy="50" r="6" fill="#e9c23a"/><circle cx="316" cy="50" r="2.8" fill="#111"/>
+<circle cx="376" cy="50" r="2.5" fill="#2a2e16"/>
+<path d="M262 152 C276 156 284 164 284 174" stroke="#6b783f" stroke-width="7" fill="none" stroke-linecap="round"/>
+<path d="M282 172 l7 2 M282 174 l3 7" stroke="#3c4424" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M200 150 C240 140 262 170 250 200 L240 230 C236 246 240 262 246 272 L282 272 L284 282 L226 282 L222 236 C210 210 184 186 200 150Z" fill="url(#trex-leg)"/>
+<path d="M176 108 C210 92 248 96 266 112" stroke="#fff" stroke-width="5" opacity="0.15" fill="none" stroke-linecap="round"/>
+<g fill="#45522a" opacity="0.55"><circle cx="190" cy="120" r="4"/><circle cx="216" cy="112" r="3"/><circle cx="170" cy="140" r="3"/><circle cx="120" cy="140" r="3"/><circle cx="80" cy="150" r="3"/><circle cx="290" cy="46" r="3"/><circle cx="342" cy="40" r="3"/><circle cx="270" cy="62" r="3"/></g>
+</svg>

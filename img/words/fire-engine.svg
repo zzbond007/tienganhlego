@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="fire-engine-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#dff0fb"/><stop offset="1.00" stop-color="#f4f8fb"/></linearGradient><linearGradient id="fire-engine-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ff5a4a"/><stop offset="0.50" stop-color="#d7261c"/><stop offset="1.00" stop-color="#9a140e"/></linearGradient><linearGradient id="fire-engine-chr" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#f4f6f8"/><stop offset="1.00" stop-color="#9aa2a8"/></linearGradient><linearGradient id="fire-engine-win" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#bfe2f6"/><stop offset="1.00" stop-color="#5d9bc6"/></linearGradient><radialGradient id="fire-engine-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><radialGradient id="fire-engine-tyre" cx="0.5" cy="0.5" r="0.5"><stop offset="0.5" stop-color="#444"/><stop offset="1" stop-color="#111"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#fire-engine-bg)"/><rect y="250" width="400" height="50" fill="#a9b0b5"/><path d="M0 250h400" stroke="#8d949a" stroke-width="3"/>
+<ellipse cx="200" cy="256" rx="185" ry="10" fill="url(#fire-engine-sh)"/>
+<path d="M30 120 L280 120 L280 235 L30 235Z" fill="url(#fire-engine-red)"/>
+<path d="M280 95 L330 95 C345 95 352 110 360 140 L372 175 L372 235 L280 235Z" fill="url(#fire-engine-red)"/>
+<path d="M290 105 L328 105 C336 105 340 115 346 140 L350 160 L290 160Z" fill="url(#fire-engine-win)" stroke="#7a110c" stroke-width="3"/>
+<path d="M296 110 L310 110 L300 150" stroke="#fff" stroke-width="4" opacity="0.5" fill="none"/>
+<rect x="296" y="168" width="44" height="50" rx="3" fill="none" stroke="#7a110c" stroke-width="2"/><rect x="326" y="180" width="10" height="4" rx="2" fill="#ddd"/>
+<rect x="40" y="135" width="70" height="50" rx="3" fill="#b81d15" stroke="#7a110c" stroke-width="2"/><rect x="120" y="135" width="70" height="50" rx="3" fill="#b81d15" stroke="#7a110c" stroke-width="2"/><rect x="200" y="135" width="70" height="50" rx="3" fill="#b81d15" stroke="#7a110c" stroke-width="2"/>
+<g stroke="#9a140e" stroke-width="2"><path d="M45 145h60M45 155h60M45 165h60M45 175h60M125 145h60M125 155h60M125 165h60M125 175h60M205 145h60M205 155h60M205 165h60M205 175h60"/></g>
+<rect x="28" y="196" width="346" height="8" fill="#f1f1f1"/><rect x="28" y="204" width="346" height="4" fill="#d9d9d9"/>
+<rect x="360" y="215" width="18" height="22" rx="3" fill="url(#fire-engine-chr)"/><circle cx="366" cy="190" r="6" fill="#ffe08a"/>
+<g transform="rotate(-3 150 105)"><rect x="40" y="100" width="230" height="7" rx="2" fill="url(#fire-engine-chr)"/><rect x="40" y="112" width="230" height="7" rx="2" fill="url(#fire-engine-chr)"/>
+<g fill="#b8bfc5"><rect x="55" y="100" width="4" height="19"/><rect x="85" y="100" width="4" height="19"/><rect x="115" y="100" width="4" height="19"/><rect x="145" y="100" width="4" height="19"/><rect x="175" y="100" width="4" height="19"/><rect x="205" y="100" width="4" height="19"/><rect x="235" y="100" width="4" height="19"/></g></g>
+<rect x="296" y="84" width="30" height="12" rx="4" fill="#2f7de1"/><rect x="300" y="86" width="10" height="6" rx="2" fill="#9cd0ff"/>
+<path d="M30 235 h345" stroke="#7a110c" stroke-width="3"/>
+<path d="M50 236 a32 32 0 0 1 64 0Z M200 236 a32 32 0 0 1 64 0Z M300 236 a32 32 0 0 1 64 0Z" fill="#3a0a07"/>
+<circle cx="82" cy="236" r="27" fill="url(#fire-engine-tyre)"/><circle cx="82" cy="236" r="13" fill="url(#fire-engine-chr)"/><circle cx="82" cy="236" r="4" fill="#666"/><circle cx="232" cy="236" r="27" fill="url(#fire-engine-tyre)"/><circle cx="232" cy="236" r="13" fill="url(#fire-engine-chr)"/><circle cx="232" cy="236" r="4" fill="#666"/><circle cx="332" cy="236" r="27" fill="url(#fire-engine-tyre)"/><circle cx="332" cy="236" r="13" fill="url(#fire-engine-chr)"/><circle cx="332" cy="236" r="4" fill="#666"/>
+</svg>

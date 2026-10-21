@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="tropical-fish-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe9f7"/><stop offset=".7" stop-color="#5bb8d9"/><stop offset="1" stop-color="#2f8fb5"/></linearGradient>
+<radialGradient id="tropical-fish-body" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#ffb347"/><stop offset=".6" stop-color="#ff7a00"/><stop offset="1" stop-color="#c24a00"/></radialGradient>
+<clipPath id="tropical-fish-clip"><path d="M90 150 Q150 80 240 96 Q290 108 300 150 Q290 192 240 204 Q150 220 90 150Z"/></clipPath>
+</defs>
+<rect width="400" height="300" fill="url(#tropical-fish-bg)"/>
+<g fill="#fff" opacity=".18"><path d="M40 0 L90 0 L30 300 L0 300Z"/><path d="M200 0 L230 0 L170 300 L150 300Z"/></g>
+<path d="M0 270 Q60 250 120 266 Q200 284 280 262 Q340 248 400 264 L400 300 L0 300Z" fill="#e8d5a3"/>
+<g fill="#3f9b56"><path d="M40 272 Q30 220 46 180 Q50 230 54 272Z"/><path d="M360 266 Q350 210 370 170 Q372 220 374 266Z"/><path d="M372 266 Q380 230 396 210 Q388 240 384 266Z"/></g>
+<!-- tail -->
+<path d="M294 150 L360 100 Q350 150 360 200Z" fill="url(#tropical-fish-body)" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round"/>
+<!-- fins -->
+<path d="M160 96 Q200 60 250 100Z" fill="#ff8a1a" stroke="#1a1a1a" stroke-width="4"/>
+<path d="M170 204 Q200 236 240 202Z" fill="#ff8a1a" stroke="#1a1a1a" stroke-width="4"/>
+<!-- body -->
+<path d="M90 150 Q150 80 240 96 Q290 108 300 150 Q290 192 240 204 Q150 220 90 150Z" fill="url(#tropical-fish-body)"/>
+<g clip-path="url(#tropical-fish-clip)">
+<path d="M130 80 Q112 150 132 222 L160 222 Q142 150 160 80Z" fill="#fff" stroke="#1a1a1a" stroke-width="4"/>
+<path d="M210 80 Q196 150 214 222 L238 222 Q222 150 236 80Z" fill="#fff" stroke="#1a1a1a" stroke-width="4"/>
+<path d="M276 80 Q268 150 280 222 L296 222 Q286 150 292 80Z" fill="#fff" stroke="#1a1a1a" stroke-width="4"/>
+<ellipse cx="190" cy="118" rx="70" ry="14" fill="#fff" opacity=".22"/>
+</g>
+<path d="M90 150 Q150 80 240 96 Q290 108 300 150 Q290 192 240 204 Q150 220 90 150Z" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+<path d="M200 156 Q186 172 196 186 Q208 172 200 156Z" fill="#ff9a2e" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="112" cy="140" r="9" fill="#111"/><circle cx="109" cy="137" r="3" fill="#fff"/>
+<path d="M92 156 Q98 160 104 158" stroke="#7a2a00" stroke-width="2" fill="none"/>
+<g fill="#fff" opacity=".7" stroke="#e8f8ff"><circle cx="70" cy="120" r="6" fill="none" stroke-width="2"/><circle cx="58" cy="94" r="4" fill="none" stroke-width="2"/><circle cx="64" cy="70" r="3" fill="none" stroke-width="2"/></g>
+</svg>

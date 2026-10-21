@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="torch-bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a3142"/><stop offset="1" stop-color="#3c4558"/></linearGradient>
+<linearGradient id="torch-beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6c4" stop-opacity="0.85"/><stop offset="1" stop-color="#fff6c4" stop-opacity="0"/></linearGradient>
+<linearGradient id="torch-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a4a"/><stop offset="0.35" stop-color="#ffc39c"/><stop offset="0.55" stop-color="#e8541c"/><stop offset="1" stop-color="#9c3008"/></linearGradient>
+<linearGradient id="torch-head" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a6f75"/><stop offset="0.35" stop-color="#e4e7ea"/><stop offset="0.6" stop-color="#8b9197"/><stop offset="1" stop-color="#4b4f54"/></linearGradient>
+<radialGradient id="torch-lens" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#fff5b8"/><stop offset="1" stop-color="#f2c84a"/></radialGradient>
+<radialGradient id="torch-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#torch-bg)"/>
+<rect y="230" width="400" height="70" fill="#232836"/>
+<path d="M245 140 L400 40 L400 250 Z" fill="url(#torch-beam)"/>
+<ellipse cx="160" cy="232" rx="130" ry="10" fill="url(#torch-sh)"/>
+<rect x="35" y="138" width="16" height="44" rx="4" fill="#5a1e05"/>
+<rect x="45" y="128" width="140" height="64" rx="10" fill="url(#torch-body)"/>
+<g stroke="#7a2506" stroke-width="3" opacity="0.6"><path d="M70 130v60M80 130v60M90 130v60M100 130v60"/></g>
+<rect x="125" y="122" width="26" height="14" rx="4" fill="#2d2d2d"/>
+<path d="M185 128 L230 108 L230 212 L185 192Z" fill="url(#torch-head)"/>
+<rect x="228" y="104" width="20" height="112" rx="5" fill="url(#torch-head)"/>
+<ellipse cx="246" cy="160" rx="9" ry="50" fill="url(#torch-lens)"/>
+<path d="M55 138 h120" stroke="#fff" stroke-width="5" opacity="0.5" stroke-linecap="round"/>
+</svg>

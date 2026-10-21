@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<radialGradient id="astronaut-bg" cx="0.5" cy="0.4" r="0.8"><stop offset="0" stop-color="#2a3a6a"/><stop offset="1" stop-color="#0b1026"/></radialGradient>
+<linearGradient id="astronaut-suit" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9c0c8"/><stop offset="0.35" stop-color="#ffffff"/><stop offset="0.7" stop-color="#eef1f4"/><stop offset="1" stop-color="#a7afb9"/></linearGradient>
+<radialGradient id="astronaut-visor" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#ffd98a"/><stop offset="0.3" stop-color="#d48a2a"/><stop offset="1" stop-color="#3a2410"/></radialGradient>
+<radialGradient id="astronaut-earth" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#6fc3f0"/><stop offset="1" stop-color="#14508a"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#astronaut-bg)"/>
+<g fill="#fff"><circle cx="30" cy="40" r="1.5"/><circle cx="80" cy="120" r="1"/><circle cx="350" cy="30" r="1.5"/><circle cx="370" cy="160" r="1"/><circle cx="60" cy="250" r="1.5"/><circle cx="120" cy="30" r="1"/><circle cx="300" cy="260" r="1"/><circle cx="20" cy="180" r="1"/><circle cx="260" cy="20" r="1"/></g>
+<circle cx="350" cy="250" r="70" fill="url(#astronaut-earth)"/>
+<path d="M300 220 c20 -10 30 10 50 0 s20 20 10 30 -40 10 -50 0 -20 -20 -10 -30z" fill="#4f9a4a" opacity="0.8"/>
+<g transform="rotate(-8 200 160)">
+<rect x="140" y="96" width="120" height="120" rx="20" fill="#9aa3ad"/>
+<path d="M150 120 C150 104 170 98 200 98 C230 98 250 104 250 120 L254 220 C254 236 236 240 200 240 C164 240 146 236 146 220Z" fill="url(#astronaut-suit)"/>
+<path d="M150 124 C128 132 110 160 104 190 C102 202 120 206 124 196 C130 172 140 156 154 150Z" fill="url(#astronaut-suit)"/>
+<path d="M250 124 C272 132 290 160 296 190 C298 202 280 206 276 196 C270 172 260 156 246 150Z" fill="url(#astronaut-suit)"/>
+<circle cx="112" cy="198" r="12" fill="#d7dce1"/><circle cx="288" cy="198" r="12" fill="#d7dce1"/>
+<path d="M156 234 L152 284 C152 292 180 292 182 284 L190 240Z" fill="url(#astronaut-suit)"/>
+<path d="M244 234 L248 284 C248 292 220 292 218 284 L210 240Z" fill="url(#astronaut-suit)"/>
+<rect x="148" y="280" width="38" height="14" rx="5" fill="#8a929b"/><rect x="214" y="280" width="38" height="14" rx="5" fill="#8a929b"/>
+<rect x="176" y="160" width="48" height="34" rx="4" fill="#cfd5db" stroke="#9aa3ad"/>
+<g><circle cx="188" cy="172" r="4" fill="#e33"/><circle cx="200" cy="172" r="4" fill="#3a3"/><circle cx="212" cy="172" r="4" fill="#38e"/><rect x="184" y="182" width="32" height="5" rx="2" fill="#777"/></g>
+<circle cx="200" cy="74" r="50" fill="url(#astronaut-suit)"/>
+<ellipse cx="200" cy="78" rx="38" ry="32" fill="url(#astronaut-visor)"/>
+<ellipse cx="186" cy="66" rx="12" ry="7" fill="#fff" opacity="0.55" transform="rotate(-25 186 66)"/>
+<rect x="162" y="118" width="76" height="10" rx="5" fill="#c5ccd3"/>
+</g>
+</svg>

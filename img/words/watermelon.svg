@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="watermelon-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f9f1"/><stop offset="1" stop-color="#e1ecdc"/></linearGradient>
+<radialGradient id="watermelon-rind" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#5fae45"/><stop offset=".7" stop-color="#2f7a25"/><stop offset="1" stop-color="#1b4f16"/></radialGradient>
+<radialGradient id="watermelon-flesh" cx=".5" cy=".2" r=".9"><stop offset="0" stop-color="#ff6b6b"/><stop offset=".7" stop-color="#e8323c"/><stop offset="1" stop-color="#c41e2a"/></radialGradient>
+<radialGradient id="watermelon-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<clipPath id="watermelon-clip"><ellipse cx="150" cy="150" rx="110" ry="90"/></clipPath>
+</defs>
+<rect width="400" height="300" fill="url(#watermelon-bg)"/>
+<rect y="236" width="400" height="64" fill="#d9caa9"/>
+<ellipse cx="210" cy="242" rx="175" ry="16" fill="url(#watermelon-sh)"/>
+<!-- whole melon -->
+<ellipse cx="150" cy="150" rx="110" ry="90" fill="url(#watermelon-rind)"/>
+<g clip-path="url(#watermelon-clip)" fill="none" stroke="#174512" stroke-width="10" opacity=".55">
+<path d="M150 58 Q120 100 130 150 Q140 200 120 242"/><path d="M110 64 Q70 110 80 160 Q90 200 70 236"/>
+<path d="M190 60 Q170 100 180 150 Q190 200 176 242"/><path d="M230 76 Q220 110 228 150 Q236 190 226 228"/>
+<path d="M70 90 Q40 140 56 200"/>
+</g>
+<ellipse cx="110" cy="100" rx="40" ry="18" fill="#fff" opacity=".2" transform="rotate(-25 110 100)"/>
+<!-- slice in front -->
+<path d="M190 236 L370 236 Q368 150 280 120 Z" fill="#2f7a25" transform="translate(0 0)"/>
+<path d="M186 236 L380 236 Q366 140 280 110 Z" fill="#3c8f2c"/>
+<path d="M194 236 L372 236 Q360 148 282 118 Z" fill="#d9f2b4"/>
+<path d="M202 236 L364 236 Q352 154 284 126 Z" fill="url(#watermelon-flesh)"/>
+<g fill="#2b1a12">
+<ellipse cx="280" cy="170" rx="3.5" ry="6" transform="rotate(20 280 170)"/><ellipse cx="300" cy="196" rx="3.5" ry="6" transform="rotate(10 300 196)"/>
+<ellipse cx="262" cy="200" rx="3.5" ry="6" transform="rotate(30 262 200)"/><ellipse cx="330" cy="210" rx="3.5" ry="6"/>
+<ellipse cx="240" cy="222" rx="3.5" ry="6" transform="rotate(40 240 222)"/><ellipse cx="310" cy="160" rx="3" ry="5"/>
+<ellipse cx="284" cy="222" rx="3.5" ry="6"/>
+</g>
+<path d="M286 132 Q330 160 350 220" stroke="#fff" stroke-width="4" fill="none" opacity=".3"/>
+</svg>

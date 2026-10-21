@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="run-fast-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9fb"/><stop offset="1" stop-color="#eef7fd"/></linearGradient><linearGradient id="run-fast-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8b98a"/><stop offset="1" stop-color="#6a9f3a"/></linearGradient><linearGradient id="run-fast-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8a65"/><stop offset="1" stop-color="#e64a19"/></linearGradient>
+<linearGradient id="run-fast-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3f6fb5"/><stop offset="1" stop-color="#23477f"/></linearGradient>
+<radialGradient id="run-fast-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="run-fast-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient><radialGradient id="run-fast-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#run-fast-bg)"/><path d="M0 230 Q200 220 400 230 L400 300 L0 300Z" fill="#cf9a63"/><path d="M0 252 L400 248" stroke="#fff" stroke-width="3" opacity=".7"/><path d="M0 284 L400 280" stroke="#fff" stroke-width="3" opacity=".7"/><ellipse cx="205" cy="262" rx="70" ry="8" fill="url(#run-fast-sh)"/><g stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"><path d="M50 100 L120 100"/><path d="M30 130 L110 130"/><path d="M60 160 L120 160"/></g>
+<g opacity=".88">
+<path d="M223.8 92.8 L248.7 117.7 L269.9 92.4" stroke="url(#run-fast-skin)" stroke-width="12.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M223.8 92.8 L237.5 106.5" stroke="url(#run-fast-shirt)" stroke-width="17.6" fill="none" stroke-linecap="round"/>
+<circle cx="269.9" cy="92.4" r="8.2" fill="url(#run-fast-skin)"/>
+</g>
+<g opacity=".88">
+<path d="M200.0 166.0 L171.7 199.7 L129.2 188.3" stroke="url(#run-fast-pants)" stroke-width="19.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="136.9" cy="191.6" rx="15.4" ry="7.7" fill="#222" transform="rotate(63.0 129.2 188.3)"/>
+<ellipse cx="134.7" cy="188.3" rx="8.8" ry="2.8" fill="#fff" opacity=".25" transform="rotate(63.0 129.2 188.3)"/>
+</g>
+<g transform="rotate(18.0 200.0 166.0)">
+<rect x="174.7" y="84.6" width="50.6" height="90.2" rx="17.6" fill="url(#run-fast-shirt)"/>
+<path d="M183.5 100.0 Q180.2 127.5 183.5 166.0" stroke="#fff" stroke-width="4.4" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M200.0 166.0 L238.1 188.0 L234.3 231.8" stroke="url(#run-fast-pants)" stroke-width="19.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="242.0" cy="235.1" rx="15.4" ry="7.7" fill="#333" transform="rotate(3.0 234.3 231.8)"/>
+<ellipse cx="239.8" cy="231.8" rx="8.8" ry="2.8" fill="#fff" opacity=".25" transform="rotate(3.0 234.3 231.8)"/>
+<path d="M223.8 92.8 L198.9 117.7 L166.0 114.8" stroke="url(#run-fast-skin)" stroke-width="12.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M223.8 92.8 L210.1 106.5" stroke="url(#run-fast-shirt)" stroke-width="17.6" fill="none" stroke-linecap="round"/>
+<circle cx="166.0" cy="114.8" r="8.2" fill="url(#run-fast-skin)"/>
+<g transform="rotate(0 234.0 61.4)">
+<rect x="219.2" y="77.7" width="13.2" height="13.2" fill="#e7a67c"/>
+<circle cx="207.9" cy="63.6" r="5.5" fill="#efb48c"/>
+<circle cx="234.0" cy="61.4" r="27.5" fill="url(#run-fast-skin)"/>
+<path d="M205.4 65.8 Q202.1 27.3 234.0 30.6 Q265.9 27.3 262.6 65.8 Q250.5 46.3 228.5 47.6 Q212.0 50.4 205.4 65.8Z" fill="url(#run-fast-hair)"/>
+<circle cx="235.9" cy="61.4" r="3.1" fill="#2a1a0e"/><circle cx="251.3" cy="61.4" r="3.1" fill="#2a1a0e"/>
+<path d="M237.0 72.4 q6.6 6.6 13.2 0" stroke="#a2412e" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+<circle cx="230.4" cy="69.1" r="3.9" fill="#ff8a80" opacity=".35"/><circle cx="256.8" cy="69.1" r="3.9" fill="#ff8a80" opacity=".35"/>
+</g>
+</svg>
