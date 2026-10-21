@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="tank-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5f1ea"/><stop offset="1" stop-color="#e5ddd0"/></linearGradient>
+<linearGradient id="tank-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8e3f4"/><stop offset="1" stop-color="#3f9fc8"/></linearGradient>
+<linearGradient id="tank-wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9b6b43"/><stop offset="1" stop-color="#5e3d22"/></linearGradient>
+<linearGradient id="tank-glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".15" stop-color="#fff" stop-opacity="0"/><stop offset=".85" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".3"/></linearGradient>
+<radialGradient id="tank-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#tank-bg)"/>
+<ellipse cx="200" cy="270" rx="180" ry="14" fill="url(#tank-sh)"/>
+<!-- stand -->
+<rect x="44" y="236" width="312" height="30" fill="url(#tank-wood)"/>
+<!-- tank -->
+<rect x="56" y="54" width="288" height="182" fill="#d8f0f7" opacity=".6"/>
+<rect x="56" y="76" width="288" height="160" fill="url(#tank-water)"/>
+<path d="M56 210 Q120 196 200 206 Q280 216 344 200 L344 236 L56 236Z" fill="#e4cf98"/>
+<g fill="#b7a273"><circle cx="90" cy="226" r="4"/><circle cx="150" cy="222" r="3"/><circle cx="260" cy="228" r="4"/><circle cx="310" cy="218" r="3"/><circle cx="200" cy="230" r="3"/></g>
+<g fill="#3f9b56"><path d="M80 214 Q66 150 90 100 Q92 160 96 214Z"/><path d="M96 214 Q104 170 124 140 Q112 180 108 214Z"/><path d="M300 210 Q290 140 316 96 Q314 160 314 210Z"/><path d="M316 210 Q330 170 340 150 Q330 190 326 210Z"/></g>
+<path d="M210 212 Q206 186 226 182 Q250 180 252 210Z" fill="#8a8f96"/>
+<!-- fish -->
+<g><path d="M150 140 Q170 122 196 134 Q170 154 150 140Z" fill="#ff8a1a"/><path d="M196 134 L212 124 L210 146Z" fill="#ff8a1a"/><circle cx="160" cy="137" r="2.5" fill="#111"/></g>
+<g><path d="M240 108 Q258 94 280 104 Q258 120 240 108Z" fill="#ffd21a"/><path d="M280 104 L294 96 L292 114Z" fill="#ffd21a"/><circle cx="249" cy="106" r="2.3" fill="#111"/></g>
+<g><path d="M230 170 Q246 160 264 168 Q246 180 230 170Z" fill="#e53935"/><path d="M264 168 L276 160 L274 178Z" fill="#e53935"/><circle cx="238" cy="168" r="2" fill="#111"/></g>
+<g fill="none" stroke="#fff" stroke-width="1.8" opacity=".8"><circle cx="140" cy="128" r="4"/><circle cx="134" cy="110" r="3"/><circle cx="138" cy="94" r="2.5"/></g>
+<rect x="56" y="54" width="288" height="182" fill="url(#tank-glass)"/>
+<rect x="56" y="54" width="288" height="182" fill="none" stroke="#5c6670" stroke-width="5"/>
+<rect x="50" y="46" width="300" height="12" rx="2" fill="#3f474f"/>
+<path d="M56 76 L344 76" stroke="#e8f8ff" stroke-width="2"/>
+</svg>

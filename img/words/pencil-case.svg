@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="pencil-case-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef5fb"/><stop offset="1" stop-color="#dfe9f2"/></linearGradient>
+<linearGradient id="pencil-case-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f8fe0"/><stop offset=".45" stop-color="#2f6cc4"/><stop offset="1" stop-color="#1d4a8f"/></linearGradient>
+<linearGradient id="pencil-case-zip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e6e6"/><stop offset="1" stop-color="#9a9a9a"/></linearGradient>
+<linearGradient id="pencil-case-p1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#e3a400"/></linearGradient>
+<linearGradient id="pencil-case-p2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#c62828"/></linearGradient>
+<linearGradient id="pencil-case-p3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7bd67b"/><stop offset="1" stop-color="#2e8b2e"/></linearGradient>
+<radialGradient id="pencil-case-sh"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#pencil-case-bg)"/>
+<rect y="225" width="400" height="75" fill="#d6c3a5"/>
+<rect y="225" width="400" height="4" fill="#c4ae8c"/>
+<ellipse cx="200" cy="236" rx="160" ry="16" fill="url(#pencil-case-sh)"/>
+<!-- pencils sticking out -->
+<g transform="rotate(-12 150 120)">
+<rect x="120" y="70" width="18" height="90" fill="url(#pencil-case-p1)"/>
+<path d="M120 70 L129 44 L138 70Z" fill="#f2d2a6"/><path d="M126 52 L129 44 L132 52Z" fill="#333"/>
+</g>
+<g transform="rotate(-4 180 120)">
+<rect x="160" y="78" width="18" height="90" fill="url(#pencil-case-p2)"/>
+<path d="M160 78 L169 52 L178 78Z" fill="#f2d2a6"/><path d="M166 60 L169 52 L172 60Z" fill="#b71c1c"/>
+</g>
+<g transform="rotate(6 210 120)">
+<rect x="196" y="84" width="18" height="90" fill="url(#pencil-case-p3)"/>
+<path d="M196 84 L205 58 L214 84Z" fill="#f2d2a6"/><path d="M202 66 L205 58 L208 66Z" fill="#1b5e20"/>
+</g>
+<g transform="rotate(14 240 130)">
+<rect x="226" y="92" width="12" height="80" rx="3" fill="#455a64"/><rect x="226" y="92" width="12" height="14" rx="3" fill="#90a4ae"/>
+</g>
+<!-- case body -->
+<path d="M60 150 Q60 128 84 126 L316 126 Q340 128 340 150 L344 214 Q344 234 322 234 L78 234 Q56 234 56 214Z" fill="url(#pencil-case-body)"/>
+<path d="M66 150 Q68 136 88 134 L312 134 Q330 136 332 150" fill="none" stroke="#7fb2f0" stroke-width="3" opacity=".7"/>
+<!-- open lip / zipper -->
+<path d="M84 126 Q200 112 316 126" fill="none" stroke="url(#pencil-case-zip)" stroke-width="7" stroke-linecap="round"/>
+<path d="M84 126 Q200 112 316 126" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="3 3"/>
+<rect x="300" y="122" width="22" height="12" rx="3" fill="url(#pencil-case-zip)" stroke="#777"/>
+<path d="M318 132 L330 160 Q332 166 326 166 L322 166 Q318 166 318 160Z" fill="#c9c9c9" stroke="#777"/>
+<!-- stitching -->
+<path d="M70 222 L330 222" stroke="#9cc3f5" stroke-width="2" stroke-dasharray="6 5" opacity=".7"/>
+<path d="M90 160 Q200 154 310 160 L312 175 Q200 170 88 175Z" fill="#fff" opacity=".12"/>
+</svg>

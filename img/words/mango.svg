@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="mango-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf7e8"/><stop offset="1" stop-color="#f2e6c8"/></linearGradient>
+<radialGradient id="mango-skin" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#ffe680"/><stop offset=".45" stop-color="#ffc21a"/><stop offset=".8" stop-color="#f08a00"/><stop offset="1" stop-color="#c96a00"/></radialGradient>
+<radialGradient id="mango-green" cx=".82" cy=".1" r=".45"><stop offset="0" stop-color="#7fae2a" stop-opacity=".8"/><stop offset="1" stop-color="#7fae2a" stop-opacity="0"/></radialGradient><radialGradient id="mango-blush" cx=".8" cy=".7" r=".5"><stop offset="0" stop-color="#e2531f" stop-opacity=".45"/><stop offset="1" stop-color="#e2531f" stop-opacity="0"/></radialGradient>
+<linearGradient id="mango-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fb04a"/><stop offset="1" stop-color="#22672a"/></linearGradient>
+<radialGradient id="mango-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#mango-bg)"/>
+<rect y="236" width="400" height="64" fill="#dccaa4"/>
+<ellipse cx="200" cy="242" rx="140" ry="16" fill="url(#mango-sh)"/>
+<path d="M96 124 Q150 74 260 84 Q352 98 346 168 Q338 228 250 226 Q170 224 124 206 Q96 196 78 194 Q66 162 96 124Z" fill="url(#mango-skin)"/>
+<path d="M96 124 Q150 74 260 84 Q352 98 346 168 Q338 228 250 226 Q170 224 124 206 Q96 196 78 194 Q66 162 96 124Z" fill="url(#mango-blush)"/>
+<path d="M96 124 Q150 74 260 84 Q352 98 346 168 Q338 228 250 226 Q170 224 124 206 Q96 196 78 194 Q66 162 96 124Z" fill="url(#mango-green)"/>
+<ellipse cx="160" cy="100" rx="40" ry="18" fill="#fff" opacity=".35" transform="rotate(-20 160 100)"/>
+<path d="M296 92 Q300 74 292 60" stroke="#6b4a1e" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M294 66 Q330 30 380 46 Q342 84 294 66Z" fill="url(#mango-leaf)"/>
+<path d="M296 66 Q334 50 376 47" stroke="#a6d98a" stroke-width="2" fill="none"/>
+<g fill="#b8860b" opacity=".35"><circle cx="200" cy="150" r="1.5"/><circle cx="240" cy="180" r="1.5"/><circle cx="150" cy="170" r="1.5"/><circle cx="270" cy="120" r="1.5"/><circle cx="190" cy="210" r="1.5"/></g>
+</svg>

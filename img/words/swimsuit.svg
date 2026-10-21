@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="swimsuit-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8f1f6"/><stop offset="1" stop-color="#a7dbe6"/></linearGradient>
+<linearGradient id="swimsuit-b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c2185b"/><stop offset="0.45" stop-color="#f0508a"/><stop offset="1" stop-color="#b0154f"/></linearGradient>
+<radialGradient id="swimsuit-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#2c6a78" stop-opacity="0.3"/><stop offset="1" stop-color="#2c6a78" stop-opacity="0"/></radialGradient>
+<clipPath id="swimsuit-clip"><path d="M150 40 L165 40 C170 80 180 100 200 100 C220 100 230 80 235 40 L250 40 C252 80 262 110 272 130 C262 170 258 200 268 240 C240 238 220 250 200 278 C180 250 160 238 132 240 C142 200 138 170 128 130 C138 110 148 80 150 40Z"/></clipPath>
+</defs>
+<rect width="400" height="300" fill="url(#swimsuit-bg)"/>
+<ellipse cx="200" cy="282" rx="100" ry="10" fill="url(#swimsuit-sh)"/>
+<path d="M150 40 L165 40 C170 80 180 100 200 100 C220 100 230 80 235 40 L250 40 C252 80 262 110 272 130 C262 170 258 200 268 240 C240 238 220 250 200 278 C180 250 160 238 132 240 C142 200 138 170 128 130 C138 110 148 80 150 40Z" fill="url(#swimsuit-b)"/>
+<g clip-path="url(#swimsuit-clip)" fill="#ffe24a" opacity="0.95">
+<circle cx="160" cy="150" r="9"/><circle cx="200" cy="135" r="9"/><circle cx="240" cy="150" r="9"/><circle cx="180" cy="185" r="9"/><circle cx="222" cy="185" r="9"/><circle cx="160" cy="220" r="9"/><circle cx="240" cy="220" r="9"/><circle cx="200" cy="230" r="9"/><circle cx="145" cy="110" r="7"/><circle cx="255" cy="110" r="7"/>
+</g>
+<path d="M150 40 L165 40 C170 80 180 100 200 100 C220 100 230 80 235 40 L250 40" fill="none" stroke="#8e0f3e" stroke-width="3"/>
+<path d="M132 240 C160 238 180 250 200 278 C220 250 240 238 268 240" fill="none" stroke="#8e0f3e" stroke-width="3"/>
+<path d="M150 70 C145 120 150 180 150 225" fill="none" stroke="#fff" stroke-width="7" opacity="0.3" stroke-linecap="round"/>
+<g fill="#fff" opacity="0.5"><circle cx="60" cy="60" r="8"/><circle cx="80" cy="90" r="5"/><circle cx="340" cy="70" r="7"/><circle cx="325" cy="210" r="6"/></g>
+</svg>

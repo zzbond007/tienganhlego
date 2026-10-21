@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="fresh-fruit-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf8ec"/><stop offset="1" stop-color="#f2e7cd"/></linearGradient>
+<linearGradient id="fresh-fruit-bask" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a35c"/><stop offset="1" stop-color="#8f5a24"/></linearGradient>
+<radialGradient id="fresh-fruit-apple" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ff7b6b"/><stop offset=".6" stop-color="#d62828"/><stop offset="1" stop-color="#8a1010"/></radialGradient>
+<radialGradient id="fresh-fruit-orange" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ffcf6b"/><stop offset=".6" stop-color="#ff9800"/><stop offset="1" stop-color="#c46200"/></radialGradient>
+<linearGradient id="fresh-fruit-banana" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff176"/><stop offset=".6" stop-color="#fbc02d"/><stop offset="1" stop-color="#c79100"/></linearGradient>
+<radialGradient id="fresh-fruit-grape" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#b388d9"/><stop offset="1" stop-color="#4a1f73"/></radialGradient>
+<radialGradient id="fresh-fruit-pear" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#e6f58a"/><stop offset="1" stop-color="#8bb02a"/></radialGradient>
+<radialGradient id="fresh-fruit-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#fresh-fruit-bg)"/>
+<rect y="246" width="400" height="54" fill="#dcc79c"/>
+<ellipse cx="200" cy="256" rx="170" ry="14" fill="url(#fresh-fruit-sh)"/>
+<!-- grapes back left -->
+<g fill="url(#fresh-fruit-grape)"><circle cx="92" cy="112" r="15"/><circle cx="118" cy="108" r="15"/><circle cx="104" cy="132" r="15"/><circle cx="80" cy="136" r="15"/><circle cx="128" cy="134" r="15"/><circle cx="92" cy="158" r="15"/><circle cx="116" cy="158" r="15"/></g>
+<path d="M104 96 Q100 80 110 72" stroke="#5d4020" stroke-width="4" fill="none"/>
+<!-- pear back right -->
+<path d="M300 70 Q318 70 318 100 Q340 120 340 150 Q340 186 304 186 Q268 186 268 150 Q268 120 288 100 Q286 70 300 70Z" fill="url(#fresh-fruit-pear)"/>
+<path d="M302 70 Q304 56 312 50" stroke="#5d4020" stroke-width="4" fill="none"/>
+<!-- orange -->
+<circle cx="250" cy="146" r="42" fill="url(#fresh-fruit-orange)"/>
+<circle cx="238" cy="132" r="10" fill="#fff" opacity=".3"/><circle cx="252" cy="106" r="3" fill="#6b8e23"/>
+<!-- apple -->
+<path d="M166 108 Q186 96 204 108 Q232 104 236 136 Q238 182 202 186 Q186 190 170 186 Q134 182 136 136 Q140 104 166 108Z" fill="url(#fresh-fruit-apple)"/>
+<path d="M186 108 Q188 92 196 84" stroke="#5d4020" stroke-width="4" fill="none"/>
+<path d="M192 92 Q214 76 228 90 Q208 102 192 92Z" fill="#4caf50"/>
+<ellipse cx="160" cy="128" rx="10" ry="16" fill="#fff" opacity=".3"/>
+<g transform="translate(0 -26)"><!-- banana -->
+<path d="M90 168 Q160 214 290 170 Q300 166 302 174 Q290 214 190 222 Q110 222 82 178 Q82 166 90 168Z" fill="url(#fresh-fruit-banana)"/>
+<path d="M96 178 Q170 214 286 178" stroke="#e0a800" stroke-width="2" fill="none"/>
+<path d="M290 170 L300 160 L306 168 L302 174Z" fill="#6d4c1e"/>
+</g><!-- basket -->
+<path d="M60 186 L340 186 L316 252 L84 252Z" fill="url(#fresh-fruit-bask)"/>
+<g stroke="#7a4a1a" stroke-width="2" opacity=".6" fill="none"><path d="M64 200 L336 200 M70 216 L330 216 M76 232 L324 232"/><path d="M100 186 L106 252 M140 186 L142 252 M180 186 L180 252 M220 186 L220 252 M260 186 L258 252 M300 186 L294 252"/></g>
+<rect x="54" y="180" width="292" height="12" rx="6" fill="#c68a44"/>
+</svg>

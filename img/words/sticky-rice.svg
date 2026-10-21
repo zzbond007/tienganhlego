@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="sticky-rice-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8f1e3"/><stop offset="1" stop-color="#eadbc0"/></linearGradient>
+<linearGradient id="sticky-rice-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cc451"/><stop offset="1" stop-color="#2e7d32"/></linearGradient>
+<radialGradient id="sticky-rice-rice" cx=".45" cy=".3" r=".75"><stop offset="0" stop-color="#fffdf6"/><stop offset=".7" stop-color="#f1e8d2"/><stop offset="1" stop-color="#d6c7a6"/></radialGradient>
+<radialGradient id="sticky-rice-bean" cx=".45" cy=".3" r=".75"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#e0a800"/></radialGradient>
+<radialGradient id="sticky-rice-sh"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<pattern id="sticky-rice-grain" width="10" height="8" patternUnits="userSpaceOnUse"><ellipse cx="3" cy="3" rx="3" ry="1.6" fill="#e3d6b8" opacity=".45"/><ellipse cx="8" cy="7" rx="3" ry="1.6" fill="#fff" opacity=".5" transform="rotate(30 8 7)"/></pattern>
+</defs>
+<rect width="400" height="300" fill="url(#sticky-rice-bg)"/>
+<rect y="214" width="400" height="86" fill="#a8774a"/>
+<ellipse cx="200" cy="246" rx="170" ry="20" fill="url(#sticky-rice-sh)"/>
+<!-- banana leaf -->
+<path d="M24 236 Q60 170 200 176 Q340 170 380 230 Q300 262 200 260 Q90 262 24 236Z" fill="url(#sticky-rice-leaf)"/>
+<g stroke="#a9de86" stroke-width="2" opacity=".7" fill="none"><path d="M40 232 Q200 214 366 228"/><path d="M80 210 L120 246 M130 196 L160 250 M190 190 L210 256 M250 192 L250 254 M300 200 L280 250 M340 214 L320 244"/></g>
+<!-- mound of sticky rice -->
+<path d="M80 226 Q66 156 136 124 Q200 98 264 124 Q334 156 320 226 Q200 246 80 226Z" fill="url(#sticky-rice-rice)"/>
+<path d="M80 226 Q66 156 136 124 Q200 98 264 124 Q334 156 320 226 Q200 246 80 226Z" fill="url(#sticky-rice-grain)"/>
+<!-- mung bean + fried shallot topping -->
+<path d="M120 140 Q200 92 280 140 Q200 170 120 140Z" fill="url(#sticky-rice-bean)"/>
+<g fill="#a0521c"><path d="M160 140 q6 -6 12 0"/><path d="M196 128 q6 -6 12 0"/><path d="M226 144 q6 -6 12 0"/><path d="M180 150 q6 -6 12 0"/><path d="M240 132 q5 -5 10 0"/></g>
+<g stroke="#a0521c" stroke-width="3" fill="none" stroke-linecap="round"><path d="M164 134 q8 -4 14 2"/><path d="M210 140 q8 -4 14 2"/><path d="M190 120 q8 -4 14 2"/><path d="M236 150 q6 -4 12 2"/></g>
+<ellipse cx="150" cy="170" rx="22" ry="10" fill="#fff" opacity=".5" transform="rotate(-30 150 170)"/>
+</svg>

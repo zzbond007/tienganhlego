@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="sprout-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf6fd"/><stop offset="1" stop-color="#f4f1e2"/></linearGradient>
+<linearGradient id="sprout-soil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a5232"/><stop offset="1" stop-color="#3f2814"/></linearGradient>
+<linearGradient id="sprout-stem" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7dbb4a"/><stop offset=".5" stop-color="#c3e88e"/><stop offset="1" stop-color="#5f9a34"/></linearGradient>
+<linearGradient id="sprout-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7e06a"/><stop offset="1" stop-color="#3e8a26"/></linearGradient>
+<radialGradient id="sprout-seed" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#e8c890"/><stop offset="1" stop-color="#9a6d3a"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#sprout-bg)"/>
+<path d="M0 200 Q100 190 200 196 Q300 202 400 192 L400 300 L0 300Z" fill="url(#sprout-soil)"/>
+<g fill="#2d1c0d" opacity=".5"><circle cx="60" cy="230" r="5"/><circle cx="330" cy="250" r="6"/><circle cx="120" cy="270" r="4"/><circle cx="280" cy="220" r="3"/><circle cx="250" cy="280" r="5"/></g>
+<g fill="#a07650" opacity=".6"><circle cx="90" cy="214" r="3"/><circle cx="310" cy="212" r="4"/><circle cx="170" cy="254" r="3"/></g>
+<!-- seed coat in soil -->
+<ellipse cx="200" cy="240" rx="26" ry="18" fill="url(#sprout-seed)" transform="rotate(-15 200 240)"/>
+<path d="M186 248 Q200 236 214 232" stroke="#7a5228" stroke-width="2" fill="none"/>
+<!-- roots -->
+<g stroke="#efe2c4" stroke-width="3" fill="none" stroke-linecap="round"><path d="M196 254 Q190 274 178 290"/><path d="M204 254 Q214 272 230 284"/><path d="M200 256 Q202 276 198 296"/></g>
+<!-- stem -->
+<path d="M196 232 Q186 180 200 120 L208 120 Q196 180 206 232Z" fill="url(#sprout-stem)"/>
+<!-- leaves -->
+<path d="M202 122 Q160 70 96 92 Q140 140 202 126Z" fill="url(#sprout-leaf)"/>
+<path d="M202 122 Q250 64 316 82 Q272 136 202 126Z" fill="url(#sprout-leaf)"/>
+<path d="M200 124 Q150 96 108 94" stroke="#d9f2b4" stroke-width="3" fill="none"/>
+<path d="M204 124 Q260 90 304 84" stroke="#d9f2b4" stroke-width="3" fill="none"/>
+<ellipse cx="150" cy="98" rx="20" ry="5" fill="#fff" opacity=".3" transform="rotate(10 150 98)"/>
+<g fill="#5a3a1e"><ellipse cx="170" cy="200" rx="10" ry="4"/><ellipse cx="236" cy="202" rx="12" ry="4"/></g>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="umbrella-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f1f8"/><stop offset="1" stop-color="#cfdde9"/></linearGradient>
+<linearGradient id="umbrella-r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9c1c22"/><stop offset="0.5" stop-color="#e2343c"/><stop offset="1" stop-color="#a51e25"/></linearGradient>
+<linearGradient id="umbrella-r2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8252c"/><stop offset="0.5" stop-color="#f25a60"/><stop offset="1" stop-color="#c22a31"/></linearGradient>
+<radialGradient id="umbrella-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<linearGradient id="umbrella-h" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a3a22"/><stop offset="0.5" stop-color="#9a6a42"/><stop offset="1" stop-color="#5a3a22"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#umbrella-bg)"/>
+<rect y="262" width="400" height="38" fill="#bccbd8"/>
+<ellipse cx="200" cy="272" rx="70" ry="9" fill="url(#umbrella-sh)"/>
+<rect x="197" y="48" width="6" height="200" fill="#6c6f75"/>
+<path d="M203 240 v18 a16 16 0 0 1 -32 0 v-4" fill="none" stroke="url(#umbrella-h)" stroke-width="10" stroke-linecap="round"/>
+<path d="M200 50 C120 52 60 100 50 160 Q75 145 100 160 Q125 140 150 160 Q175 142 200 160 Q225 142 250 160 Q275 140 300 160 Q325 145 350 160 C340 100 280 52 200 50Z" fill="url(#umbrella-r)"/>
+<path d="M200 50 C170 70 155 110 150 160 Q175 142 200 160 Q225 142 250 160 C245 110 230 70 200 50Z" fill="url(#umbrella-r2)"/>
+<path d="M200 50 C150 70 105 110 100 160 M200 50 C250 70 295 110 300 160" fill="none" stroke="#7d151a" stroke-width="2" opacity="0.6"/>
+<path d="M120 90 C145 70 170 60 195 58" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.35"/>
+<rect x="196" y="36" width="8" height="16" rx="3" fill="#44474d"/>
+<g fill="#7da7d0" opacity="0.7"><path d="M60 40 q4 8 0 12 q-4 -4 0 -12z"/><path d="M330 30 q4 8 0 12 q-4 -4 0 -12z"/><path d="M370 110 q4 8 0 12 q-4 -4 0 -12z"/><path d="M30 120 q4 8 0 12 q-4 -4 0 -12z"/><path d="M80 210 q4 8 0 12 q-4 -4 0 -12z"/><path d="M320 205 q4 8 0 12 q-4 -4 0 -12z"/></g>
+</svg>

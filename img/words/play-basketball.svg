@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="play-basketball-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9fb"/><stop offset="1" stop-color="#eef7fd"/></linearGradient><linearGradient id="play-basketball-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0a96d"/><stop offset="1" stop-color="#6a9f3a"/></linearGradient><linearGradient id="play-basketball-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#42a5f5"/><stop offset="1" stop-color="#1565c0"/></linearGradient>
+<linearGradient id="play-basketball-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#263238"/><stop offset="1" stop-color="#000"/></linearGradient>
+<radialGradient id="play-basketball-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="play-basketball-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient><radialGradient id="play-basketball-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><radialGradient id="play-basketball-ball" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffa64d"/><stop offset="1" stop-color="#c25400"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#play-basketball-bg)"/><path d="M0 220 Q200 210 400 220 L400 300 L0 300Z" fill="#d39a5f"/><rect x="330" y="30" width="10" height="236" fill="#78909c"/><rect x="270" y="30" width="80" height="60" rx="3" fill="#fff" stroke="#90a4ae" stroke-width="4"/><rect x="292" y="52" width="36" height="26" fill="none" stroke="#e53935" stroke-width="3"/><ellipse cx="300" cy="92" rx="28" ry="6" fill="none" stroke="#e65100" stroke-width="5"/><path d="M274 94 L284 124 L316 124 L326 94 M284 94 L292 124 M300 96 L300 124 M316 94 L308 124" stroke="#fff" stroke-width="2" fill="none"/><ellipse cx="170" cy="262" rx="50" ry="8" fill="url(#play-basketball-sh)"/>
+<g opacity=".88">
+<path d="M170.0 112.0 L186.0 84.3 L191.2 54.7" stroke="url(#play-basketball-skin)" stroke-width="11.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.0 112.0 L178.8 96.8" stroke="url(#play-basketball-shirt)" stroke-width="16.0" fill="none" stroke-linecap="round"/>
+<circle cx="191.2" cy="54.7" r="7.5" fill="url(#play-basketball-skin)"/>
+</g>
+<g opacity=".88">
+<path d="M170.0 182.0 L165.8 221.8 L165.8 261.8" stroke="url(#play-basketball-pants)" stroke-width="18.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="172.8" cy="264.8" rx="14.0" ry="7.0" fill="#222" transform="rotate(0.0 165.8 261.8)"/>
+<ellipse cx="170.8" cy="261.8" rx="8.0" ry="2.5" fill="#fff" opacity=".25" transform="rotate(0.0 165.8 261.8)"/>
+</g>
+<g transform="rotate(0.0 170.0 182.0)">
+<rect x="147.0" y="108.0" width="46.0" height="82.0" rx="16.0" fill="url(#play-basketball-shirt)"/>
+<path d="M155.0 122.0 Q152.0 147.0 155.0 182.0" stroke="#fff" stroke-width="4.0" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M170.0 182.0 L172.8 221.9 L172.8 261.9" stroke="url(#play-basketball-pants)" stroke-width="18.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="179.8" cy="264.9" rx="14.0" ry="7.0" fill="#333" transform="rotate(0.0 172.8 261.9)"/>
+<ellipse cx="177.8" cy="261.9" rx="8.0" ry="2.5" fill="#fff" opacity=".25" transform="rotate(0.0 172.8 261.9)"/>
+<path d="M170.0 112.0 L190.6 87.5 L200.8 59.3" stroke="url(#play-basketball-skin)" stroke-width="11.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M170.0 112.0 L181.3 98.5" stroke="url(#play-basketball-shirt)" stroke-width="16.0" fill="none" stroke-linecap="round"/>
+<circle cx="200.8" cy="59.3" r="7.5" fill="url(#play-basketball-skin)"/>
+<g transform="rotate(0 170.0 82.0)">
+<rect x="164.0" y="98.0" width="12.0" height="12.0" fill="#e7a67c"/>
+<circle cx="146.2" cy="84.0" r="5.0" fill="#efb48c"/>
+<circle cx="170.0" cy="82.0" r="25.0" fill="url(#play-basketball-skin)"/>
+<path d="M144.0 86.0 Q141.0 51.0 170.0 54.0 Q199.0 51.0 196.0 86.0 Q185.0 68.2 165.0 69.5 Q150.0 72.0 144.0 86.0Z" fill="url(#play-basketball-hair)"/>
+<circle cx="171.8" cy="82.0" r="2.8" fill="#2a1a0e"/><circle cx="185.8" cy="82.0" r="2.8" fill="#2a1a0e"/>
+<path d="M172.8 92.0 q6.0 6.0 12.0 0" stroke="#a2412e" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<circle cx="166.8" cy="89.0" r="3.5" fill="#ff8a80" opacity=".35"/><circle cx="190.8" cy="89.0" r="3.5" fill="#ff8a80" opacity=".35"/>
+</g><circle cx="211" cy="35" r="24" fill="url(#play-basketball-ball)"/><g stroke="#3e1d00" stroke-width="2" fill="none"><path d="M187 35 L235 35 M211 11 L211 59"/><path d="M194 18 Q205 35 194 52 M228 18 Q217 35 228 52"/></g>
+</svg>

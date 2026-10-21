@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="took-photos-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef1f5"/><stop offset="1" stop-color="#d6dce4"/></linearGradient>
+<linearGradient id="took-photos-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4e55"/><stop offset="1" stop-color="#16181c"/></linearGradient>
+<linearGradient id="took-photos-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e8eb"/><stop offset="1" stop-color="#9da2a9"/></linearGradient>
+<radialGradient id="took-photos-lens" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#6a8cc0"/><stop offset="0.35" stop-color="#20304a"/><stop offset="1" stop-color="#05070c"/></radialGradient>
+<linearGradient id="took-photos-ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a5f66"/><stop offset="0.5" stop-color="#22252a"/><stop offset="1" stop-color="#4a4e55"/></linearGradient>
+<radialGradient id="took-photos-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<radialGradient id="took-photos-flash" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#took-photos-bg)"/>
+<ellipse cx="200" cy="262" rx="150" ry="12" fill="url(#took-photos-sh)"/>
+<rect x="70" y="80" width="260" height="170" rx="18" fill="url(#took-photos-body)"/>
+<path d="M150 80 L166 50 L234 50 L250 80Z" fill="url(#took-photos-body)"/>
+<rect x="70" y="80" width="260" height="34" rx="10" fill="url(#took-photos-top)"/>
+<rect x="90" y="62" width="34" height="18" rx="4" fill="#2a2d32"/>
+<rect x="268" y="66" width="40" height="14" rx="5" fill="#b9bec5"/>
+<rect x="286" y="90" width="28" height="16" rx="3" fill="#dfe8f0" stroke="#666"/>
+<circle cx="296" cy="98" r="40" fill="url(#took-photos-flash)" opacity="0.7"/>
+<g fill="#2a2d32" opacity="0.5"><rect x="76" y="124" width="24" height="120" rx="6"/></g>
+<circle cx="200" cy="165" r="70" fill="url(#took-photos-ring)"/>
+<circle cx="200" cy="165" r="58" fill="#0d0f12" stroke="#777" stroke-width="2"/>
+<circle cx="200" cy="165" r="46" fill="url(#took-photos-lens)"/>
+<circle cx="200" cy="165" r="20" fill="#0a1220"/>
+<ellipse cx="184" cy="146" rx="14" ry="9" fill="#fff" opacity="0.45" transform="rotate(-30 184 146)"/>
+<circle cx="220" cy="186" r="5" fill="#9ab4e0" opacity="0.5"/>
+</svg>

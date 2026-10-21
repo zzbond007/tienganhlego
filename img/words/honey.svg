@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="honey-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff8e6"/><stop offset="1" stop-color="#f3e2bb"/></linearGradient>
+<linearGradient id="honey-gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8640a"/><stop offset=".3" stop-color="#f2a516"/><stop offset=".55" stop-color="#ffc94a"/><stop offset="1" stop-color="#a35508"/></linearGradient>
+<linearGradient id="honey-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e2d2"/><stop offset="1" stop-color="#9c8f74"/></linearGradient>
+<linearGradient id="honey-wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a2b"/><stop offset=".5" stop-color="#c8925a"/><stop offset="1" stop-color="#7a4a1f"/></linearGradient>
+<radialGradient id="honey-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#honey-bg)"/>
+<rect y="240" width="400" height="60" fill="#dcc79c"/>
+<ellipse cx="200" cy="248" rx="150" ry="14" fill="url(#honey-sh)"/>
+<!-- jar -->
+<path d="M110 92 Q96 100 96 124 L96 220 Q96 248 126 248 L254 248 Q284 248 284 220 L284 124 Q284 100 270 92Z" fill="url(#honey-gold)"/>
+<path d="M114 110 L114 230" stroke="#fff" stroke-width="10" opacity=".35" stroke-linecap="round"/>
+<path d="M130 104 L130 150" stroke="#fff" stroke-width="5" opacity=".3" stroke-linecap="round"/>
+<rect x="104" y="70" width="172" height="30" rx="6" fill="url(#honey-lid)"/>
+<path d="M104 82 L276 82 M104 90 L276 90" stroke="#8c7f64" stroke-width="1.5" opacity=".6"/>
+<!-- honey drip on lid -->
+<path d="M150 70 Q150 92 160 98 Q170 102 170 86 L172 70Z" fill="#f2a516"/>
+<!-- dipper -->
+<path d="M330 30 L230 140" stroke="url(#honey-wood)" stroke-width="10" stroke-linecap="round"/>
+<g transform="rotate(42 222 150)">
+<ellipse cx="222" cy="150" rx="22" ry="28" fill="#c8925a"/>
+<g stroke="#7a4a1f" stroke-width="4" fill="none"><path d="M200 136 L244 136 M198 150 L246 150 M200 164 L244 164"/></g>
+</g>
+<path d="M212 172 Q206 196 210 230 Q214 246 220 232 Q222 200 228 168Z" fill="#f2a516" opacity=".95"/>
+<ellipse cx="216" cy="246" rx="26" ry="6" fill="#e39410"/>
+</svg>

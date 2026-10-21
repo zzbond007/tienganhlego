@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="swim-underwater-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fd6ee"/><stop offset="0.6" stop-color="#2a9cc6"/><stop offset="1" stop-color="#16698f"/></linearGradient>
+<linearGradient id="swim-underwater-ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="swim-underwater-suit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b4a"/><stop offset="1" stop-color="#c7361c"/></linearGradient>
+<linearGradient id="swim-underwater-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7cfa8"/><stop offset="1" stop-color="#d9a078"/></linearGradient>
+<linearGradient id="swim-underwater-sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8d49a"/><stop offset="1" stop-color="#c9b06a"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#swim-underwater-bg)"/>
+<path d="M0 8 q25 -8 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 V0 H0Z" fill="#bff0fb" opacity="0.8"/>
+<g fill="url(#swim-underwater-ray)"><path d="M70 0 h30 l-40 260 h-20z"/><path d="M230 0 h24 l10 260 h-30z"/></g>
+<path d="M0 270 C80 256 200 262 400 252 V300 H0Z" fill="url(#swim-underwater-sand)"/>
+<g fill="#3fa35a"><path d="M330 270 C320 240 340 220 326 196 C344 214 336 244 344 270Z"/><path d="M350 268 C350 236 366 226 358 206 C376 224 362 246 362 268Z"/><path d="M40 272 C30 250 46 236 36 214 C54 230 46 252 52 272Z"/></g>
+<g transform="rotate(-8 200 140)">
+<path d="M70 150 L40 132 C34 128 30 134 34 140 L48 160 L40 180 C36 186 42 190 48 186 L76 164Z" fill="#2a7bd6"/>
+<path d="M74 146 L130 140 L132 160 L74 166Z" fill="url(#swim-underwater-skin)"/>
+<path d="M126 136 L210 128 C226 128 236 140 234 154 C232 166 222 170 210 170 L126 170Z" fill="url(#swim-underwater-suit)"/>
+<path d="M226 136 L300 112 C306 110 310 116 306 120 L236 152Z" fill="url(#swim-underwater-skin)"/>
+<path d="M220 162 L300 166 C306 166 306 174 300 174 L224 176Z" fill="url(#swim-underwater-skin)"/>
+<ellipse cx="306" cy="116" rx="8" ry="6" fill="#f2c39a"/>
+<circle cx="258" cy="146" r="22" fill="url(#swim-underwater-skin)"/>
+<path d="M238 140 C236 120 270 116 280 136 C272 128 254 128 238 140Z" fill="#ffd23a"/>
+<path d="M236 142 C240 120 278 118 282 140 L280 146 C270 132 248 132 238 148Z" fill="#ffd23a"/>
+<rect x="256" y="138" width="24" height="14" rx="6" fill="#bfeefa" stroke="#1e3a5a" stroke-width="3"/>
+<path d="M242 144 L256 144" stroke="#1e3a5a" stroke-width="3"/>
+<path d="M266 160 Q272 164 278 160" stroke="#a0523a" stroke-width="2" fill="none"/>
+</g>
+<g fill="none" stroke="#e8fbff" stroke-width="2" opacity="0.85"><circle cx="300" cy="110" r="5"/><circle cx="308" cy="90" r="4"/><circle cx="302" cy="70" r="6"/><circle cx="312" cy="48" r="3"/></g>
+<g fill="#ffa53a"><path d="M100 230 c10 -10 30 -10 36 0 c-6 10 -26 10 -36 0z"/><path d="M100 230 l-10 -8 0 16z"/></g>
+<circle cx="128" cy="228" r="2" fill="#222"/>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="vegetables-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f8ee"/><stop offset="1" stop-color="#e3ecd8"/></linearGradient>
+<radialGradient id="vegetables-tom" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ff7b6b"/><stop offset=".6" stop-color="#e53935"/><stop offset="1" stop-color="#9b1b1b"/></radialGradient>
+<radialGradient id="vegetables-cab" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#d7f0a8"/><stop offset=".6" stop-color="#8fca5a"/><stop offset="1" stop-color="#4f8a2c"/></radialGradient>
+<linearGradient id="vegetables-car" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb04a"/><stop offset="1" stop-color="#d35b00"/></linearGradient>
+<radialGradient id="vegetables-egg" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#9c5cc4"/><stop offset="1" stop-color="#3f1a5c"/></radialGradient>
+<radialGradient id="vegetables-cuc" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#7cc451"/><stop offset="1" stop-color="#2e6b1e"/></radialGradient>
+<radialGradient id="vegetables-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#vegetables-bg)"/>
+<rect y="236" width="400" height="64" fill="#cdb48b"/>
+<ellipse cx="200" cy="244" rx="180" ry="14" fill="url(#vegetables-sh)"/>
+<!-- cabbage back -->
+<circle cx="200" cy="140" r="78" fill="url(#vegetables-cab)"/>
+<g stroke="#6fae3f" stroke-width="3" fill="none"><path d="M200 70 Q170 140 200 216"/><path d="M150 90 Q130 150 160 210"/><path d="M250 90 Q270 150 240 210"/></g>
+<path d="M130 120 Q160 60 220 64" stroke="#e6f7c4" stroke-width="5" fill="none" opacity=".6"/>
+<!-- eggplant -->
+<path d="M290 120 Q350 110 370 170 Q380 220 340 230 Q300 236 296 196 Q292 160 272 140Z" fill="url(#vegetables-egg)"/>
+<path d="M262 130 Q276 112 300 118 L292 140Z" fill="#4c8a2e"/>
+<ellipse cx="330" cy="150" rx="8" ry="20" fill="#fff" opacity=".25" transform="rotate(-30 330 150)"/>
+<!-- carrots -->
+<path d="M40 210 L160 168 Q172 166 172 178 L170 186 Q164 194 150 196Z" fill="url(#vegetables-car)"/>
+<path d="M44 222 L170 196 Q182 196 180 208 L176 214 Q170 220 158 220Z" fill="url(#vegetables-car)"/>
+<g fill="#4caf50"><path d="M170 174 Q196 150 210 156 Q192 170 172 182Z"/><path d="M176 202 Q206 186 220 194 Q200 206 178 210Z"/></g>
+<!-- cucumber -->
+<rect x="190" y="212" width="150" height="26" rx="13" fill="url(#vegetables-cuc)"/>
+<g fill="#a5d67a" opacity=".6"><circle cx="210" cy="220" r="1.8"/><circle cx="240" cy="226" r="1.8"/><circle cx="270" cy="219" r="1.8"/><circle cx="300" cy="227" r="1.8"/><circle cx="320" cy="220" r="1.8"/></g>
+<!-- tomatoes front -->
+<circle cx="130" cy="210" r="34" fill="url(#vegetables-tom)"/>
+<path d="M118 180 l12 6 l12 -6 l-6 10 l8 6 l-14 -2 l-6 8 l-4 -10 l-12 0 l10 -6z" fill="#3d8b2a"/>
+<ellipse cx="118" cy="198" rx="8" ry="5" fill="#fff" opacity=".4"/>
+<circle cx="90" cy="226" r="24" fill="url(#vegetables-tom)"/>
+<path d="M84 204 l6 4 l8 -4 l-4 8 l6 4 l-10 -1 l-4 6 l-3 -7 l-8 0 l7 -4z" fill="#3d8b2a"/>
+</svg>

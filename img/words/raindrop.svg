@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="raindrop-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe6d4"/><stop offset="1" stop-color="#9cc9a6"/></linearGradient>
+<linearGradient id="raindrop-leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fbf4a"/><stop offset="1" stop-color="#2f7a2a"/></linearGradient>
+<radialGradient id="raindrop-d" cx="0.4" cy="0.65" r="0.6"><stop offset="0" stop-color="#e9f7ff" stop-opacity="0.9"/><stop offset="0.6" stop-color="#9fd2f0" stop-opacity="0.75"/><stop offset="1" stop-color="#3f8fc4" stop-opacity="0.9"/></radialGradient>
+<radialGradient id="raindrop-s" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#1b4d1a" stop-opacity="0.45"/><stop offset="1" stop-color="#1b4d1a" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#raindrop-bg)"/>
+<path d="M-10 290 C60 200 200 170 410 190 L410 300 L-10 300Z" fill="url(#raindrop-leaf)"/>
+<path d="M-10 290 C80 220 220 200 410 205" fill="none" stroke="#a6dc80" stroke-width="3" opacity="0.6"/>
+<g stroke="#3e8b33" stroke-width="2" fill="none" opacity="0.6"><path d="M80 245 l40 -30M160 220 l40 -20M250 205 l40 -10M330 200 l40 -5"/></g>
+<ellipse cx="205" cy="228" rx="62" ry="12" fill="url(#raindrop-s)"/>
+<path d="M200 30 C200 30 135 130 135 175 A65 65 0 0 0 265 175 C265 130 200 30 200 30Z" fill="url(#raindrop-d)"/>
+<path d="M200 30 C200 30 135 130 135 175 A65 65 0 0 0 265 175 C265 130 200 30 200 30Z" fill="none" stroke="#2f7fb4" stroke-width="2" opacity="0.5"/>
+<path d="M165 150 C168 125 180 100 190 85" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+<ellipse cx="225" cy="205" rx="18" ry="8" fill="#ffffff" opacity="0.45" transform="rotate(-30 225 205)"/>
+<g fill="#cfeaff" opacity="0.8"><path d="M70 60 C70 60 55 85 55 95 a15 15 0 0 0 30 0 C85 85 70 60 70 60Z"/><path d="M330 80 C330 80 318 100 318 108 a12 12 0 0 0 24 0 C342 100 330 80 330 80Z"/></g>
+</svg>

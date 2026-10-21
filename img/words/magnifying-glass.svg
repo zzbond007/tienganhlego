@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="magnifying-glass-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#eef3e8"/><stop offset="1.00" stop-color="#d5e2cc"/></linearGradient><linearGradient id="magnifying-glass-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#3a3a3a"/><stop offset="0.50" stop-color="#8a8a8a"/><stop offset="1.00" stop-color="#2a2a2a"/></linearGradient><linearGradient id="magnifying-glass-hd" x1="0" y1="0" x2="1" y2="0"><stop offset="0.00" stop-color="#8a4a1a"/><stop offset="0.50" stop-color="#c97a3a"/><stop offset="1.00" stop-color="#6e3a12"/></linearGradient><radialGradient id="magnifying-glass-lens" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/><stop offset="0.5" stop-color="#d9f0ff" stop-opacity="0.35"/><stop offset="1" stop-color="#8cc4e8" stop-opacity="0.5"/></radialGradient><radialGradient id="magnifying-glass-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#magnifying-glass-bg)"/>
+<ellipse cx="220" cy="270" rx="140" ry="12" fill="url(#magnifying-glass-sh)"/>
+<g transform="rotate(-35 210 150)">
+<rect x="196" y="190" width="28" height="100" rx="12" fill="url(#magnifying-glass-hd)"/>
+<rect x="200" y="176" width="20" height="20" fill="#9a9a9a"/>
+<circle cx="210" cy="105" r="80" fill="url(#magnifying-glass-rim)"/>
+<circle cx="210" cy="105" r="68" fill="#e9f5fb"/>
+<g transform="translate(210 105) scale(1.6) translate(-210 -105)"><path d="M190 110 C195 90 225 90 230 110 C225 118 195 118 190 110Z" fill="#6aa84f"/><path d="M210 92 v24" stroke="#3e7a2a" stroke-width="1.5"/></g>
+<circle cx="210" cy="105" r="68" fill="url(#magnifying-glass-lens)"/>
+<path d="M165 75 C175 55 195 45 215 45" stroke="#fff" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.9"/>
+<path d="M205 205 v70" stroke="#e6a76a" stroke-width="4" opacity="0.6"/>
+</g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="put-away-my-toys-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3e6"/><stop offset="1" stop-color="#fbe3c8"/></linearGradient><linearGradient id="put-away-my-toys-box" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e88e5"/><stop offset=".5" stop-color="#42a5f5"/><stop offset="1" stop-color="#1565c0"/></linearGradient><radialGradient id="put-away-my-toys-bear" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#d7a26a"/><stop offset="1" stop-color="#8a5a2b"/></radialGradient><radialGradient id="put-away-my-toys-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="put-away-my-toys-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ba68c8"/><stop offset="1" stop-color="#7b1fa2"/></linearGradient>
+<linearGradient id="put-away-my-toys-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5c6bc0"/><stop offset="1" stop-color="#303f9f"/></linearGradient>
+<radialGradient id="put-away-my-toys-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="put-away-my-toys-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#put-away-my-toys-bg)"/><rect y="226" width="400" height="74" fill="#c99a6b"/><path d="M0 240 L400 240 M0 262 L400 262 M0 286 L400 286" stroke="#b58758" stroke-width="2"/><ellipse cx="200" cy="268" rx="180" ry="10" fill="url(#put-away-my-toys-sh)"/><circle cx="60" cy="250" r="16" fill="#ef5350"/><path d="M44 250 Q60 240 76 250" stroke="#fff" stroke-width="4" fill="none"/><rect x="372" y="236" width="20" height="20" fill="#66bb6a"/><rect x="376" y="216" width="16" height="20" fill="#ffca28"/><path d="M230 150 L360 150 L352 262 L238 262Z" fill="url(#put-away-my-toys-box)"/><path d="M226 142 L364 142 L364 156 L226 156Z" fill="#0d47a1"/><g transform="translate(250 120) rotate(-20)"><rect width="34" height="34" rx="3" fill="#e53935"/><rect x="5" y="-6" width="8" height="8" rx="2" fill="#e53935"/><rect x="20" y="-6" width="8" height="8" rx="2" fill="#e53935"/></g><g transform="translate(300 110)"><rect x="0" y="16" width="48" height="16" rx="4" fill="#fdd835"/><rect x="10" y="4" width="24" height="14" rx="3" fill="#fbc02d"/><circle cx="10" cy="34" r="7" fill="#333"/><circle cx="38" cy="34" r="7" fill="#333"/></g><path d="M230 150 L360 150 L358 172 L232 172Z" fill="#1565c0" opacity=".4"/>
+<g opacity=".88">
+<path d="M146.7 99.3 L178.6 117.7 L212.6 123.6" stroke="url(#put-away-my-toys-skin)" stroke-width="12.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M146.7 99.3 L164.3 109.4" stroke="url(#put-away-my-toys-shirt)" stroke-width="18.4" fill="none" stroke-linecap="round"/>
+<circle cx="212.6" cy="123.6" r="8.6" fill="url(#put-away-my-toys-skin)"/>
+</g>
+<g opacity=".88">
+<path d="M130.0 178.0 L118.9 222.6 L118.9 268.6" stroke="url(#put-away-my-toys-pants)" stroke-width="20.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="126.9" cy="272.1" rx="16.1" ry="8.0" fill="#222" transform="rotate(0.0 118.9 268.6)"/>
+<ellipse cx="124.6" cy="268.6" rx="9.2" ry="2.9" fill="#fff" opacity=".25" transform="rotate(0.0 118.9 268.6)"/>
+</g>
+<g transform="rotate(12.0 130.0 178.0)">
+<path d="M105.8 97.5 Q130.0 90.6 154.1 97.5 L167.9 194.1 L92.0 194.1Z" fill="url(#put-away-my-toys-shirt)"/>
+<path d="M112.8 109.0 Q109.3 137.8 112.8 178.0" stroke="#fff" stroke-width="4.6" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M130.0 178.0 L128.4 224.0 L128.4 270.0" stroke="url(#put-away-my-toys-pants)" stroke-width="20.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="136.4" cy="273.4" rx="16.1" ry="8.0" fill="#333" transform="rotate(0.0 128.4 270.0)"/>
+<ellipse cx="134.1" cy="270.0" rx="9.2" ry="2.9" fill="#fff" opacity=".25" transform="rotate(0.0 128.4 270.0)"/>
+<path d="M146.7 99.3 L183.0 105.6 L215.4 117.4" stroke="url(#put-away-my-toys-skin)" stroke-width="12.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M146.7 99.3 L166.7 102.8" stroke="url(#put-away-my-toys-shirt)" stroke-width="18.4" fill="none" stroke-linecap="round"/>
+<circle cx="215.4" cy="117.4" r="8.6" fill="url(#put-away-my-toys-skin)"/>
+<g transform="rotate(0 153.9 65.5)">
+<rect x="141.3" y="83.3" width="13.8" height="13.8" fill="#e7a67c"/>
+<circle cx="126.6" cy="67.8" r="5.8" fill="#efb48c"/>
+<circle cx="153.9" cy="65.5" r="28.7" fill="url(#put-away-my-toys-skin)"/>
+<path d="M121.7 81.6 Q118.3 27.6 153.9 32.2 Q189.6 27.6 186.1 81.6 Q180.4 56.3 159.7 48.3 Q127.5 56.3 121.7 81.6Z" fill="url(#put-away-my-toys-hair)"/>
+<path d="M128.0 58.6 q-16.1 23.0 -4.6 50.6 q9.2 -18.4 13.8 -41.4Z" fill="url(#put-away-my-toys-hair)"/>
+<circle cx="155.9" cy="65.5" r="3.2" fill="#2a1a0e"/><circle cx="172.0" cy="65.5" r="3.2" fill="#2a1a0e"/>
+<path d="M157.1 77.0 q6.9 6.9 13.8 0" stroke="#a2412e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<circle cx="150.2" cy="73.6" r="4.0" fill="#ff8a80" opacity=".35"/><circle cx="177.8" cy="73.6" r="4.0" fill="#ff8a80" opacity=".35"/>
+</g><g transform="translate(233 117)"><circle cx="0" cy="-30" r="18" fill="url(#put-away-my-toys-bear)"/><circle cx="-14" cy="-44" r="7" fill="#8a5a2b"/><circle cx="14" cy="-44" r="7" fill="#8a5a2b"/><ellipse cx="0" cy="0" rx="20" ry="22" fill="url(#put-away-my-toys-bear)"/><ellipse cx="0" cy="-24" rx="7" ry="5" fill="#f1d2a8"/><circle cx="-6" cy="-34" r="2" fill="#222"/><circle cx="6" cy="-34" r="2" fill="#222"/><circle cx="0" cy="-26" r="2" fill="#222"/><ellipse cx="-12" cy="22" rx="8" ry="6" fill="#8a5a2b"/><ellipse cx="12" cy="22" rx="8" ry="6" fill="#8a5a2b"/></g>
+</svg>

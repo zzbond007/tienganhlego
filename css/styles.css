@@ -1359,3 +1359,36 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .bar.talk.goal { background: linear-gradient(180deg, #4ADE80, #16A34A); }
 .opt-brick.wait, .tf-btn[disabled] { opacity: .55; filter: grayscale(.4); }
 .tf-wait { display: block; width: 100%; text-align: center; margin-top: 6px; font-weight: 700; }
+
+/* ---------- 📖 Picture Story & 🥁 Beat Talk ---------- */
+.beat-banner { text-align: center; font-size: 20px; font-weight: 800; margin: 0 0 12px; display: grid; gap: 2px; }
+.pic-board { display: grid; gap: 10px; padding: 14px; }
+.pic-line { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 14px; background: #F8FAFC; position: relative; transition: background .2s, transform .2s; }
+.pic-line:nth-child(odd) { background: #FFF7ED; }
+.pic-line.cur { background: #DBEAFE; box-shadow: 0 0 0 3px #3B82F6 inset; transform: scale(1.01); }
+.pic-line.ok { background: #DCFCE7; }
+.pic-who { display: grid; justify-items: center; flex: none; width: 64px; }
+.pic-who svg { width: 44px; height: 58px; }
+.pic-who b { font-size: 12px; }
+.pic-text { font-size: 22px; font-weight: 700; line-height: 1.9; }
+.pic-chip { display: inline-grid; justify-items: center; vertical-align: middle; margin: 0 4px; padding: 2px 8px; border-radius: 12px; background: #fff; border: 3px solid var(--pc); box-shadow: 0 3px 0 var(--pcd); line-height: 1; }
+.pc-emoji { font-size: 34px; }
+.pc-word { font-size: 12px; font-weight: 800; color: var(--pcd); margin-top: 2px; }
+.pic-tick { position: absolute; right: 10px; top: 8px; font-style: normal; color: #16A34A; font-size: 22px; font-weight: 900; }
+.pic-read .step-foot { align-items: center; flex-wrap: wrap; }
+.beat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.beat-card { position: relative; background: #fff; border-radius: 16px; padding: 12px 6px; display: grid; justify-items: center; gap: 4px; box-shadow: 0 5px 0 var(--card-edge); transition: transform .12s, box-shadow .12s, background .12s; }
+.beat-card.lit { background: #FEF08A; transform: scale(1.08); box-shadow: 0 0 0 4px #F59E0B, 0 8px 0 #D97706; }
+.beat-card.hit { background: #DCFCE7; }
+.beat-card.miss { background: #FEE2E2; }
+.bc-emoji { font-size: 44px; }
+.bc-word { font-size: 17px; text-align: center; }
+.bc-word.hidden-w { color: #94A3B8; }
+.bc-tick { position: absolute; top: 4px; right: 8px; color: #16A34A; font-style: normal; font-weight: 900; }
+.beat-count { text-align: center; font-size: 40px; font-weight: 900; min-height: 52px; margin-top: 8px; color: #EA580C; }
+.beat-result { width: 100%; text-align: center; font-weight: 800; }
+@media (max-width: 560px) { .beat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pic-text { font-size: 18px; } .pc-emoji { font-size: 28px; } }
+.pc-photo { width: 72px; height: 54px; object-fit: cover; border-radius: 8px; display: block; }
+.bc-photo { width: 100%; max-width: 120px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+.photo-credits summary { cursor: pointer; font-weight: 800; } .photo-credits ul { max-height: 300px; overflow-y: auto; font-size: 13px; }
+.wc-photo { width: 100%; max-width: 180px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; box-shadow: 0 3px 0 var(--card-edge); }

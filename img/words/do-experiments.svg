@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="do-experiments-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf3f2"/><stop offset="0.8" stop-color="#d9e9e7"/><stop offset="0.8" stop-color="#8a8f96"/><stop offset="1" stop-color="#6f747b"/></linearGradient>
+<linearGradient id="do-experiments-green" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2fae5a"/><stop offset="0.4" stop-color="#7fe39a"/><stop offset="1" stop-color="#1f8a44"/></linearGradient>
+<linearGradient id="do-experiments-purple" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a3ab0"/><stop offset="0.4" stop-color="#b48ae8"/><stop offset="1" stop-color="#4f2a8a"/></linearGradient>
+<linearGradient id="do-experiments-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f7ac8"/><stop offset="0.4" stop-color="#7cc2f5"/><stop offset="1" stop-color="#155a98"/></linearGradient>
+<linearGradient id="do-experiments-glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="0.25" stop-color="#fff" stop-opacity="0.1"/><stop offset="1" stop-color="#fff" stop-opacity="0.35"/></linearGradient>
+<radialGradient id="do-experiments-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#do-experiments-bg)"/>
+<ellipse cx="200" cy="246" rx="170" ry="10" fill="url(#do-experiments-sh)"/>
+<path d="M166 40 L234 40 L234 52 L226 52 L226 120 L290 226 Q296 240 280 242 L120 242 Q104 240 110 226 L174 120 L174 52 L166 52Z" fill="url(#do-experiments-glass)" stroke="#a9bcc0" stroke-width="3"/>
+<path d="M150 160 L250 160 L290 226 Q296 240 280 242 L120 242 Q104 240 110 226Z" fill="url(#do-experiments-green)"/>
+<path d="M150 160 L250 160" stroke="#c8f5d4" stroke-width="3"/>
+<g fill="#d8ffe2" opacity="0.8"><circle cx="180" cy="200" r="6"/><circle cx="214" cy="186" r="4"/><circle cx="230" cy="214" r="5"/><circle cx="196" cy="140" r="5"/><circle cx="206" cy="110" r="4"/><circle cx="198" cy="80" r="6"/><circle cx="210" cy="56" r="4"/></g>
+<path d="M166 40 L234 40 L234 52 L226 52 L226 120 L290 226 Q296 240 280 242 L120 242 Q104 240 110 226 L174 120 L174 52 L166 52Z" fill="url(#do-experiments-glass)"/>
+<g>
+<rect x="44" y="110" width="44" height="132" rx="4" fill="url(#do-experiments-glass)" stroke="#a9bcc0" stroke-width="3"/>
+<rect x="47" y="170" width="38" height="70" fill="url(#do-experiments-blue)"/>
+<rect x="38" y="104" width="56" height="8" rx="3" fill="#cfd8db"/>
+<g stroke="#5a7a86" stroke-width="2"><path d="M70 130 h14M74 150 h10M70 170 h14M74 190 h10M70 210 h14"/></g>
+</g>
+<g transform="translate(330 0)">
+<path d="M-12 90 L12 90 L12 210 Q12 244 0 244 Q-12 244 -12 210Z" fill="url(#do-experiments-glass)" stroke="#a9bcc0" stroke-width="3"/>
+<path d="M-10 160 L10 160 L10 210 Q10 240 0 240 Q-10 240 -10 210Z" fill="url(#do-experiments-purple)"/>
+<rect x="-16" y="84" width="32" height="8" rx="3" fill="#cfd8db"/>
+</g>
+<path d="M60 242 h300" stroke="#5f646b" stroke-width="2"/>
+</svg>

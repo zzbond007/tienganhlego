@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="lightning-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151a33"/><stop offset="0.7" stop-color="#2e3660"/><stop offset="1" stop-color="#454c78"/></linearGradient>
+<radialGradient id="lightning-flash" cx="0.5" cy="0.45" r="0.5"><stop offset="0" stop-color="#c9c7ff" stop-opacity="0.7"/><stop offset="1" stop-color="#c9c7ff" stop-opacity="0"/></radialGradient>
+<filter id="lightning-glow" x="-50%" y="-20%" width="200%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+<linearGradient id="lightning-cl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#262c4a"/><stop offset="1" stop-color="#4a5180"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#lightning-sky)"/>
+<rect width="400" height="300" fill="url(#lightning-flash)"/>
+<g fill="url(#lightning-cl)"><ellipse cx="200" cy="30" rx="230" ry="45"/><circle cx="90" cy="40" r="40"/><circle cx="300" cy="35" r="45"/></g>
+<g id="lightning-bolt" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M205 45 L190 95 L210 115 L180 170 L198 185 L170 265" stroke="#d8d4ff" stroke-width="14" filter="url(#lightning-glow)"/>
+<path d="M190 95 L160 125 L150 150 M198 185 L230 215 L240 245 M210 115 L240 135" stroke="#d8d4ff" stroke-width="8" filter="url(#lightning-glow)"/>
+<path d="M205 45 L190 95 L210 115 L180 170 L198 185 L170 265" stroke="#ffffff" stroke-width="5"/>
+<path d="M190 95 L160 125 L150 150 M198 185 L230 215 L240 245 M210 115 L240 135" stroke="#ffffff" stroke-width="2.5"/>
+</g>
+<path d="M0 268 Q120 255 210 266 T400 262 V300 H0Z" fill="#141826"/>
+<g fill="#0c0f1a"><path d="M310 200 l-22 40 h12 l-18 28 h56 l-18 -28 h12z"/><rect x="40" y="245" width="40" height="24"/><path d="M35 248 l25 -18 l25 18z"/></g>
+<rect x="52" y="252" width="8" height="8" fill="#f6d36b"/>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="broccoli-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f8f1"/><stop offset="1" stop-color="#e3ebdc"/></linearGradient>
+<linearGradient id="broccoli-stem" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8bbf5a"/><stop offset=".5" stop-color="#c8e39a"/><stop offset="1" stop-color="#6fa344"/></linearGradient>
+<radialGradient id="broccoli-fl" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#5fae3c"/><stop offset=".7" stop-color="#2f7a24"/><stop offset="1" stop-color="#1d5216"/></radialGradient>
+<radialGradient id="broccoli-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<pattern id="broccoli-bud" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="3" fill="#1e5a17" opacity=".35"/><circle cx="3.5" cy="3.5" r="1.2" fill="#9bd06f" opacity=".5"/></pattern>
+</defs>
+<rect width="400" height="300" fill="url(#broccoli-bg)"/>
+<rect y="240" width="400" height="60" fill="#d8ccb5"/>
+<ellipse cx="200" cy="246" rx="120" ry="14" fill="url(#broccoli-sh)"/>
+<!-- stems -->
+<path d="M175 246 L182 160 L150 120 L162 112 L196 150 L206 108 L220 110 L214 156 L250 122 L260 132 L222 170 L226 246Z" fill="url(#broccoli-stem)" stroke="#5f8f3a" stroke-width="1.5"/>
+<path d="M190 240 L194 170" stroke="#e6f2c8" stroke-width="5" opacity=".6" stroke-linecap="round"/>
+<!-- florets -->
+<g stroke="#1d5216" stroke-width="1.5">
+<circle cx="132" cy="112" r="48" fill="url(#broccoli-fl)"/>
+<circle cx="268" cy="114" r="48" fill="url(#broccoli-fl)"/>
+<circle cx="200" cy="80" r="56" fill="url(#broccoli-fl)"/>
+<circle cx="164" cy="74" r="34" fill="url(#broccoli-fl)"/>
+<circle cx="240" cy="74" r="34" fill="url(#broccoli-fl)"/>
+<circle cx="200" cy="130" r="40" fill="url(#broccoli-fl)"/>
+</g>
+<g fill="url(#broccoli-bud)">
+<circle cx="132" cy="112" r="48"/><circle cx="268" cy="114" r="48"/><circle cx="200" cy="80" r="56"/>
+<circle cx="164" cy="74" r="34"/><circle cx="240" cy="74" r="34"/><circle cx="200" cy="130" r="40"/>
+</g>
+<ellipse cx="180" cy="56" rx="22" ry="10" fill="#b6e08a" opacity=".35"/>
+<ellipse cx="118" cy="96" rx="16" ry="8" fill="#b6e08a" opacity=".3"/>
+</svg>

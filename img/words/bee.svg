@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="bee-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef7ff"/><stop offset="1" stop-color="#e3f1d6"/></linearGradient>
+<radialGradient id="bee-body" cx=".4" cy=".3" r=".75"><stop offset="0" stop-color="#ffd54a"/><stop offset=".7" stop-color="#f0a800"/><stop offset="1" stop-color="#a86d00"/></radialGradient>
+<radialGradient id="bee-thorax" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#c58a2e"/><stop offset="1" stop-color="#5a3a10"/></radialGradient>
+<linearGradient id="bee-wing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".85"/><stop offset="1" stop-color="#bcd8ee" stop-opacity=".5"/></linearGradient>
+<radialGradient id="bee-sh"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<clipPath id="bee-clip"><ellipse cx="240" cy="168" rx="82" ry="56"/></clipPath>
+</defs>
+<rect width="400" height="300" fill="url(#bee-bg)"/>
+<ellipse cx="210" cy="262" rx="140" ry="12" fill="url(#bee-sh)"/>
+<!-- far wing -->
+<path d="M190 130 Q170 40 240 30 Q290 34 250 120Z" fill="url(#bee-wing)" stroke="#8aa9c2" stroke-width="1.5"/>
+<!-- legs -->
+<g stroke="#3a2608" stroke-width="5" fill="none" stroke-linecap="round">
+<path d="M150 190 L136 226 L126 236"/><path d="M180 196 L176 234 L168 246"/><path d="M210 200 L222 238 L232 246"/>
+</g>
+<!-- abdomen -->
+<ellipse cx="240" cy="168" rx="82" ry="56" fill="url(#bee-body)"/>
+<g clip-path="url(#bee-clip)" fill="#2a1a06" opacity=".9">
+<path d="M196 100 Q186 168 200 240 L222 240 Q208 168 218 100Z"/>
+<path d="M240 100 Q230 168 244 240 L266 240 Q252 168 262 100Z"/>
+<path d="M284 100 Q276 168 288 240 L304 240 Q292 168 302 100Z"/>
+</g>
+<path d="M322 166 L340 170 L322 174Z" fill="#2a1a06"/>
+<ellipse cx="236" cy="134" rx="40" ry="12" fill="#fff" opacity=".3"/>
+<!-- thorax (fuzzy) -->
+<circle cx="162" cy="160" r="40" fill="url(#bee-thorax)"/>
+<g stroke="#e8b94a" stroke-width="2" opacity=".6"><path d="M140 128 l-4 -6 M156 122 l0 -7 M172 124 l4 -6 M186 134 l6 -4 M132 144 l-6 -2"/></g>
+<!-- head -->
+<circle cx="110" cy="164" r="30" fill="#2e1e0a"/>
+<ellipse cx="100" cy="158" rx="12" ry="16" fill="#111"/>
+<ellipse cx="96" cy="152" rx="4" ry="5" fill="#fff" opacity=".5"/>
+<path d="M104 138 Q90 100 70 92 M116 136 Q112 98 98 84" stroke="#2e1e0a" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- near wing -->
+<path d="M180 132 Q120 50 176 40 Q232 44 210 128Z" fill="url(#bee-wing)" stroke="#8aa9c2" stroke-width="1.5"/>
+<path d="M190 126 Q170 80 180 54" stroke="#8aa9c2" stroke-width="1" fill="none"/>
+</svg>

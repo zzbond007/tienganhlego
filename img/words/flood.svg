@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="flood-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8e9aa8"/><stop offset="1" stop-color="#c9d0d6"/></linearGradient>
+<linearGradient id="flood-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a8462"/><stop offset="1" stop-color="#6b5a40"/></linearGradient>
+<linearGradient id="flood-wall" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e9dcc2"/><stop offset="1" stop-color="#cbb995"/></linearGradient>
+<linearGradient id="flood-roof" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c0533a"/><stop offset="1" stop-color="#8e3523"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#flood-sky)"/>
+<g fill="#a7b0bb"><ellipse cx="90" cy="50" rx="80" ry="20"/><ellipse cx="300" cy="40" rx="100" ry="22"/></g>
+<rect x="225" y="145" width="140" height="70" fill="#cfc6b3"/><path d="M215 148 L295 100 L375 148Z" fill="#7c4a3a"/>
+<rect x="245" y="160" width="20" height="18" fill="#5d7182"/><rect x="320" y="160" width="20" height="18" fill="#5d7182"/>
+<rect x="55" y="110" width="160" height="110" fill="url(#flood-wall)"/>
+<path d="M40 115 L135 55 L230 115Z" fill="url(#flood-roof)"/>
+<rect x="75" y="135" width="36" height="32" fill="#56708a"/><rect x="160" y="135" width="36" height="32" fill="#56708a"/>
+<path d="M75 135h36v32h-36zM93 135v32M75 151h36M160 135h36v32h-36zM178 135v32M160 151h36" fill="none" stroke="#fff" stroke-width="3"/>
+<rect x="118" y="160" width="32" height="60" fill="#7a4e2e"/>
+<rect x="30" y="140" width="6" height="80" fill="#5e4a35"/><circle cx="33" cy="125" r="28" fill="#5d7a48"/>
+<rect x="0" y="185" width="400" height="115" fill="url(#flood-w)"/>
+<g fill="none" stroke="#c2ad88" stroke-width="3" stroke-linecap="round" opacity="0.8">
+<path d="M20 200 q15 -6 30 0 t30 0M120 215 q15 -6 30 0 t30 0M250 205 q15 -6 30 0 t30 0M60 245 q15 -6 30 0 t30 0M200 255 q15 -6 30 0 t30 0M300 240 q15 -6 30 0 t30 0M140 280 q15 -6 30 0 t30 0"/>
+</g>
+<path d="M55 186 q20 6 40 0 t40 0 t40 0 t40 0" fill="none" stroke="#e0d2b4" stroke-width="2" opacity="0.7"/>
+<g transform="translate(300 230)"><ellipse cx="0" cy="8" rx="34" ry="6" fill="#4d3f2c" opacity="0.5"/><rect x="-30" y="-6" width="60" height="12" rx="3" fill="#8a5a33"/><rect x="-30" y="-6" width="60" height="4" fill="#a8723f"/></g>
+</svg>

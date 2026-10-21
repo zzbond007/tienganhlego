@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="glass-jar-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f1e6"/><stop offset="1" stop-color="#e6dac4"/></linearGradient>
+<linearGradient id="glass-jar-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fbfbe" stop-opacity="0.7"/><stop offset="0.2" stop-color="#ffffff" stop-opacity="0.5"/><stop offset="0.5" stop-color="#dbeceb" stop-opacity="0.3"/><stop offset="0.85" stop-color="#a9c8c6" stop-opacity="0.5"/><stop offset="1" stop-color="#7fa3a1" stop-opacity="0.8"/></linearGradient>
+<linearGradient id="glass-jar-lid" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8c8f93"/><stop offset="0.4" stop-color="#eef0f2"/><stop offset="1" stop-color="#6d7175"/></linearGradient>
+<radialGradient id="glass-jar-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#5a4a30" stop-opacity="0.35"/><stop offset="1" stop-color="#5a4a30" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass-jar-tb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4bb92"/><stop offset="1" stop-color="#b89c70"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#glass-jar-bg)"/>
+<rect y="250" width="400" height="50" fill="url(#glass-jar-tb)"/>
+<ellipse cx="200" cy="262" rx="95" ry="11" fill="url(#glass-jar-sh)"/>
+<path d="M150 70 L250 70 L250 85 C275 95 282 115 282 140 L282 238 C282 255 265 262 200 262 C135 262 118 255 118 238 L118 140 C118 115 125 95 150 85Z" fill="url(#glass-jar-g)" stroke="#86a9a7" stroke-width="2.5"/>
+<path d="M150 85 C170 92 230 92 250 85" fill="none" stroke="#86a9a7" stroke-width="2"/>
+<ellipse cx="200" cy="250" rx="78" ry="8" fill="#cfe1df" opacity="0.6"/>
+<rect x="142" y="40" width="116" height="32" rx="5" fill="url(#glass-jar-lid)"/>
+<g stroke="#7d8185" stroke-width="2"><path d="M148 44v24M156 44v24M164 44v24M172 44v24M180 44v24M188 44v24M196 44v24M204 44v24M212 44v24M220 44v24M228 44v24M236 44v24M244 44v24M252 44v24"/></g>
+<path d="M140 120 C135 160 135 210 140 240" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+<path d="M158 115 C155 140 155 160 157 175" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+<path d="M262 125 C266 170 266 210 262 240" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+</svg>

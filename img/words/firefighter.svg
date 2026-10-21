@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="firefighter-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9d6"/><stop offset="1" stop-color="#f1d2b2"/></linearGradient>
+<linearGradient id="firefighter-coat" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3a14"/><stop offset="0.35" stop-color="#8a7232"/><stop offset="0.7" stop-color="#7a6428"/><stop offset="1" stop-color="#3e3010"/></linearGradient>
+<linearGradient id="firefighter-helmet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a45"/><stop offset="1" stop-color="#a8120a"/></linearGradient>
+<radialGradient id="firefighter-face" cx="0.45" cy="0.4" r="0.6"><stop offset="0" stop-color="#ffd8b8"/><stop offset="1" stop-color="#e3a77c"/></radialGradient>
+<radialGradient id="firefighter-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#4a2a10" stop-opacity="0.35"/><stop offset="1" stop-color="#4a2a10" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#firefighter-bg)"/>
+<ellipse cx="200" cy="290" rx="110" ry="9" fill="url(#firefighter-sh)"/>
+<path d="M130 120 C130 104 150 96 200 96 C250 96 270 104 270 120 L280 290 L120 290Z" fill="url(#firefighter-coat)"/>
+<path d="M130 124 C106 140 96 190 94 240 L116 244 C118 200 126 168 140 152Z" fill="url(#firefighter-coat)"/>
+<path d="M270 124 C294 140 304 190 306 240 L284 244 C282 200 274 168 260 152Z" fill="url(#firefighter-coat)"/>
+<g fill="#e8f04a" stroke="#c9c9c9" stroke-width="2"><rect x="124" y="226" width="152" height="14"/><rect x="92" y="216" width="26" height="12"/><rect x="282" y="216" width="26" height="12"/></g>
+<rect x="196" y="100" width="8" height="190" fill="#2e240a"/>
+<g fill="#222"><rect x="184" y="140" width="32" height="6" rx="2"/><rect x="184" y="180" width="32" height="6" rx="2"/></g>
+<g fill="#2b2b2b"><ellipse cx="104" cy="250" rx="14" ry="12"/><ellipse cx="296" cy="250" rx="14" ry="12"/></g>
+<rect x="182" y="86" width="36" height="20" fill="#e3a77c"/>
+<ellipse cx="200" cy="66" rx="34" ry="36" fill="url(#firefighter-face)"/>
+<g fill="#3a2414"><circle cx="187" cy="66" r="3.5"/><circle cx="213" cy="66" r="3.5"/></g>
+<path d="M190 84 Q200 90 210 84" stroke="#a0523a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M120 50 C130 46 150 44 160 44 C160 14 180 4 200 4 C220 4 240 14 240 44 C250 44 270 46 280 50 C282 58 260 62 200 62 C140 62 118 58 120 50Z" fill="url(#firefighter-helmet)"/>
+<path d="M200 6 L200 46" stroke="#d0281c" stroke-width="8"/>
+<path d="M186 22 h28 v18 h-28z" fill="#f2c94c" stroke="#b08a20"/>
+<path d="M170 14 C160 24 160 36 164 44" stroke="#fff" stroke-width="4" opacity="0.35" fill="none" stroke-linecap="round"/>
+</svg>

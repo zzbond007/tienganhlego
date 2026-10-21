@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="crocodile-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3f0dc"/><stop offset="0.62" stop-color="#cfe2c2"/><stop offset="0.62" stop-color="#b9a77a"/><stop offset="1" stop-color="#9e8c60"/></linearGradient>
+<linearGradient id="crocodile-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c6b2c"/><stop offset="0.6" stop-color="#6f8c3e"/><stop offset="1" stop-color="#b9b874"/></linearGradient>
+<radialGradient id="crocodile-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#3a2a10" stop-opacity="0.4"/><stop offset="1" stop-color="#3a2a10" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#crocodile-bg)"/>
+<ellipse cx="200" cy="222" rx="190" ry="14" fill="url(#crocodile-sh)"/>
+<path d="M392 186 C350 190 300 186 270 178 L270 156 C310 160 360 172 392 186Z" fill="url(#crocodile-skin)"/>
+<path d="M100 170 C110 146 160 138 200 140 C240 142 270 150 280 162 C284 182 260 204 200 206 C150 208 110 196 100 170Z" fill="url(#crocodile-skin)"/>
+<path d="M104 160 L30 168 C12 170 10 182 26 186 L104 188Z" fill="url(#crocodile-skin)"/>
+<path d="M26 182 L104 184" stroke="#2f3f18" stroke-width="2.5"/>
+<g fill="#f6f2dc"><path d="M34 182 l3 6 3 -6z"/><path d="M48 183 l3 6 3 -6z"/><path d="M62 183 l3 6 3 -6z"/><path d="M76 183 l3 7 3 -7z"/><path d="M90 183 l3 6 3 -6z"/><path d="M42 182 l3 -5 3 5z"/><path d="M70 183 l3 -5 3 5z"/></g>
+<ellipse cx="100" cy="152" rx="12" ry="9" fill="#5a7a32"/>
+<circle cx="102" cy="150" r="5" fill="#e3c13a"/><rect x="101" y="146" width="2" height="8" fill="#111"/>
+<circle cx="22" cy="170" r="2" fill="#223"/>
+<g fill="#3b5420"><path d="M130 142 l6 -8 6 8z"/><path d="M152 138 l6 -9 6 9z"/><path d="M174 136 l6 -9 6 9z"/><path d="M196 137 l6 -9 6 9z"/><path d="M218 139 l6 -9 6 9z"/><path d="M240 143 l6 -8 6 8z"/><path d="M262 150 l6 -8 6 8z"/><path d="M290 160 l6 -7 6 7z"/><path d="M318 166 l5 -6 5 6z"/><path d="M346 174 l5 -6 5 6z"/></g>
+<g stroke="#3b5420" stroke-width="1.5" opacity="0.6" fill="none"><path d="M130 150 h130M126 162 h150M130 174 h140"/><path d="M150 144 v40M175 142 v44M200 142 v46M225 144 v44M250 148 v38"/></g>
+<g fill="#55732c"><path d="M128 190 l-14 30 h22 l4 -26z"/><path d="M236 190 l-6 30 h22 l2 -28z"/></g>
+<g fill="#3a5020"><path d="M112 220 h26 l-4 -6z"/><path d="M228 220 h26 l-4 -6z"/></g>
+</svg>

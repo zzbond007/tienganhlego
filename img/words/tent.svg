@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="tent-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#9fd0f2"/><stop offset="1.00" stop-color="#e6f4fb"/></linearGradient><linearGradient id="tent-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#8cc46a"/><stop offset="1.00" stop-color="#5a9a3e"/></linearGradient><linearGradient id="tent-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#f08a24"/><stop offset="1.00" stop-color="#c9600c"/></linearGradient><linearGradient id="tent-r" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ffb24d"/><stop offset="1.00" stop-color="#e68a1a"/></linearGradient><radialGradient id="tent-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#tent-sky)"/>
+<path d="M0 150 L60 90 L110 140 L170 70 L240 150Z" fill="#9fb5c7" opacity="0.7"/><path d="M200 150 L280 80 L340 130 L400 95 L400 150Z" fill="#a9bccb" opacity="0.7"/>
+<g fill="#3f7a3a"><path d="M20 165 l15 -45 l15 45z"/><path d="M360 165 l15 -50 l15 50z"/></g>
+<path d="M0 160 Q200 145 400 160 V300 H0Z" fill="url(#tent-gr)"/>
+<ellipse cx="205" cy="255" rx="165" ry="16" fill="url(#tent-sh)"/>
+<path d="M200 60 L60 250 L200 250Z" fill="url(#tent-l)"/>
+<path d="M200 60 L340 250 L200 250Z" fill="url(#tent-r)"/>
+<path d="M200 70 L150 250 L250 250Z" fill="#5a2e0a"/>
+<path d="M200 70 L160 250 L182 250 C190 190 195 130 200 90Z" fill="#ff9d33"/>
+<path d="M200 70 L240 250 L218 250 C210 190 205 130 200 90Z" fill="#ffc067"/>
+<path d="M200 60 L60 250 M200 60 L340 250" stroke="#8a4a10" stroke-width="3"/>
+<path d="M200 60 L200 45" stroke="#6b6b6b" stroke-width="4"/>
+<path d="M200 60 L30 250 M200 60 L370 250" stroke="#ddd" stroke-width="1.5"/>
+<g fill="#7a5a3a"><rect x="27" y="244" width="6" height="12"/><rect x="367" y="244" width="6" height="12"/></g>
+<path d="M120 140 L90 190" stroke="#fff" stroke-width="5" opacity="0.3"/>
+</svg>
