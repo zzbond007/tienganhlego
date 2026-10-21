@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="see-a-doctor-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf4f8"/><stop offset="1" stop-color="#d6e8ef"/></linearGradient><radialGradient id="see-a-doctor-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="see-a-doctord-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd8dc"/></linearGradient>
+<linearGradient id="see-a-doctord-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#546e7a"/><stop offset="1" stop-color="#37474f"/></linearGradient>
+<radialGradient id="see-a-doctord-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="see-a-doctord-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient><linearGradient id="see-a-doctork-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb74d"/><stop offset="1" stop-color="#f57c00"/></linearGradient>
+<linearGradient id="see-a-doctork-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5c6bc0"/><stop offset="1" stop-color="#303f9f"/></linearGradient>
+<radialGradient id="see-a-doctork-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="see-a-doctork-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#see-a-doctor-bg)"/><rect y="240" width="400" height="60" fill="#b9d3dc"/><rect x="310" y="30" width="60" height="60" rx="8" fill="#fff"/><rect x="332" y="38" width="16" height="44" fill="#e53935"/><rect x="318" y="52" width="44" height="16" fill="#e53935"/><ellipse cx="130" cy="268" rx="50" ry="7" fill="url(#see-a-doctor-sh)"/><ellipse cx="226" cy="268" rx="40" ry="7" fill="url(#see-a-doctor-sh)"/>
+<g opacity=".88">
+<path d="M226.0 133.5 L231.3 163.4 L236.2 191.5" stroke="url(#see-a-doctork-skin)" stroke-width="10.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M226.0 133.5 L228.9 150.0" stroke="url(#see-a-doctork-shirt)" stroke-width="15.2" fill="none" stroke-linecap="round"/>
+<circle cx="236.2" cy="191.5" r="7.1" fill="url(#see-a-doctork-skin)"/>
+</g>
+<g opacity=".88">
+<path d="M226.0 200.0 L223.3 237.9 L223.3 275.9" stroke="url(#see-a-doctork-pants)" stroke-width="17.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="216.7" cy="278.8" rx="13.3" ry="6.6" fill="#222" transform="rotate(0.0 223.3 275.9)"/>
+<ellipse cx="218.6" cy="275.9" rx="7.6" ry="2.4" fill="#fff" opacity=".25" transform="rotate(0.0 223.3 275.9)"/>
+</g>
+<g transform="rotate(0.0 226.0 200.0)">
+<path d="M206.1 133.5 Q226.0 127.8 245.9 133.5 L257.4 213.3 L194.7 213.3Z" fill="url(#see-a-doctork-shirt)"/>
+<path d="M211.8 143.0 Q208.9 166.8 211.8 200.0" stroke="#fff" stroke-width="3.8" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M226.0 200.0 L228.7 237.9 L228.7 275.9" stroke="url(#see-a-doctork-pants)" stroke-width="17.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="222.0" cy="278.8" rx="13.3" ry="6.6" fill="#333" transform="rotate(0.0 228.7 275.9)"/>
+<ellipse cx="223.9" cy="275.9" rx="7.6" ry="2.4" fill="#fff" opacity=".25" transform="rotate(0.0 228.7 275.9)"/>
+<path d="M226.0 133.5 L220.7 163.4 L215.8 191.5" stroke="url(#see-a-doctork-skin)" stroke-width="10.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M226.0 133.5 L223.1 150.0" stroke="url(#see-a-doctork-shirt)" stroke-width="15.2" fill="none" stroke-linecap="round"/>
+<circle cx="215.8" cy="191.5" r="7.1" fill="url(#see-a-doctork-skin)"/>
+<g transform="rotate(0 226.0 105.0)">
+<rect x="220.3" y="120.2" width="11.4" height="11.4" fill="#e7a67c"/>
+<circle cx="248.6" cy="106.9" r="4.8" fill="#efb48c"/>
+<circle cx="226.0" cy="105.0" r="23.8" fill="url(#see-a-doctork-skin)"/>
+<path d="M199.4 118.3 Q196.6 73.7 226.0 77.5 Q255.4 73.7 252.6 118.3 Q247.8 97.4 221.2 90.8 Q204.2 97.4 199.4 118.3Z" fill="url(#see-a-doctork-hair)"/>
+<path d="M247.4 99.3 q13.3 19.0 3.8 41.8 q-7.6 -15.2 -11.4 -34.2Z" fill="url(#see-a-doctork-hair)"/>
+<circle cx="211.0" cy="105.0" r="2.7" fill="#2a1a0e"/><circle cx="224.3" cy="105.0" r="2.7" fill="#2a1a0e"/>
+<path d="M212.0 114.5 q5.7 5.7 11.4 0" stroke="#a2412e" stroke-width="2.1" fill="none" stroke-linecap="round"/>
+<circle cx="206.3" cy="111.7" r="3.3" fill="#ff8a80" opacity=".35"/><circle cx="229.1" cy="111.7" r="3.3" fill="#ff8a80" opacity=".35"/>
+</g><g opacity=".88">
+<path d="M130.0 106.6 L136.8 145.0 L149.3 179.4" stroke="url(#see-a-doctord-skin)" stroke-width="13.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M130.0 106.6 L133.7 127.7" stroke="url(#see-a-doctord-shirt)" stroke-width="19.5" fill="none" stroke-linecap="round"/>
+<circle cx="149.3" cy="179.4" r="9.2" fill="url(#see-a-doctord-skin)"/>
+</g>
+<g opacity=".88">
+<path d="M130.0 192.0 L126.6 240.7 L126.6 289.5" stroke="url(#see-a-doctord-pants)" stroke-width="22.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="135.1" cy="293.1" rx="17.1" ry="8.5" fill="#222" transform="rotate(0.0 126.6 289.5)"/>
+<ellipse cx="132.7" cy="289.5" rx="9.8" ry="3.0" fill="#fff" opacity=".25" transform="rotate(0.0 126.6 289.5)"/>
+</g>
+<g transform="rotate(0.0 130.0 192.0)">
+<rect x="101.9" y="101.7" width="56.1" height="100.0" rx="19.5" fill="url(#see-a-doctord-shirt)"/>
+<path d="M111.7 118.8 Q108.0 149.3 111.7 192.0" stroke="#fff" stroke-width="4.9" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M130.0 192.0 L133.4 240.7 L133.4 289.5" stroke="url(#see-a-doctord-pants)" stroke-width="22.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="141.9" cy="293.1" rx="17.1" ry="8.5" fill="#333" transform="rotate(0.0 133.4 289.5)"/>
+<ellipse cx="139.5" cy="289.5" rx="9.8" ry="3.0" fill="#fff" opacity=".25" transform="rotate(0.0 133.4 289.5)"/>
+<path d="M130.0 106.6 L162.0 129.0 L197.3 138.5" stroke="url(#see-a-doctord-skin)" stroke-width="13.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M130.0 106.6 L147.6 118.9" stroke="url(#see-a-doctord-shirt)" stroke-width="19.5" fill="none" stroke-linecap="round"/>
+<circle cx="197.3" cy="138.5" r="9.2" fill="url(#see-a-doctord-skin)"/>
+<g transform="rotate(0 130.0 70.0)">
+<rect x="122.7" y="89.5" width="14.6" height="14.6" fill="#e7a67c"/>
+<circle cx="101.0" cy="72.4" r="6.1" fill="#efb48c"/>
+<circle cx="130.0" cy="70.0" r="30.5" fill="url(#see-a-doctord-skin)"/>
+<path d="M98.3 74.9 Q94.6 32.2 130.0 35.8 Q165.4 32.2 161.7 74.9 Q148.3 53.2 123.9 54.8 Q105.6 57.8 98.3 74.9Z" fill="url(#see-a-doctord-hair)"/>
+<circle cx="132.1" cy="70.0" r="3.4" fill="#2a1a0e"/><circle cx="149.2" cy="70.0" r="3.4" fill="#2a1a0e"/>
+<path d="M133.4 82.2 q7.3 7.3 14.6 0" stroke="#a2412e" stroke-width="2.7" fill="none" stroke-linecap="round"/>
+<circle cx="126.0" cy="78.5" r="4.3" fill="#ff8a80" opacity=".35"/><circle cx="155.3" cy="78.5" r="4.3" fill="#ff8a80" opacity=".35"/>
+</g><path d="M116 100 Q114 140 134 144 Q150 140 146 100" stroke="#37474f" stroke-width="3" fill="none"/><path d="M134 144 Q177 168 205 138" stroke="#37474f" stroke-width="3" fill="none"/><circle cx="207" cy="138" r="7" fill="#b0bec5" stroke="#546e7a" stroke-width="2"/>
+</svg>

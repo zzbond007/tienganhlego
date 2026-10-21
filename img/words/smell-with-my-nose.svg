@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<radialGradient id="smell-with-my-nose-bg" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#fff8e1"/><stop offset="1" stop-color="#d8efc6"/></radialGradient><radialGradient id="smell-with-my-nose-pet" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#ffd1dc"/><stop offset="1" stop-color="#e8467c"/></radialGradient><linearGradient id="smell-with-my-nose-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4fc3f7"/><stop offset="1" stop-color="#0288d1"/></linearGradient>
+<linearGradient id="smell-with-my-nose-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3f6fb5"/><stop offset="1" stop-color="#23477f"/></linearGradient>
+<radialGradient id="smell-with-my-nose-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="smell-with-my-nose-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#smell-with-my-nose-bg)"/>
+<path d="M166.0 212.0 L149.4 273.8 L139.0 332.9" stroke="url(#smell-with-my-nose-skin)" stroke-width="22.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M166.0 212.0 L156.9 246.0" stroke="url(#smell-with-my-nose-shirt)" stroke-width="32.0" fill="none" stroke-linecap="round"/>
+<circle cx="139.0" cy="332.9" r="15.0" fill="url(#smell-with-my-nose-skin)"/>
+<path d="M180.0 340.0 L180.0 420.0 L180.0 500.0" stroke="url(#smell-with-my-nose-pants)" stroke-width="36.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="166.0" cy="506.0" rx="28.0" ry="14.0" fill="#222" transform="rotate(0.0 180.0 500.0)"/>
+<ellipse cx="170.0" cy="500.0" rx="16.0" ry="5.0" fill="#fff" opacity=".25" transform="rotate(0.0 180.0 500.0)"/>
+<g transform="rotate(0.0 200.0 340.0)">
+<path d="M158.0 200.0 Q200.0 188.0 242.0 200.0 L266.0 368.0 L134.0 368.0Z" fill="url(#smell-with-my-nose-shirt)"/>
+<path d="M170.0 220.0 Q164.0 270.0 170.0 340.0" stroke="#fff" stroke-width="8.0" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M220.0 340.0 L220.0 420.0 L220.0 500.0" stroke="url(#smell-with-my-nose-pants)" stroke-width="36.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="234.0" cy="506.0" rx="28.0" ry="14.0" fill="#333" transform="rotate(0.0 220.0 500.0)"/>
+<ellipse cx="230.0" cy="500.0" rx="16.0" ry="5.0" fill="#fff" opacity=".25" transform="rotate(0.0 220.0 500.0)"/>
+<path d="M234.0 212.0 L245.1 275.0 L275.1 223.1" stroke="url(#smell-with-my-nose-skin)" stroke-width="22.0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M234.0 212.0 L240.1 246.7" stroke="url(#smell-with-my-nose-shirt)" stroke-width="32.0" fill="none" stroke-linecap="round"/>
+<circle cx="275.1" cy="223.1" r="15.0" fill="url(#smell-with-my-nose-skin)"/>
+<g transform="rotate(0 200.0 140.0)">
+<rect x="188.0" y="172.0" width="24.0" height="24.0" fill="#e7a67c"/>
+<circle cx="152.5" cy="144.0" r="10.0" fill="#efb48c"/>
+<circle cx="247.5" cy="144.0" r="10.0" fill="#efb48c"/>
+<circle cx="200.0" cy="140.0" r="50.0" fill="url(#smell-with-my-nose-skin)"/>
+<path d="M144.0 168.0 Q138.0 74.0 200.0 82.0 Q262.0 74.0 256.0 168.0 Q246.0 124.0 200.0 110.0 Q154.0 124.0 144.0 168.0Z" fill="url(#smell-with-my-nose-hair)"/>
+<path d="M200.0 128.0 q-0.0 40.0 -0.0 88.0 q0.0 -32.0 0.0 -72.0Z" fill="url(#smell-with-my-nose-hair)"/>
+<path d="M178.0 140.0 q8.0 6.0 16.0 0 M206.0 140.0 q8.0 6.0 16.0 0" stroke="#3a2412" stroke-width="4.0" fill="none" stroke-linecap="round"/>
+<path d="M200.0 142.0 q-6.0 10.0 0 12.0 q6.0 0 6.0 -2.0" stroke="#c97e57" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+<path d="M188.0 160.0 q12.0 12.0 24.0 0" stroke="#a2412e" stroke-width="4.4" fill="none" stroke-linecap="round"/>
+<circle cx="176.0" cy="154.0" r="7.0" fill="#ff8a80" opacity=".35"/><circle cx="224.0" cy="154.0" r="7.0" fill="#ff8a80" opacity=".35"/>
+</g><path d="M275 223 Q242 210 222 170" stroke="#43a047" stroke-width="5" fill="none"/><path d="M234 210 q24 -10 30 6 q-20 8 -30 -6z" fill="#66bb6a"/><g transform="translate(222 170)"><ellipse cx="0" cy="-16" rx="11" ry="17" fill="url(#smell-with-my-nose-pet)" transform="rotate(0)"/><ellipse cx="0" cy="-16" rx="11" ry="17" fill="url(#smell-with-my-nose-pet)" transform="rotate(60)"/><ellipse cx="0" cy="-16" rx="11" ry="17" fill="url(#smell-with-my-nose-pet)" transform="rotate(120)"/><ellipse cx="0" cy="-16" rx="11" ry="17" fill="url(#smell-with-my-nose-pet)" transform="rotate(180)"/><ellipse cx="0" cy="-16" rx="11" ry="17" fill="url(#smell-with-my-nose-pet)" transform="rotate(240)"/><ellipse cx="0" cy="-16" rx="11" ry="17" fill="url(#smell-with-my-nose-pet)" transform="rotate(300)"/><circle r="9" fill="#ffca28"/><circle r="4" fill="#f57f17"/></g><circle cx="275" cy="223" r="15" fill="url(#smell-with-my-nose-skin)"/><g stroke="#e8467c" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round"><path d="M262 140 q8 -10 0 -20 q-8 -10 0 -20"/><path d="M282 156 q8 -10 0 -20 q-8 -10 0 -20"/></g>
+</svg>

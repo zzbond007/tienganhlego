@@ -38,6 +38,10 @@
 "src": "img/words/bakery.webp",
 "credit": "SZ 深圳 Shenzhen 南山區 Nanshan 深圳灣 Shenzhen Bay MixC mall shop 1-7 Bread Bakery May 2026 N13P 14.jpg · TWS LUOK Mingaowpuo · CC0"
 },
+"w9-banh-mi": {
+"src": "img/words/banh-mi.webp",
+"credit": "Vietnamese Bánh mì (Banh Mi) Sandwich.jpg · Jimmy Chen · CC BY-SA 4.0"
+},
 "w2-bathroom": {
 "src": "img/words/bathroom.webp",
 "credit": "Bathroom, Interior of apartment in Brisbane, 2025, 08.jpg · Chris Olszewski · CC BY-SA 4.0"
@@ -65,6 +69,10 @@
 "w26-bridge": {
 "src": "img/words/bridge.webp",
 "credit": "New River Gorge Bridge.jpg · JaGa · CC BY-SA 4.0"
+},
+"w9-broken-rice": {
+"src": "img/words/broken-rice.webp",
+"credit": "Cơm Tấm, Da Nang, Vietnam.jpg · Christopher Crouzet · CC BY-SA 4.0"
 },
 "w31-bronze-drum": {
 "src": "img/words/bronze-drum.webp",
@@ -190,6 +198,14 @@
 "src": "img/words/foghorn.webp",
 "credit": "Foghorns.jpg · Drw25 at English Wikipedia · CC BY-SA 3.0"
 },
+"w16-fossil": {
+"src": "img/words/fossil.webp",
+"credit": "Ammonite fossil imprint.jpg · Harshit SR · CC BY-SA 4.0"
+},
+"w31-fossil": {
+"src": "img/words/fossil.webp",
+"credit": "Ammonite fossil imprint.jpg · Harshit SR · CC BY-SA 4.0"
+},
 "w33-full-moon": {
 "src": "img/words/full-moon.webp",
 "credit": "FullMoon2010.jpg · Gregory H. Revera · CC BY-SA 3.0"
@@ -205,6 +221,10 @@
 "w4-glasses": {
 "src": "img/words/glasses.webp",
 "credit": "Eyeglasses (AM 71518-7).jpg · Wikimedia Commons · CC BY 4.0"
+},
+"w16-gorilla": {
+"src": "img/words/gorilla.webp",
+"credit": "Mountain gorilla (Gorilla beringei beringei) female 2.jpg · Charles J. Sharp · CC BY-SA 4.0"
 },
 "w14-guppy": {
 "src": "img/words/guppy.webp",
@@ -233,6 +253,10 @@
 "w29-hiking-boots": {
 "src": "img/words/hiking-boots.webp",
 "credit": "Hiking shoes Lowa.jpg · DocteurCosmos · CC BY-SA 3.0"
+},
+"w16-hippo": {
+"src": "img/words/hippo.webp",
+"credit": "Hipopótamo (Hippopotamus amphibius), parque nacional de Chobe, Botsuana, 2018-07-28, DD 82.jpg · Diego Delso · CC BY-SA 4.0"
 },
 "w19-hoodie": {
 "src": "img/words/hoodie.webp",
@@ -350,6 +374,10 @@
 "src": "img/words/recycling-bin.webp",
 "credit": "Recycling-bins-Benidorm.jpg · Acediscovery · CC BY 4.0"
 },
+"w16-rhino": {
+"src": "img/words/rhino.webp",
+"credit": "109 Male White rhinoceros walking in the Kalahari Desert of Namibia Photo by Giles Laurent.jpg · Giles Laurent · CC BY-SA 4.0"
+},
 "z4-ride-a-bike": {
 "src": "img/words/ride-a-bike.webp",
 "credit": "Child bicycle Managing ports Altagracia.jpg · Wilfredor · CC0"
@@ -405,6 +433,10 @@
 "z3-spaghetti": {
 "src": "img/words/spaghetti.webp",
 "credit": "Spaghetti-prepared.jpg · Wikimedia Commons · Public domain"
+},
+"w9-spring-rolls": {
+"src": "img/words/spring-rolls.webp",
+"credit": "Chả giò.jpg · M Ameen · CC0"
 },
 "w19-sun-cream": {
 "src": "img/words/sun-cream.webp",
@@ -517,6 +549,522 @@
 "w26-zebra-crossing": {
 "src": "img/words/zebra-crossing.webp",
 "credit": "Zebra crossing, Kingsway, Newport - geograph.org.uk - 4821157.jpg · Jaggery · CC BY-SA 2.0"
+},
+"w2-put-away-my-toys": {
+"src": "img/words/put-away-my-toys.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w3-wash-the-dishes": {
+"src": "img/words/wash-the-dishes.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w5-pencil-case": {
+"src": "img/words/pencil-case.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w5-scissors": {
+"src": "img/words/scissors.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w5-crayons": {
+"src": "img/words/crayons.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w5-raise-your-hand": {
+"src": "img/words/raise-your-hand.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-jump-rope": {
+"src": "img/words/jump-rope.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-kick-a-shuttlecock": {
+"src": "img/words/kick-a-shuttlecock.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-play-football": {
+"src": "img/words/play-football.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-play-badminton": {
+"src": "img/words/play-badminton.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z4-play-badminton": {
+"src": "img/words/play-badminton.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-play-basketball": {
+"src": "img/words/play-basketball.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-run-fast": {
+"src": "img/words/run-fast.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-play-chess": {
+"src": "img/words/play-chess.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-the-king": {
+"src": "img/words/the-king.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w7-the-queen": {
+"src": "img/words/the-queen.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w8-wait-in-line": {
+"src": "img/words/wait-in-line.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-pho": {
+"src": "img/words/pho.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-sticky-rice": {
+"src": "img/words/sticky-rice.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-vegetables": {
+"src": "img/words/vegetables.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-carrot": {
+"src": "img/words/carrot.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-broccoli": {
+"src": "img/words/broccoli.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-mango": {
+"src": "img/words/mango.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-watermelon": {
+"src": "img/words/watermelon.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-junk-food": {
+"src": "img/words/junk-food.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-fizzy-drinks": {
+"src": "img/words/fizzy-drinks.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w9-fresh-fruit": {
+"src": "img/words/fresh-fruit.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w10-a-bag-of-rice": {
+"src": "img/words/a-bag-of-rice.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w11-smell-with-my-nose": {
+"src": "img/words/smell-with-my-nose.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w12-towel": {
+"src": "img/words/towel.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w12-see-a-doctor": {
+"src": "img/words/see-a-doctor.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z4-see-a-doctor": {
+"src": "img/words/see-a-doctor.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w13-sprout": {
+"src": "img/words/sprout.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w13-plant-a-seed": {
+"src": "img/words/plant-a-seed.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w14-tank": {
+"src": "img/words/tank.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w14-bubbles": {
+"src": "img/words/bubbles.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w14-tropical-fish": {
+"src": "img/words/tropical-fish.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-bee": {
+"src": "img/words/bee.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-honey": {
+"src": "img/words/honey.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-caterpillar": {
+"src": "img/words/caterpillar.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-chrysalis": {
+"src": "img/words/chrysalis.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-butterfly": {
+"src": "img/words/butterfly.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-ladybird": {
+"src": "img/words/ladybird.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-earthworm": {
+"src": "img/words/earthworm.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w15-bug-hotel": {
+"src": "img/words/bug-hotel.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w16-zebra": {
+"src": "img/words/zebra.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w16-dinosaur": {
+"src": "img/words/dinosaur.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w17-thunderstorm": {
+"src": "img/words/thunderstorm.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w17-lightning": {
+"src": "img/words/lightning.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w17-cloudy": {
+"src": "img/words/cloudy.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w17-umbrella": {
+"src": "img/words/umbrella.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w17-flood": {
+"src": "img/words/flood.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w18-raindrop": {
+"src": "img/words/raindrop.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w18-kettle": {
+"src": "img/words/kettle.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w18-ice-cube": {
+"src": "img/words/ice-cube.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w18-snowflake": {
+"src": "img/words/snowflake.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w19-scarf": {
+"src": "img/words/scarf.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w19-gloves": {
+"src": "img/words/gloves.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w19-jacket": {
+"src": "img/words/jacket.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w19-sandals": {
+"src": "img/words/sandals.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w19-swimsuit": {
+"src": "img/words/swimsuit.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w29-swimsuit": {
+"src": "img/words/swimsuit.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w20-plastic-bottle": {
+"src": "img/words/plastic-bottle.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w20-glass-jar": {
+"src": "img/words/glass-jar.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w20-turn-off-the-tap": {
+"src": "img/words/turn-off-the-tap.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w20-plant-a-tree": {
+"src": "img/words/plant-a-tree.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w20-cloth-bag": {
+"src": "img/words/cloth-bag.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w21-wood": {
+"src": "img/words/wood.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w23-torch": {
+"src": "img/words/torch.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w29-torch": {
+"src": "img/words/torch.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w33-torch": {
+"src": "img/words/torch.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w23-shadow-puppet": {
+"src": "img/words/shadow-puppet.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w25-museum": {
+"src": "img/words/museum.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w25-market": {
+"src": "img/words/market.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w25-post-a-letter": {
+"src": "img/words/post-a-letter.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w25-stamp": {
+"src": "img/words/stamp.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w26-fasten-your-seatbelt": {
+"src": "img/words/fasten-your-seatbelt.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-police-officer": {
+"src": "img/words/police-officer.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-mechanic": {
+"src": "img/words/mechanic.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-hairdresser": {
+"src": "img/words/hairdresser.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-postman": {
+"src": "img/words/postman.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-fire-engine": {
+"src": "img/words/fire-engine.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-ladder": {
+"src": "img/words/ladder.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-hose": {
+"src": "img/words/hose.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-put-out-a-fire": {
+"src": "img/words/put-out-a-fire.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w27-construction-site": {
+"src": "img/words/construction-site.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w29-window-seat": {
+"src": "img/words/window-seat.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w29-tent": {
+"src": "img/words/tent.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w30-diary": {
+"src": "img/words/diary.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w32-footprint": {
+"src": "img/words/footprint.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w32-magnifying-glass": {
+"src": "img/words/magnifying-glass.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w32-crumbs": {
+"src": "img/words/crumbs.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w32-paw-prints": {
+"src": "img/words/paw-prints.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w33-spacesuit": {
+"src": "img/words/spacesuit.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w33-telescope": {
+"src": "img/words/telescope.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w33-shooting-star": {
+"src": "img/words/shooting-star.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w34-light-bulb": {
+"src": "img/words/light-bulb.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w34-aeroplane": {
+"src": "img/words/aeroplane.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"w36-microphone": {
+"src": "img/words/microphone.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z1-catch-the-school-bus": {
+"src": "img/words/catch-the-school-bus.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z1-go-to-bed": {
+"src": "img/words/go-to-bed.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z2-do-experiments": {
+"src": "img/words/do-experiments.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z3-lemonade": {
+"src": "img/words/lemonade.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z3-smoothie": {
+"src": "img/words/smoothie.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z3-waiter": {
+"src": "img/words/waiter.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z4-swim-underwater": {
+"src": "img/words/swim-underwater.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z5-firefighter": {
+"src": "img/words/firefighter.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z5-astronaut": {
+"src": "img/words/astronaut.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z5-hospital": {
+"src": "img/words/hospital.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z5-fire-station": {
+"src": "img/words/fire-station.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z6-blue-whale": {
+"src": "img/words/blue-whale.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z6-giraffe": {
+"src": "img/words/giraffe.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z6-crocodile": {
+"src": "img/words/crocodile.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z6-elephant": {
+"src": "img/words/elephant.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z6-t-rex": {
+"src": "img/words/trex.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z6-triceratops": {
+"src": "img/words/triceratops.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-sunny-and-warm": {
+"src": "img/words/sunny-and-warm.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-stormy": {
+"src": "img/words/stormy.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-raincoat": {
+"src": "img/words/raincoat.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-sunglasses": {
+"src": "img/words/sunglasses.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-sweater": {
+"src": "img/words/sweater.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-suitcase": {
+"src": "img/words/suitcase.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-go-camping": {
+"src": "img/words/go-camping.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z7-build-a-sandcastle": {
+"src": "img/words/build-a-sandcastle.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z8-took-photos": {
+"src": "img/words/took-photos.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z9-traffic-lights": {
+"src": "img/words/traffic-lights.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z9-turn-left": {
+"src": "img/words/turn-left.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z9-turn-right": {
+"src": "img/words/turn-right.svg",
+"credit": "Minh họa vẽ riêng"
+},
+"z9-go-straight-ahead": {
+"src": "img/words/go-straight-ahead.svg",
+"credit": "Minh họa vẽ riêng"
 }
 };
   global.WordPhotoCredits = [
@@ -577,6 +1125,13 @@
 "source": "https://commons.wikimedia.org/wiki/File:SZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E5%8D%97%E5%B1%B1%E5%8D%80_Nanshan_%E6%B7%B1%E5%9C%B3%E7%81%A3_Shenzhen_Bay_MixC_mall_shop_1-7_Bread_Bakery_May_2026_N13P_14.jpg"
 },
 {
+"key": "banh-mi",
+"title": "Vietnamese Bánh mì (Banh Mi) Sandwich.jpg",
+"author": "Jimmy Chen",
+"license": "CC BY-SA 4.0",
+"source": "https://commons.wikimedia.org/wiki/File:Vietnamese_B%C3%A1nh_m%C3%AC_(Banh_Mi)_Sandwich.jpg"
+},
+{
 "key": "bathroom",
 "title": "Bathroom, Interior of apartment in Brisbane, 2025, 08.jpg",
 "author": "Chris Olszewski",
@@ -624,6 +1179,13 @@
 "author": "JaGa",
 "license": "CC BY-SA 4.0",
 "source": "https://commons.wikimedia.org/wiki/File:New_River_Gorge_Bridge.jpg"
+},
+{
+"key": "broken-rice",
+"title": "Cơm Tấm, Da Nang, Vietnam.jpg",
+"author": "Christopher Crouzet",
+"license": "CC BY-SA 4.0",
+"source": "https://commons.wikimedia.org/wiki/File:C%C6%A1m_T%E1%BA%A5m,_Da_Nang,_Vietnam.jpg"
 },
 {
 "key": "bronze-drum",
@@ -836,6 +1398,13 @@
 "source": "https://commons.wikimedia.org/wiki/File:Foghorns.jpg"
 },
 {
+"key": "fossil",
+"title": "Ammonite fossil imprint.jpg",
+"author": "Harshit SR",
+"license": "CC BY-SA 4.0",
+"source": "https://commons.wikimedia.org/wiki/File:Ammonite_fossil_imprint.jpg"
+},
+{
 "key": "full-moon",
 "title": "FullMoon2010.jpg",
 "author": "Gregory H. Revera",
@@ -862,6 +1431,13 @@
 "author": "Wikimedia Commons",
 "license": "CC BY 4.0",
 "source": "https://commons.wikimedia.org/wiki/File:Eyeglasses_(AM_71518-7).jpg"
+},
+{
+"key": "gorilla",
+"title": "Mountain gorilla (Gorilla beringei beringei) female 2.jpg",
+"author": "Charles J. Sharp",
+"license": "CC BY-SA 4.0",
+"source": "https://commons.wikimedia.org/wiki/File:Mountain_gorilla_(Gorilla_beringei_beringei)_female_2.jpg"
 },
 {
 "key": "guppy",
@@ -904,6 +1480,13 @@
 "author": "DocteurCosmos",
 "license": "CC BY-SA 3.0",
 "source": "https://commons.wikimedia.org/wiki/File:Hiking_shoes_Lowa.jpg"
+},
+{
+"key": "hippo",
+"title": "Hipopótamo (Hippopotamus amphibius), parque nacional de Chobe, Botsuana, 2018-07-28, DD 82.jpg",
+"author": "Diego Delso",
+"license": "CC BY-SA 4.0",
+"source": "https://commons.wikimedia.org/wiki/File:Hipop%C3%B3tamo_(Hippopotamus_amphibius),_parque_nacional_de_Chobe,_Botsuana,_2018-07-28,_DD_82.jpg"
 },
 {
 "key": "hoodie",
@@ -1102,6 +1685,13 @@
 "source": "https://commons.wikimedia.org/wiki/File:Recycling-bins-Benidorm.jpg"
 },
 {
+"key": "rhino",
+"title": "109 Male White rhinoceros walking in the Kalahari Desert of Namibia Photo by Giles Laurent.jpg",
+"author": "Giles Laurent",
+"license": "CC BY-SA 4.0",
+"source": "https://commons.wikimedia.org/wiki/File:109_Male_White_rhinoceros_walking_in_the_Kalahari_Desert_of_Namibia_Photo_by_Giles_Laurent.jpg"
+},
+{
 "key": "ride-a-bike",
 "title": "Child bicycle Managing ports Altagracia.jpg",
 "author": "Wilfredor",
@@ -1198,6 +1788,13 @@
 "author": "Wikimedia Commons",
 "license": "Public domain",
 "source": "https://commons.wikimedia.org/wiki/File:Spaghetti-prepared.jpg"
+},
+{
+"key": "spring-rolls",
+"title": "Chả giò.jpg",
+"author": "M Ameen",
+"license": "CC0",
+"source": "https://commons.wikimedia.org/wiki/File:Ch%E1%BA%A3_gi%C3%B2.jpg"
 },
 {
 "key": "sun-cream",
@@ -1387,6 +1984,874 @@
 "author": "Jaggery",
 "license": "CC BY-SA 2.0",
 "source": "https://commons.wikimedia.org/wiki/File:Zebra_crossing,_Kingsway,_Newport_-_geograph.org.uk_-_4821157.jpg"
+},
+{
+"key": "put-away-my-toys",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "wash-the-dishes",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "pencil-case",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "scissors",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "crayons",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "raise-your-hand",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "jump-rope",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "kick-a-shuttlecock",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "play-football",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "play-badminton",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "play-basketball",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "run-fast",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "play-chess",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "the-king",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "the-queen",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "wait-in-line",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "pho",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "sticky-rice",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "vegetables",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "carrot",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "broccoli",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "mango",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "watermelon",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "junk-food",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "fizzy-drinks",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "fresh-fruit",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "a-bag-of-rice",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "smell-with-my-nose",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "towel",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "see-a-doctor",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "sprout",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "plant-a-seed",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "tank",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "bubbles",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "tropical-fish",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "bee",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "honey",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "caterpillar",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "chrysalis",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "butterfly",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "ladybird",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "earthworm",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "bug-hotel",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "zebra",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "dinosaur",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "thunderstorm",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "lightning",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "cloudy",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "umbrella",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "flood",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "raindrop",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "kettle",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "ice-cube",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "snowflake",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "scarf",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "gloves",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "jacket",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "sandals",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "swimsuit",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "plastic-bottle",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "glass-jar",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "turn-off-the-tap",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "plant-a-tree",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "cloth-bag",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "wood",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "torch",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "shadow-puppet",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "museum",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "market",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "post-a-letter",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "stamp",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "fasten-your-seatbelt",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "police-officer",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "mechanic",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "hairdresser",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "postman",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "fire-engine",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "ladder",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "hose",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "put-out-a-fire",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "construction-site",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "window-seat",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "tent",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "diary",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "footprint",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "magnifying-glass",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "crumbs",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "paw-prints",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "spacesuit",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "telescope",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "shooting-star",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "light-bulb",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "aeroplane",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "microphone",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "catch-the-school-bus",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "go-to-bed",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "do-experiments",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "lemonade",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "smoothie",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "waiter",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "swim-underwater",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "firefighter",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "astronaut",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "hospital",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "fire-station",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "blue-whale",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "giraffe",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "crocodile",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "elephant",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "trex",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "triceratops",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "sunny-and-warm",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "stormy",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "raincoat",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "sunglasses",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "sweater",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "suitcase",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "go-camping",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "build-a-sandcastle",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "took-photos",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "traffic-lights",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "turn-left",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "turn-right",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
+},
+{
+"key": "go-straight-ahead",
+"title": "Minh họa vẽ riêng cho LEGO English Builder",
+"author": "LEGO English Builder",
+"license": "CC0",
+"source": ""
 }
 ];
 })(window);

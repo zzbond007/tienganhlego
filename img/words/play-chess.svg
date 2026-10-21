@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="play-chess-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4efe6"/><stop offset="1" stop-color="#e2d6c2"/></linearGradient>
+<linearGradient id="play-chess-w" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cfc6b6"/><stop offset=".4" stop-color="#fffdf6"/><stop offset="1" stop-color="#bfb5a2"/></linearGradient>
+<linearGradient id="play-chess-b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e1a17"/><stop offset=".4" stop-color="#5a504a"/><stop offset="1" stop-color="#0d0b0a"/></linearGradient>
+<radialGradient id="play-chess-sh"><stop offset="0" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<g id="play-chess-pawn"><ellipse cx="0" cy="0" rx="13" ry="5"/><path d="M-10 0 Q-8 -14 -5 -20 L5 -20 Q8 -14 10 0Z"/><circle cx="0" cy="-26" r="8"/></g>
+<g id="play-chess-king"><ellipse cx="0" cy="0" rx="16" ry="6"/><path d="M-12 0 Q-8 -30 -6 -44 L6 -44 Q8 -30 12 0Z"/><path d="M-10 -44 L10 -44 L8 -56 L-8 -56Z"/><rect x="-2" y="-70" width="4" height="16"/><rect x="-7" y="-66" width="14" height="4"/></g>
+<g id="play-chess-knight"><ellipse cx="0" cy="0" rx="15" ry="6"/><path d="M-11 0 Q-10 -20 -8 -26 Q-14 -34 -8 -46 Q0 -58 10 -50 L16 -36 L8 -34 Q10 -20 11 0Z"/></g>
+</defs>
+<rect width="400" height="300" fill="url(#play-chess-bg)"/>
+<ellipse cx="200" cy="272" rx="190" ry="14" fill="url(#play-chess-sh)"/>
+<!-- board in perspective -->
+<path d="M90 120 L310 120 L380 262 L20 262Z" fill="#6d4524"/>
+<g id="play-chess-sq">
+<path d="M90 120 L310 120 L380 262 L20 262Z" fill="#f0d9b5"/>
+</g>
+<g fill="#b58863"><path d="M117.5 120.0 L145.0 120.0 L140.6 137.8 L110.9 137.8Z M172.5 120.0 L200.0 120.0 L200.0 137.8 L170.3 137.8Z M227.5 120.0 L255.0 120.0 L259.4 137.8 L229.7 137.8Z M282.5 120.0 L310.0 120.0 L318.8 137.8 L289.1 137.8Z M81.2 137.8 L110.9 137.8 L104.4 155.5 L72.5 155.5Z M140.6 137.8 L170.3 137.8 L168.1 155.5 L136.2 155.5Z M200.0 137.8 L229.7 137.8 L231.9 155.5 L200.0 155.5Z M259.4 137.8 L289.1 137.8 L295.6 155.5 L263.8 155.5Z M104.4 155.5 L136.2 155.5 L131.9 173.2 L97.8 173.2Z M168.1 155.5 L200.0 155.5 L200.0 173.2 L165.9 173.2Z M231.9 155.5 L263.8 155.5 L268.1 173.2 L234.1 173.2Z M295.6 155.5 L327.5 155.5 L336.2 173.2 L302.2 173.2Z M63.8 173.2 L97.8 173.2 L91.2 191.0 L55.0 191.0Z M131.9 173.2 L165.9 173.2 L163.8 191.0 L127.5 191.0Z M200.0 173.2 L234.1 173.2 L236.2 191.0 L200.0 191.0Z M268.1 173.2 L302.2 173.2 L308.8 191.0 L272.5 191.0Z M91.2 191.0 L127.5 191.0 L123.1 208.8 L84.7 208.8Z M163.8 191.0 L200.0 191.0 L200.0 208.8 L161.6 208.8Z M236.2 191.0 L272.5 191.0 L276.9 208.8 L238.4 208.8Z M308.8 191.0 L345.0 191.0 L353.8 208.8 L315.3 208.8Z M46.2 208.8 L84.7 208.8 L78.1 226.5 L37.5 226.5Z M123.1 208.8 L161.6 208.8 L159.4 226.5 L118.8 226.5Z M200.0 208.8 L238.4 208.8 L240.6 226.5 L200.0 226.5Z M276.9 208.8 L315.3 208.8 L321.9 226.5 L281.2 226.5Z M78.1 226.5 L118.8 226.5 L114.4 244.2 L71.6 244.2Z M159.4 226.5 L200.0 226.5 L200.0 244.2 L157.2 244.2Z M240.6 226.5 L281.2 226.5 L285.6 244.2 L242.8 244.2Z M321.9 226.5 L362.5 226.5 L371.2 244.2 L328.4 244.2Z M28.8 244.2 L71.6 244.2 L65.0 262.0 L20.0 262.0Z M114.4 244.2 L157.2 244.2 L155.0 262.0 L110.0 262.0Z M200.0 244.2 L242.8 244.2 L245.0 262.0 L200.0 262.0Z M285.6 244.2 L328.4 244.2 L335.0 262.0 L290.0 262.0Z"/></g>
+<path d="M20 262 L380 262 L380 272 L20 272Z" fill="#4f3018"/>
+<use href="#play-chess-king" fill="url(#play-chess-b)" stroke="#000" stroke-width="1" transform="translate(214.7 135.1) scale(0.78)"/>
+<use href="#play-chess-knight" fill="url(#play-chess-b)" stroke="#000" stroke-width="1" transform="translate(273.4 135.1) scale(0.78)"/>
+<use href="#play-chess-pawn" fill="url(#play-chess-b)" stroke="#000" stroke-width="1" transform="translate(152.7 152.8) scale(0.84)"/>
+<use href="#play-chess-pawn" fill="url(#play-chess-b)" stroke="#000" stroke-width="1" transform="translate(247.3 152.8) scale(0.84)"/>
+<use href="#play-chess-pawn" fill="url(#play-chess-b)" stroke="#000" stroke-width="1" transform="translate(183.1 170.6) scale(0.91)"/>
+<use href="#play-chess-pawn" fill="url(#play-chess-w)" stroke="#8a7f6e" stroke-width="1" transform="translate(179.9 223.8) scale(1.09)"/>
+<use href="#play-chess-knight" fill="url(#play-chess-w)" stroke="#8a7f6e" stroke-width="1" transform="translate(260.4 223.8) scale(1.09)"/>
+<use href="#play-chess-pawn" fill="url(#play-chess-w)" stroke="#8a7f6e" stroke-width="1" transform="translate(93.8 241.6) scale(1.16)"/>
+<use href="#play-chess-pawn" fill="url(#play-chess-w)" stroke="#8a7f6e" stroke-width="1" transform="translate(306.2 241.6) scale(1.16)"/>
+<use href="#play-chess-king" fill="url(#play-chess-w)" stroke="#8a7f6e" stroke-width="1" transform="translate(222.3 259.3) scale(1.22)"/>
+</svg>
