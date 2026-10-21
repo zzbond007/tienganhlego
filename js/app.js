@@ -956,6 +956,9 @@
     const upcoming = S.upcoming(7);
     const dueNow = S.dueWordIds().filter((id) => WORDS[id]).length;
     const book = st.settings.book;
+    const allCredits = window.WordPhotoCredits || [];
+    const photoCredits = allCredits.filter((c) => c.source);   // hình vẽ riêng không có nguồn ngoài
+    const drawnCount = allCredits.length - photoCredits.length;
     const fmtDate = (k) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('vi-VN', { weekday: 'short', day: '2-digit', month: '2-digit' }); };
 
     screenEl.innerHTML = `<div class="screen-inner">
@@ -983,8 +986,8 @@
         <div id="checkHistory"></div>
       </div>
 
-      ${(window.WordPhotoCredits || []).length ? `<details class="card photo-credits"><summary>📷 Nguồn ảnh từ vựng (${window.WordPhotoCredits.length} ảnh thật – Wikimedia Commons / Openverse, giấy phép mở)</summary>
-        <ul>${window.WordPhotoCredits.map((c) => `<li><b>${esc(c.key.replace(/-/g, ' '))}</b>: ${esc(c.title)} – ${esc(c.author)} · ${esc(c.license)}${c.source ? ` · <a href="${esc(c.source)}" target="_blank" rel="noopener">nguồn</a>` : ''}</li>`).join('')}</ul></details>` : ''}
+      ${photoCredits.length ? `<details class="card photo-credits"><summary>📷 Nguồn ảnh từ vựng (${photoCredits.length} ảnh thật – Wikimedia Commons / Openverse, giấy phép mở; ${drawnCount} hình còn lại do chương trình tự vẽ)</summary>
+        <ul>${photoCredits.map((c) => `<li><b>${esc(c.key.replace(/-/g, ' '))}</b>: ${esc(c.title)} – ${esc(c.author)} · ${esc(c.license)}${c.source ? ` · <a href="${esc(c.source)}" target="_blank" rel="noopener">nguồn</a>` : ''}</li>`).join('')}</ul></details>` : ''}
 
       <h3 class="section-title">🎙️ Sổ giọng nói <span class="vi">Voice Notebook – nghe lại giọng con theo từng bài để thấy tiến bộ</span></h3>
       <div class="card" id="voiceBook"><p class="vi">Đang tải…</p></div>

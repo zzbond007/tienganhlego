@@ -38,7 +38,7 @@ Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact
   vẽ riêng kiểu tranh sách thiếu nhi (đồ vật, con vật, hành động đơn giản như xe đạp, cầu thang, ô…). Từ trừu tượng
   hoặc dễ nhầm (môn học, bệnh, địa điểm cần chữ mới nhận ra…) KHÔNG gắn hình để bé khỏi nhầm. 265 từ có hình;
   74/138 bài có bảng đọc (bài nào có ít nhất 2 từ có hình). Hình cũng hiện trên thẻ từ ở Bước 1 và Beat Talk.
-  Nguồn ảnh & tác giả xem trong Góc Bố Mẹ → "Nguồn hình ảnh".
+  Nguồn ảnh & tác giả xem trong Góc Bố Mẹ → "📷 Nguồn ảnh từ vựng".
 - *🥁 Beat Talk* (nút trên Bản đồ): 8 ô từ đã học sáng lần lượt theo nhịp trống; 3 vòng: nghe mẫu → con đọc theo nhịp →
   nhanh hơn, xáo trộn, chỉ còn hình. Micro chấm từng nhịp; nhịp nhanh dần theo tháng & cấp; thưởng tối đa 3 lượt/ngày.
 
