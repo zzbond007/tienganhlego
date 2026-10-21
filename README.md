@@ -29,6 +29,19 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🥁 Bản v1.9.3 – Beat Talk chậm & chấm công bằng hơn, sửa nút micro bị "kẹt":**
+- *Beat Talk*:
+  - Nhịp chậm hơn nhiều (≈ 52–72 nhịp/phút, theo Tốc độ đọc – 🐌 Siêu chậm là chậm nhất).
+  - Mỗi ô có 2–4 nhịp tùy độ dài cụm từ. Ô kế tiếp sáng viền nhạt để bé chuẩn bị.
+  - Vòng "chỉ còn hình" chỉ nhanh hơn một chút (+6).
+- *Chấm Beat Talk*:
+  - Ghi âm lượng cả vòng rồi mới chấm; bé nói trễ ~0,5–0,9 giây sau khi ô sáng vẫn được tính.
+  - Bỏ qua đúng những khoảnh khắc trống đánh, nên tiếng nhạc lọt micro không bị tính là giọng bé. Trống nhỏ lại khi bé nói.
+  - Kết quả ghi "Con nói được x/8 ô"; ô chưa nghe rõ tô vàng nhạt (không đỏ).
+  - Thêm nút 🐢 Chơi lại chậm hơn. Sao dễ đạt hơn (3⭐ từ 90%).
+- *Nút micro không còn bị "kẹt"* (Picture Story và mọi chỗ đọc câu): khi iPad tắt nhận diện mà không báo gì, hoặc không báo dừng
+  ghi âm, app tự kết thúc lượt ghi. Chạm 🎙️ lần nữa = đọc xong, dừng ghi.
+
 **🎤 Bản v1.9.2 – Sửa lỗi "nói to mà không được ghi nhận", giọng mẫu chậm hơn:**
 - *Lỗi chính*: tiếng "bíp" bật micro bị tính vào độ ồn nền → ngưỡng nghe bị đẩy lên rất cao, bé phải hét mới được tính;
   ồn nền còn bị chính giọng nói nhỏ kéo lên dần. Nay: bíp phát TRƯỚC khi ghi, ồn nền lấy mức thấp và có trần,
