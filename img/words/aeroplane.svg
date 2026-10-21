@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="aeroplane-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#5fa8e8"/><stop offset="1.00" stop-color="#cfe8fb"/></linearGradient><linearGradient id="aeroplane-b" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#ffffff"/><stop offset="0.50" stop-color="#e3e8ee"/><stop offset="1.00" stop-color="#a9b3bd"/></linearGradient><linearGradient id="aeroplane-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#d9dfe5"/><stop offset="1.00" stop-color="#9aa5b0"/></linearGradient><linearGradient id="aeroplane-tail" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#e8443a"/><stop offset="1.00" stop-color="#b52a22"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#aeroplane-sky)"/>
+<g fill="#fff" opacity="0.85"><ellipse cx="80" cy="240" rx="70" ry="18"/><ellipse cx="120" cy="230" rx="40" ry="18"/><ellipse cx="330" cy="60" rx="60" ry="14"/><ellipse cx="300" cy="250" rx="80" ry="16"/></g>
+<path d="M185 150 L100 245 L130 250 L245 160Z" fill="url(#aeroplane-w)"/>
+<path d="M60 135 L35 70 L60 70 L100 130Z" fill="url(#aeroplane-tail)"/>
+<path d="M50 140 C50 125 70 118 100 118 L320 118 C350 118 375 128 380 142 C375 156 350 162 320 162 L100 162 C70 162 50 155 50 140Z" fill="url(#aeroplane-b)"/>
+<path d="M330 124 C345 124 360 130 366 138 L338 138 C332 138 330 132 330 124Z" fill="#2c4a6b"/>
+<g fill="#5d84ad"><circle cx="120" cy="134" r="4"/><circle cx="136" cy="134" r="4"/><circle cx="152" cy="134" r="4"/><circle cx="168" cy="134" r="4"/><circle cx="184" cy="134" r="4"/><circle cx="200" cy="134" r="4"/><circle cx="216" cy="134" r="4"/><circle cx="232" cy="134" r="4"/><circle cx="248" cy="134" r="4"/><circle cx="264" cy="134" r="4"/><circle cx="280" cy="134" r="4"/><circle cx="296" cy="134" r="4"/><circle cx="312" cy="134" r="4"/></g>
+<path d="M60 150 L360 150" stroke="#2f62a8" stroke-width="5"/>
+<path d="M180 130 L120 40 L150 38 L235 125Z" fill="url(#aeroplane-w)"/>
+<path d="M60 135 L40 110 L70 112 L90 135Z" fill="#c9d1d9"/>
+<ellipse cx="185" cy="185" rx="22" ry="11" fill="#b9c2cb"/><ellipse cx="205" cy="185" rx="5" ry="10" fill="#4a5560"/>
+<path d="M100 122 L310 122" stroke="#fff" stroke-width="3" opacity="0.8"/>
+</svg>

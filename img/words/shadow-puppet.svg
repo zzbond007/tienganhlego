@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<radialGradient id="shadow-puppet-light" cx="0.55" cy="0.42" r="0.55"><stop offset="0" stop-color="#fff5cf"/><stop offset="0.7" stop-color="#f3d68a"/><stop offset="1" stop-color="#3b3328"/></radialGradient><linearGradient id="shadow-puppet-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#f6d0aa"/><stop offset="1.00" stop-color="#d9a074"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="#2d2721"/>
+<ellipse cx="220" cy="130" rx="190" ry="135" fill="url(#shadow-puppet-light)"/>
+<g transform="translate(225 130)" fill="#1e1a16"><ellipse cx="0" cy="20" rx="58" ry="40"/><path d="M-30 -5 C-50 -60 -45 -105 -30 -110 C-15 -112 -10 -60 -10 -5Z"/><path d="M5 -5 C0 -60 15 -110 30 -108 C45 -104 35 -50 22 0Z"/><ellipse cx="55" cy="30" rx="16" ry="12"/><path d="M-40 50 L-80 110 L-40 110 L-10 55Z"/><circle cx="18" cy="8" r="6" fill="#f3d68a"/></g>
+<rect y="262" width="400" height="38" fill="#1a1612"/>
+<g transform="translate(0 0)">
+<path d="M20 300 C25 270 40 255 70 250 L90 225 C95 215 108 218 104 230 L95 250 L120 248 L150 200 C156 190 168 195 164 206 L140 252 L150 262 C160 280 150 300 140 300Z" fill="url(#shadow-puppet-skin)" stroke="#b07b55" stroke-width="2"/>
+<path d="M112 250 L135 205 C140 195 152 200 148 210 L132 252" fill="url(#shadow-puppet-skin)" stroke="#b07b55" stroke-width="2"/>
+<path d="M60 270 C80 268 100 270 120 275" stroke="#b07b55" stroke-width="2" fill="none"/>
+</g>
+</svg>

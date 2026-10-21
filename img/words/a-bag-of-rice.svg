@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="a-bag-of-rice-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf6ea"/><stop offset="1" stop-color="#efe3c8"/></linearGradient>
+<linearGradient id="a-bag-of-rice-sack" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9a27a"/><stop offset=".35" stop-color="#ead9b5"/><stop offset=".6" stop-color="#dcc69c"/><stop offset="1" stop-color="#9e8660"/></linearGradient>
+<pattern id="a-bag-of-rice-weave" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 3 L6 3 M3 0 L3 6" stroke="#8a7350" stroke-width=".7" opacity=".35"/></pattern>
+<radialGradient id="a-bag-of-rice-rice" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3ddcc"/></radialGradient>
+<radialGradient id="a-bag-of-rice-sh"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#a-bag-of-rice-bg)"/>
+<rect y="244" width="400" height="56" fill="#cdb48b"/>
+<ellipse cx="200" cy="250" rx="160" ry="16" fill="url(#a-bag-of-rice-sh)"/>
+<!-- sack body -->
+<path d="M110 90 Q100 150 96 230 Q96 252 130 254 L270 254 Q304 252 304 230 Q300 150 290 90Z" fill="url(#a-bag-of-rice-sack)"/>
+<path d="M110 90 Q100 150 96 230 Q96 252 130 254 L270 254 Q304 252 304 230 Q300 150 290 90Z" fill="url(#a-bag-of-rice-weave)"/>
+<!-- open folded top showing rice -->
+<path d="M100 92 Q200 60 300 92 Q308 104 296 112 Q200 130 104 112 Q92 104 100 92Z" fill="#c9b289"/>
+<ellipse cx="200" cy="96" rx="92" ry="20" fill="url(#a-bag-of-rice-rice)"/>
+<path d="M130 92 Q200 70 270 92 Q240 100 200 100 Q160 100 130 92Z" fill="#fff"/>
+<g fill="#d8d0bd"><ellipse cx="160" cy="98" rx="3" ry="1.5"/><ellipse cx="190" cy="104" rx="3" ry="1.5"/><ellipse cx="230" cy="100" rx="3" ry="1.5"/><ellipse cx="250" cy="94" rx="3" ry="1.5"/></g>
+<!-- printed band (no text) -->
+<rect x="120" y="150" width="160" height="70" rx="8" fill="#2e7d32" opacity=".85"/>
+<path d="M150 200 Q170 160 200 170 Q230 160 250 200" stroke="#ffd54f" stroke-width="5" fill="none"/>
+<g fill="#ffd54f"><ellipse cx="170" cy="176" rx="5" ry="9" transform="rotate(-30 170 176)"/><ellipse cx="200" cy="168" rx="5" ry="9"/><ellipse cx="230" cy="176" rx="5" ry="9" transform="rotate(30 230 176)"/></g>
+<path d="M120 130 Q118 190 116 236" stroke="#fff" stroke-width="7" opacity=".25" fill="none" stroke-linecap="round"/>
+<!-- spilled rice + scoop -->
+<path d="M300 252 Q330 236 372 252Z" fill="url(#a-bag-of-rice-rice)"/>
+<g fill="#fff"><ellipse cx="320" cy="256" rx="3" ry="1.5"/><ellipse cx="342" cy="258" rx="3" ry="1.5"/><ellipse cx="360" cy="256" rx="3" ry="1.5"/><ellipse cx="380" cy="259" rx="3" ry="1.5"/><ellipse cx="60" cy="258" rx="3" ry="1.5"/><ellipse cx="74" cy="256" rx="3" ry="1.5"/></g>
+</svg>

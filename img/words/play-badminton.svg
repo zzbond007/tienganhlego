@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="play-badminton-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9fb"/><stop offset="1" stop-color="#eef7fd"/></linearGradient><linearGradient id="play-badminton-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8bc34a"/><stop offset="1" stop-color="#6a9f3a"/></linearGradient><linearGradient id="play-badminton-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffee58"/><stop offset="1" stop-color="#f9a825"/></linearGradient>
+<linearGradient id="play-badminton-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5c6bc0"/><stop offset="1" stop-color="#303f9f"/></linearGradient>
+<radialGradient id="play-badminton-skin" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd9b8"/><stop offset="1" stop-color="#e7a67c"/></radialGradient>
+<radialGradient id="play-badminton-hair" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#5a3a22"/><stop offset="1" stop-color="#21140b"/></radialGradient><radialGradient id="play-badminton-sh"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#play-badminton-bg)"/><path d="M0 215 Q200 205 400 215 L400 300 L0 300Z" fill="url(#play-badminton-gr)"/><rect x="300" y="120" width="6" height="140" fill="#555"/><rect x="300" y="120" width="100" height="56" fill="none"/><path d="M306 122 L400 122" stroke="#fff" stroke-width="5"/><g stroke="#333" stroke-width="1" opacity=".6"><path d="M306 132 L400 132 M306 142 L400 142 M306 152 L400 152 M306 162 L400 162 M306 172 L400 172 M316 122 L316 176 M330 122 L330 176 M344 122 L344 176 M358 122 L358 176 M372 122 L372 176 M386 122 L386 176"/></g><ellipse cx="170" cy="262" rx="50" ry="8" fill="url(#play-badminton-sh)"/>
+<g opacity=".88">
+<path d="M160.0 127.4 L139.8 151.4 L129.8 179.1" stroke="url(#play-badminton-skin)" stroke-width="10.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M160.0 127.4 L148.9 140.6" stroke="url(#play-badminton-shirt)" stroke-width="15.7" fill="none" stroke-linecap="round"/>
+<circle cx="129.8" cy="179.1" r="7.3" fill="url(#play-badminton-skin)"/>
+</g>
+<g opacity=".88">
+<path d="M160.0 196.0 L151.8 234.3 L151.8 273.5" stroke="url(#play-badminton-pants)" stroke-width="17.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="158.7" cy="276.5" rx="13.7" ry="6.9" fill="#222" transform="rotate(0.0 151.8 273.5)"/>
+<ellipse cx="156.7" cy="273.5" rx="7.8" ry="2.5" fill="#fff" opacity=".25" transform="rotate(0.0 151.8 273.5)"/>
+</g>
+<g transform="rotate(0.0 160.0 196.0)">
+<path d="M139.4 127.4 Q160.0 121.5 180.6 127.4 L192.3 209.7 L127.7 209.7Z" fill="url(#play-badminton-shirt)"/>
+<path d="M145.3 137.2 Q142.4 161.7 145.3 196.0" stroke="#fff" stroke-width="3.9" opacity=".25" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M160.0 196.0 L169.5 234.0 L169.5 273.2" stroke="url(#play-badminton-pants)" stroke-width="17.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="176.3" cy="276.2" rx="13.7" ry="6.9" fill="#333" transform="rotate(0.0 169.5 273.2)"/>
+<ellipse cx="174.4" cy="273.2" rx="7.8" ry="2.5" fill="#fff" opacity=".25" transform="rotate(0.0 169.5 273.2)"/>
+<path d="M160.0 127.4 L185.7 109.4 L200.4 84.0" stroke="url(#play-badminton-skin)" stroke-width="10.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M160.0 127.4 L174.1 117.5" stroke="url(#play-badminton-shirt)" stroke-width="15.7" fill="none" stroke-linecap="round"/>
+<circle cx="200.4" cy="84.0" r="7.3" fill="url(#play-badminton-skin)"/>
+<g transform="rotate(0 160.0 98.0)">
+<rect x="154.1" y="113.7" width="11.8" height="11.8" fill="#e7a67c"/>
+<circle cx="136.7" cy="100.0" r="4.9" fill="#efb48c"/>
+<circle cx="160.0" cy="98.0" r="24.5" fill="url(#play-badminton-skin)"/>
+<path d="M132.6 111.7 Q129.6 65.7 160.0 69.6 Q190.4 65.7 187.4 111.7 Q182.5 90.2 164.9 83.3 Q137.5 90.2 132.6 111.7Z" fill="url(#play-badminton-hair)"/>
+<path d="M137.9 92.1 q-13.7 19.6 -3.9 43.1 q7.8 -15.7 11.8 -35.3Z" fill="url(#play-badminton-hair)"/>
+<circle cx="161.7" cy="98.0" r="2.7" fill="#2a1a0e"/><circle cx="175.4" cy="98.0" r="2.7" fill="#2a1a0e"/>
+<path d="M162.7 107.8 q5.9 5.9 11.8 0" stroke="#a2412e" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<circle cx="156.8" cy="104.9" r="3.4" fill="#ff8a80" opacity=".35"/><circle cx="180.3" cy="104.9" r="3.4" fill="#ff8a80" opacity=".35"/>
+</g><g transform="rotate(35 200 84)"><rect x="197" y="44" width="6" height="44" rx="2" fill="#37474f"/><ellipse cx="200" cy="22" rx="20" ry="25" fill="#fff" fill-opacity=".35" stroke="#1565c0" stroke-width="5"/><g stroke="#90a4ae" stroke-width="1"><path d="M180 12 L220 12 M178 22 L222 22 M180 32 L220 32 M190 -0 L190 44 M200 -2 L200 46 M210 -0 L210 44"/></g></g><g transform="translate(300 70) rotate(-60)"><path d="M-12 -30 L12 -30 L6 0 L-6 0Z" fill="#fff" stroke="#bbb"/><path d="M-8 -30 L-4 0 M0 -30 L0 0 M8 -30 L4 0" stroke="#ccc"/><ellipse cx="0" cy="4" rx="7" ry="7" fill="#f5f5f5" stroke="#999"/></g>
+</svg>

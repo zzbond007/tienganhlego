@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="fasten-your-seatbelt-skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6d0aa"/><stop offset="1" stop-color="#e0a87c"/></linearGradient>
+<linearGradient id="fasten-your-seatbelt-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b83250"/><stop offset="0.45" stop-color="#e85d75"/><stop offset="1" stop-color="#b83250"/></linearGradient>
+<linearGradient id="fasten-your-seatbelt-pants" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#25406a"/><stop offset="0.5" stop-color="#3b5a8a"/><stop offset="1" stop-color="#25406a"/></linearGradient>
+<radialGradient id="fasten-your-seatbelt-fsh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="fasten-your-seatbelt-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#d3dbe2"/><stop offset="1.00" stop-color="#aab6c0"/></linearGradient><linearGradient id="fasten-your-seatbelt-seat" x1="0" y1="0" x2="1" y2="0"><stop offset="0.00" stop-color="#5a5f66"/><stop offset="1.00" stop-color="#30343a"/></linearGradient><linearGradient id="fasten-your-seatbelt-win" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#bfe6fb"/><stop offset="1.00" stop-color="#e9f7ff"/></linearGradient><linearGradient id="fasten-your-seatbelt-belt" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#3a3a3a"/><stop offset="1.00" stop-color="#1a1a1a"/></linearGradient><linearGradient id="fasten-your-seatbelt-buck" x1="0" y1="0" x2="0" y2="1"><stop offset="0.00" stop-color="#eef1f3"/><stop offset="1.00" stop-color="#8b9399"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#fasten-your-seatbelt-bg)"/>
+<path d="M150 20 L380 20 L380 150 L170 150 Z" fill="url(#fasten-your-seatbelt-win)" stroke="#4a5058" stroke-width="10" stroke-linejoin="round"/>
+<g fill="#8fc370"><circle cx="250" cy="140" r="22"/><circle cx="300" cy="135" r="28"/><circle cx="350" cy="140" r="20"/></g><path d="M190 60 l40 -30 M210 80 l50 -40" stroke="#fff" stroke-width="6" opacity="0.6"/>
+<rect y="150" width="400" height="150" fill="#7d8790"/>
+<path d="M60 30 C40 30 35 60 40 120 L55 240 L180 240 C190 240 195 230 190 220 L170 200 L90 195 L95 60 C95 40 80 30 60 30Z" fill="url(#fasten-your-seatbelt-seat)"/>
+<path d="M50 260 L200 260 L210 236 L45 236Z" fill="#3a3f45"/>
+<path d="M58 50 C50 80 52 120 58 180" stroke="#888" stroke-width="5" opacity="0.4" fill="none"/>
+<!-- child sitting facing right -->
+<path d="M100 200 L170 200 C178 200 180 210 175 214 L172 260 L156 260 L154 218 L100 222Z" fill="url(#fasten-your-seatbelt-pants)"/>
+<path d="M150 264 h26 v-10 h-22z" fill="#eee"/>
+<path d="M92 205 C86 160 92 130 120 125 C145 125 152 150 148 205Z" fill="url(#fasten-your-seatbelt-shirt)"/>
+<circle cx="124" cy="100" r="24" fill="url(#fasten-your-seatbelt-skin)"/><path d="M99 102 C98 68 150 68 149 102 C142 84 106 84 99 102Z" fill="#2b1a10"/><circle cx="136.0" cy="101" r="2.6" fill="#2a1a10"/><path d="M131.0 111 q4 3 8 -1" stroke="#a0522d" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="114" cy="103" r="5" fill="url(#fasten-your-seatbelt-skin)" stroke="#d29a70" stroke-width="1.2"/>
+<path d="M96 120 L150 205" stroke="url(#fasten-your-seatbelt-belt)" stroke-width="12"/>
+<path d="M92 200 L150 205" stroke="url(#fasten-your-seatbelt-belt)" stroke-width="12"/>
+<path d="M96 120 L92 110" stroke="#1a1a1a" stroke-width="12"/>
+<rect x="146" y="196" width="22" height="16" rx="3" fill="url(#fasten-your-seatbelt-buck)"/>
+<rect x="164" y="198" width="18" height="12" rx="3" fill="#c0392b"/>
+<path d="M118 150 C130 175 140 190 150 200" stroke="#b83250" stroke-width="15" stroke-linecap="round" fill="none"/>
+<circle cx="152" cy="202" r="8" fill="url(#fasten-your-seatbelt-skin)"/>
+<path d="M135 150 C150 170 162 190 168 198" stroke="#e85d75" stroke-width="14" stroke-linecap="round" fill="none"/>
+<circle cx="170" cy="200" r="8" fill="url(#fasten-your-seatbelt-skin)"/>
+</svg>

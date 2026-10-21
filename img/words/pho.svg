@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="pho-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7efe2"/><stop offset="1" stop-color="#e8d8bd"/></linearGradient>
+<linearGradient id="pho-bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#e8ecef"/><stop offset="1" stop-color="#b8c0c7"/></linearGradient>
+<radialGradient id="pho-broth" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#e9b86a"/><stop offset="1" stop-color="#b9772c"/></radialGradient>
+<radialGradient id="pho-sh"><stop offset="0" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<clipPath id="pho-clip"><ellipse cx="200" cy="130" rx="150" ry="46"/></clipPath>
+</defs>
+<rect width="400" height="300" fill="url(#pho-bg)"/>
+<rect y="210" width="400" height="90" fill="#8d5a32"/>
+<path d="M0 230 L400 226 M0 262 L400 258" stroke="#6e4322" stroke-width="2"/>
+<ellipse cx="200" cy="262" rx="150" ry="16" fill="url(#pho-sh)"/>
+<!-- steam -->
+<g stroke="#fff" stroke-width="5" fill="none" opacity=".7" stroke-linecap="round"><path d="M150 70 q-12 -16 0 -32 q12 -16 0 -30"/><path d="M200 64 q-12 -16 0 -32 q12 -16 0 -28"/><path d="M250 70 q-12 -16 0 -32 q12 -16 0 -30"/></g>
+<!-- bowl -->
+<path d="M50 130 Q60 230 160 250 L240 250 Q340 230 350 130Z" fill="url(#pho-bowl)"/>
+<path d="M70 170 Q200 196 330 170" stroke="#1e64b4" stroke-width="5" fill="none"/>
+<path d="M78 186 Q200 210 322 186" stroke="#1e64b4" stroke-width="2" fill="none"/>
+<path d="M150 246 L250 246 L244 260 L156 260Z" fill="#cfd6db"/>
+<ellipse cx="200" cy="130" rx="152" ry="48" fill="#f4f6f7" stroke="#c4cbd1" stroke-width="2"/>
+<ellipse cx="200" cy="130" rx="150" ry="46" fill="url(#pho-broth)"/>
+<g clip-path="url(#pho-clip)">
+<!-- noodles -->
+<g stroke="#fbf3df" stroke-width="5" fill="none" stroke-linecap="round"><path d="M80 140 Q130 120 180 146 T280 140"/><path d="M90 150 Q150 136 210 156 T320 146"/><path d="M110 120 Q160 108 220 126"/></g>
+<!-- beef slices -->
+<g fill="#8b4a3a" stroke="#6a3226" stroke-width="1.5"><path d="M150 110 Q180 96 214 108 Q200 124 158 122Z"/><path d="M196 124 Q232 112 262 124 Q244 140 204 136Z"/><path d="M118 126 Q146 116 170 128 Q150 140 122 136Z"/></g>
+<g fill="#c47a6a" opacity=".6"><path d="M160 112 Q180 104 200 110"/></g>
+<!-- herbs and onion -->
+<g fill="#3fa34d"><ellipse cx="240" cy="104" rx="14" ry="6" transform="rotate(-20 240 104)"/><ellipse cx="256" cy="112" rx="12" ry="5" transform="rotate(30 256 112)"/><ellipse cx="270" cy="100" rx="13" ry="5"/><ellipse cx="136" cy="148" rx="11" ry="4" transform="rotate(20 136 148)"/></g>
+<g fill="#7cc451"><circle cx="180" cy="140" r="3"/><circle cx="190" cy="146" r="3"/><circle cx="228" cy="146" r="3"/><circle cx="104" cy="132" r="3"/><circle cx="300" cy="132" r="3"/><circle cx="286" cy="150" r="3"/></g>
+<g fill="none" stroke="#f3f0e8" stroke-width="2.5"><circle cx="160" cy="146" r="6"/><circle cx="250" cy="134" r="6"/><circle cx="300" cy="118" r="5"/></g>
+<!-- lime wedge -->
+<path d="M300 140 Q320 120 340 136 Z" fill="#9ccc3c" stroke="#5f8f1e" stroke-width="2"/>
+</g>
+<!-- chopsticks and spoon -->
+<rect x="250" y="40" width="7" height="140" rx="3" fill="#a0632e" transform="rotate(32 254 110)"/>
+<rect x="266" y="40" width="7" height="140" rx="3" fill="#8a5225" transform="rotate(36 270 110)"/>
+</svg>
