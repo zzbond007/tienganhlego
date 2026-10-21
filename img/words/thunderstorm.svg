@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="thunderstorm-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b4558"/><stop offset="1" stop-color="#7c8799"/></linearGradient>
+<radialGradient id="thunderstorm-c" cx="0.45" cy="0.3" r="0.8"><stop offset="0" stop-color="#8a93a3"/><stop offset="0.6" stop-color="#555f70"/><stop offset="1" stop-color="#363e4c"/></radialGradient>
+<linearGradient id="thunderstorm-b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#fff3a8"/></linearGradient>
+<filter id="thunderstorm-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<linearGradient id="thunderstorm-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c6b45"/><stop offset="1" stop-color="#2d4229"/></linearGradient>
+</defs>
+<rect width="400" height="300" fill="url(#thunderstorm-sky)"/>
+<g stroke="#b9c6d8" stroke-width="2" stroke-linecap="round" opacity="0.7">
+<path d="M70 150l-8 22M95 160l-8 22M120 150l-8 22M150 165l-8 22M180 155l-8 22M240 160l-8 22M270 150l-8 22M300 165l-8 22M325 155l-8 22M85 200l-8 22M140 205l-8 22M255 205l-8 22M310 210l-8 22M110 235l-6 18M290 240l-6 18"/>
+</g>
+<path d="M212 135 L190 190 L212 188 L196 250 L238 178 L216 180 L232 135 Z" fill="#fff8c0" filter="url(#thunderstorm-glow)" opacity="0.9"/>
+<path d="M212 135 L190 190 L212 188 L196 250 L238 178 L216 180 L232 135 Z" fill="url(#thunderstorm-b)"/>
+<g fill="url(#thunderstorm-c)">
+<ellipse cx="200" cy="120" rx="150" ry="38"/>
+<circle cx="120" cy="100" r="45"/><circle cx="185" cy="78" r="58"/><circle cx="260" cy="90" r="50"/><circle cx="315" cy="110" r="35"/><circle cx="80" cy="120" r="30"/>
+</g>
+<g fill="#9aa3b2" opacity="0.5"><circle cx="170" cy="58" r="22"/><circle cx="250" cy="68" r="18"/><circle cx="110" cy="80" r="16"/></g>
+<path d="M0 262 Q100 250 200 258 T400 255 V300 H0Z" fill="url(#thunderstorm-gr)"/>
+<g fill="#22331f"><path d="M40 262 l10-40 l10 40z"/><path d="M350 258 l12-48 l12 48z"/><rect x="48" y="258" width="4" height="8"/><rect x="360" y="255" width="4" height="8"/></g>
+</svg>

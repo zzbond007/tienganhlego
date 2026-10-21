@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="sunglasses-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f6fc"/><stop offset="1" stop-color="#cfe9f4"/></linearGradient>
+<linearGradient id="sunglasses-lens" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a3a"/><stop offset="0.6" stop-color="#2e4a62"/><stop offset="1" stop-color="#4d6f86"/></linearGradient>
+<linearGradient id="sunglasses-frame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a3a"/><stop offset="1" stop-color="#0d0d0d"/></linearGradient>
+<radialGradient id="sunglasses-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#20404f" stop-opacity="0.3"/><stop offset="1" stop-color="#20404f" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#sunglasses-bg)"/>
+<ellipse cx="200" cy="228" rx="170" ry="16" fill="url(#sunglasses-sh)"/>
+<path d="M48 120 L18 104 L14 110 L44 128Z" fill="#111"/>
+<path d="M352 120 L382 104 L386 110 L356 128Z" fill="#111"/>
+<path d="M44 108 Q120 96 186 110 Q196 124 192 140 Q182 206 120 208 Q62 206 48 150 Q42 124 44 108Z" fill="url(#sunglasses-frame)"/>
+<path d="M356 108 Q280 96 214 110 Q204 124 208 140 Q218 206 280 208 Q338 206 352 150 Q358 124 356 108Z" fill="url(#sunglasses-frame)"/>
+<path d="M186 112 Q200 102 214 112 L212 124 Q200 116 188 124Z" fill="#1a1a1a"/>
+<path d="M56 116 Q120 106 178 118 Q184 130 180 142 Q170 196 120 197 Q72 195 60 150 Q54 130 56 116Z" fill="url(#sunglasses-lens)"/>
+<path d="M344 116 Q280 106 222 118 Q216 130 220 142 Q230 196 280 197 Q328 195 340 150 Q346 130 344 116Z" fill="url(#sunglasses-lens)"/>
+<path d="M70 126 Q100 118 130 122 L82 176 Q66 156 70 126Z" fill="#fff" opacity="0.22"/>
+<path d="M234 126 Q264 118 294 122 L246 176 Q230 156 234 126Z" fill="#fff" opacity="0.22"/>
+<path d="M150 180 Q164 170 172 150" stroke="#9ec9e0" stroke-width="4" fill="none" opacity="0.5" stroke-linecap="round"/>
+<path d="M314 180 Q328 170 336 150" stroke="#9ec9e0" stroke-width="4" fill="none" opacity="0.5" stroke-linecap="round"/>
+<path d="M50 110 Q120 98 184 112" stroke="#666" stroke-width="2" fill="none"/>
+<path d="M350 110 Q280 98 216 112" stroke="#666" stroke-width="2" fill="none"/>
+</svg>

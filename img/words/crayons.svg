@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="crayons-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf8ec"/><stop offset="1" stop-color="#f1e7cf"/></linearGradient>
+<linearGradient id="crayons-shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>
+<radialGradient id="crayons-sh"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<g id="crayons-one">
+<path d="M0 0 L190 0 L190 26 L0 26Z"/>
+<path d="M190 2 L222 9 Q228 13 222 17 L190 24Z"/>
+<rect x="30" y="0" width="120" height="26" fill="#000" opacity=".12"/>
+<rect x="36" y="4" width="108" height="18" rx="2" fill="#fff" opacity=".18"/>
+<path d="M30 0 V26 M150 0 V26" stroke="#000" stroke-opacity=".25" stroke-width="2"/>
+<path d="M14 0 V26 M20 0 V26 M160 0 V26 M166 0 V26" stroke="#000" stroke-opacity=".15" stroke-width="1.5"/>
+<rect width="190" height="26" fill="url(#crayons-shade)"/>
+</g>
+</defs>
+<rect width="400" height="300" fill="url(#crayons-bg)"/>
+<ellipse cx="200" cy="246" rx="170" ry="20" fill="url(#crayons-sh)"/>
+<g transform="translate(70 70) rotate(-8)"><use href="#crayons-one" fill="#e53935"/></g>
+<g transform="translate(66 104) rotate(-3)"><use href="#crayons-one" fill="#fb8c00"/></g>
+<g transform="translate(64 138)"><use href="#crayons-one" fill="#fdd835"/></g>
+<g transform="translate(62 172) rotate(3)"><use href="#crayons-one" fill="#43a047"/></g>
+<g transform="translate(60 206) rotate(5)"><use href="#crayons-one" fill="#1e88e5"/></g>
+</svg>

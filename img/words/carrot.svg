@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="carrot-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f8ec"/><stop offset="1" stop-color="#e2ecd4"/></linearGradient>
+<linearGradient id="carrot-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb04a"/><stop offset=".45" stop-color="#f57c00"/><stop offset="1" stop-color="#c25000"/></linearGradient>
+<linearGradient id="carrot-leaf" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2e7d32"/><stop offset="1" stop-color="#7cc242"/></linearGradient>
+<radialGradient id="carrot-sh"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="400" height="300" fill="url(#carrot-bg)"/>
+<rect y="232" width="400" height="68" fill="#d9caa9"/>
+<ellipse cx="200" cy="238" rx="160" ry="14" fill="url(#carrot-sh)"/>
+<!-- leaves -->
+<g fill="url(#carrot-leaf)" stroke="#2e6b2a" stroke-width="1">
+<path d="M300 150 Q330 110 360 60 Q352 108 310 156Z"/>
+<path d="M300 152 Q340 130 384 110 Q356 146 306 160Z"/>
+<path d="M298 148 Q312 100 316 40 Q330 96 306 154Z"/>
+<path d="M296 150 Q290 104 270 60 Q304 96 306 152Z"/>
+</g>
+<g fill="none" stroke="#5aa832" stroke-width="2">
+<path d="M330 110 l12 -6 M340 92 l10 -10 M316 90 l8 -6 M288 96 l-8 -8"/>
+</g>
+<!-- root -->
+<path d="M306 140 Q318 170 300 196 L60 226 Q40 226 54 216 L280 140 Q296 132 306 140Z" fill="url(#carrot-body)"/>
+<path d="M280 146 Q200 170 80 214" stroke="#ffd08a" stroke-width="6" fill="none" opacity=".6" stroke-linecap="round"/>
+<g stroke="#b54a00" stroke-width="2" fill="none" opacity=".7">
+<path d="M250 158 q4 10 0 20 M210 170 q4 9 0 18 M170 182 q3 8 0 15 M130 194 q3 7 0 12 M100 204 q2 5 0 9"/>
+</g>
+<path d="M60 226 L38 232" stroke="#c25000" stroke-width="2"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<defs>
+<linearGradient id="microphone-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef2f8"/><stop offset="1" stop-color="#d9e0ec"/></linearGradient>
+<radialGradient id="microphone-head" cx="0.38" cy="0.32" r="0.75"><stop offset="0" stop-color="#ffffff"/><stop offset="0.35" stop-color="#c9ced6"/><stop offset="0.8" stop-color="#6d7480"/><stop offset="1" stop-color="#3c424b"/></radialGradient>
+<linearGradient id="microphone-body" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15171b"/><stop offset="0.35" stop-color="#4a4f58"/><stop offset="0.55" stop-color="#2a2e34"/><stop offset="1" stop-color="#0c0d10"/></linearGradient>
+<linearGradient id="microphone-ring" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b6f76"/><stop offset="0.4" stop-color="#e8eaee"/><stop offset="1" stop-color="#5a5e66"/></linearGradient>
+<radialGradient id="microphone-sh" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<pattern id="microphone-mesh" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H7M0 0V7" stroke="#2c3038" stroke-opacity="0.35" stroke-width="1"/></pattern>
+</defs>
+<rect width="400" height="300" fill="url(#microphone-bg)"/>
+<ellipse cx="200" cy="272" rx="70" ry="10" fill="url(#microphone-sh)"/>
+<g transform="rotate(-22 200 150)">
+<path d="M178 132 L222 132 L212 262 Q200 270 188 262 Z" fill="url(#microphone-body)"/>
+<rect x="183" y="245" width="34" height="8" rx="3" fill="#2a2d33" transform="rotate(0)"/>
+<rect x="194" y="200" width="12" height="22" rx="3" fill="#3a3f47" stroke="#55606c"/>
+<rect x="196" y="203" width="8" height="8" rx="2" fill="#6f7a86"/>
+<rect x="172" y="122" width="56" height="20" rx="6" fill="url(#microphone-ring)"/>
+<circle cx="200" cy="82" r="50" fill="url(#microphone-head)"/>
+<circle cx="200" cy="82" r="50" fill="url(#microphone-mesh)"/>
+<path d="M152 92 Q200 108 248 92" stroke="#9aa1ab" stroke-width="5" fill="none" opacity="0.8"/>
+<ellipse cx="183" cy="62" rx="14" ry="9" fill="#fff" opacity="0.55"/>
+</g>
+</svg>
