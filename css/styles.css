@@ -1380,7 +1380,8 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .beat-card { position: relative; background: #fff; border-radius: 16px; padding: 12px 6px; display: grid; justify-items: center; gap: 4px; box-shadow: 0 5px 0 var(--card-edge); transition: transform .12s, box-shadow .12s, background .12s; }
 .beat-card.lit { background: #FEF08A; transform: scale(1.08); box-shadow: 0 0 0 4px #F59E0B, 0 8px 0 #D97706; }
 .beat-card.hit { background: #DCFCE7; }
-.beat-card.miss { background: #FEE2E2; }
+.beat-card.miss { background: #FEF3C7; }   /* vàng nhạt: "chưa nghe rõ", không dùng màu đỏ để bé khỏi nản */
+.beat-card.next { box-shadow: 0 0 0 3px #FDE68A, 0 5px 0 var(--card-edge); }
 .bc-emoji { font-size: 44px; }
 .bc-word { font-size: 17px; text-align: center; }
 .bc-word.hidden-w { color: #94A3B8; }

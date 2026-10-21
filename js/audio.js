@@ -86,18 +86,19 @@
     }
 
     /* ---------- 🥁 Nhịp trống cho Beat Talk (đặt lịch chính xác theo AudioContext) ---------- */
-    playKick(delay = 0) {
+    /* g: độ to (0..1) – Beat Talk vặn nhỏ trống khi con nói để tiếng trống không lọt vào micro */
+    playKick(delay = 0, g = 1) {
       if (!this._ready()) return;
-      this._tone({ freq: 150, freq2: 45, type: 'sine', dur: 0.22, vol: 0.9, delay, attack: 0.002 });
-      this._noise({ dur: 0.02, vol: 0.4, delay, filterFreq: 900, q: 1 });
+      this._tone({ freq: 150, freq2: 45, type: 'sine', dur: 0.22, vol: 0.9 * g, delay, attack: 0.002 });
+      this._noise({ dur: 0.02, vol: 0.4 * g, delay, filterFreq: 900, q: 1 });
     }
-    playHat(delay = 0) {
+    playHat(delay = 0, g = 1) {
       if (!this._ready()) return;
-      this._noise({ dur: 0.04, vol: 0.28, delay, filterFreq: 8000, q: 0.8, type: 'highpass' });
+      this._noise({ dur: 0.04, vol: 0.28 * g, delay, filterFreq: 8000, q: 0.8, type: 'highpass' });
     }
-    playClap(delay = 0) {
+    playClap(delay = 0, g = 1) {
       if (!this._ready()) return;
-      this._noise({ dur: 0.09, vol: 0.55, delay, filterFreq: 1500, q: 0.9 });
+      this._noise({ dur: 0.09, vol: 0.55 * g, delay, filterFreq: 1500, q: 0.9 });
     }
     now() { return this.ctx ? this.ctx.currentTime : 0; }
 
@@ -727,7 +728,11 @@
       if (!this._base) {
         // iOS 17+: phát giọng mẫu ra loa ngoài khi micro đang mở
         try { if (navigator.audioSession) navigator.audioSession.type = 'play-and-record'; } catch (e) { /* */ }
-        this._base = await navigator.mediaDevices.getUserMedia({ audio: true });
+        // Không chờ mãi nếu iPad không trả lời xin quyền micro
+        this._base = await Promise.race([
+          navigator.mediaDevices.getUserMedia({ audio: true }),
+          new Promise((_, rej) => setTimeout(() => rej(new Error('mic-timeout')), 15000))
+        ]);
       }
       // iPad mở từ Màn hình chính hỏi quyền micro MỖI LẦN gọi getUserMedia → giữ luồng micro gốc (_base) mở cho cả
       // buổi học, chỉ nhả khi đóng bài / Gym hoặc khi app chạy nền (releaseAll). Mỗi lần ghi dùng một bản sao track
@@ -770,7 +775,11 @@
           resolve(this._url);
           return;
         }
+        let ended = false;
+        // iPad có lúc không bắn "onstop" → sau 2 giây tự hoàn tất để app không bị treo
+        const guard = setTimeout(() => { if (!ended && this._rec) this._rec.onstop(); }, 2000);
         this._rec.onstop = () => {
+          if (ended) return; ended = true; clearTimeout(guard);
           if (this._url) URL.revokeObjectURL(this._url);
           const blob = new Blob(this._chunks, { type: this._rec.mimeType || 'audio/mp4' });
           this.lastBlob = blob; this._decoded = null;

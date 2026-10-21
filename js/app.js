@@ -2067,7 +2067,11 @@
     /** Kiểm tra con có nói câu `text` không: nhận diện giọng (nếu có) chấm theo câu mẫu, nếu không thì ghi âm + nhận biết giọng. */
     voiceCheck(text, ui = () => {}, opts = {}) {
       return new Promise((resolve) => {
-        const done = (r) => { ui('idle'); resolve(r); };
+        // Chắc chắn kết thúc (iPad có lúc không báo kết quả/lỗi) → nút micro không bao giờ bị "kẹt"
+        let finished = false;
+        this.vcStop = null;
+        const safety = setTimeout(() => { if (Recorder.isRecording()) Recorder.stop().then(() => done({ ok: false })); else done({ ok: false }); Listener.stop(); }, (opts.maxMs || 8000) + 8000);
+        const done = (r) => { if (finished) return; finished = true; clearTimeout(safety); this.vcStop = null; ui('idle'); resolve(r); };
         const viaRecorder = async () => {
           if (!Recorder.supported) { this.noMic = true; done({ ok: true }); return; }
           ui('rec');
@@ -2078,7 +2082,9 @@
               await Recorder.stop();
               done(Recorder.heardVoice(opts.minVoiceMs || 400) ? { ok: true, clip: Recorder.lastBlob } : { ok: false });
             };
+            this.vcStop = stop;   // chạm micro lần nữa = đọc xong, dừng ghi
             await Recorder.start({ maxMs: opts.maxMs || 8000, autoStop: true, silenceMs: opts.silenceMs || 1000, minVoiceMs: opts.minVoiceMs || 400, onAuto: stop });
+            if (finished) Recorder.stop();
           } catch (e) { this.noMic = true; done({ ok: true }); }
         };
         Speech.cancel();
@@ -2105,7 +2111,8 @@
               if (code === 'no-speech' || code === 'aborted') { miss(); done({ ok: false, retryRec: this.srMiss[key] >= 2 }); }
               else { if (code === 'network') Listener.blocked = true; viaRecorder(); }
             },
-            onEnd: () => {}
+            // iPad: nhận diện tự tắt mà không có kết quả lẫn lỗi → coi như chưa nghe thấy (trước đây treo nút micro)
+            onEnd: () => setTimeout(() => { if (!finished && !Recorder.isRecording() && !this.vcStop) { miss(); done({ ok: false, retryRec: this.srMiss[key] >= 2 }); } }, 400)
           });
           if (!ok) viaRecorder();
         } else viaRecorder();
@@ -3669,7 +3676,7 @@
     startLines() { Speech.cancel(); this.phase = 'lines'; this.cur = this.done.indexOf(false); if (this.cur === -1) return this.afterLines(); this.render(); },
     sayLine() { const ln = this.L[this.cur]; if (ln) Speech.speak(ln.text); this.helped = (this.helped || 0) + 1; },
     async recLine() {
-      if (this.busy) return;
+      if (this.busy) { if (Lesson.vcStop) Lesson.vcStop(); else Listener.stop(); return; }   // chạm lần nữa = dừng
       const ln = this.L[this.cur], tk = this.token;
       if (!ln) return;
       this.busy = true;
@@ -3678,8 +3685,8 @@
       const minMs = Math.min(2500, Math.max(600, words * 170));
       const res = await Lesson.voiceCheck(ln.text, (mode) => {
         if (mic) mic.classList.toggle('listening', mode !== 'idle');
-        if (note && mode !== 'idle') note.textContent = 'Đang nghe con đọc…';
-      }, { minVoiceMs: minMs, silenceMs: 1600, maxMs: 15000 });
+        if (note && mode !== 'idle') note.textContent = 'Đang nghe con đọc… (đọc xong chạm 🎙️ để dừng)';
+      }, { minVoiceMs: minMs, silenceMs: 1600, maxMs: 15000 }).catch(() => ({ ok: false }));
       this.busy = false;
       if (tk !== this.token) return;
       // Ghi âm: cần thời lượng nói tương xứng độ dài câu (không chỉ "ừ" một tiếng)
@@ -3748,9 +3755,12 @@
      ========================================================= */
   const Beat = {
     token: 0,
+    /* Nhịp cho trẻ 9 tuổi: chậm (≈ 52–72 nhịp/phút), theo tháng học, cấp độ và Tốc độ đọc bố mẹ chọn (🐌 → chậm nhất) */
     bpmFor(z) {
       const m = z && typeof z.month === 'number' ? z.month : 3;
-      return 72 + (m - 1) * 4 + (S.skillLevel() - 1) * 5;
+      const base = 58 + Math.min(10, (m - 1) * 1.5) + (S.skillLevel() - 1) * 3;
+      const f = Math.max(0.85, Math.min(1.1, 0.7 + Speech.rate * 0.5));
+      return Math.round(Math.min(72, base * f));
     },
     /** opts: { words, zone, container, title, onDone(stars), standalone } */
     start(opts) {
@@ -3762,19 +3772,21 @@
       while (base.length < 8 && opts.words.length) base.push(opts.words[base.length % opts.words.length]);
       this.cards = base;
       this.bpm = this.bpmFor(opts.zone);
+      this.slower = 0;
       this.renderIntro();
     },
-    beatsOf(w) { return w.en.trim().split(/\s+/).length > 2 ? 2 : 1; },
+    /* Mỗi ô có đủ thời gian: nhìn ô sáng → nói xong cả cụm. 1–2 từ: 2 nhịp, 3–4 từ: 3 nhịp, dài hơn: 4 nhịp */
+    beatsOf(w) { const n = w.en.replace(/\.\.\.|…/g, '').trim().split(/\s+/).length; return n <= 2 ? 2 : n <= 4 ? 3 : 4; },
     rounds() {
       return [
         { key: 'listen', icon: '🎧', en: 'Listen to the beat', vi: 'Nghe máy đọc theo nhịp – con lắc lư theo nhạc nhé!', bpm: this.bpm, showWord: true, rec: false, order: this.cards },
         { key: 'say', icon: '🗣️', en: 'Your turn – say it on the beat!', vi: 'Đến lượt con: ô nào sáng thì đọc từ đó THẬT TO, đúng nhịp', bpm: this.bpm, showWord: true, rec: true, order: this.cards },
-        { key: 'fast', icon: '⚡', en: 'Faster! Pictures only!', vi: 'Nhanh hơn, xáo trộn, chỉ còn hình – con tự nhớ từ tiếng Anh!', bpm: this.bpm + 16, showWord: false, rec: true, order: shuffle(this.cards) }
+        { key: 'fast', icon: '⚡', en: 'Pictures only!', vi: 'Xáo trộn, chỉ còn hình (nhanh hơn một chút) – con tự nhớ từ tiếng Anh!', bpm: this.bpm + 6, showWord: false, rec: true, order: shuffle(this.cards) }
       ];
     },
     el() { return this.o.container(); },
     gridHTML(r, lit = -1, hits = null) {
-      return `<div class="beat-grid">${r.order.map((w, i) => `<div class="beat-card${i === lit ? ' lit' : ''}${hits && hits[i] === true ? ' hit' : hits && hits[i] === false ? ' miss' : ''}" data-i="${i}">
+      return `<div class="beat-grid">${r.order.map((w, i) => `<div class="beat-card${i === lit ? ' lit' : ''}${lit >= 0 && i === lit + 1 ? ' next' : ''}${hits && hits[i] === true ? ' hit' : hits && hits[i] === false ? ' miss' : ''}" data-i="${i}">
         ${(window.WordPhotos || {})[w.id] ? `<img class="bc-photo" src="${esc(window.WordPhotos[w.id].src)}" alt="" draggable="false">` : `<span class="bc-emoji">${w.emoji}</span>`}${r.showWord ? `<b class="bc-word">${esc(w.en.replace(/\.\.\./g, ''))}</b>` : '<b class="bc-word hidden-w">?</b>'}
         ${hits && hits[i] === true ? '<i class="bc-tick">✓</i>' : ''}</div>`).join('')}</div>`;
     },
@@ -3782,7 +3794,7 @@
       const r = this.rounds()[this.round];
       this.r = r;
       this.el().innerHTML = `<div class="step beat">
-        <div class="step-head"><h2>🥁 Beat Talk</h2><span class="vi">Nói từ vựng theo nhịp nhạc! ${this.o.title ? esc(this.o.title) + ' · ' : ''}Vòng ${this.round + 1}/3 · ${r.bpm} nhịp/phút</span></div>
+        <div class="step-head"><h2>🥁 Beat Talk</h2><span class="vi">Nói từ vựng theo nhịp nhạc! ${this.o.title ? esc(this.o.title) + ' · ' : ''}Vòng ${this.round + 1}/3 · ${r.bpm - (this.slower || 0)} nhịp/phút</span></div>
         <div class="beat-banner">${r.icon} <b class="en">${r.en}</b><small class="vi">${r.vi}</small></div>
         <div id="beatStage">${this.gridHTML(r)}</div>
         <div class="beat-count" id="beatCount"></div>
@@ -3804,42 +3816,39 @@
         try { await Recorder.start({ maxMs: 60000, beep: false }); recOk = true; } catch (e) { recOk = false; }
       }
       if (tk !== this.token) { if (recOk) Recorder.stop(); return; }
-      const spb = 60 / r.bpm;
+      const spb = 60 / (r.bpm - (this.slower || 0));
       const now = Sfx.now() || 0;
       const t0 = now + 0.35;
       const cardBeats = r.order.map((w) => this.beatsOf(w));
       const totalBeats = 4 + cardBeats.reduce((a, b) => a + b, 0) + 1;
+      // Khi con nói: trống nhỏ lại, bỏ tiếng vỗ tay → tiếng nhạc không lấn giọng con trong micro
+      const g = r.rec ? 0.45 : 1;
       for (let b = 0; b < totalBeats; b++) {
         const d = t0 + b * spb - now;
-        Sfx.playKick(d);
-        Sfx.playHat(d + spb / 2);
-        if (b % 2 === 1) Sfx.playClap(d);
+        Sfx.playKick(d, g);
+        Sfx.playHat(d + spb / 2, g);
+        if (b % 2 === 1 && !r.rec) Sfx.playClap(d);
       }
       const at = (beat) => (t0 + beat * spb - now) * 1000;
       const cnt = $('#beatCount');
-      [0, 1, 2, 3].forEach((k) => setTimeout(() => { if (tk === this.token && cnt) cnt.textContent = ['1', '2', '3', 'Go! 🎤'][k]; }, at(k)));
-      // Đo độ ồn nền (có tiếng trống) trong lúc đếm nhịp để không tính nhầm tiếng nhạc là tiếng con
-      const floorSamples = [];
-      const sampler = setInterval(() => { if (Recorder.isRecording()) floorSamples.push(Recorder.rms()); }, 40);
-      const hits = r.order.map(() => (r.rec ? false : null));
+      [0, 1, 2, 3].forEach((k) => setTimeout(() => { if (tk === this.token && cnt) cnt.textContent = ['1', '2', '3', r.rec ? 'Go! 🎤' : '🎧'][k]; }, at(k)));
+      // Ghi lại âm lượng micro suốt vòng (mỗi 40 ms). Chấm SAU khi hết vòng, cho phép con nói trễ một chút
+      // (trẻ cần ~0,5 giây để nhìn ô sáng rồi mới nói) thay vì chỉ nghe đúng khoảng ô đang sáng.
+      const tl = [];
+      const tStart = performance.now();
+      const sampler = setInterval(() => { if (Recorder.isRecording()) tl.push([performance.now() - tStart, Recorder.rms()]); }, 40);
+      const slots = [];
       let beatIdx = 4;
       r.order.forEach((w, i) => {
         const start = beatIdx, len = cardBeats[i];
         beatIdx += len;
+        slots.push([at(start), at(start + len)]);
         setTimeout(() => {
           if (tk !== this.token) return;
           const stage = $('#beatStage');
-          if (stage) stage.innerHTML = this.gridHTML(r, i, r.rec ? hits.map((h, k) => (k < i ? h : null)) : null);
+          if (stage) stage.innerHTML = this.gridHTML(r, i);
           if (cnt) cnt.textContent = '';
-          if (!r.rec) Speech.speak(w.en.replace(/\.\.\./g, ''), { rate: Math.min(0.85, Speech.rate + 0.25), noChunk: true });
-          if (r.rec && recOk) {
-            const sorted = floorSamples.slice().sort((a, b) => a - b);
-            const p50 = sorted.length ? sorted[Math.floor(sorted.length * 0.5)] : 0.02;
-            const thr = Math.min(0.15, Math.max(0.05, p50 * 2.5));
-            let n = 0;
-            const iv = setInterval(() => { if (Recorder.rms() > thr) n++; }, 40);
-            setTimeout(() => { clearInterval(iv); hits[i] = n >= 2; }, len * spb * 1000 + 120);
-          }
+          if (!r.rec) Speech.speak(w.en.replace(/\.\.\./g, ''), { rate: Math.min(0.75, Speech.rate + 0.1), noChunk: true });
         }, at(start) - 60);
       });
       setTimeout(async () => {
@@ -3847,9 +3856,22 @@
         if (tk !== this.token) return;
         if (recOk) await Recorder.stop();
         this.playing = false;
-        if (r.rec && !recOk) hits.fill(null);
+        let hits = r.order.map(() => null);
+        if (r.rec && recOk) hits = this.grade(tl, slots, at(4) - 100, at(0), spb * 1000);
         this.finishRound(hits);
-      }, at(beatIdx) + 400);
+      }, at(beatIdx) + 700);
+    },
+    /** Chấm từng ô: trong khoảng [ô sáng + 0,1 s … hết ô + 0,35 s] có ≥ 120 ms giọng to hơn nền (nền = lúc đếm 1-2-3 có trống). */
+    grade(tl, slots, countEnd, beat0 = 0, spbMs = 1000) {
+      if (!tl.length || Math.max(...tl.map((x) => x[1])) < 0.002) return slots.map(() => null);   // micro không đo được → không chấm
+      // Bỏ qua đúng những khoảnh khắc trống/hi-hat vang lên (biết trước thời điểm) → tiếng nhạc lọt micro không bị tính là giọng con
+      const drum = (t) => { const ph = ((t - beat0) % spbMs + spbMs) % spbMs; return ph < 160 || Math.abs(ph - spbMs / 2) < 70; };
+      const clean = tl.filter((x) => !drum(x[0]));
+      const base = clean.filter((x) => x[0] > 300 && x[0] < countEnd).map((x) => x[1]).sort((a, b) => a - b);
+      const p90 = base.length ? base[Math.floor(base.length * 0.9)] : 0.01;
+      const thr = Math.max(0.02, Math.min(0.07, p90 * 2));
+      this.lastThr = thr;
+      return slots.map(([s, e]) => clean.filter((x) => x[0] >= s + 100 && x[0] <= e + 350 && x[1] > thr).length >= 3);
     },
     finishRound(hits) {
       const r = this.r;
@@ -3858,16 +3880,19 @@
       if (r.rec) this.results.push(pct);
       const stage = $('#beatStage'); if (stage) stage.innerHTML = this.gridHTML(Object.assign({}, r, { showWord: true }), -1, r.rec ? hits : null);
       const last = this.round >= 2;
-      const msg = !r.rec ? 'Great listening! Now it\'s your turn.' : pct >= 1 ? 'Perfect beat! 🔥' : pct >= 0.75 ? 'Awesome rhythm!' : pct >= 0.5 ? 'Good! Say every word louder!' : 'Let\'s try again – say each word when it lights up!';
-      if (r.rec) { if (pct >= 0.75) { Sfx.playSuccessFanfare(); fx.confetti(30); } else Sfx.playGentleOops(); }
+      const msg = !r.rec ? 'Great listening! Now it\'s your turn.' : pct >= 1 ? 'Perfect beat! 🔥' : pct >= 0.75 ? 'Awesome rhythm!' : pct >= 0.5 ? 'Good job! Let\'s get every word!' : 'Nice try! Let\'s go a bit slower.';
+      // Luôn khen trước – Beat Talk là trò chơi, không để bé thấy bị "chấm trượt"
+      if (r.rec) { if (pct >= 0.5) { Sfx.playSuccessFanfare(); fx.confetti(pct >= 0.75 ? 30 : 12); } else Sfx.playSparkle(); }
       Speech.speak(msg.replace(/[🔥]/g, ''));
       const foot = $('#beatFoot');
-      if (foot) foot.innerHTML = `<div class="beat-result">${r.rec ? `<b>${Math.round(pct * 100)}%</b> nhịp có tiếng con · ` : ''}${esc(msg)}</div>
+      if (foot) foot.innerHTML = `<div class="beat-result">${r.rec && graded.length ? `🎤 Con nói được <b>${graded.filter(Boolean).length}/${graded.length}</b> ô · ` : ''}${esc(msg)}</div>
         ${r.rec ? `<button class="brick-btn btn-white" data-action="beat-retry">${bi('🔁 Again', 'Thử lại vòng này')}</button>` : ''}
+        ${r.rec && pct < 0.75 && (this.slower || 0) < 12 ? `<button class="brick-btn btn-blue" data-action="beat-slower">${bi('🐢 Slower', 'Chơi lại chậm hơn')}</button>` : ''}
         <button class="brick-btn btn-green btn-xl" data-action="beat-next">${bi(last ? 'Finish ▶' : 'Next round ▶', last ? 'Hoàn thành' : 'Vòng tiếp theo')}</button>`;
       this.lastPct = pct;
     },
     retry() { if (this.r && this.r.rec) this.results.pop(); this.renderIntro(); },
+    slowerRetry() { this.slower = Math.min(12, (this.slower || 0) + 6); this.retry(); },
     next() {
       if (this.round >= 2) return this.finish();
       this.round++;
@@ -3877,7 +3902,7 @@
       const best = this.results.length ? Math.max(...this.results) : 0;
       const final = this.results.length ? this.results[this.results.length - 1] : 0;
       const score = Math.max(final, best * 0.9);
-      const stars = score >= 0.95 ? 3 : score >= 0.75 ? 2 : score >= 0.5 ? 1 : 0;
+      const stars = score >= 0.9 ? 3 : score >= 0.7 ? 2 : score >= 0.4 ? 1 : 0;
       const done = this.o.onDone;
       if (done) done(stars);
     },
@@ -4120,6 +4145,7 @@
     'pic-skip': () => Pic.skip(),
     'beat-go': () => Beat.go(),
     'beat-next': () => Beat.next(),
+    'beat-slower': () => Beat.slowerRetry(),
     'beat-retry': () => Beat.retry(),
     'beat-skip': () => Beat.skip(),
     'beat-review': () => startBeatReview(),
@@ -4363,7 +4389,7 @@
   }
 
   // Kiểm thử tự động: mở app với ?debug để truy cập Lesson/Gym
-  if (/[?&]debug\b/.test(location.search)) window.__LEB = { Lesson, Gym };
+  if (/[?&]debug\b/.test(location.search)) window.__LEB = { Lesson, Gym, Beat, Pic };
 
   boot();
 })();
