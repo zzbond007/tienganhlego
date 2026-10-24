@@ -29,6 +29,16 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🧠 Bản v1.10 – Học thật, nhớ lâu: ôn trước học sau, quà bí mật theo kết quả học:**
+- *Bỏ Beat Talk*: bé dùng để "cày" phút nói đổi quà, ít giá trị ghi nhớ từ.
+- *🔧 Ôn trước – học sau*: có từ đến hạn ôn mà từ bài trước (hoặc từ đầu hôm nay) chưa ôn lượt nào → làm 1 lượt Trạm bảo trì
+  (5 từ, ~3 phút) rồi mới vào bài. Bật/tắt trong Góc Bố Mẹ ("Ôn trước khi học bài mới", mặc định bật).
+- *🎁 Quà bí mật mở bằng kết quả học* (không còn mở bằng số phút nói, không mua bằng xu):
+  Micro Vàng – thuộc 5 từ · Vẹt Vàng – xong 10 bài · Mũ Phù thủy – thuộc 20 từ · Sân khấu Siêu sao – Skill Check ≥ 80% ·
+  Ván trượt tên lửa – ôn 7 ngày liên tiếp · Vest Siêu sao – thuộc 50 từ · Phượng hoàng lửa – xong 40 bài · Thiên hà Ngôn từ – thuộc 100 từ.
+  "Thuộc" = ôn đúng qua mốc 7 ngày. Món đã mở trước đây vẫn giữ nguyên. Phút nói vẫn được đo, chỉ đổi ra danh hiệu.
+- *Góc Bố Mẹ*: thẻ "Từ cần ôn hôm nay" (kèm số lượt đã ôn & chuỗi ngày ôn), bảng tiến độ 8 quà bí mật.
+
 **🥁 Bản v1.9.3 – Beat Talk chậm & chấm công bằng hơn, sửa nút micro bị "kẹt":**
 - *Beat Talk*:
   - Nhịp chậm hơn nhiều (≈ 52–72 nhịp/phút, theo Tốc độ đọc – 🐌 Siêu chậm là chậm nhất).

@@ -1376,20 +1376,16 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .pc-word { font-size: 12px; font-weight: 800; color: var(--pcd); margin-top: 2px; }
 .pic-tick { position: absolute; right: 10px; top: 8px; font-style: normal; color: #16A34A; font-size: 22px; font-weight: 900; }
 .pic-read .step-foot { align-items: center; flex-wrap: wrap; }
-.beat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.beat-card { position: relative; background: #fff; border-radius: 16px; padding: 12px 6px; display: grid; justify-items: center; gap: 4px; box-shadow: 0 5px 0 var(--card-edge); transition: transform .12s, box-shadow .12s, background .12s; }
-.beat-card.lit { background: #FEF08A; transform: scale(1.08); box-shadow: 0 0 0 4px #F59E0B, 0 8px 0 #D97706; }
-.beat-card.hit { background: #DCFCE7; }
-.beat-card.miss { background: #FEF3C7; }   /* vàng nhạt: "chưa nghe rõ", không dùng màu đỏ để bé khỏi nản */
-.beat-card.next { box-shadow: 0 0 0 3px #FDE68A, 0 5px 0 var(--card-edge); }
-.bc-emoji { font-size: 44px; }
-.bc-word { font-size: 17px; text-align: center; }
-.bc-word.hidden-w { color: #94A3B8; }
-.bc-tick { position: absolute; top: 4px; right: 8px; color: #16A34A; font-style: normal; font-weight: 900; }
-.beat-count { text-align: center; font-size: 40px; font-weight: 900; min-height: 52px; margin-top: 8px; color: #EA580C; }
-.beat-result { width: 100%; text-align: center; font-weight: 800; }
-@media (max-width: 560px) { .beat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pic-text { font-size: 18px; } .pc-emoji { font-size: 28px; } }
+@media (max-width: 560px) { .pic-text { font-size: 18px; } .pc-emoji { font-size: 28px; } }
 .pc-photo { width: 72px; height: 54px; object-fit: cover; border-radius: 8px; display: block; }
-.bc-photo { width: 100%; max-width: 120px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
 .photo-credits summary { cursor: pointer; font-weight: 800; } .photo-credits ul { max-height: 300px; overflow-y: auto; font-size: 13px; }
 .wc-photo { width: 100%; max-width: 180px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; box-shadow: 0 3px 0 var(--card-edge); }
+
+/* v1.10 – Góc Bố Mẹ: từ cần ôn & quà bí mật theo kết quả học */
+.stat.stat-warn { background: #FFF7ED; box-shadow: 0 0 0 3px #FDBA74, 0 5px 0 var(--card-edge); }
+.secret-goals { display: grid; gap: 6px; }
+.sg-row { display: grid; grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1.4fr) auto; gap: 8px; align-items: center; padding: 6px 4px; border-bottom: 1px dashed #E2E8F0; }
+.sg-row:last-child { border-bottom: 0; }
+.sg-row.done { opacity: .65; }
+.sg-pg { font-weight: 800; white-space: nowrap; }
+@media (max-width: 560px) { .sg-row { grid-template-columns: 28px minmax(0, 1fr) auto; } .sg-row small { grid-column: 2 / 4; } }
