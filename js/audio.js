@@ -85,23 +85,6 @@
       this._tone({ freq: 620, freq2: 380, type: 'triangle', dur: 0.06, vol: 0.18, delay: 0.045 });
     }
 
-    /* ---------- 🥁 Nhịp trống cho Beat Talk (đặt lịch chính xác theo AudioContext) ---------- */
-    /* g: độ to (0..1) – Beat Talk vặn nhỏ trống khi con nói để tiếng trống không lọt vào micro */
-    playKick(delay = 0, g = 1) {
-      if (!this._ready()) return;
-      this._tone({ freq: 150, freq2: 45, type: 'sine', dur: 0.22, vol: 0.9 * g, delay, attack: 0.002 });
-      this._noise({ dur: 0.02, vol: 0.4 * g, delay, filterFreq: 900, q: 1 });
-    }
-    playHat(delay = 0, g = 1) {
-      if (!this._ready()) return;
-      this._noise({ dur: 0.04, vol: 0.28 * g, delay, filterFreq: 8000, q: 0.8, type: 'highpass' });
-    }
-    playClap(delay = 0, g = 1) {
-      if (!this._ready()) return;
-      this._noise({ dur: 0.09, vol: 0.55 * g, delay, filterFreq: 1500, q: 0.9 });
-    }
-    now() { return this.ctx ? this.ctx.currentTime : 0; }
-
     /** Tiếng bấm nút nhẹ. */
     playTap() {
       if (!this._ready()) return;
@@ -708,7 +691,7 @@
       } catch (e) { return null; }
     },
 
-    /** Âm lượng tức thời (RMS 0..1) của micro khi đang ghi – dùng cho Beat Talk chấm từng nhịp. */
+    /** Âm lượng tức thời (RMS 0..1) của micro khi đang ghi – dùng cho nút Thử micro. */
     rms() {
       if (!this._an || !this.isRecording()) return 0;
       const buf = this._tdBuf || (this._tdBuf = new Uint8Array(this._an.fftSize));

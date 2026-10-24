@@ -53,7 +53,9 @@
       checks: [],           // Lịch sử Bài kiểm tra kỹ năng
       talk: {},             // { 'YYYY-MM-DD': số mili-giây con thực sự NÓI (đo bằng nhận biết giọng) }
       talkGoal: {},         // { 'YYYY-MM-DD': 1 | 2 } đã nhận thưởng mục tiêu nói (1 = đạt, 2 = gấp đôi)
-      journey: [],          // các mốc phút nói đã đạt (mở vật phẩm bí mật)
+      journey: [],          // các mốc phút nói đã đạt (danh hiệu – không còn đổi ra quà)
+      reviewLog: {},        // { 'YYYY-MM-DD': số lượt ôn tập (Trạm bảo trì) đã hoàn thành }
+      lastReviewAt: 0,      // thời điểm hoàn thành lượt ôn gần nhất (để "ôn trước khi học bài mới")
       talkDay: null,        // { date, best: { missionId: giây } } – Nhiệm vụ nói hôm nay
       snow: {},             // { z1l1: 3 } – tầng Snowball cao nhất đã lắp (1..3)
       branches: {},         // { 'z1l1:cb': ['yes','no'] } – các hướng hội thoại bé đã thử
@@ -139,6 +141,8 @@
     out.skill.recent = Array.isArray(out.skill.recent) ? out.skill.recent.slice(-8) : [];
     out.checks = Array.isArray(saved.checks) ? saved.checks.slice(-40) : [];
     out.journey = Array.isArray(saved.journey) ? saved.journey : [];
+    out.reviewLog = saved.reviewLog && typeof saved.reviewLog === 'object' ? saved.reviewLog : {};
+    out.lastReviewAt = Number(saved.lastReviewAt) || 0;
     out.talkDay = saved.talkDay && typeof saved.talkDay === 'object' ? saved.talkDay : null;
     return out;
   }
@@ -458,6 +462,17 @@
       for (;;) { if (!this.state.talkGoal[todayKey(d)]) break; n++; d.setDate(d.getDate() - 1); }
       return n;
     },
+    /** Hoàn thành một lượt ôn tập (Trạm bảo trì). */
+    recordReview() { const k = todayKey(); this.state.reviewLog[k] = (this.state.reviewLog[k] || 0) + 1; this.state.lastReviewAt = Date.now(); this.save(); },
+    /** Số ngày liên tiếp có ôn tập (tính tới hôm nay, hoặc hôm qua nếu hôm nay chưa ôn). */
+    reviewStreak() {
+      let n = 0; const d = new Date();
+      if (!this.state.reviewLog[todayKey()]) d.setDate(d.getDate() - 1);
+      for (;;) { if (!this.state.reviewLog[todayKey(d)]) break; n++; d.setDate(d.getDate() - 1); }
+      return n;
+    },
+    /** Lần gần nhất con chơi/hoàn thành một bài học. */
+    lastLessonAt() { return Object.values(this.state.lessons).reduce((a, l) => Math.max(a, l.lastPlayed || l.completedAt || 0), 0); },
     todayKey(d) { return todayKey(d || new Date()); },
 
     speakToday() { return this.state.speak[todayKey()] || 0; },

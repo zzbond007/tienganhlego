@@ -485,7 +485,6 @@
           ${next ? `<button class="brick-btn btn-red" data-action="start-lesson" data-lesson="${next.id}">${bi('▶ Next lesson: ' + esc(next.title), 'Bài tiếp theo: ' + esc(next.titleVi))}</button>`
             : `<button class="brick-btn btn-green" data-action="go" data-screen="diorama">${bi('🏆 All lessons done!', 'Đã học hết – xem Sa bàn')}</button>`}
           <button class="brick-btn btn-red talk-btn" data-action="talk-time">${bi(`🎙️ Talk Time · ${Talk.doneCount()}/3`, 'Nhiệm vụ nói mỗi ngày – nói càng dài càng nhiều sao')}</button>
-          <button class="brick-btn btn-orange" data-action="beat-review">${bi('🥁 Beat Talk', 'Nói từ vựng theo nhịp nhạc')}</button>
           ${talkMeterHTML()}
           ${(() => { const cs = checkStatus(); return cs.due ? `<button class="brick-btn btn-orange check-due" data-action="skill-check">${bi('📝 Skill Check is ready!', 'Bài kiểm tra kỹ năng đã sẵn sàng – làm thật để nhận thưởng theo điểm')}</button>` : ''; })()}
           <button class="brick-btn btn-purple" data-action="gym">${bi('🎧 Listening & Speaking Gym', `Luyện Nghe – Nói mỗi ngày (3 phút)${S.gymToday() ? ' · hôm nay: ' + S.gymToday() + ' lượt' : ''}${S.speakToday() ? ' · 🎤 đã nói ' + S.speakToday() + ' lần' : ''}${S.gymToday() < GYM_GOLD_PER_DAY ? ' · 🥇 còn ' + (GYM_GOLD_PER_DAY - S.gymToday()) + ' Gold' : ''}`)}</button>
@@ -713,13 +712,13 @@
     if (!LG.ITEMS[App.lockerCat]) App.lockerCat = 'hat';
     const cat = App.lockerCat;
     const owns = (id) => S.owns(id);
-    // Tầng sau ẩn ❓ cho tới khi mở; đồ bí mật 🎁 mở bằng Hành trình nói
+    // Tầng sau ẩn ❓ cho tới khi mở; đồ bí mật 🎁 mở bằng kết quả học (thuộc từ, hoàn thành bài, Skill Check, ôn tập)
     const items = LG.ITEMS[cat].map((it) => Object.assign({ gate: LG.shopGate ? LG.shopGate(cat, it, owns) : { visible: true } }, it))
-      // Sắp xếp: món đã mở theo giá tăng dần → món ❓ tầng sau → 🎁 bí mật (theo mốc phút nói)
+      // Sắp xếp: món đã mở theo giá tăng dần → món ❓ tầng sau → 🎁 bí mật (theo thứ tự mục tiêu)
       .sort((a, b) => {
         const ka = a.secret && !owns(a.id) ? 3 : !a.gate.visible ? 2 : 1, kb = b.secret && !owns(b.id) ? 3 : !b.gate.visible ? 2 : 1;
         if (ka !== kb) return ka - kb;
-        if (ka === 3) return a.milestone - b.milestone;
+        if (ka === 3) return secretGoal(a).order - secretGoal(b).order;
         return (a.tierNum || 0) - (b.tierNum || 0) || ((a.price || 0) + (a.gold || 0) * 200) - ((b.price || 0) + (b.gold || 0) * 200);
       });
     const allItems = [].concat(...Object.values(LG.ITEMS));
@@ -741,13 +740,13 @@
         </div>
         <div>
           <div class="cat-tabs">${CATS.map((c) => `<button class="cat-tab${c.key === cat ? ' active' : ''}" data-action="locker-cat" data-cat="${c.key}">${c.en}<small>${c.vi}</small></button>`).join('')}</div>
-          ${hiddenN ? `<p class="vi locker-tip">❓ Còn ${hiddenN} món bí ẩn ở nhóm này – mua đồ ở tầng thấp để mở tầng tiếp theo! 🎁 Đồ bí mật mở bằng cách NÓI tiếng Anh thật nhiều.</p>` : ''}
+          ${hiddenN ? `<p class="vi locker-tip">❓ Còn ${hiddenN} món bí ẩn ở nhóm này – mua đồ ở tầng thấp để mở tầng tiếp theo! 🎁 Đồ bí mật mở bằng KẾT QUẢ HỌC: thuộc từ, hoàn thành bài, Skill Check giỏi, ôn tập đều đặn.</p>` : ''}
           <div class="item-grid">${items.map((it) => {
             const owned = S.owns(it.id);
             if (it.secret && !owned) {
               return `<button class="item mystery secret" data-action="locker-mystery" data-id="${it.id}"><span class="tier-badge" style="--tc:#DB2777">🎁 Bí mật</span>
-                <div class="mystery-q">🎁</div><b>Secret item</b><small>Nói tiếng Anh tổng cộng ${it.milestone} phút để mở</small>
-                <span class="price">🎤 ${Math.min(it.milestone, S.talkMinTotal()).toFixed(1)}/${it.milestone} phút</span></button>`;
+                <div class="mystery-q">🎁</div><b>Secret item</b><small>${esc(secretGoal(it).vi)}</small>
+                <span class="price">${secretGoal(it).icon} ${secretGoal(it).have}/${secretGoal(it).n} ${secretGoal(it).unit}</span></button>`;
             }
             if (!it.gate.visible) {
               return `<button class="item mystery" data-action="locker-mystery" data-id="${it.id}"><span class="tier-badge" style="--tc:#475569">❓ Tầng ${it.tierNum}</span>
@@ -971,12 +970,16 @@
         <div class="card stat"><b>${Math.round(S.totalSeconds() / 60)}</b><span>Tổng thời gian (phút)</span><small>Total minutes</small></div>
         <div class="card stat"><b>${learnedW}</b><span>Từ vựng đã học</span><small>Single words · + ${learned - learnedW} mẫu câu / cụm giao tiếp</small></div>
         <div class="card stat"><b>${mastered}</b><span>Từ đã thuộc</span><small>Đã qua mốc ôn 7 ngày</small></div>
+        <div class="card stat${dueNow ? ' stat-warn' : ''}"><b>🔧 ${dueNow}</b><span>Từ cần ôn hôm nay</span><small>${S.state.reviewLog[S.todayKey()] ? `Hôm nay đã ôn ${S.state.reviewLog[S.todayKey()]} lượt` : 'Hôm nay chưa ôn'} · 🔥 ${S.reviewStreak()} ngày ôn liên tiếp</small></div>
         <div class="card stat"><b>${S.lessonsDoneCount()}/${CUR.totalLessons()}</b><span>Bài học xong</span><small>Lessons completed</small></div>
         <div class="card stat"><b>${ZONES.filter((z) => S.zoneProgress(z.id).complete).length}/${ZONES.length}</b><span>Mô hình hoàn thành</span><small>LEGO sets built</small></div>
         <div class="card stat"><b>${ZONES.filter((z) => (S.mystery(z.id) || {}).done).length}/${ZONES.filter((z) => z.mystery).length}</b><span>Mystery đã giải</span><small>Detective missions</small></div>
         <div class="card stat"><b>${Object.values(S.state.snow).filter((v) => v >= 3).length}</b><span>Câu Super Builder</span><small>Snowball Level 3</small></div>
         <div class="card stat"><b>🎤 ${S.speakToday()}</b><span>Lần nói hôm nay</span><small>Tổng: ${S.speakTotal()} lần con đã nói tiếng Anh</small></div>
       </div>
+
+      <h3 class="section-title">🎁 Quà bí mật <span class="vi">Mở bằng kết quả học thật – không mua bằng xu, không mở bằng số phút nói</span></h3>
+      <div class="card secret-goals">${secretItems().map((it) => ({ it, g: secretGoal(it) })).sort((a, b) => a.g.order - b.g.order).map(({ it, g }) => `<div class="sg-row${S.owns(it.id) ? ' done' : ''}"><span>${S.owns(it.id) ? '✅' : g.icon}</span><b>${esc(it.vi)}</b><small class="vi">${esc(g.vi)}</small><span class="sg-pg">${S.owns(it.id) ? 'Đã mở' : `${g.have}/${g.n}`}</span></div>`).join('')}</div>
 
       <h3 class="section-title">📈 Cấp độ & Kiểm tra kỹ năng <span class="vi">Skill level & Skill Checks – đo tiến bộ thật, không chỉ đếm bài đã xong</span></h3>
       <div class="card">
@@ -1023,6 +1026,7 @@
             Nếu máy có nhận diện giọng nói thì khớp khoảng 60% số từ là đạt, phát âm gần đúng vẫn được tính. Chấm trượt 2 lần liền thì tự chuyển sang ghi âm cho con nghe lại giọng mình.</p>
           ${(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) ? `<div class="card speak-mode-note"><b>ℹ️ Chấm nội dung câu nói</b><span class="vi">App đang mở từ Màn hình chính: trên iPad chế độ này thường KHÔNG có nhận diện giọng nói, nên app chỉ kiểm tra được con <b>có nói</b> (đủ to, đủ dài) rồi cho con nghe lại để tự so sánh. Muốn app chấm <b>nội dung</b> câu nói (đúng/sai), hãy mở trang bằng <b>Safari</b> thường khi luyện nói. Bố mẹ có thể nghe lại giọng con trong 🎙️ Sổ giọng nói bên trên.</span></div>` : ''}
           <div class="setting-row"><label>Bắt buộc luyện nói<small>Bật: con phải nói (hoặc ghi âm có tiếng) mới thu được gạch & qua câu hỏi. Tắt khi con học ở nơi cần yên lặng.</small></label><select class="select-lg" data-change="speakMode"><option value="required"${st.settings.speakMode !== 'optional' ? ' selected' : ''}>🎤 Bật – phải nói mới qua</option><option value="optional"${st.settings.speakMode === 'optional' ? ' selected' : ''}>🔇 Tắt – nói là tùy chọn</option></select></div>
+          <div class="setting-row"><label>Ôn trước khi học bài mới<small>Có từ đến hạn ôn → làm 1 lượt Trạm bảo trì (5 từ) trước mỗi bài mới</small></label><select class="select-lg" data-change="reviewFirst"><option value="on"${st.settings.reviewFirst !== false ? ' selected' : ''}>🔧 Bật (khuyên dùng)</option><option value="off"${st.settings.reviewFirst === false ? ' selected' : ''}>Tắt</option></select></div>
           <div class="setting-row"><label>Bộ sách trên lớp<small>School book</small></label><select class="select-lg" data-change="book"><option value="none"${!SCHOOL_BOOKS[book] ? ' selected' : ''}>Không – học theo Lộ trình</option>${Object.keys(SCHOOL_BOOKS).map((k) => `<option value="${k}"${book === k ? ' selected' : ''}>${esc(SCHOOL_BOOKS[k].name)}</option>`).join('')}</select></div>
           <div class="setting-row"><label>Thử giọng đọc<small>Test voice</small></label><button class="brick-btn btn-blue btn-sm" data-action="say-text" data-text="Hello! I'm your LEGO English buddy. Let's build together!">🔊 Test</button></div>
         </div>
@@ -1097,6 +1101,7 @@
     if (key === 'accent') { st.accent = el.value; S.save(); applySettings(); Speech.speak('Hello! This is my new voice.'); }
     if (key === 'rate') { st.rate = Number(el.value); S.save(); applySettings(); Speech.speak('This is my reading speed.'); }
     if (key === 'micMode') { st.micMode = el.value; S.save(); }
+    if (key === 'reviewFirst') { st.reviewFirst = el.value !== 'off'; S.save(); }
     if (key === 'skillLevel') { if (el.value === 'auto') { S.state.skill.auto = true; S.save(); } else S.setSkillLevel(Number(el.value), false); toast('Saved!', 'Đã đổi cấp độ học', 'good'); renderParent(); }
     if (key === 'speakMode') { st.speakMode = el.value; S.save(); toast('Saved!', el.value === 'optional' ? 'Đã tắt bắt buộc luyện nói' : 'Đã bật bắt buộc luyện nói 🎤', 'good'); }
     if (key === 'book') { st.book = el.value; S.save(); renderParent(); }
@@ -1187,6 +1192,28 @@
   /* =========================================================
      BÀI HỌC 6 BƯỚC
      ========================================================= */
+  /* 🔧 ÔN TRƯỚC – HỌC SAU (v1.10): có từ đến hạn ôn mà từ bài học trước (hoặc từ đầu hôm nay) con chưa ôn lượt nào
+     → phải làm 1 lượt Trạm bảo trì (5 từ, ~3 phút) rồi mới vào bài. Ôn xen kẽ giúp từ vào trí nhớ dài hạn. */
+  function reviewGate() {
+    if (S.state.settings.reviewFirst === false) return false;
+    const due = S.dueWordIds().filter((id) => WORDS[id]).length;
+    if (!due) return false;
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const last = S.state.lastReviewAt || 0;
+    return last < today.getTime() || last < S.lastLessonAt();
+  }
+  function showReviewGate() {
+    const due = S.dueWordIds().filter((id) => WORDS[id]).length;
+    Sfx.playGentleOops();
+    openModal(`<div style="text-align:center;display:grid;gap:10px;justify-items:center">
+      <div style="font-size:56px">🔧</div>
+      <h2 class="en">Tune-up first!</h2>
+      <p class="vi">Có <b>${due}</b> từ con đã học đang chờ ôn. Ôn nhanh <b>5 từ</b> (khoảng 3 phút) rồi mình học bài mới nhé!<br>
+      Ôn đúng nhiều lần → từ được tính là <b>"đã thuộc"</b> và mở 🎁 quà bí mật.</p>
+      <div class="btn-row center"><button class="brick-btn btn-orange btn-xl" data-action="review" data-zone="">${bi('🔧 Review 5 words', 'Ôn 5 từ ngay')}</button></div></div>`);
+    Speech.speak("Let's review first!");
+  }
+
   const Lesson = {
     token: 0,
     z: null, l: null, step: 0,
@@ -1199,6 +1226,7 @@
       if (!l) return;
       const z = window.Curriculum.zone(l.zoneId);
       if (!opts.force && !lessonUnlocked(z, l.index)) { toast('Locked!', 'Học xong bài trước để mở khóa nhé', 'warm'); return; }
+      if (reviewGate()) { showReviewGate(); return; }
       closeModal();
       this.token++;
       this.z = z; this.l = l; this.step = 0;
@@ -1249,7 +1277,7 @@
       $('#stepName').innerHTML = `Step ${this.step + 1}/6 · ${s.en} · <span class="vi">${s.vi}</span>`;
       const body = this.body();
       body.scrollTop = 0;
-      Speech.cancel(); Listener.stop(); this.stopStudio(); Beat.stop(); Pic.stop();
+      Speech.cancel(); Listener.stop(); this.stopStudio(); Pic.stop();
       [this.discover, this.reflex, this.comic, this.build, this.talk, this.unbox][this.step].call(this);
     },
 
@@ -1520,22 +1548,6 @@
         container: () => this.body(),
         earn: (n) => this.earn(n, this.body()),
         onDone: () => { this.countSpoken(); this.next(); }
-      });
-    },
-
-    /** 🥁 Beat Talk ngay sau Bước 1: 5 từ của bài + 3 từ ôn, rồi sang Bước 2. */
-    beatLesson() {
-      const l = this.l, z = this.z;
-      const review = shuffle(S.learnedWordIds().filter((id) => WORDS[id] && l.words.every((w) => w.id !== id))).slice(0, 3).map((id) => WORDS[id]);
-      const fill = review.length < 3 ? shuffle(z.lessons.filter((x) => x.id !== l.id).flatMap((x) => x.words)).slice(0, 3 - review.length) : [];
-      Speech.cancel();
-      Beat.start({
-        words: l.words.concat(review, fill).slice(0, 8), zone: z, title: l.title,
-        container: () => this.body(),
-        onDone: (stars) => {
-          if (stars > 0) { this.earn(stars * 3, this.body()); toast(`🥁 ${'⭐'.repeat(stars)}`, 'Beat Talk hoàn thành!', 'good'); }
-          this.next();
-        }
       });
     },
 
@@ -2711,6 +2723,7 @@
       if (lvChange === 'up') setTimeout(() => { fx.confetti(60); toast(`${diff().icon} Level up! Level ${S.skillLevel()}`, `Con đã lên Cấp ${S.skillLevel()} – ${diff().vi}! Bài học sẽ thử thách hơn một chút 💪`, 'good'); }, 1600);
       if (lvChange === 'down') setTimeout(() => toast(`${diff().icon} Level ${S.skillLevel()}`, `Mình học chậm lại một chút ở Cấp ${S.skillLevel()} – ${diff().vi} cho chắc nhé!`, 'warm'), 1600);
       l.words.forEach((w) => S.learnWord(w.id));
+      checkSecrets();
       $$('.lp-brick', overlay).forEach((b) => { b.classList.add('on'); b.classList.remove('current'); });
       const nextL = z.lessons[l.index + 1] || (() => { const zi = ZONES.indexOf(z); return ZONES[zi + 1] ? ZONES[zi + 1].lessons[0] : null; })();
       const setDone = S.zoneProgress(z.id).complete;
@@ -2900,6 +2913,7 @@
 
     finish() {
       const correct = this.results.filter(Boolean).length;
+      S.recordReview();
       const gold = Math.max(1, correct);
       S.addGold(gold);
       if (this.zoneId) S.polish(this.zoneId);
@@ -2918,6 +2932,7 @@
           <button class="brick-btn btn-purple" data-action="review-exit">${bi('🏙️ Back to My World', 'Về Sa bàn')}</button>
         </div></div></div>`;
       Speech.speak('Great job! Your model is shiny again!');
+      checkSecrets();
     },
 
     close() {
@@ -3373,6 +3388,7 @@
       });
       const rec = { id: this.id, date: Date.now(), lessonsDone: S.lessonsDoneCount(), level: S.skillLevel(), scores, speakPending: this.pending, speakGrades: {}, rewarded: this.rewarded };
       S.addCheck(rec);
+      checkSecrets();
       const overall = checkPct(rec);
       let studs = 0, gold = 0;
       if (this.rewarded) { studs = Math.round(overall * 0.4); gold = overall >= 80 ? 2 : overall >= 60 ? 1 : 0; S.addStuds(studs); if (gold) S.addGold(gold); updateWallet(); }
@@ -3405,7 +3421,7 @@
   /* =========================================================
      🎙️ HÀNH TRÌNH NÓI MỖI NGÀY – đo thời gian NÓI THẬT (không phải số lần bấm)
      - Mục tiêu giây nói mỗi ngày theo cấp (60 / 90 / 120 giây) + chuỗi ngày đạt mục tiêu
-     - Mốc tổng số phút nói → mở VẬT PHẨM BÍ MẬT trong Tủ đồ (không mua được bằng xu)
+     - Mốc tổng số phút nói → DANH HIỆU (không còn đổi ra quà – tránh "cày" phút nói)
      - Talk Time: 3 câu hỏi mở mỗi ngày, khung câu giúp nói DÀI hơn, sao theo số giây nói
      ========================================================= */
   const TALK_GOAL = { 1: 60, 2: 90, 3: 120 };
@@ -3413,6 +3429,44 @@
   const JOURNEY_TITLES = { 5: ['🐣', 'Chú chim non', 'First Words'], 15: ['🗣️', 'Người kể chuyện nhí', 'Little Talker'], 30: ['🎤', 'Ca sĩ tiếng Anh', 'Mic Star'], 60: ['🦜', 'Vẹt thông thái', 'Chatty Parrot'], 120: ['🚀', 'Phi hành gia ngôn ngữ', 'Word Astronaut'], 240: ['🧙', 'Phù thủy từ vựng', 'Word Wizard'], 480: ['🏆', 'Nhà hùng biện', 'Super Speaker'], 900: ['👑', 'Vua tiếng Anh', 'English Legend'] };
   const talkGoalSec = () => TALK_GOAL[S.skillLevel()] || 60;
   const secretItems = () => [].concat(...Object.keys(LG.ITEMS).map((cat) => LG.ITEMS[cat].filter((it) => it.secret).map((it) => Object.assign({ cat }, it))));
+
+  /* 🎁 QUÀ BÍ MẬT mở bằng KẾT QUẢ HỌC THẬT (v1.10) – không mở bằng số phút nói, không mua bằng xu:
+     thuộc từ (ôn đúng qua mốc 7 ngày), hoàn thành bài, Skill Check ≥ 80%, ôn tập nhiều ngày liên tiếp. */
+  const SECRET_GOALS = {
+    'golden-mic': { type: 'mastered', n: 5 },
+    'parrot-gold': { type: 'lessons', n: 10 },
+    'hat-word-wizard': { type: 'mastered', n: 20 },
+    'scene-stage': { type: 'check80', n: 1 },
+    'rocket-board': { type: 'reviewStreak', n: 7 },
+    'torso-superstar': { type: 'mastered', n: 50 },
+    'phoenix': { type: 'lessons', n: 40 },
+    'scene-galaxy': { type: 'mastered', n: 100 }
+  };
+  const GOAL_TYPES = {
+    mastered: { icon: '🧠', unit: 'từ đã thuộc', vi: (n) => `Thuộc ${n} từ – ôn đúng ở Trạm bảo trì tới mốc 7 ngày`, have: () => S.masteredWordIds().filter((id) => WORDS[id]).length },
+    lessons: { icon: '📚', unit: 'bài', vi: (n) => `Hoàn thành ${n} bài học`, have: () => S.lessonsDoneCount() },
+    check80: { icon: '📝', unit: 'lần', vi: () => 'Đạt Skill Check từ 80% trở lên', have: () => (S.state.checks || []).filter((c) => checkPct(c) >= 80).length },
+    reviewStreak: { icon: '🔧', unit: 'ngày', vi: (n) => `Ôn tập ${n} ngày liên tiếp`, have: () => S.reviewStreak() }
+  };
+  const secretGoal = (it) => {
+    const g = SECRET_GOALS[it.id] || { type: 'mastered', n: 999 }, t = GOAL_TYPES[g.type];
+    return { n: g.n, have: Math.min(g.n, t.have()), icon: t.icon, unit: t.unit, vi: t.vi(g.n), order: Object.keys(SECRET_GOALS).indexOf(it.id) };
+  };
+  /** Kiểm tra & trao quà bí mật đã đạt (gọi sau bài học, ôn tập, Skill Check và khi mở app). */
+  function checkSecrets() {
+    const got = secretItems().filter((it) => !S.owns(it.id) && SECRET_GOALS[it.id] && secretGoal(it).have >= secretGoal(it).n);
+    if (!got.length) return;
+    got.forEach((it) => S.state.owned.push(it.id));
+    S.save();
+    setTimeout(() => {
+      fx.confetti(80); Sfx.playSparkle();
+      openModal(`<div style="text-align:center;display:grid;gap:10px;justify-items:center">
+        <div style="font-size:56px">🎁</div><h2 class="en">Secret item unlocked!</h2>
+        ${got.map((it) => { const g = secretGoal(it); return `<div class="card" style="display:grid;justify-items:center;gap:6px;background:#FFFBEB">${['pet', 'ride', 'buddy', 'scene'].indexOf(it.cat) !== -1 ? LG.renderItemPreview(it.cat, it.id) : LG.renderMinifig({ [it.cat]: it.id })}<b>${esc(it.en)}</b><small class="vi">${esc(it.vi)} – phần thưởng vì con đã ${g.icon} ${esc(g.vi.charAt(0).toLowerCase() + g.vi.slice(1))}!</small></div>`; }).join('')}
+        <button class="brick-btn btn-green" data-action="modal-close">${bi('Awesome! 🎉', 'Tuyệt quá!')}</button></div>`);
+      Speech.speak('Amazing! You worked hard and unlocked a secret item!');
+    }, 1500);
+  }
 
   /** Mỗi lần con thực sự nói (Recorder/Listener báo về) → cộng giờ nói, kiểm tra mục tiêu ngày & mốc hành trình. */
   function onTalk(ms) {
@@ -3431,10 +3485,8 @@
     JOURNEY.forEach((m) => {
       if (before < m && after >= m && S.state.journey.indexOf(m) === -1) {
         S.state.journey.push(m);
-        const gifts = secretItems().filter((it) => it.milestone === m);
-        gifts.forEach((it) => { if (!S.owns(it.id)) S.state.owned.push(it.id); });
         S.save();
-        setTimeout(() => celebrateJourney(m, gifts), 1200);
+        setTimeout(() => celebrateJourney(m), 1200);
       }
     });
     const meter = $('#talkMeter'); if (meter) meter.outerHTML = talkMeterHTML();
@@ -3442,13 +3494,12 @@
   Recorder.onVoice = (ms) => onTalk(ms);
   Listener.onHeard = (text) => onTalk(String(text).trim().split(/\s+/).length * 420);
 
-  function celebrateJourney(m, gifts) {
+  function celebrateJourney(m) {
     const t = JOURNEY_TITLES[m] || ['⭐', 'Cột mốc mới', 'Milestone'];
     fx.confetti(80); Sfx.playSparkle();
     openModal(`<div style="text-align:center;display:grid;gap:10px;justify-items:center">
       <div style="font-size:56px">${t[0]}</div>
       <h2 class="en">${m} minutes of English!</h2><p class="vi">Con đã nói tiếng Anh tổng cộng <b>${m} phút</b> – danh hiệu mới: <b>${t[1]}</b> (${t[2]})!</p>
-      ${gifts.map((it) => `<div class="card" style="display:grid;justify-items:center;gap:6px;background:#FFFBEB"><b>🎁 Secret item unlocked!</b>${['pet', 'ride', 'buddy', 'scene'].indexOf(it.cat) !== -1 ? LG.renderItemPreview(it.cat, it.id) : LG.renderMinifig({ [it.cat]: it.id })}<b>${esc(it.en)}</b><small class="vi">${esc(it.vi)} – đã vào Tủ đồ của con!</small></div>`).join('')}
       <button class="brick-btn btn-green" data-action="modal-close">${bi('Awesome! 🎉', 'Tuyệt quá!')}</button></div>`);
     Speech.speak(`Amazing! You have spoken English for ${m} minutes!`);
   }
@@ -3459,7 +3510,7 @@
     return `<div class="talk-meter" id="talkMeter">
       <div class="tm-row"><b>🎤 ${sec}/${goal}s</b><small class="vi">giây nói hôm nay${S.talkStreak() ? ` · 🔥 ${S.talkStreak()} ngày` : ''}</small></div>
       <div class="tm-bar"><i style="width:${pct}%"></i></div>
-      <small class="vi">🗺️ Hành trình: ${total.toFixed(1)} phút${next ? ` · còn ${(next - total).toFixed(1)} phút tới 🎁 bí mật` : ' · 👑 hoàn thành!'}</small>
+      <small class="vi">🗺️ Hành trình: ${total.toFixed(1)} phút${next ? ` · còn ${(next - total).toFixed(1)} phút tới danh hiệu mới` : ' · 👑 hoàn thành!'}</small>
     </div>`;
   }
 
@@ -3748,201 +3799,6 @@
   };
 
   /* =========================================================
-     🥁 BEAT TALK – Nói từ vựng theo nhịp nhạc (kiểu thử thách "say it on the beat")
-     8 ô từ vựng (5 từ của bài + 3 từ ôn), nhạc trống chạy, ô sáng lần lượt theo nhịp – con đọc đúng nhịp.
-     Vòng 1 🎧 nghe máy đọc mẫu · Vòng 2 🗣️ con đọc (có chữ) · Vòng 3 ⚡ nhanh hơn, xáo trộn, chỉ còn hình (tự nhớ từ)
-     Micro nghe từng nhịp: nhịp nào con có đọc thì ô sáng ✓. Nhịp nhanh dần theo tháng & cấp độ.
-     ========================================================= */
-  const Beat = {
-    token: 0,
-    /* Nhịp cho trẻ 9 tuổi: chậm (≈ 52–72 nhịp/phút), theo tháng học, cấp độ và Tốc độ đọc bố mẹ chọn (🐌 → chậm nhất) */
-    bpmFor(z) {
-      const m = z && typeof z.month === 'number' ? z.month : 3;
-      const base = 58 + Math.min(10, (m - 1) * 1.5) + (S.skillLevel() - 1) * 3;
-      const f = Math.max(0.85, Math.min(1.1, 0.7 + Speech.rate * 0.5));
-      return Math.round(Math.min(72, base * f));
-    },
-    /** opts: { words, zone, container, title, onDone(stars), standalone } */
-    start(opts) {
-      this.token++;
-      this.o = opts;
-      this.round = 0;
-      this.results = [];
-      const base = opts.words.slice(0, 8);
-      while (base.length < 8 && opts.words.length) base.push(opts.words[base.length % opts.words.length]);
-      this.cards = base;
-      this.bpm = this.bpmFor(opts.zone);
-      this.slower = 0;
-      this.renderIntro();
-    },
-    /* Mỗi ô có đủ thời gian: nhìn ô sáng → nói xong cả cụm. 1–2 từ: 2 nhịp, 3–4 từ: 3 nhịp, dài hơn: 4 nhịp */
-    beatsOf(w) { const n = w.en.replace(/\.\.\.|…/g, '').trim().split(/\s+/).length; return n <= 2 ? 2 : n <= 4 ? 3 : 4; },
-    rounds() {
-      return [
-        { key: 'listen', icon: '🎧', en: 'Listen to the beat', vi: 'Nghe máy đọc theo nhịp – con lắc lư theo nhạc nhé!', bpm: this.bpm, showWord: true, rec: false, order: this.cards },
-        { key: 'say', icon: '🗣️', en: 'Your turn – say it on the beat!', vi: 'Đến lượt con: ô nào sáng thì đọc từ đó THẬT TO, đúng nhịp', bpm: this.bpm, showWord: true, rec: true, order: this.cards },
-        { key: 'fast', icon: '⚡', en: 'Pictures only!', vi: 'Xáo trộn, chỉ còn hình (nhanh hơn một chút) – con tự nhớ từ tiếng Anh!', bpm: this.bpm + 6, showWord: false, rec: true, order: shuffle(this.cards) }
-      ];
-    },
-    el() { return this.o.container(); },
-    gridHTML(r, lit = -1, hits = null) {
-      return `<div class="beat-grid">${r.order.map((w, i) => `<div class="beat-card${i === lit ? ' lit' : ''}${lit >= 0 && i === lit + 1 ? ' next' : ''}${hits && hits[i] === true ? ' hit' : hits && hits[i] === false ? ' miss' : ''}" data-i="${i}">
-        ${(window.WordPhotos || {})[w.id] ? `<img class="bc-photo" src="${esc(window.WordPhotos[w.id].src)}" alt="" draggable="false">` : `<span class="bc-emoji">${w.emoji}</span>`}${r.showWord ? `<b class="bc-word">${esc(w.en.replace(/\.\.\./g, ''))}</b>` : '<b class="bc-word hidden-w">?</b>'}
-        ${hits && hits[i] === true ? '<i class="bc-tick">✓</i>' : ''}</div>`).join('')}</div>`;
-    },
-    renderIntro() {
-      const r = this.rounds()[this.round];
-      this.r = r;
-      this.el().innerHTML = `<div class="step beat">
-        <div class="step-head"><h2>🥁 Beat Talk</h2><span class="vi">Nói từ vựng theo nhịp nhạc! ${this.o.title ? esc(this.o.title) + ' · ' : ''}Vòng ${this.round + 1}/3 · ${r.bpm - (this.slower || 0)} nhịp/phút</span></div>
-        <div class="beat-banner">${r.icon} <b class="en">${r.en}</b><small class="vi">${r.vi}</small></div>
-        <div id="beatStage">${this.gridHTML(r)}</div>
-        <div class="beat-count" id="beatCount"></div>
-        <div class="step-foot" id="beatFoot">
-          <button class="brick-btn btn-red btn-xl" data-action="beat-go">${bi(`▶ Start round ${this.round + 1}`, 'Bắt đầu vòng ' + (this.round + 1))}</button>
-          ${this.o.standalone || !Lesson.speakRequired() ? `<button class="brick-btn btn-white btn-sm" data-action="beat-skip">${bi('Skip', 'Bỏ qua')}</button>` : ''}
-        </div>
-      </div>`;
-    },
-    async go() {
-      const r = this.r, tk = this.token;
-      if (this.playing) return;
-      this.playing = true;
-      Speech.cancel();
-      Sfx.unlock();
-      const foot = $('#beatFoot'); if (foot) foot.innerHTML = '<small class="vi">🎵 Nhạc đang chạy…</small>';
-      let recOk = false;
-      if (r.rec && Recorder.supported) {
-        try { await Recorder.start({ maxMs: 60000, beep: false }); recOk = true; } catch (e) { recOk = false; }
-      }
-      if (tk !== this.token) { if (recOk) Recorder.stop(); return; }
-      const spb = 60 / (r.bpm - (this.slower || 0));
-      const now = Sfx.now() || 0;
-      const t0 = now + 0.35;
-      const cardBeats = r.order.map((w) => this.beatsOf(w));
-      const totalBeats = 4 + cardBeats.reduce((a, b) => a + b, 0) + 1;
-      // Khi con nói: trống nhỏ lại, bỏ tiếng vỗ tay → tiếng nhạc không lấn giọng con trong micro
-      const g = r.rec ? 0.45 : 1;
-      for (let b = 0; b < totalBeats; b++) {
-        const d = t0 + b * spb - now;
-        Sfx.playKick(d, g);
-        Sfx.playHat(d + spb / 2, g);
-        if (b % 2 === 1 && !r.rec) Sfx.playClap(d);
-      }
-      const at = (beat) => (t0 + beat * spb - now) * 1000;
-      const cnt = $('#beatCount');
-      [0, 1, 2, 3].forEach((k) => setTimeout(() => { if (tk === this.token && cnt) cnt.textContent = ['1', '2', '3', r.rec ? 'Go! 🎤' : '🎧'][k]; }, at(k)));
-      // Ghi lại âm lượng micro suốt vòng (mỗi 40 ms). Chấm SAU khi hết vòng, cho phép con nói trễ một chút
-      // (trẻ cần ~0,5 giây để nhìn ô sáng rồi mới nói) thay vì chỉ nghe đúng khoảng ô đang sáng.
-      const tl = [];
-      const tStart = performance.now();
-      const sampler = setInterval(() => { if (Recorder.isRecording()) tl.push([performance.now() - tStart, Recorder.rms()]); }, 40);
-      const slots = [];
-      let beatIdx = 4;
-      r.order.forEach((w, i) => {
-        const start = beatIdx, len = cardBeats[i];
-        beatIdx += len;
-        slots.push([at(start), at(start + len)]);
-        setTimeout(() => {
-          if (tk !== this.token) return;
-          const stage = $('#beatStage');
-          if (stage) stage.innerHTML = this.gridHTML(r, i);
-          if (cnt) cnt.textContent = '';
-          if (!r.rec) Speech.speak(w.en.replace(/\.\.\./g, ''), { rate: Math.min(0.75, Speech.rate + 0.1), noChunk: true });
-        }, at(start) - 60);
-      });
-      setTimeout(async () => {
-        clearInterval(sampler);
-        if (tk !== this.token) return;
-        if (recOk) await Recorder.stop();
-        this.playing = false;
-        let hits = r.order.map(() => null);
-        if (r.rec && recOk) hits = this.grade(tl, slots, at(4) - 100, at(0), spb * 1000);
-        this.finishRound(hits);
-      }, at(beatIdx) + 700);
-    },
-    /** Chấm từng ô: trong khoảng [ô sáng + 0,1 s … hết ô + 0,35 s] có ≥ 120 ms giọng to hơn nền (nền = lúc đếm 1-2-3 có trống). */
-    grade(tl, slots, countEnd, beat0 = 0, spbMs = 1000) {
-      if (!tl.length || Math.max(...tl.map((x) => x[1])) < 0.002) return slots.map(() => null);   // micro không đo được → không chấm
-      // Bỏ qua đúng những khoảnh khắc trống/hi-hat vang lên (biết trước thời điểm) → tiếng nhạc lọt micro không bị tính là giọng con
-      const drum = (t) => { const ph = ((t - beat0) % spbMs + spbMs) % spbMs; return ph < 160 || Math.abs(ph - spbMs / 2) < 70; };
-      const clean = tl.filter((x) => !drum(x[0]));
-      const base = clean.filter((x) => x[0] > 300 && x[0] < countEnd).map((x) => x[1]).sort((a, b) => a - b);
-      const p90 = base.length ? base[Math.floor(base.length * 0.9)] : 0.01;
-      const thr = Math.max(0.02, Math.min(0.07, p90 * 2));
-      this.lastThr = thr;
-      return slots.map(([s, e]) => clean.filter((x) => x[0] >= s + 100 && x[0] <= e + 350 && x[1] > thr).length >= 3);
-    },
-    finishRound(hits) {
-      const r = this.r;
-      const graded = hits.filter((h) => h !== null);
-      const pct = graded.length ? graded.filter(Boolean).length / graded.length : 1;
-      if (r.rec) this.results.push(pct);
-      const stage = $('#beatStage'); if (stage) stage.innerHTML = this.gridHTML(Object.assign({}, r, { showWord: true }), -1, r.rec ? hits : null);
-      const last = this.round >= 2;
-      const msg = !r.rec ? 'Great listening! Now it\'s your turn.' : pct >= 1 ? 'Perfect beat! 🔥' : pct >= 0.75 ? 'Awesome rhythm!' : pct >= 0.5 ? 'Good job! Let\'s get every word!' : 'Nice try! Let\'s go a bit slower.';
-      // Luôn khen trước – Beat Talk là trò chơi, không để bé thấy bị "chấm trượt"
-      if (r.rec) { if (pct >= 0.5) { Sfx.playSuccessFanfare(); fx.confetti(pct >= 0.75 ? 30 : 12); } else Sfx.playSparkle(); }
-      Speech.speak(msg.replace(/[🔥]/g, ''));
-      const foot = $('#beatFoot');
-      if (foot) foot.innerHTML = `<div class="beat-result">${r.rec && graded.length ? `🎤 Con nói được <b>${graded.filter(Boolean).length}/${graded.length}</b> ô · ` : ''}${esc(msg)}</div>
-        ${r.rec ? `<button class="brick-btn btn-white" data-action="beat-retry">${bi('🔁 Again', 'Thử lại vòng này')}</button>` : ''}
-        ${r.rec && pct < 0.75 && (this.slower || 0) < 12 ? `<button class="brick-btn btn-blue" data-action="beat-slower">${bi('🐢 Slower', 'Chơi lại chậm hơn')}</button>` : ''}
-        <button class="brick-btn btn-green btn-xl" data-action="beat-next">${bi(last ? 'Finish ▶' : 'Next round ▶', last ? 'Hoàn thành' : 'Vòng tiếp theo')}</button>`;
-      this.lastPct = pct;
-    },
-    retry() { if (this.r && this.r.rec) this.results.pop(); this.renderIntro(); },
-    slowerRetry() { this.slower = Math.min(12, (this.slower || 0) + 6); this.retry(); },
-    next() {
-      if (this.round >= 2) return this.finish();
-      this.round++;
-      this.renderIntro();
-    },
-    finish() {
-      const best = this.results.length ? Math.max(...this.results) : 0;
-      const final = this.results.length ? this.results[this.results.length - 1] : 0;
-      const score = Math.max(final, best * 0.9);
-      const stars = score >= 0.9 ? 3 : score >= 0.7 ? 2 : score >= 0.4 ? 1 : 0;
-      const done = this.o.onDone;
-      if (done) done(stars);
-    },
-    skip() { this.token++; if (Recorder.isRecording()) Recorder.stop(); this.playing = false; if (this.o.onDone) this.o.onDone(-1); },
-    stop() { this.token++; this.playing = false; if (Recorder.isRecording()) Recorder.stop(); }
-  };
-
-  /** Beat Talk độc lập (từ Bản đồ): ôn 8 từ đã học. Thưởng tối đa 3 lượt/ngày để tránh "cày". */
-  function startBeatReview() {
-    const learned = shuffle(S.learnedWordIds().filter((id) => WORDS[id])).map((id) => WORDS[id]);
-    if (learned.length < 4) { toast('Learn a few words first!', 'Học xong 1 bài để có từ vựng chơi Beat Talk nhé!', 'warm'); return; }
-    closeModal();
-    Lesson.token++; Review.token++; Gym.token++; Check.token++; Talk.token++;
-    Speech.cancel(); Listener.stop();
-    overlay.hidden = false;
-    overlay.innerHTML = `<div class="lesson-top">
-        <button class="brick-btn btn-white btn-round" data-action="beat-close" aria-label="Close">✕</button>
-        <div style="text-align:center"><b class="en" style="font-size:22px">🥁 Beat Talk</b><div class="lesson-step-name">Ôn từ đã học theo nhịp nhạc</div></div>
-        <div class="lesson-earned">${speedChipHTML()}</div>
-      </div>
-      <div class="lesson-body" id="beatBody"></div>`;
-    const z = WORDS[learned[0].id] ? ZONES.find((x) => x.id === learned[0].zoneId) : null;
-    Beat.start({
-      words: learned.slice(0, 8), zone: z, standalone: true, title: 'Review',
-      container: () => $('#beatBody'),
-      onDone: (stars) => {
-        const k = S.todayKey(); S.state.beatDay = S.state.beatDay && S.state.beatDay.date === k ? S.state.beatDay : { date: k, n: 0 };
-        const paid = stars > 0 && S.state.beatDay.n < 3;
-        if (paid) { S.state.beatDay.n++; S.addStuds(stars * 4); S.save(); updateWallet(); }
-        $('#beatBody').innerHTML = `<div class="step"><div class="card lesson-done studs-top"><h3>🥁 Beat Talk ${stars > 0 ? '⭐'.repeat(stars) : ''}</h3>
-          <span class="vi">${stars >= 3 ? 'Đúng nhịp tuyệt đối!' : stars ? 'Con đọc theo nhịp giỏi lắm!' : 'Lần sau đọc to hơn theo từng ô sáng nhé!'}</span>
-          ${paid ? `<div class="reward-row"><span class="reward"><i class="stud-icon"></i>+${stars * 4} Studs</span></div>` : stars > 0 ? '<p class="vi">Hôm nay con đã nhận đủ thưởng Beat Talk – chơi tiếp để luyện thôi nhé!</p>' : ''}
-          ${talkMeterHTML()}
-          <div class="btn-row center"><button class="brick-btn btn-red" data-action="beat-review">${bi('🔁 New words', 'Chơi với từ khác')}</button>
-          <button class="brick-btn btn-white" data-action="beat-exit" data-screen="map">${bi('🌍 Map', 'Bản đồ')}</button></div></div></div>`;
-      }
-    });
-  }
-
-  /* =========================================================
      LEGO MYSTERY MISSION (Nhiệm vụ thám tử cuối mỗi Vùng đất)
      ========================================================= */
   const Mystery = {
@@ -4081,7 +3937,7 @@
   function go(screen) {
     App.screen = screen;
     if (screen !== 'parent') { App.parentOk = false; App.gate = null; }
-    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Beat.token++; Pic.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
+    if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Pic.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; }
     closeModal();
     render();
     screenEl.scrollTop = 0;
@@ -4097,10 +3953,10 @@
     'go': (el) => go(el.dataset.screen),
     'modal-close': () => closeModal(),
     'open-zone': (el) => openZone(el.dataset.zone),
-    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Beat.token++; Pic.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
+    'start-lesson': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Pic.token++; Lesson.stopStudio(); overlay.hidden = true; } Lesson.start(el.dataset.lesson, { force: el.dataset.force === '1' }); },
     'ws-open': (el) => { App.wsZone = el.dataset.zone; const z = zoneById(el.dataset.zone); if (z) S.state.settings.roadmap = z.stage; go('workshop'); },
     'ws-zone': (el) => { App.wsZone = el.dataset.zone; renderWorkshop(); },
-    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Beat.token++; Pic.token++; Lesson.stopStudio(); } Review.start(zid); },
+    'review': (el) => { const zid = el.dataset.zone || null; if (!overlay.hidden) { Lesson.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Pic.token++; Lesson.stopStudio(); } Review.start(zid); },
     'mystery': (el) => { if (!overlay.hidden) { Lesson.token++; Review.token++; Gym.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Mystery.start(el.dataset.zone); },
     'mystery-close': () => Mystery.close(),
     'mystery-exit': (el) => { Mystery.close(); go(el.dataset.screen); },
@@ -4134,7 +3990,6 @@
     },
     'talk-time': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Talk.start(); },
     'tt-say': () => Talk.say(),
-    'beat-lesson': () => Lesson.beatLesson(),
     'pic-lesson': () => Lesson.picLesson(),
     'pic-listen': () => Pic.listen(),
     'pic-start': () => Pic.startLines(),
@@ -4143,20 +3998,12 @@
     'pic-whole-rec': () => Pic.recWhole(),
     'pic-finish': () => Pic.finish(),
     'pic-skip': () => Pic.skip(),
-    'beat-go': () => Beat.go(),
-    'beat-next': () => Beat.next(),
-    'beat-slower': () => Beat.slowerRetry(),
-    'beat-retry': () => Beat.retry(),
-    'beat-skip': () => Beat.skip(),
-    'beat-review': () => startBeatReview(),
-    'beat-close': () => { Beat.stop(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; render(); },
-    'beat-exit': (el) => { Beat.stop(); Recorder.releaseAll(); overlay.hidden = true; overlay.innerHTML = ''; go(el.dataset.screen); },
     'tt-frame': (el) => Speech.speak(el.dataset.t.replace(/…|\.\.\./g, '')),
     'tt-rec': () => Talk.rec(),
     'tt-next': () => Talk.next(),
     'talk-close': () => Talk.close(),
     'talk-exit': (el) => { Talk.close(); go(el.dataset.screen); },
-    'skill-check': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Beat.token++; Pic.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Check.start(); },
+    'skill-check': () => { if (!overlay.hidden) { Lesson.token++; Review.token++; Mystery.token++; Gym.token++; Check.token++; Talk.token++; Pic.token++; Speech.cancel(); Listener.stop(); Lesson.stopStudio(); } Check.start(); },
     'check-go': () => Check.render(),
     'check-say': () => Check.say(),
     'check-pick': (el) => Check.pick(Number(el.dataset.v)),
@@ -4245,7 +4092,7 @@
       } catch (e) { if (out) out.textContent = 'Chưa cấp quyền micro – vào Cài đặt iPad › Safari › Micro để cho phép.'; }
       el.disabled = false;
     },
-    'locker-mystery': (el) => { Sfx.playGentleOops(); const it = LG.ITEMS[App.lockerCat].find((x) => x.id === el.dataset.id); toast(it && it.secret ? '🎁 Secret!' : '❓ Mystery!', it && it.secret ? `Nói tiếng Anh tổng cộng ${it.milestone} phút (Talk Time, bài học, Gym…) để mở món bí mật này!` : 'Mua đủ đồ ở tầng thấp hơn để mở món này nhé!', 'warm'); },
+    'locker-mystery': (el) => { Sfx.playGentleOops(); const it = LG.ITEMS[App.lockerCat].find((x) => x.id === el.dataset.id); toast(it && it.secret ? '🎁 Secret!' : '❓ Mystery!', it && it.secret ? `${secretGoal(it).icon} ${secretGoal(it).vi} để mở món bí mật này! (${secretGoal(it).have}/${secretGoal(it).n})` : 'Mua đủ đồ ở tầng thấp hơn để mở món này nhé!', 'warm'); },
     'fig-hello': () => { const f = $('#bigFig svg'); if (f) bounceEl(f); Speech.speak(`Hi! I'm ${S.state.profile.name}. I love building with LEGO!`, { pitch: 1.15 }); },
     'fig-random': () => {
       const av = {};
@@ -4374,6 +4221,7 @@
       setTimeout(() => { splash.hidden = true; }, 380);
       const name = S.state.profile.name;
       Speech.speak(S.lessonsDoneCount() ? `Welcome back, ${name}! Let's build!` : `Hello, ${name}! Welcome to LEGO English Builder!`);
+      setTimeout(checkSecrets, 1500);   // quà bí mật đã đạt (vd: từ vừa qua mốc ôn) → trao khi mở app
     });
     // Mở khóa dự phòng ở bất kỳ cú chạm đầu tiên nào
     document.addEventListener('pointerdown', unlockAll, { once: true, capture: true });
@@ -4389,7 +4237,7 @@
   }
 
   // Kiểm thử tự động: mở app với ?debug để truy cập Lesson/Gym
-  if (/[?&]debug\b/.test(location.search)) window.__LEB = { Lesson, Gym, Beat, Pic };
+  if (/[?&]debug\b/.test(location.search)) window.__LEB = { Lesson, Gym, Pic };
 
   boot();
 })();

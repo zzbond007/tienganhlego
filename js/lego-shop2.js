@@ -2,7 +2,7 @@
    lego-shop2.js – Cửa hàng LEGO mở rộng (đợt 2)
    - Mũ, khuôn mặt, trang phục, quần, phụ kiện, thú cưng, xe, bạn đồng hành mới
    - Nhóm mới 🖼️ Phông nền (scene): LG.SCENES[id](x, y, w, h) → SVG lấp đầy khung
-   - Đồ BÍ MẬT (secret: true, milestone: phút luyện nói) – mở khóa khi bé nói đủ phút
+   - Đồ BÍ MẬT (secret: true) – mở khóa bằng kết quả học (xem SECRET_GOALS trong app.js)
    Nạp SAU lego-shop.js.
    ========================================================= */
 (function (global) {
@@ -400,7 +400,7 @@
      tier1 150–300 · tier2 400–900 · tier3 1000–2500 · tier4 3000–5000 / gold 20–40
      ========================================================= */
   const I = LG.ITEMS;
-  const SECRET = (id, en, vi, milestone) => ({ id, en, vi, price: 0, secret: true, milestone });
+  const SECRET = (id, en, vi) => ({ id, en, vi, price: 0, secret: true });
   I.hat.push(
     { id: 'beanie-pompom', en: 'Pompom Beanie', vi: 'Mũ len quả bông', price: 180 },
     { id: 'hat-santa', en: 'Santa Hat', vi: 'Mũ ông già Noel', price: 250 },
@@ -410,7 +410,7 @@
     { id: 'cap-pilot', en: 'Pilot Cap & Goggles', vi: 'Mũ phi công & kính', price: 1200 },
     { id: 'hair-rainbow', en: 'Rainbow Hair', vi: 'Tóc cầu vồng', price: 1800 },
     { id: 'hat-pharaoh', en: 'Pharaoh Headdress', vi: 'Mũ Pharaoh Ai Cập', price: 3500 },
-    SECRET('hat-word-wizard', 'Word Wizard Hat', 'Mũ Phù thủy Ngôn từ', 30)
+    SECRET('hat-word-wizard', 'Word Wizard Hat', 'Mũ Phù thủy Ngôn từ')
   );
   I.face.push(
     { id: 'sleepy', en: 'Sleepy', vi: 'Buồn ngủ', price: 150 },
@@ -427,7 +427,7 @@
     { id: 'torso-aodai', en: 'Red Áo Dài', vi: 'Áo dài đỏ hoa vàng', price: 2000 },
     { id: 'torso-wizard', en: 'Wizard Robe', vi: 'Áo choàng phù thủy', price: 3000 },
     { id: 'torso-dragon', en: 'Dragon Armor', vi: 'Giáp rồng có cánh', gold: 30 },
-    SECRET('torso-superstar', 'Superstar Speaker Suit', 'Vest Siêu sao Hùng biện', 240)
+    SECRET('torso-superstar', 'Superstar Speaker Suit', 'Vest Siêu sao Hùng biện')
   );
   I.legs.push(
     { id: 'legs-orange', en: 'Orange Pants', vi: 'Quần cam', price: 150 },
@@ -444,7 +444,7 @@
     { id: 'star-lantern', en: 'Star Lantern', vi: 'Đèn ông sao', price: 1200 },
     { id: 'toy-robot', en: 'Toy Robot', vi: 'Robot đồ chơi', price: 2500 },
     { id: 'spell-book', en: 'Book of Spells', vi: 'Sách phép thuật', price: 4000 },
-    SECRET('golden-mic', 'Golden Microphone', 'Micro Vàng', 5)
+    SECRET('golden-mic', 'Golden Microphone', 'Micro Vàng')
   );
   I.pet.push(
     { id: 'hamster', en: 'Hamster', vi: 'Chuột hamster', price: 300 },
@@ -453,8 +453,8 @@
     { id: 'fox', en: 'Little Fox', vi: 'Cáo nhỏ', price: 1400 },
     { id: 'koi-pond', en: 'Koi & Lotus Pond', vi: 'Hồ cá koi & hoa sen', price: 2200 },
     { id: 'baby-elephant', en: 'Baby Elephant', vi: 'Voi con', gold: 25 },
-    SECRET('parrot-gold', 'Golden Talking Parrot', 'Vẹt Vàng biết nói', 15),
-    SECRET('phoenix', 'Fire Phoenix', 'Phượng hoàng lửa', 480)
+    SECRET('parrot-gold', 'Golden Talking Parrot', 'Vẹt Vàng biết nói'),
+    SECRET('phoenix', 'Fire Phoenix', 'Phượng hoàng lửa')
   );
   I.ride.push(
     { id: 'xich-lo', en: 'Cyclo (Xích lô)', vi: 'Xích lô Hà Nội', price: 900 },
@@ -462,7 +462,7 @@
     { id: 'submarine', en: 'Yellow Submarine', vi: 'Tàu ngầm vàng', price: 2500 },
     { id: 'hot-air-balloon', en: 'Hot-Air Balloon', vi: 'Khinh khí cầu', price: 4500 },
     { id: 'hoverboard', en: 'Hoverboard', vi: 'Ván bay', gold: 35 },
-    SECRET('rocket-board', 'Rocket Board', 'Ván trượt tên lửa', 120)
+    SECRET('rocket-board', 'Rocket Board', 'Ván trượt tên lửa')
   );
   I.buddy.push(
     { id: 'buddy-footballer', en: 'Football Star', vi: 'Ngôi sao bóng đá', price: 800 },
@@ -483,8 +483,8 @@
     { id: 'scene-halong', en: 'Hạ Long Bay', vi: 'Vịnh Hạ Long', price: 2000 },
     { id: 'scene-space', en: 'Outer Space', vi: 'Ngoài vũ trụ', price: 2500 },
     { id: 'scene-volcano', en: 'Volcano Island', vi: 'Đảo núi lửa', price: 3500 },
-    SECRET('scene-stage', 'Superstar Stage', 'Sân khấu Siêu sao', 60),
-    SECRET('scene-galaxy', 'Galaxy of Words', 'Thiên hà Ngôn từ', 900)
+    SECRET('scene-stage', 'Superstar Stage', 'Sân khấu Siêu sao'),
+    SECRET('scene-galaxy', 'Galaxy of Words', 'Thiên hà Ngôn từ')
   ];
 
   // Độ hiếm cho đồ mới (thang giá mới). Đồ bí mật luôn là Huyền thoại.
