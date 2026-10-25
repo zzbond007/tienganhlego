@@ -29,6 +29,13 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🥇 Bản v1.12 – Gold dùng được:**
+- *Lỗi*: món mua bằng Gold nằm ở tầng 4, chỉ hiện khi đã mua món tầng 3 (1.000–2.500 Studs) cùng nhóm → bé có Gold
+  nhưng không thấy món nào để mua. Nay món Gold LUÔN hiện trong Tủ đồ.
+- Giá Gold mới (đồ quý nhất): Rồng con 30 · Bạn Robot 35 · Giáp vàng 40 · Vương miện kim cương 50 · Kỳ lân 60 · Voi con 60 ·
+  Giáp rồng 80 · Ván bay 90 · Tên lửa 100 · Phù thủy Ngôn từ 120 (tổng 665 Gold).
+- Ôn tập (bắt buộc trước mỗi bài) chỉ cho Gold khi ôn tốt: ≥ 3/5 đúng → 1 Gold, 5/5 → 2 Gold (trước: 1–5 Gold mỗi lượt).
+
 **🎯 Bản v1.11 – Bỏ Talk Time & mọi phần thưởng theo thời gian nói:**
 - Máy (iPad mở từ Màn hình chính) chỉ biết con CÓ phát ra tiếng, không biết nói đúng hay sai → thưởng theo giây/phút nói
   khiến bé "nói cho dài". Đã bỏ: *Talk Time* (3 câu hỏi mở mỗi ngày), mục tiêu giây nói mỗi ngày (+40 Studs / +1 Gold),

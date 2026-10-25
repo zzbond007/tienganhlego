@@ -781,7 +781,7 @@
     }
     if (!canAfford(it)) {
       Sfx.playGentleOops();
-      if (it.gold) toast(`You need ${it.gold - S.state.goldBricks} more Gold!`, `Cần thêm ${it.gold - S.state.goldBricks} 🥇 Gold – nói tiếng Anh thật tốt và đạt 3 sao để nhận Gold nhé!`, 'warm');
+      if (it.gold) toast(`You need ${it.gold - S.state.goldBricks} more Gold!`, `Cần thêm ${it.gold - S.state.goldBricks} 🥇 Gold – Gold có khi con học bài đạt 3 sao, ôn tập đúng và làm Skill Check giỏi!`, 'warm');
       else toast(`You need ${it.price - S.state.studs} more studs!`, `Cần thêm ${it.price - S.state.studs} nút xu – học bài để kiếm thêm nhé!`, 'warm');
       return;
     }
@@ -2904,8 +2904,9 @@
     finish() {
       const correct = this.results.filter(Boolean).length;
       S.recordReview();
-      const gold = Math.max(1, correct);
-      S.addGold(gold);
+      // Ôn tập giờ là bắt buộc trước mỗi bài → Gold chỉ cho lượt ôn tốt (≥ 3/5 đúng: 1 Gold, 5/5: 2 Gold), tránh lạm phát Gold
+      const gold = correct >= this.items.length ? 2 : correct >= 3 ? 1 : 0;
+      if (gold) S.addGold(gold);
       if (this.zoneId) S.polish(this.zoneId);
       else ZONES.forEach((z) => { if (zoneDueIds(z.id).length === 0) S.polish(z.id); });
       updateWallet();
@@ -2916,7 +2917,7 @@
       $('#reviewBody').innerHTML = `<div class="step"><div class="card lesson-done studs-top">
         <h3>✨ Model polished!</h3><span class="vi">Mô hình đã sáng bóng trở lại! Đúng ${correct}/${this.items.length} câu.</span>
         <div class="model-stage" style="margin:16px auto;max-width:560px">${LG.renderModel(zid, S.parts(zid), { sparkle: true })}</div>
-        <div class="reward-row"><span class="reward"><i class="gold-icon"></i>+${gold} Gold Bricks</span></div>
+        ${gold ? `<div class="reward-row"><span class="reward"><i class="gold-icon"></i>+${gold} Gold Bricks</span></div>` : '<p class="vi">Đúng từ 3/5 câu trở lên để nhận 🥇 Gold nhé!</p>'}
         <div class="btn-row center">
           ${left ? `<button class="brick-btn btn-orange" data-action="review" data-zone="${this.zoneId || ''}">${bi(`🔧 Fix more (${left})`, 'Bảo trì tiếp')}</button>` : ''}
           <button class="brick-btn btn-purple" data-action="review-exit">${bi('🏙️ Back to My World', 'Về Sa bàn')}</button>
