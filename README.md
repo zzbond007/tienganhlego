@@ -29,6 +29,14 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**🎯 Bản v1.11 – Bỏ Talk Time & mọi phần thưởng theo thời gian nói:**
+- Máy (iPad mở từ Màn hình chính) chỉ biết con CÓ phát ra tiếng, không biết nói đúng hay sai → thưởng theo giây/phút nói
+  khiến bé "nói cho dài". Đã bỏ: *Talk Time* (3 câu hỏi mở mỗi ngày), mục tiêu giây nói mỗi ngày (+40 Studs / +1 Gold),
+  danh hiệu theo phút nói, thanh "giây nói hôm nay" trên Bản đồ, thưởng "trả lời dài" ở Role-Play.
+- Thời gian nói vẫn được đo, chỉ hiện trong Góc Bố Mẹ để theo dõi.
+- Luyện nói vẫn đầy đủ trong bài học (Bước 1, Picture Story, đọc câu vừa lắp, Role-Play, ôn tập tự nói từ) – phần thưởng
+  đến từ kết quả thật: hoàn thành bài, thuộc từ, Skill Check, ôn tập đều.
+
 **🧠 Bản v1.10 – Học thật, nhớ lâu: ôn trước học sau, quà bí mật theo kết quả học:**
 - *Bỏ Beat Talk*: bé dùng để "cày" phút nói đổi quà, ít giá trị ghi nhớ từ.
 - *🔧 Ôn trước – học sau*: có từ đến hạn ôn mà từ bài trước (hoặc từ đầu hôm nay) chưa ôn lượt nào → làm 1 lượt Trạm bảo trì
