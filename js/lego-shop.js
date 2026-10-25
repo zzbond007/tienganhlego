@@ -206,13 +206,20 @@
     if (!it.scaled) { if (it.price > 0) it.price = Math.round((it.price * 5) / 10) * 10; if (it.gold) it.gold *= 2; it.scaled = true; }
   }));
   /** Gọi sau khi mọi gói đồ đã nạp (lego-shop2…): gán tầng cho từng món. */
+  /* Giá Gold (v1.12): Gold là phần thưởng cho học GIỎI (3 sao, ôn đúng, Skill Check) → món Gold là đồ quý nhất, giá 30–120. */
+  const GOLD_PRICES = { 'baby-dragon': 30, 'buddy-robot': 35, 'torso-gold': 40, 'crown-diamond': 50, unicorn: 60, 'baby-elephant': 60, 'torso-dragon': 80, hoverboard: 90, rocket: 100, 'buddy-word-wizard': 120 };
   function finalizeShop() {
-    Object.keys(LG.ITEMS).forEach((cat) => LG.ITEMS[cat].forEach((it) => { if (it.price === undefined) it.price = 0; it.scaled = true; it.tier = tierOf(it); it.tierNum = it.secret ? 0 : (it.price || it.gold) ? TIER_NUM[it.tier] : 0; }));
+    Object.keys(LG.ITEMS).forEach((cat) => LG.ITEMS[cat].forEach((it) => {
+      if (it.price === undefined) it.price = 0;
+      if (it.gold && GOLD_PRICES[it.id]) it.gold = GOLD_PRICES[it.id];
+      it.scaled = true; it.tier = tierOf(it); it.tierNum = it.secret ? 0 : (it.price || it.gold) ? TIER_NUM[it.tier] : 0;
+    }));
   }
-  /** Món này đã hiện trong Tủ đồ chưa? Tầng N mở khi con sở hữu đủ món tầng N-1 cùng nhóm.
+  /** Món này đã hiện trong Tủ đồ chưa? Tầng N (đồ mua bằng xu) mở khi con sở hữu đủ món tầng N-1 cùng nhóm.
    *  Trả về { visible, need, prevTier } – need = số món còn phải mua ở tầng trước. */
   function shopGate(cat, it, owns) {
-    if (owns(it.id) || !it.tierNum || it.tierNum <= 1) return { visible: true, need: 0 };
+    // Món mua bằng Gold luôn hiện: Gold là loại tiền riêng, không bắt bé phải mua đồ xu đắt trước mới thấy món Gold
+    if (owns(it.id) || it.gold || !it.tierNum || it.tierNum <= 1) return { visible: true, need: 0 };
     const prev = LG.ITEMS[cat].filter((x) => x.tierNum === it.tierNum - 1);
     const want = Math.min(it.tierNum === 4 ? 1 : 2, prev.length);
     const have = prev.filter((x) => owns(x.id)).length;
