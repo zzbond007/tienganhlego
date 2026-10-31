@@ -133,17 +133,28 @@
     `<circle cx="26" cy="49.5" r=".8" fill="#2B2B2B"/><circle cx="28.6" cy="50.6" r=".8" fill="#2B2B2B"/><circle cx="31.4" cy="50.6" r=".8" fill="#2B2B2B"/><circle cx="34" cy="49.5" r=".8" fill="#2B2B2B"/>` +
     `<circle cx="23" cy="46" r="1.6" fill="#F9A8D4" opacity=".6"/><circle cx="37" cy="46" r="1.6" fill="#F9A8D4" opacity=".6"/>`;
 
-  // 👻 Ma nhỏ thân thiện
-  FIG['buddy-ghost'] = defs(rad('g3Ghost', [[0, '#FFFFFF'], [0.75, '#EEF1FA'], [1, '#CDD4EA']])) +
-    shadow(30, 118, 14, 2.5) +
-    `<ellipse cx="9" cy="66" rx="5" ry="8.5" fill="url(#g3Ghost)" stroke="#C3CBE3" stroke-width=".8" transform="rotate(-35 9 66)"/>` +
-    `<ellipse cx="51" cy="74" rx="5" ry="8" fill="url(#g3Ghost)" stroke="#C3CBE3" stroke-width=".8" transform="rotate(30 51 74)"/>` +
-    `<path d="M12 104 L12 52 Q12 30 30 30 Q48 30 48 52 L48 104 Q44 111 40 104 Q36 97 32 104 Q28 111 24 104 Q20 97 16 104 Q14 107 12 104 Z" fill="url(#g3Ghost)" stroke="#C3CBE3" stroke-width=".9"/>` +
-    `<ellipse cx="24" cy="57" rx="3.4" ry="4.6" fill="#1B1B1B"/><ellipse cx="36" cy="57" rx="3.4" ry="4.6" fill="#1B1B1B"/><circle cx="22.8" cy="55.2" r="1.3" fill="#fff"/><circle cx="34.8" cy="55.2" r="1.3" fill="#fff"/>` +
-    `<circle cx="19" cy="64" r="2.4" fill="#F9A8D4" opacity=".6"/><circle cx="41" cy="64" r="2.4" fill="#F9A8D4" opacity=".6"/>` +
-    `<ellipse cx="30" cy="66" rx="3.2" ry="3.8" fill="#1B1B1B"/><ellipse cx="30" cy="68" rx="2" ry="1.6" fill="#F472B6"/>` +
-    `<path d="M18 40 Q22 34 28 33" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>` +
-    sparkle(50, 40, 2.6, '#C4B5FD') + sparkle(8, 88, 2, '#C4B5FD');
+  // 🐰 Thỏ siêu nhân – mặt nạ đỏ, áo choàng, ngôi sao trên ngực
+  FIG['buddy-super-bunny'] = defs(
+    rad('g3Bun', [[0, '#FFFFFF'], [0.75, '#F3F4F8'], [1, '#CBD2E1']]),
+    lin('g3Hero', [[0, '#4FA3F7'], [1, '#1D4ED8']]),
+    lin('g3Cap', [[0, '#F43F5E'], [1, '#9F1239']])) +
+    shadow(30, 119, 18) +
+    `<path d="M17 62 L43 62 L54 112 Q30 116 6 112 Z" fill="url(#g3Cap)" stroke="#881337" stroke-width=".8"/>` +
+    `<rect x="19" y="96" width="9" height="15" rx="2" fill="url(#g3Hero)"/><rect x="32" y="96" width="9" height="15" rx="2" fill="url(#g3Hero)"/>` +
+    `<path d="M17 110 h12 v6 Q29 119 26 119 h-9 Q15 119 15 116 Z" fill="#E11D48" stroke="#881337" stroke-width=".6"/><path d="M31 110 h12 v6 Q45 119 43 119 h-9 Q31 119 31 116 Z" fill="#E11D48" stroke="#881337" stroke-width=".6"/>` +
+    `<path d="M18 62 Q30 58 42 62 L44 98 Q30 101 16 98 Z" fill="url(#g3Hero)" stroke="#1E3A8A" stroke-width=".8"/>` +
+    `<rect x="16.5" y="88" width="27" height="4" fill="#FACC15"/>` +
+    `<circle cx="30" cy="75" r="7" fill="#FACC15" stroke="#B45309" stroke-width=".6"/><polygon points="30,69.6 31.6,73.4 35.6,73.6 32.4,76.1 33.5,80 30,77.8 26.5,80 27.6,76.1 24.4,73.6 28.4,73.4" fill="#E11D48"/>` +
+    `<path d="M18 65 Q10 72 12 84" stroke="url(#g3Hero)" stroke-width="6.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="86" r="4" fill="#E11D48"/>` +
+    `<path d="M42 65 Q50 58 52 48" stroke="url(#g3Hero)" stroke-width="6.5" fill="none" stroke-linecap="round"/><circle cx="52" cy="45.5" r="4" fill="#E11D48"/>` +
+    `<ellipse cx="22" cy="17" rx="5.5" ry="15" fill="url(#g3Bun)" stroke="#CBD5E1" stroke-width=".8" transform="rotate(-12 22 17)"/><ellipse cx="38" cy="17" rx="5.5" ry="15" fill="url(#g3Bun)" stroke="#CBD5E1" stroke-width=".8" transform="rotate(12 38 17)"/>` +
+    `<ellipse cx="22" cy="18" rx="2.6" ry="11" fill="#F9A8D4" transform="rotate(-12 22 18)"/><ellipse cx="38" cy="18" rx="2.6" ry="11" fill="#F9A8D4" transform="rotate(12 38 18)"/>` +
+    `<ellipse cx="30" cy="46" rx="16" ry="14.5" fill="url(#g3Bun)" stroke="#CBD5E1" stroke-width=".8"/>` +
+    `<path d="M13 41 Q30 36 47 41 L46 48 Q38 46 30 49 Q22 46 14 48 Z" fill="#E11D48" stroke="#881337" stroke-width=".6"/><path d="M14 44 L8 41 L10 46 Z M46 44 L52 41 L50 46 Z" fill="#E11D48"/>` +
+    `<ellipse cx="23.5" cy="44" rx="3.4" ry="3" fill="#fff"/><ellipse cx="36.5" cy="44" rx="3.4" ry="3" fill="#fff"/>` + eye(24, 44.2, 1.8) + eye(36, 44.2, 1.8) +
+    `<ellipse cx="30" cy="51" rx="2" ry="1.4" fill="#F472B6"/><path d="M27 53.5 Q28.5 55.5 30 53.6 Q31.5 55.5 33 53.5" stroke="#9D174D" stroke-width="1" fill="none" stroke-linecap="round"/><rect x="28.6" y="54.2" width="2.8" height="2.4" rx=".6" fill="#fff" stroke="#CBD5E1" stroke-width=".4"/>` +
+    `<circle cx="20" cy="53" r="2.2" fill="#F9A8D4" opacity=".6"/><circle cx="40" cy="53" r="2.2" fill="#F9A8D4" opacity=".6"/>` +
+    sparkle(55, 36, 2.8, '#FDE047') + sparkle(6, 60, 2.2, '#FDE047');
 
   // 🎃 Bạn Đầu Bí Ngô
   FIG['buddy-pumpkin'] = defs(
@@ -449,14 +460,14 @@
 
   /* =========================================================
      DANH MỤC CỬA HÀNG – Gold (thang hiện có 30–120; món mới 30–150)
-     Tên tiếng Anh đơn giản để bé đọc được: cat, snowman, ghost, knight…
+     Tên tiếng Anh đơn giản để bé đọc được: cat, snowman, bunny, knight…
      ========================================================= */
   const I = LG.ITEMS;
   I.buddy.push(
-    { id: 'buddy-ghost', en: 'Friendly Ghost', vi: 'Ma nhỏ thân thiện', gold: 30 },
-    { id: 'buddy-snowman', en: 'Snowman', vi: 'Người tuyết', gold: 35 },
+        { id: 'buddy-snowman', en: 'Snowman', vi: 'Người tuyết', gold: 35 },
     { id: 'buddy-pumpkin', en: 'Pumpkin Head', vi: 'Bạn Đầu Bí Ngô', gold: 40 },
     { id: 'buddy-black-cat', en: 'Grumpy Black Cat', vi: 'Mèo đen khó tính', gold: 45 },
+    { id: 'buddy-super-bunny', en: 'Super Bunny', vi: 'Thỏ siêu nhân', gold: 45 },
     { id: 'buddy-chef-penguin', en: 'Chef Penguin', vi: 'Chim cánh cụt đầu bếp', gold: 50 },
     { id: 'buddy-cloud', en: 'Cloud Sprite', vi: 'Tinh linh Mây', gold: 55 },
     { id: 'buddy-knight', en: 'Brave Knight', vi: 'Hiệp sĩ dũng cảm', gold: 70 },
