@@ -125,7 +125,8 @@
   function buddyInner(id) {
     const b = BUDDIES[id];
     if (!b) return '';
-    return b === 'ROBOT' ? ROBOT : LG.minifigInner(b);
+    // Chuỗi bắt đầu bằng "<" là figure SVG vẽ sẵn (lego-shop3.js)
+    return b === 'ROBOT' ? ROBOT : b.charAt(0) === '<' ? b : LG.minifigInner(b);
   }
 
   /* ---------------- Danh mục cửa hàng ---------------- */
