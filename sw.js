@@ -1,7 +1,7 @@
 /* LEGO English Builder – Service Worker
  * Cache toàn bộ app để học offline 100%. Dùng đường dẫn tương đối để chạy được trong sub-path GitHub Pages.
  */
-const VERSION = 'leb-v1.12.0';
+const VERSION = 'leb-v1.13.0';
 const CORE_CACHE = VERSION + '-core';
 const RUNTIME_CACHE = VERSION + '-runtime';
 
@@ -15,6 +15,7 @@ const CORE_ASSETS = [
   './js/lego-svg.js',
   './js/lego-shop.js',
   './js/lego-shop2.js',
+  './js/lego-shop3.js',
   './js/grammar.js',
   './js/expert-data.js',
   './js/curriculum-stage1.js',
