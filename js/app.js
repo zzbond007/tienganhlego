@@ -1041,6 +1041,9 @@
             <textarea class="code-box" id="codeIn" placeholder="LEB1:..."></textarea>
             <div class="btn-row" style="margin-top:8px"><button class="brick-btn btn-blue btn-sm" data-action="code-restore">${bi('Restore', 'Khôi phục')}</button></div>
           </div>
+          <div class="setting-row" style="display:block"><label>Bản sao lưu tự động trong máy<small>App tự lưu 1 bản mỗi ngày, giữ 7 ngày gần nhất. Nếu tiến độ của con bị mất, chọn ngày rồi bấm Khôi phục.</small></label>
+            <div id="autoBackups" class="vi" style="margin-top:8px">Đang tải…</div>
+          </div>
           <div class="setting-row"><label>Xóa toàn bộ tiến độ<small>Reset all progress</small></label><button class="brick-btn btn-red btn-sm" data-action="reset-all">${bi('Reset', 'Xóa')}</button></div>
         </div>
       </div>
@@ -1090,6 +1093,7 @@
       <p class="vi" style="margin-top:24px;text-align:center">🔐 Không quảng cáo · Không thu thập dữ liệu · Mọi tiến độ chỉ lưu trên thiết bị này (IndexedDB).</p>
     </div>`;
     fillVoiceBook();
+    fillAutoBackups();
     fillCheckHistory();
   }
 
@@ -1178,6 +1182,19 @@
     Sfx.playSuccessFanfare(); fx.confetti(40);
     toast('New zone added!', `Đã thêm Vùng đất "${d.name}" vào Bản đồ`, 'good');
     renderParent();
+  }
+
+  async function fillAutoBackups() {
+    const box = document.getElementById('autoBackups');
+    if (!box) return;
+    const list = await S.listBackups();
+    if (!list.length) { box.textContent = 'Chưa có bản sao lưu tự động nào (sẽ có sau khi con học).'; return; }
+    box.innerHTML = list.map((b) => {
+      const d = b.data || {};
+      const lessons = Object.values(d.lessons || {}).filter((l) => l && l.done).length;
+      const words = Object.keys(d.words || {}).length;
+      return `<div class="btn-row" style="align-items:center;margin-bottom:6px"><span style="flex:1"><b>${esc(b.day)}</b> · ${lessons} bài · ${words} từ · ${Number(d.studs) || 0} xu · ${Number(d.goldBricks) || 0} Gold</span><button class="brick-btn btn-white btn-sm" data-action="backup-restore" data-day="${esc(b.day)}">${bi('Restore', 'Khôi phục')}</button></div>`;
+    }).join('');
   }
 
   function afterRestore() {
@@ -3968,6 +3985,13 @@
       try { await S.fromCode(code); afterRestore(); }
       catch (e) { toast('Invalid code', 'Mã không hợp lệ: ' + e.message, 'warm'); }
     },
+    'backup-restore': async (el) => {
+      const day = el.dataset.day;
+      const ok = await confirmModal({ en: 'Restore this backup?', vi: 'Khôi phục bản sao lưu ngày ' + day + '?', text: 'Tiến độ hiện tại trên thiết bị này sẽ được thay bằng bản sao lưu.', ok: 'Restore', okVi: 'Khôi phục', okClass: 'btn-blue' });
+      if (!ok) return;
+      try { await S.restoreBackup(day); afterRestore(); }
+      catch (e) { toast('Restore failed', 'Không khôi phục được: ' + e.message, 'warm'); }
+    },
     'reset-all': async () => {
       const ok = await confirmModal({ en: 'Reset ALL progress?', vi: 'Xóa TOÀN BỘ tiến độ học, mô hình và trang phục?', text: 'Nên tải file sao lưu trước. Thao tác này không thể hoàn tác.', ok: 'Reset', okVi: 'Xóa hết', okClass: 'btn-red' });
       if (!ok) return;
@@ -4040,7 +4064,10 @@
     // Mở khóa dự phòng ở bất kỳ cú chạm đầu tiên nào
     document.addEventListener('pointerdown', unlockAll, { once: true, capture: true });
 
-    await S.load();
+    // Chờ đọc xong dữ liệu đã lưu rồi mới cho bé bấm Bắt đầu (tránh học trên bản trống rồi ghi đè)
+    startBtn.disabled = true;
+    try { await S.load(); } finally { startBtn.disabled = false; }
+    if (S.recovered) setTimeout(() => toast('Progress restored!', 'Đã tự khôi phục tiến độ từ bản sao lưu ngày ' + S.recovered.from, 'good'), 600);
     CU.syncAll(S.state.customUnits);
     applySettings();
     render();
