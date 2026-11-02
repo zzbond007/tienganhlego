@@ -13,6 +13,7 @@
   const LS_STATE = 'leb-state-mirror';
   const LS_SETTINGS = 'leb-settings';
   const CODE_PREFIX = 'LEB1:';
+  const BACKUP_PREFIX = 'backup:';
   const DAY = 24 * 60 * 60 * 1000;
   const SRS_INTERVALS = [1, 3, 7, 14, 30]; // ngày
   const PARTS_PER_SET = 12;
@@ -74,24 +75,35 @@
   }
 
   /* ---------- IndexedDB tối giản ---------- */
-  function openDB() {
+  /** Mở IndexedDB. iPad/Safari đôi khi treo lệnh open mãi không trả lời → giới hạn thời gian chờ. */
+  function openDB(timeoutMs = 4000) {
     return new Promise((resolve, reject) => {
       if (!global.indexedDB) { reject(new Error('no-idb')); return; }
+      const timer = setTimeout(() => reject(new Error('idb-timeout')), timeoutMs);
+      const done = (fn) => (v) => { clearTimeout(timer); fn(v); };
+      resolve = done(resolve); reject = done(reject);
       let req;
       try { req = indexedDB.open(DB_NAME, 1); } catch (e) { reject(e); return; }
       req.onupgradeneeded = () => {
         const db = req.result;
         if (!db.objectStoreNames.contains(DB_STORE)) db.createObjectStore(DB_STORE);
       };
-      req.onsuccess = () => resolve(req.result);
+      req.onsuccess = () => {
+        const db = req.result;
+        // Safari có thể đóng kết nối khi app chạy nền → đánh dấu để mở lại ở lần lưu sau
+        db.onclose = () => { db._closed = true; };
+        db.onversionchange = () => { try { db.close(); } catch (e) { /* */ } db._closed = true; };
+        resolve(db);
+      };
       req.onerror = () => reject(req.error);
-      req.onblocked = () => reject(new Error('blocked'));
+      // 'blocked' chỉ là chờ tab khác – không bỏ cuộc ngay, để hết thời gian chờ quyết định
     });
   }
 
   function idbGet(db, key) {
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(DB_STORE, 'readonly');
+      let tx;
+      try { tx = db.transaction(DB_STORE, 'readonly'); } catch (e) { reject(e); return; }
       const r = tx.objectStore(DB_STORE).get(key);
       r.onsuccess = () => resolve(r.result);
       r.onerror = () => reject(r.error);
@@ -100,12 +112,61 @@
 
   function idbPut(db, key, value) {
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(DB_STORE, 'readwrite');
+      let tx;
+      try { tx = db.transaction(DB_STORE, 'readwrite'); } catch (e) { reject(e); return; }
       tx.objectStore(DB_STORE).put(value, key);
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
       tx.onabort = () => reject(tx.error);
     });
+  }
+
+  function idbKeys(db) {
+    return new Promise((resolve, reject) => {
+      let tx;
+      try { tx = db.transaction(DB_STORE, 'readonly'); } catch (e) { reject(e); return; }
+      const st = tx.objectStore(DB_STORE);
+      const r = st.getAllKeys ? st.getAllKeys() : null;
+      if (!r) { resolve([]); return; }
+      r.onsuccess = () => resolve(r.result || []);
+      r.onerror = () => reject(r.error);
+    });
+  }
+
+  function idbDel(db, key) {
+    return new Promise((resolve) => {
+      let tx;
+      try { tx = db.transaction(DB_STORE, 'readwrite'); } catch (e) { resolve(); return; }
+      tx.objectStore(DB_STORE).delete(key);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => resolve();
+      tx.onabort = () => resolve();
+    });
+  }
+
+  /** Điểm "có tiến độ" của một bản lưu: dùng để không bao giờ ghi đè dữ liệu thật bằng dữ liệu trống. */
+  function progressScore(s) {
+    if (!s || typeof s !== 'object') return 0;
+    const n = (o) => (o && typeof o === 'object' ? Object.keys(o).length : 0);
+    const owned = Array.isArray(s.owned) ? s.owned.length : 0;
+    return n(s.lessons) * 100 + n(s.words) * 10 + n(s.daily) * 5 + n(s.reviewLog) * 5 +
+      (Number(s.goldBricks) || 0) * 10 + Math.max(0, owned - 14) * 20 + Math.max(0, (Number(s.studs) || 0) - 30);
+  }
+  /** Bản lưu "trống" = chưa học bài nào, chưa có từ nào, chưa có ngày học nào. */
+  function isBlank(s) {
+    if (!s || typeof s !== 'object') return true;
+    const n = (o) => (o && typeof o === 'object' ? Object.keys(o).length : 0);
+    return n(s.lessons) === 0 && n(s.words) === 0 && n(s.daily) === 0;
+  }
+  /** Chọn bản lưu tốt nhất: bản ghi gần nhất (savedAt); bản cũ không có savedAt → bản nhiều tiến độ hơn. */
+  function pickBest(list) {
+    const c = list.filter((x) => x && typeof x === 'object');
+    if (!c.length) return null;
+    return c.sort((a, b) => {
+      const ta = Number(a.savedAt) || 0, tb = Number(b.savedAt) || 0;
+      if (ta && tb && ta !== tb) return tb - ta;
+      return progressScore(b) - progressScore(a);
+    })[0];
   }
 
   function lsGet(key) {
@@ -144,6 +205,8 @@
     out.reviewLog = saved.reviewLog && typeof saved.reviewLog === 'object' ? saved.reviewLog : {};
     out.lastReviewAt = Number(saved.lastReviewAt) || 0;
     out.talkDay = saved.talkDay && typeof saved.talkDay === 'object' ? saved.talkDay : null;
+    out.savedAt = Number(saved.savedAt) || 0;
+    out.resetAt = Number(saved.resetAt) || 0;
     return out;
   }
 
@@ -169,23 +232,50 @@
     PARTS_PER_SET,
     DAY,
     todayKey,
+    progressScore,
+    isBlank,
+
+    _ready: false,          // chưa đọc xong dữ liệu đã lưu → KHÔNG được ghi (tránh ghi đè bằng dữ liệu trống)
+    _storedScore: 0,        // tiến độ của bản lưu tốt nhất đã đọc/ghi – chặn ghi đè bằng bản trống
+    _allowBlankWrite: false,
+    _lastBackupDay: '',
+    BACKUP_DAYS: 7,
+
+    async _getDB() {
+      if (this._db && !this._db._closed) return this._db;
+      this._db = null;
+      try { this._db = await openDB(); } catch (e) { this._db = null; }
+      return this._db;
+    },
 
     async load() {
       // Cấu hình nhanh từ localStorage (có ngay, kể cả khi IDB chậm)
       const quick = lsGet(LS_SETTINGS);
-      let saved = null;
-      try {
-        this._db = await openDB();
-        saved = await idbGet(this._db, STATE_KEY);
-      } catch (e) {
-        this._db = null;
+      let fromIdb = null;
+      const db = await this._getDB();
+      if (db) {
+        try { fromIdb = await idbGet(db, STATE_KEY); } catch (e) { fromIdb = null; }
       }
-      if (!saved) saved = lsGet(LS_STATE);
+      const fromLs = lsGet(LS_STATE);
+      // Đọc cả 2 bản (IndexedDB + localStorage) rồi chọn bản mới nhất – trước đây luôn ưu tiên IDB
+      // nên khi IDB ghi hỏng (Safari mất kết nối lúc chạy nền) app quay về tiến độ cũ.
+      let saved = pickBest([fromIdb, fromLs]);
+      // Cả 2 bản đều trống/mất nhưng còn bản sao lưu tự động có tiến độ (và bố mẹ không chủ động xóa) → tự khôi phục
+      if (isBlank(saved) && !(saved && saved.resetAt)) {
+        const backups = await this.listBackups();
+        const best = backups.find((b) => !isBlank(b.data));
+        if (best) { saved = best.data; this.recovered = { from: best.day }; }
+      }
       this.state = merge(defaults(), saved);
       if (quick) this.state.settings = Object.assign(this.state.settings, quick);
       // v1.9.2: bé phản ánh giọng mẫu vẫn nhanh → hạ một lần về "Rất chậm" (bố mẹ chỉnh lại được trong Cài đặt)
       const st = this.state.settings;
       if (!st.rateV3) { st.rate = Math.min(Number(st.rate) || 0.5, 0.5); st.rateV3 = true; }
+      this._storedScore = Math.max(progressScore(fromIdb), progressScore(fromLs), progressScore(saved));
+      this._ready = true;
+      // Xin trình duyệt giữ dữ liệu lâu dài (Safari/Chrome có thể tự xóa dữ liệu web khi máy đầy bộ nhớ)
+      try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) { /* */ }
+      if (this.recovered) await this.saveNow();
       return this.state;
     },
 
@@ -194,18 +284,70 @@
 
     save() {
       this._emit();
+      if (!this._ready) return;
       clearTimeout(this._saveTimer);
       this._saveTimer = setTimeout(() => this.saveNow(), 250);
     },
 
     async saveNow() {
       clearTimeout(this._saveTimer);
+      if (!this._ready) return;   // chưa đọc xong dữ liệu cũ → không ghi
+      // Lưới an toàn: không bao giờ ghi bản trống đè lên bản đã có tiến độ (trừ khi bố mẹ chủ động Xóa/Khôi phục)
+      if (!this._allowBlankWrite && isBlank(this.state) && this._storedScore > 0) return;
+      this._allowBlankWrite = false;
+      this.state.savedAt = Date.now();
       const snapshot = JSON.parse(JSON.stringify(this.state));
+      this._storedScore = progressScore(snapshot);
       lsSet(LS_SETTINGS, snapshot.settings);
       lsSet(LS_STATE, snapshot);
-      if (this._db) {
-        try { await idbPut(this._db, STATE_KEY, snapshot); } catch (e) { /* đã có bản sao localStorage */ }
+      let db = await this._getDB();
+      if (db) {
+        try { await idbPut(db, STATE_KEY, snapshot); }
+        catch (e) {
+          // Kết nối IDB bị đóng (iPad chạy nền) → mở lại và thử 1 lần nữa
+          this._db = null; db = await this._getDB();
+          if (db) { try { await idbPut(db, STATE_KEY, snapshot); } catch (e2) { /* đã có bản sao localStorage */ } }
+        }
       }
+      await this._dailyBackup(snapshot);
+    },
+
+    /* ---------- Sao lưu tự động hằng ngày (giữ 7 ngày gần nhất trong máy) ---------- */
+    async _dailyBackup(snapshot) {
+      if (isBlank(snapshot)) return;
+      const day = todayKey();
+      const db = await this._getDB();
+      if (!db) return;
+      try {
+        await idbPut(db, BACKUP_PREFIX + day, { day, at: Date.now(), data: snapshot });
+        if (this._lastBackupDay !== day) {
+          this._lastBackupDay = day;
+          const keys = (await idbKeys(db)).filter((k) => typeof k === 'string' && k.indexOf(BACKUP_PREFIX) === 0).sort();
+          const old = keys.slice(0, Math.max(0, keys.length - this.BACKUP_DAYS));
+          for (const k of old) await idbDel(db, k);
+        }
+      } catch (e) { /* không sao lưu được thì bỏ qua */ }
+    },
+
+    /** Danh sách bản sao lưu tự động, mới nhất trước: [{ day, at, data, score }]. */
+    async listBackups() {
+      const db = await this._getDB();
+      if (!db) return [];
+      try {
+        const keys = (await idbKeys(db)).filter((k) => typeof k === 'string' && k.indexOf(BACKUP_PREFIX) === 0).sort().reverse();
+        const out = [];
+        for (const k of keys) {
+          const b = await idbGet(db, k);
+          if (b && b.data) out.push({ day: b.day, at: b.at, data: b.data, score: progressScore(b.data) });
+        }
+        return out;
+      } catch (e) { return []; }
+    },
+
+    async restoreBackup(day) {
+      const b = (await this.listBackups()).find((x) => x.day === day);
+      if (!b) throw new Error('Không tìm thấy bản sao lưu');
+      return this.importObject(b.data);
     },
 
     /* ---------- Ví thưởng ---------- */
@@ -526,6 +668,8 @@
     async importObject(obj) {
       const data = this.validate(obj);
       this.state = merge(defaults(), data);
+      this._ready = true;
+      this._allowBlankWrite = true;
       await this.saveNow();
       this._emit();
     },
@@ -547,6 +691,8 @@
       this.state = defaults();
       this.state.settings = keepSettings;
       this.state.customUnits = keepUnits;
+      this.state.resetAt = Date.now();   // bố mẹ chủ động xóa → không tự khôi phục từ bản sao lưu
+      this._allowBlankWrite = true;
       await this.saveNow();
       this._emit();
     }
