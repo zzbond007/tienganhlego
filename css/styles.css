@@ -1372,3 +1372,16 @@ svg.fig-confirm { width: auto; max-width: 100%; height: 200px; }
 .sg-row.done { opacity: .65; }
 .sg-pg { font-weight: 800; white-space: nowrap; }
 @media (max-width: 560px) { .sg-row { grid-template-columns: 28px minmax(0, 1fr) auto; } .sg-row small { grid-column: 2 / 4; } }
+
+/* Quà bố mẹ tặng (v1.13.3) */
+.gift-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 6px; }
+.gift-field label { display: block; font-weight: 800; margin-bottom: 6px; }
+.gift-field label small { display: block; font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.gift-field .text-input { width: 100%; }
+.gift-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.gift-presets .btn-mini { min-width: 64px; height: 44px; padding: 0 12px; border-radius: 10px; background: #fff; box-shadow: 0 3px 0 var(--card-edge); font-size: 16px; font-weight: 800; }
+.gift-open { text-align: center; }
+.gift-big { font-size: 64px; line-height: 1; margin: 4px 0 8px; animation: gift-pop .6s ease-out; }
+.gift-amounts { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 14px 0; font-size: 20px; font-weight: 900; }
+.gift-note { font-weight: 700; font-size: 17px; margin: 6px 0 12px; }
+@keyframes gift-pop { 0% { transform: scale(.3) rotate(-15deg); } 70% { transform: scale(1.15) rotate(6deg); } 100% { transform: scale(1); } }

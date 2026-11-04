@@ -61,6 +61,8 @@
       snow: {},             // { z1l1: 3 } – tầng Snowball cao nhất đã lắp (1..3)
       branches: {},         // { 'z1l1:cb': ['yes','no'] } – các hướng hội thoại bé đã thử
       customUnits: [],      // [{ id: 'c1', addedAt, data: {...JSON bố mẹ nhập} }]
+      gifts: [],            // [{ id, at, studs, gold, note }] – quà xu/Gold bố mẹ tặng (Góc Bố Mẹ)
+      giftInbox: null,      // { studs, gold, notes: [] } – quà mới, bé chưa mở (hiện màn chúc mừng 1 lần)
       settings: {
         accent: 'en-US',
         rate: 0.5,
@@ -224,6 +226,8 @@
     out.skill = Object.assign({}, base.skill, saved.skill || {});
     out.skill.recent = Array.isArray(out.skill.recent) ? out.skill.recent.slice(-8) : [];
     out.checks = Array.isArray(saved.checks) ? saved.checks.slice(-40) : [];
+    out.gifts = Array.isArray(saved.gifts) ? saved.gifts.filter((g) => g && typeof g === 'object').slice(-50) : [];
+    out.giftInbox = saved.giftInbox && typeof saved.giftInbox === 'object' ? saved.giftInbox : null;
     out.journey = Array.isArray(saved.journey) ? saved.journey : [];
     out.reviewLog = saved.reviewLog && typeof saved.reviewLog === 'object' ? saved.reviewLog : {};
     out.lastReviewAt = Number(saved.lastReviewAt) || 0;
@@ -344,9 +348,21 @@
       this.state.settings = Object.assign({}, this.state.settings, keepSettings);
       this._base = Number(found.savedAt) || 0;
       this.state.sessionBase = this._base;
+      // Quà bố mẹ vừa tặng trên bản cũ (chưa có trong bản tìm thấy) → cộng sang bản mới, theo id nên không bị cộng hai lần
+      let carried = 0;
+      (Array.isArray(cur.gifts) ? cur.gifts : []).forEach((g) => {
+        if (!g || !g.id) return;
+        const hadInbox = !!this.state.giftInbox;
+        if (this._applyGift({ id: g.id, at: Number(g.at) || 0, studs: Math.max(0, Number(g.studs) || 0), gold: Math.max(0, Number(g.gold) || 0), note: String(g.note || '') })) {
+          carried++;
+          if (!cur.giftInbox && !hadInbox) this.state.giftInbox = null;   // bé đã mở quà này rồi → không chúc mừng lại
+        }
+      });
       this.adopted = true;
+      this._adopts = (this._adopts || 0) + 1;
       this._emit();
       if (typeof this.onAdopt === 'function') { try { this.onAdopt(); } catch (e) { /* */ } }
+      if (carried) this.save();
     },
 
     async _stash(key, data) {
@@ -496,6 +512,51 @@
       this.state.studs -= n; this.save(); return true;
     },
     addGold(n) { this.state.goldBricks = Math.max(0, this.state.goldBricks + Math.round(n)); this.save(); },
+
+    /* ---------- Quà bố mẹ tặng (Góc Bố Mẹ, sau Parent Gate) ----------
+       Là một lần lưu bình thường: xu/Gold không nằm trong learnScore nên không ảnh hưởng các chốt chống mất dữ liệu.
+       Nếu đúng lúc lưu app phát hiện bản nhiều tiến độ hơn và chuyển sang bản đó (_adopt), quà được cộng lại vào bản mới
+       (nhận diện bằng id) để không mất và không bị cộng hai lần. */
+    GIFT_MAX: { studs: 10000, gold: 300 },
+    _applyGift(g) {
+      const s = this.state;
+      if (!Array.isArray(s.gifts)) s.gifts = [];
+      if (s.gifts.some((x) => x && x.id === g.id)) return false;
+      s.studs = Math.max(0, (Number(s.studs) || 0) + g.studs);
+      s.goldBricks = Math.max(0, (Number(s.goldBricks) || 0) + g.gold);
+      s.gifts.push(g);
+      if (s.gifts.length > 50) s.gifts = s.gifts.slice(-50);
+      const inbox = s.giftInbox && typeof s.giftInbox === 'object' ? s.giftInbox : { studs: 0, gold: 0, notes: [] };
+      inbox.studs = (Number(inbox.studs) || 0) + g.studs;
+      inbox.gold = (Number(inbox.gold) || 0) + g.gold;
+      inbox.notes = (Array.isArray(inbox.notes) ? inbox.notes : []).concat(g.note ? [g.note] : []).slice(-5);
+      s.giftInbox = inbox;
+      return true;
+    },
+    async giftFromParent({ studs = 0, gold = 0, note = '' } = {}) {
+      const g = {
+        id: 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        at: Date.now(),
+        studs: Math.min(this.GIFT_MAX.studs, Math.max(0, Math.round(Number(studs) || 0))),
+        gold: Math.min(this.GIFT_MAX.gold, Math.max(0, Math.round(Number(gold) || 0))),
+        note: String(note || '').trim().slice(0, 80)
+      };
+      if (!g.studs && !g.gold) throw new Error('Chưa nhập số xu hoặc Gold');
+      this._applyGift(g);
+      this._emit();
+      const adopts = this._adopts;
+      await this.saveNow();
+      // Trong lúc lưu app có thể đã chuyển sang bản lưu nhiều tiến độ hơn (_adopt đã cộng quà sang) → lưu lại ngay
+      if (this._adopts !== adopts) { this._applyGift(g); this._emit(); await this.saveNow(); }
+      return g;
+    },
+    /** Bé mở quà: trả về quà đang chờ và xóa khỏi hộp thư (xu/Gold đã cộng sẵn lúc bố mẹ tặng). */
+    takeGiftInbox() {
+      const b = this.state.giftInbox;
+      if (!b || (!b.studs && !b.gold)) { if (b) { this.state.giftInbox = null; this.save(); } return null; }
+      this.state.giftInbox = null; this.save();
+      return b;
+    },
 
     /* ---------- Bài học ---------- */
     lesson(id) { return this.state.lessons[id] || null; },
