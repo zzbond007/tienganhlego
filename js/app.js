@@ -976,6 +976,24 @@
         <div class="card stat"><b>🎤 ${S.speakToday()}</b><span>Lần nói hôm nay</span><small>Tổng: ${S.speakTotal()} lần con đã nói tiếng Anh</small></div>
       </div>
 
+      <h3 class="section-title">💝 Tặng xu & Gold cho con <span class="vi">Thưởng lại cho những gì con đã học (vd: bù phần xu/Gold bị mất do lỗi lưu dữ liệu)</span></h3>
+      <div class="card gift-card">
+        <div class="gift-grid">
+          <div class="gift-field"><label for="giftStuds">🟡 Xu (Studs)<small>Tối đa ${S.GIFT_MAX.studs.toLocaleString('vi-VN')} mỗi lần</small></label>
+            <input class="text-input" id="giftStuds" type="number" inputmode="numeric" min="0" max="${S.GIFT_MAX.studs}" step="1" placeholder="0">
+            <div class="gift-presets">${[50, 100, 500, 1000].map((n) => `<button class="btn-mini" data-action="gift-preset" data-kind="studs" data-n="${n}">+${n}</button>`).join('')}</div></div>
+          <div class="gift-field"><label for="giftGold">🥇 Gold<small>Tối đa ${S.GIFT_MAX.gold} mỗi lần · đồ Gold giá 30–150</small></label>
+            <input class="text-input" id="giftGold" type="number" inputmode="numeric" min="0" max="${S.GIFT_MAX.gold}" step="1" placeholder="0">
+            <div class="gift-presets">${[5, 10, 30, 50].map((n) => `<button class="btn-mini" data-action="gift-preset" data-kind="gold" data-n="${n}">+${n}</button>`).join('')}</div></div>
+        </div>
+        <div class="setting-row" style="display:block"><label for="giftNote">Lời nhắn cho con (không bắt buộc)<small>Con sẽ thấy lời nhắn khi mở quà</small></label>
+          <input class="text-input" id="giftNote" maxlength="80" placeholder="Ví dụ: Thưởng con đã học chăm cả tháng qua!" style="width:100%"></div>
+        <div class="btn-row" style="margin-top:14px;align-items:center"><button class="brick-btn btn-green btn-sm" data-action="gift-send">${bi('🎁 Send gift', 'Tặng cho con')}</button>
+          <span class="vi">Đang có: 🟡 ${S.state.studs} xu · 🥇 ${S.state.goldBricks} Gold</span></div>
+        <p class="vi" style="font-size:13px;margin:8px 0 0">ℹ️ Nếu định khôi phục bản lưu cũ ở mục 🔎 Tìm lại dữ liệu, hãy khôi phục <b>trước</b> rồi mới tặng (khôi phục sẽ thay toàn bộ dữ liệu, kể cả quà vừa tặng).</p>
+        ${(S.state.gifts || []).length ? `<h4 class="sub-title">Quà đã tặng</h4><div class="list-rows">${S.state.gifts.slice(-8).reverse().map((g) => `<div class="row-item"><span style="font-size:22px">🎁</span><div class="grow">${[g.studs ? `+${g.studs} xu` : '', g.gold ? `+${g.gold} Gold` : ''].filter(Boolean).join(' · ')}<small>${new Date(g.at).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}${g.note ? ' · “' + esc(g.note) + '”' : ''}</small></div></div>`).join('')}</div>` : ''}
+      </div>
+
       <h3 class="section-title">🎁 Quà bí mật <span class="vi">Mở bằng kết quả học thật – không mua bằng xu, không mở bằng số phút nói</span></h3>
       <div class="card secret-goals">${secretItems().map((it) => ({ it, g: secretGoal(it) })).sort((a, b) => a.g.order - b.g.order).map(({ it, g }) => `<div class="sg-row${S.owns(it.id) ? ' done' : ''}"><span>${S.owns(it.id) ? '✅' : g.icon}</span><b>${esc(it.vi)}</b><small class="vi">${esc(g.vi)}</small><span class="sg-pg">${S.owns(it.id) ? 'Đã mở' : `${g.have}/${g.n}`}</span></div>`).join('')}</div>
 
@@ -3781,6 +3799,22 @@
     $$('.dock-btn').forEach((b) => b.classList.toggle('active', b.dataset.screen === App.screen));
     updateWallet();
     ({ map: renderMap, workshop: renderWorkshop, diorama: renderDiorama, locker: renderLocker, passport: renderPassport, parent: renderParent })[App.screen]();
+    if (App.screen !== 'parent' && S.state.giftInbox) setTimeout(showParentGift, 400);
+  }
+
+  /** Quà bố mẹ tặng: bé thấy màn chúc mừng một lần khi ra khỏi Góc Bố Mẹ / mở app (xu/Gold đã được cộng sẵn). */
+  function showParentGift() {
+    const splash = $('#splash');
+    if (App.screen === 'parent' || !overlay.hidden || !modal.hidden || (splash && !splash.hidden)) return;
+    const g = S.takeGiftInbox();
+    if (!g) return;
+    const notes = Array.isArray(g.notes) ? g.notes : [];
+    openModal(`<div class="gift-open"><div class="gift-big">🎁</div><h3>A gift from Mom & Dad!</h3><span class="vi">Quà của Bố Mẹ thưởng con đã chăm học!</span>
+      <div class="gift-amounts">${g.studs ? `<span class="chip">🟡 +${g.studs} xu</span>` : ''}${g.gold ? `<span class="chip">🥇 +${g.gold} Gold</span>` : ''}</div>
+      ${notes.map((n) => `<p class="gift-note">💌 “${esc(n)}”</p>`).join('')}
+      <div class="btn-row center"><button class="brick-btn btn-yellow" data-action="go" data-screen="locker">${bi('🧍 Go shopping', 'Đến Tủ đồ')}</button><button class="brick-btn btn-green" data-action="modal-close">${bi('Thank you!', 'Cảm ơn Bố Mẹ!')}</button></div></div>`);
+    fx.confetti(60); Sfx.playSuccessFanfare(); updateWallet();
+    Speech.speak('Wow! A gift from Mom and Dad! Thank you!');
   }
 
   const actions = {
@@ -3938,6 +3972,27 @@
       renderParent();
     },
     'parent-lock': () => { App.parentOk = false; App.gate = null; renderParent(); },
+    'gift-preset': (el) => {
+      if (!App.parentOk) return;
+      const box = $(el.dataset.kind === 'gold' ? '#giftGold' : '#giftStuds');
+      const max = el.dataset.kind === 'gold' ? S.GIFT_MAX.gold : S.GIFT_MAX.studs;
+      if (box) box.value = Math.min(max, (Number(box.value) || 0) + Number(el.dataset.n));
+    },
+    'gift-send': async () => {
+      if (!App.parentOk) return;   // chỉ bố mẹ (đã qua Parent Gate) mới tặng được
+      const studs = Math.round(Number(($('#giftStuds') || {}).value) || 0), gold = Math.round(Number(($('#giftGold') || {}).value) || 0);
+      const note = (($('#giftNote') || {}).value || '').trim();
+      if (studs < 0 || gold < 0 || (!studs && !gold)) { toast('Enter an amount', 'Hãy nhập số xu hoặc Gold muốn tặng', 'warm'); return; }
+      if (studs > S.GIFT_MAX.studs || gold > S.GIFT_MAX.gold) { toast('Too much', `Mỗi lần tặng tối đa ${S.GIFT_MAX.studs} xu và ${S.GIFT_MAX.gold} Gold`, 'warm'); return; }
+      const what = [studs ? `<b>${studs}</b> xu` : '', gold ? `<b>${gold}</b> Gold` : ''].filter(Boolean).join(' và ');
+      const ok = await confirmModal({ en: 'Send this gift?', vi: 'Tặng quà cho con?', text: `Con sẽ nhận ${what}${note ? ` kèm lời nhắn “${esc(note)}”` : ''}. Quà hiện ra khi con rời Góc Bố Mẹ.`, ok: 'Send', okVi: 'Tặng', okClass: 'btn-green' });
+      if (!ok || !App.parentOk) return;
+      try { await S.giftFromParent({ studs, gold, note }); }
+      catch (e) { toast('Not sent', 'Chưa tặng được: ' + e.message, 'warm'); return; }
+      Sfx.playSuccessFanfare(); updateWallet();
+      toast('Gift sent!', 'Đã tặng – con sẽ thấy quà khi ra khỏi Góc Bố Mẹ', 'good');
+      renderParent();
+    },
     'cu-copy-prompt': async () => { await copyText(CU.promptText(), $('#promptBox')); toast('Prompt copied!', 'Đã sao chép Prompt – dán vào trợ lý AI và thêm nội dung SGK của con', 'good'); },
     'cu-sample': () => { const box = $('#unitJson'); box.value = CU.sampleText(); App.unitDraft = box.value; App.importReport = ''; $('#importReport').innerHTML = ''; toast('Sample pasted', 'Đã dán JSON mẫu – bấm Kiểm tra hoặc Nhập bài', 'good'); },
     'cu-check': () => { const res = CU.parse(readUnitDraft()); App.importReport = importReportHTML(res); $('#importReport').innerHTML = App.importReport; if (res.ok) Sfx.playBrickClick(); else Sfx.playGentleOops(); },
@@ -4055,7 +4110,7 @@
       setTimeout(() => { splash.hidden = true; }, 380);
       const name = S.state.profile.name;
       Speech.speak(S.lessonsDoneCount() ? `Welcome back, ${name}! Let's build!` : `Hello, ${name}! Welcome to LEGO English Builder!`);
-      setTimeout(checkSecrets, 1500);   // quà bí mật đã đạt (vd: từ vừa qua mốc ôn) → trao khi mở app
+      setTimeout(() => { if (S.state.giftInbox) showParentGift(); else checkSecrets(); }, 1500);   // quà bố mẹ tặng / quà bí mật đã đạt (vd: từ vừa qua mốc ôn) → trao khi mở app
     });
     // Mở khóa dự phòng ở bất kỳ cú chạm đầu tiên nào
     document.addEventListener('pointerdown', unlockAll, { once: true, capture: true });

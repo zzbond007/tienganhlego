@@ -29,6 +29,13 @@ Bản đồ có thanh chọn **🌱 Tháng 1–3 · 🌿 Tháng 4–6 · 🚀 Th
 
 Mỗi bài ngoài 6 bước học còn có thẻ **💡 Real-Life / Science Fact**, 2 câu nghe Đúng/Sai và 1 câu hỏi đời sống cho
 **🎧 Listening & Speaking Gym** (nút trên thẻ chào ở Bản đồ: 5 lượt nghe – nói, thưởng +10 Studs, +1 Gold; tối đa 2 Gold/ngày, các lượt sau vẫn luyện được và nhận +2 Studs).
+**💝 Bản v1.13.3 – Bố mẹ tặng xu & Gold:**
+- Góc Bố Mẹ (sau Parent Gate) có mục *Tặng xu & Gold cho con*: nhập số xu/Gold (tối đa 10.000 xu và 300 Gold mỗi lần), kèm lời nhắn.
+  Dùng để thưởng lại cho những gì con đã học, ví dụ bù phần bị mất do lỗi lưu dữ liệu.
+- Con thấy màn chúc mừng "Quà của Bố Mẹ" một lần khi ra khỏi Góc Bố Mẹ hoặc mở app. Lịch sử quà lưu trong dữ liệu và file sao lưu.
+- Tặng quà là một lần lưu bình thường: xu/Gold không tính vào điểm tiến độ nên không ảnh hưởng các chốt chống mất dữ liệu (v1.13.2).
+  Nếu lúc lưu app tìm thấy bản nhiều tiến độ hơn và chuyển sang bản đó, quà được cộng sang bản mới (theo mã quà, không cộng hai lần).
+
 **🥇 Bản v1.12 – Gold dùng được:**
 - *Lỗi*: món mua bằng Gold nằm ở tầng 4, chỉ hiện khi đã mua món tầng 3 (1.000–2.500 Studs) cùng nhóm → bé có Gold
   nhưng không thấy món nào để mua. Nay món Gold LUÔN hiện trong Tủ đồ.
