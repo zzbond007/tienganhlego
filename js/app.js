@@ -1041,7 +1041,7 @@
             <textarea class="code-box" id="codeIn" placeholder="LEB1:..."></textarea>
             <div class="btn-row" style="margin-top:8px"><button class="brick-btn btn-blue btn-sm" data-action="code-restore">${bi('Restore', 'Khôi phục')}</button></div>
           </div>
-          <div class="setting-row" style="display:block"><label>Bản sao lưu tự động trong máy<small>App tự lưu 1 bản mỗi ngày, giữ 7 ngày gần nhất. Nếu tiến độ của con bị mất, chọn ngày rồi bấm Khôi phục.</small></label>
+          <div class="setting-row" style="display:block"><label>🔎 Tìm lại dữ liệu<small>Mọi bản lưu còn trong máy này, bản nhiều tiến độ nhất đứng đầu (⭐). Nếu tiến độ của con bị mất, bấm Khôi phục ở bản có nhiều bài/từ nhất.</small></label>
             <div id="autoBackups" class="vi" style="margin-top:8px">Đang tải…</div>
           </div>
           <div class="setting-row"><label>Xóa toàn bộ tiến độ<small>Reset all progress</small></label><button class="brick-btn btn-red btn-sm" data-action="reset-all">${bi('Reset', 'Xóa')}</button></div>
@@ -1187,14 +1187,10 @@
   async function fillAutoBackups() {
     const box = document.getElementById('autoBackups');
     if (!box) return;
-    const list = await S.listBackups();
-    if (!list.length) { box.textContent = 'Chưa có bản sao lưu tự động nào (sẽ có sau khi con học).'; return; }
-    box.innerHTML = list.map((b) => {
-      const d = b.data || {};
-      const lessons = Object.values(d.lessons || {}).filter((l) => l && l.done).length;
-      const words = Object.keys(d.words || {}).length;
-      return `<div class="btn-row" style="align-items:center;margin-bottom:6px"><span style="flex:1"><b>${esc(b.day)}</b> · ${lessons} bài · ${words} từ · ${Number(d.studs) || 0} xu · ${Number(d.goldBricks) || 0} Gold</span><button class="brick-btn btn-white btn-sm" data-action="backup-restore" data-day="${esc(b.day)}">${bi('Restore', 'Khôi phục')}</button></div>`;
-    }).join('');
+    const list = (await S.findCopies()).filter((c) => c.lessons || c.words).sort((a, b) => b.score - a.score || b.at - a.at);
+    if (!list.length) { box.textContent = 'Chưa tìm thấy bản lưu nào có tiến độ trong máy này.'; return; }
+    const fmtAt = (t) => { if (!t) return ''; const d = new Date(t); return d.toLocaleDateString('vi-VN') + ' ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }); };
+    box.innerHTML = list.map((c, i) => `<div class="btn-row" style="align-items:center;margin-bottom:6px"><span style="flex:1">${i === 0 ? '⭐ ' : ''}<b>${esc(c.label)}</b> <small>${esc(fmtAt(c.at))}</small><br>${c.lessons} bài · ${c.words} từ · ${c.studs} xu · ${c.gold} Gold</span><button class="brick-btn btn-white btn-sm" data-action="copy-restore" data-key="${esc(c.key)}" data-label="${esc(c.label)}">${bi('Restore', 'Khôi phục')}</button></div>`).join('');
   }
 
   function afterRestore() {
@@ -3985,11 +3981,11 @@
       try { await S.fromCode(code); afterRestore(); }
       catch (e) { toast('Invalid code', 'Mã không hợp lệ: ' + e.message, 'warm'); }
     },
-    'backup-restore': async (el) => {
-      const day = el.dataset.day;
-      const ok = await confirmModal({ en: 'Restore this backup?', vi: 'Khôi phục bản sao lưu ngày ' + day + '?', text: 'Tiến độ hiện tại trên thiết bị này sẽ được thay bằng bản sao lưu.', ok: 'Restore', okVi: 'Khôi phục', okClass: 'btn-blue' });
+    'copy-restore': async (el) => {
+      const key = el.dataset.key;
+      const ok = await confirmModal({ en: 'Restore this copy?', vi: 'Khôi phục: ' + el.dataset.label + '?', text: 'Tiến độ đang dùng sẽ được cất lại vào danh sách này trước, nên có thể khôi phục ngược lại nếu chọn nhầm.', ok: 'Restore', okVi: 'Khôi phục', okClass: 'btn-blue' });
       if (!ok) return;
-      try { await S.restoreBackup(day); afterRestore(); }
+      try { await S.restoreCopy(key); afterRestore(); }
       catch (e) { toast('Restore failed', 'Không khôi phục được: ' + e.message, 'warm'); }
     },
     'reset-all': async () => {
@@ -4067,7 +4063,8 @@
     // Chờ đọc xong dữ liệu đã lưu rồi mới cho bé bấm Bắt đầu (tránh học trên bản trống rồi ghi đè)
     startBtn.disabled = true;
     try { await S.load(); } finally { startBtn.disabled = false; }
-    if (S.recovered) setTimeout(() => toast('Progress restored!', 'Đã tự khôi phục tiến độ từ bản sao lưu ngày ' + S.recovered.from, 'good'), 600);
+    if (S.recovered) setTimeout(() => toast('Progress restored!', 'Đã tìm lại tiến độ từ: ' + S.recovered.from, 'good'), 600);
+    S.onAdopt = () => { CU.syncAll(S.state.customUnits); applySettings(); updateWallet(); render(); toast('Progress found!', 'Đã tìm thấy và mở lại tiến độ đầy đủ của con', 'good'); };
     CU.syncAll(S.state.customUnits);
     applySettings();
     render();
