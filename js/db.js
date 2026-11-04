@@ -76,7 +76,7 @@
 
   /* ---------- IndexedDB tối giản ---------- */
   /** Mở IndexedDB. iPad/Safari đôi khi treo lệnh open mãi không trả lời → giới hạn thời gian chờ. */
-  function openDB(timeoutMs = 4000) {
+  function openDB(timeoutMs = 8000) {
     return new Promise((resolve, reject) => {
       if (!global.indexedDB) { reject(new Error('no-idb')); return; }
       const timer = setTimeout(() => reject(new Error('idb-timeout')), timeoutMs);
@@ -144,30 +144,53 @@
     });
   }
 
-  /** Điểm "có tiến độ" của một bản lưu: dùng để không bao giờ ghi đè dữ liệu thật bằng dữ liệu trống. */
-  function progressScore(s) {
-    if (!s || typeof s !== 'object') return 0;
-    const n = (o) => (o && typeof o === 'object' ? Object.keys(o).length : 0);
-    const owned = Array.isArray(s.owned) ? s.owned.length : 0;
-    return n(s.lessons) * 100 + n(s.words) * 10 + n(s.daily) * 5 + n(s.reviewLog) * 5 +
-      (Number(s.goldBricks) || 0) * 10 + Math.max(0, owned - 14) * 20 + Math.max(0, (Number(s.studs) || 0) - 30);
+  /** Chạy promise nhưng bỏ cuộc sau ms (iPad đôi khi treo IndexedDB mãi không trả lời). */
+  function withTimeout(promise, ms) {
+    return new Promise((resolve, reject) => {
+      const t = setTimeout(() => reject(new Error('timeout')), ms);
+      promise.then((v) => { clearTimeout(t); resolve(v); }, (e) => { clearTimeout(t); reject(e); });
+    });
   }
-  /** Bản lưu "trống" = chưa học bài nào, chưa có từ nào, chưa có ngày học nào. */
+
+  const cnt = (o) => (o && typeof o === 'object' ? Object.keys(o).length : 0);
+
+  /** Điểm "đã học được bao nhiêu" – chỉ gồm những thứ chỉ tăng chứ không giảm (không tính xu/Gold vì bé tiêu được). */
+  function learnScore(s) {
+    if (!s || typeof s !== 'object') return 0;
+    const lessons = s.lessons && typeof s.lessons === 'object' ? Object.values(s.lessons).filter((l) => l && l.done).length : 0;
+    const owned = Array.isArray(s.owned) ? s.owned.length : 0;
+    return lessons * 100 + cnt(s.words) * 10 + cnt(s.mysteries) * 50 + cnt(s.daily) * 5 + cnt(s.reviewLog) * 5 +
+      Math.max(0, owned - 14) * 20 + (Array.isArray(s.checks) ? s.checks.length : 0) * 5;
+  }
+  const progressScore = learnScore;
+  /** Bản lưu "trống" = chưa học bài nào, chưa có từ nào. */
   function isBlank(s) {
     if (!s || typeof s !== 'object') return true;
-    const n = (o) => (o && typeof o === 'object' ? Object.keys(o).length : 0);
-    return n(s.lessons) === 0 && n(s.words) === 0 && n(s.daily) === 0;
+    return cnt(s.lessons) === 0 && cnt(s.words) === 0;
   }
-  /** Chọn bản lưu tốt nhất: bản ghi gần nhất (savedAt); bản cũ không có savedAt → bản nhiều tiến độ hơn. */
-  function pickBest(list) {
-    const c = list.filter((x) => x && typeof x === 'object');
-    if (!c.length) return null;
-    return c.sort((a, b) => {
-      const ta = Number(a.savedAt) || 0, tb = Number(b.savedAt) || 0;
-      if (ta && tb && ta !== tb) return tb - ta;
-      return progressScore(b) - progressScore(a);
-    })[0];
+  /** "Dòng dữ liệu": mỗi lần bắt đầu từ trắng (máy mới / Xóa tiến độ) có createdAt mới. */
+  const lineage = (s) => (s && Number(s.createdAt)) || 0;
+  /** x có phải bản nối tiếp của y (phiên của x đã đọc bản y hoặc mới hơn y rồi mới học tiếp)? */
+  const descends = (x, y) => (Number(x.sessionBase) || 0) >= (Number(y.savedAt) || 0);
+
+  /** So 2 bản lưu, trả về bản nên GIỮ. Nguyên tắc: khi không chắc chắn, giữ bản có nhiều tiến độ học hơn. */
+  function better(a, b) {
+    if (!a || typeof a !== 'object') return b || null;
+    if (!b || typeof b !== 'object') return a;
+    const ta = Number(a.savedAt) || 0, tb = Number(b.savedAt) || 0;
+    const [newer, older] = ta >= tb ? [a, b] : [b, a];
+    if (lineage(a) === lineage(b)) {
+      if ((Number(newer.savedAt) || 0) && descends(newer, older)) return newer;
+    } else {
+      // Bố mẹ chủ động Xóa tiến độ / Khôi phục SAU lần lưu cuối của bản kia → tôn trọng lựa chọn đó
+      const act = Math.max(Number(newer.resetAt) || 0, Number(newer.importedAt) || 0);
+      if (act > (Number(older.savedAt) || 0)) return newer;
+    }
+    const sa = learnScore(a), sb = learnScore(b);
+    if (sa !== sb) return sa > sb ? a : b;
+    return newer;
   }
+  function pickBest(list) { return list.reduce((acc, x) => better(acc, x), null); }
 
   function lsGet(key) {
     try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch (e) { return null; }
@@ -207,6 +230,8 @@
     out.talkDay = saved.talkDay && typeof saved.talkDay === 'object' ? saved.talkDay : null;
     out.savedAt = Number(saved.savedAt) || 0;
     out.resetAt = Number(saved.resetAt) || 0;
+    out.sessionBase = Number(saved.sessionBase) || 0;
+    out.importedAt = Number(saved.importedAt) || 0;
     return out;
   }
 
@@ -235,48 +260,99 @@
     progressScore,
     isBlank,
 
-    _ready: false,          // chưa đọc xong dữ liệu đã lưu → KHÔNG được ghi (tránh ghi đè bằng dữ liệu trống)
-    _storedScore: 0,        // tiến độ của bản lưu tốt nhất đã đọc/ghi – chặn ghi đè bằng bản trống
-    _allowBlankWrite: false,
-    _lastBackupDay: '',
-    BACKUP_DAYS: 7,
+    _ready: false,          // chưa đọc xong dữ liệu đã lưu → KHÔNG được ghi
+    _base: 0,               // savedAt của bản đã đọc lúc mở app / bản mình vừa ghi
+    _override: false,       // bố mẹ chủ động Xóa / Khôi phục → được phép ghi đè
+    _chain: Promise.resolve(),
+    _ownWrites: new Set(),
+    BACKUP_DAYS: 14,
+    recovered: null,
+    onAdopt: null,          // app.js gán: vẽ lại màn hình khi tìm thấy dữ liệu tốt hơn
 
     async _getDB() {
       if (this._db && !this._db._closed) return this._db;
       this._db = null;
-      try { this._db = await openDB(); } catch (e) { this._db = null; }
-      return this._db;
+      // Vừa mở thất bại (treo) → đừng chờ thêm 8 giây mỗi lần gọi; thử lại sau vài giây
+      if (this._dbFailAt && Date.now() - this._dbFailAt < 4000) return null;
+      if (!this._opening) this._opening = openDB(8000).then((db) => { this._dbFailAt = 0; return db; }, () => { this._dbFailAt = Date.now(); return null; });
+      const db = await this._opening;
+      this._opening = null;
+      this._db = db;
+      return db;
+    },
+
+    /** Đọc 1 khóa IDB. Trả về { ok, value }; ok=false nghĩa là KHÔNG ĐỌC ĐƯỢC (khác với "không có dữ liệu"). */
+    async _idbRead(key) {
+      for (let i = 0; i < 2; i++) {
+        const db = await this._getDB();
+        if (!db) return { ok: false };   // không mở được → không thử lại ngay
+        try { return { ok: true, value: await withTimeout(idbGet(db, key), 5000) }; }
+        catch (e) { try { db.close(); } catch (e2) { /* */ } this._db = null; }
+      }
+      return { ok: false };
     },
 
     async load() {
-      // Cấu hình nhanh từ localStorage (có ngay, kể cả khi IDB chậm)
       const quick = lsGet(LS_SETTINGS);
-      let fromIdb = null;
-      const db = await this._getDB();
-      if (db) {
-        try { fromIdb = await idbGet(db, STATE_KEY); } catch (e) { fromIdb = null; }
-      }
       const fromLs = lsGet(LS_STATE);
-      // Đọc cả 2 bản (IndexedDB + localStorage) rồi chọn bản mới nhất – trước đây luôn ưu tiên IDB
-      // nên khi IDB ghi hỏng (Safari mất kết nối lúc chạy nền) app quay về tiến độ cũ.
-      let saved = pickBest([fromIdb, fromLs]);
-      // Cả 2 bản đều trống/mất nhưng còn bản sao lưu tự động có tiến độ (và bố mẹ không chủ động xóa) → tự khôi phục
-      if (isBlank(saved) && !(saved && saved.resetAt)) {
-        const backups = await this.listBackups();
-        const best = backups.find((b) => !isBlank(b.data));
-        if (best) { saved = best.data; this.recovered = { from: best.day }; }
+      const r = await this._idbRead(STATE_KEY);
+      this._idbOk = r.ok;
+      let saved = pickBest([r.ok ? r.value : null, fromLs]);
+      // Tìm trong các bản sao lưu: (1) bản chính trống → lấy bản sao lưu nhiều tiến độ nhất;
+      // (2) bản chính là một "dòng dữ liệu" khác (bắt đầu lại từ trắng do lỗi đọc) mà ít tiến độ hơn → lấy lại bản đầy đủ.
+      // Không đụng tới bản cùng dòng (để tôn trọng việc bố mẹ khôi phục về một ngày cũ hơn).
+      {
+        const blank = isBlank(saved) && !(saved && saved.resetAt);
+        const copies = (await this.findCopies()).filter((c) => c.key !== STATE_KEY && c.key !== 'ls:state' && !isBlank(c.data) &&
+          (blank || lineage(c.data) !== lineage(saved)));
+        let best = null;
+        copies.forEach((c) => { if (better(best ? best.data : saved, c.data) === c.data && (blank || learnScore(c.data) > learnScore(saved))) best = c; });
+        if (best) {
+          // Cất bản chính đang có (nếu có tiến độ) để không mất gì cả
+          if (!isBlank(saved)) await this._stash('alt:' + Date.now(), JSON.parse(JSON.stringify(saved)));
+          saved = best.data; this.recovered = { from: best.label };
+        }
       }
       this.state = merge(defaults(), saved);
       if (quick) this.state.settings = Object.assign(this.state.settings, quick);
-      // v1.9.2: bé phản ánh giọng mẫu vẫn nhanh → hạ một lần về "Rất chậm" (bố mẹ chỉnh lại được trong Cài đặt)
       const st = this.state.settings;
       if (!st.rateV3) { st.rate = Math.min(Number(st.rate) || 0.5, 0.5); st.rateV3 = true; }
-      this._storedScore = Math.max(progressScore(fromIdb), progressScore(fromLs), progressScore(saved));
+      this._base = Number(saved && saved.savedAt) || 0;
+      this.state.sessionBase = this._base;
       this._ready = true;
-      // Xin trình duyệt giữ dữ liệu lâu dài (Safari/Chrome có thể tự xóa dữ liệu web khi máy đầy bộ nhớ)
       try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) { /* */ }
-      if (this.recovered) await this.saveNow();
+      // IDB chưa đọc được → thử lại ở nền; nếu trong đó có bản tốt hơn thì dùng bản đó
+      if (!this._idbOk) this._retryIdb(0);
       return this.state;
+    },
+
+    async _retryIdb(n) {
+      if (this._idbOk || n > 6) return;
+      await new Promise((res) => setTimeout(res, 3000 + n * 3000));
+      const r = await this._idbRead(STATE_KEY);
+      if (!r.ok) { this._retryIdb(n + 1); return; }
+      this._idbOk = true;
+      if (r.value && better(this.state, r.value) === r.value && r.value !== this.state) this._adopt(r.value);
+    },
+
+    /** Tìm thấy bản lưu tốt hơn bản đang dùng → chuyển sang bản đó (cất bản đang dùng vào kho phụ). */
+    async _adopt(found) {
+      const cur = JSON.parse(JSON.stringify(this.state));
+      if (!isBlank(cur)) await this._stash('alt:' + Date.now(), cur);
+      const keepSettings = this.state.settings;
+      this.state = merge(defaults(), found);
+      this.state.settings = Object.assign({}, this.state.settings, keepSettings);
+      this._base = Number(found.savedAt) || 0;
+      this.state.sessionBase = this._base;
+      this.adopted = true;
+      this._emit();
+      if (typeof this.onAdopt === 'function') { try { this.onAdopt(); } catch (e) { /* */ } }
+    },
+
+    async _stash(key, data) {
+      const db = await this._getDB();
+      if (!db) return;
+      try { await withTimeout(idbPut(db, key, { day: todayKey(), at: Date.now(), data }), 5000); } catch (e) { /* */ }
     },
 
     onChange(fn) { this.listeners.push(fn); },
@@ -289,66 +365,129 @@
       this._saveTimer = setTimeout(() => this.saveNow(), 250);
     },
 
-    async saveNow() {
+    /** Lưu tuần tự (không bao giờ 2 lần lưu chạy chồng lên nhau). */
+    saveNow() {
       clearTimeout(this._saveTimer);
-      if (!this._ready) return;   // chưa đọc xong dữ liệu cũ → không ghi
-      // Lưới an toàn: không bao giờ ghi bản trống đè lên bản đã có tiến độ (trừ khi bố mẹ chủ động Xóa/Khôi phục)
-      if (!this._allowBlankWrite && isBlank(this.state) && this._storedScore > 0) return;
-      this._allowBlankWrite = false;
-      this.state.savedAt = Date.now();
-      const snapshot = JSON.parse(JSON.stringify(this.state));
-      this._storedScore = progressScore(snapshot);
-      lsSet(LS_SETTINGS, snapshot.settings);
-      lsSet(LS_STATE, snapshot);
-      let db = await this._getDB();
-      if (db) {
-        try { await idbPut(db, STATE_KEY, snapshot); }
-        catch (e) {
-          // Kết nối IDB bị đóng (iPad chạy nền) → mở lại và thử 1 lần nữa
-          this._db = null; db = await this._getDB();
-          if (db) { try { await idbPut(db, STATE_KEY, snapshot); } catch (e2) { /* đã có bản sao localStorage */ } }
-        }
-      }
-      await this._dailyBackup(snapshot);
+      const run = this._chain.then(() => this._doSave()).catch(() => {});
+      this._chain = run;
+      return run;
     },
 
-    /* ---------- Sao lưu tự động hằng ngày (giữ 7 ngày gần nhất trong máy) ---------- */
-    async _dailyBackup(snapshot) {
-      if (isBlank(snapshot)) return;
+    /** Được phép ghi `snap` đè lên `existing` trong một kho không? */
+    _mayOverwrite(existing, snap) {
+      if (this._override || !existing || typeof existing !== 'object') return true;
+      const t = Number(existing.savedAt) || 0;
+      if (t && this._ownWrites.has(t)) return true;                       // chính bản mình vừa ghi
+      if (lineage(existing) === lineage(snap) && descends(snap, existing)) return true;   // bản mình đã đọc rồi học tiếp
+      // Kho đang chứa bản mình chưa từng đọc → chỉ ghi nếu bản của mình chắc chắn tốt hơn
+      return better(existing, snap) === snap && learnScore(snap) >= learnScore(existing);
+    },
+
+    async _doSave() {
+      if (!this._ready) return;   // chưa đọc xong dữ liệu cũ → không ghi
+      const override = this._override;
+      this.state.savedAt = Math.max(Date.now(), this._base + 1, (Number(this.state.savedAt) || 0) + 1);
+      const snap = JSON.parse(JSON.stringify(this.state));
+      lsSet(LS_SETTINGS, snap.settings);
+      let conflict = null;
+
+      const exLs = lsGet(LS_STATE);
+      if (this._mayOverwrite(exLs, snap)) lsSet(LS_STATE, snap); else conflict = exLs;
+
+      // IndexedDB: đọc bản đang có trước; KHÔNG đọc được thì KHÔNG ghi mù
+      const r = await this._idbRead(STATE_KEY);
+      let wroteIdb = false;
+      if (r.ok) {
+        this._idbOk = true;
+        if (this._mayOverwrite(r.value, snap)) {
+          const db = await this._getDB();
+          if (db) { try { await withTimeout(idbPut(db, STATE_KEY, snap), 5000); wroteIdb = true; } catch (e) { /* */ } }
+        } else conflict = better(conflict, r.value);
+      }
+      this._override = false;
+
+      if (conflict && !override) {
+        await this._adopt(conflict);   // giữ bản nhiều tiến độ hơn, cất bản đang dùng vào kho phụ
+        return;
+      }
+      this._ownWrites.add(snap.savedAt);
+      await this._dailyBackup(snap);
+    },
+
+    /* ---------- Sao lưu tự động hằng ngày (giữ 14 ngày, luôn giữ bản nhiều tiến độ nhất) ---------- */
+    async _dailyBackup(snap) {
+      if (isBlank(snap)) return;
       const day = todayKey();
       const db = await this._getDB();
       if (!db) return;
       try {
-        await idbPut(db, BACKUP_PREFIX + day, { day, at: Date.now(), data: snapshot });
+        const key = BACKUP_PREFIX + day;
+        const ex = await withTimeout(idbGet(db, key), 5000);
+        // Không bao giờ đè bản sao lưu của một "dòng dữ liệu" khác có nhiều tiến độ hơn
+        let target = key;
+        if (ex && ex.data && lineage(ex.data) !== lineage(snap) && learnScore(ex.data) > learnScore(snap)) target = key + ':' + lineage(snap);
+        await withTimeout(idbPut(db, target, { day, at: Date.now(), data: snap }), 5000);
         if (this._lastBackupDay !== day) {
           this._lastBackupDay = day;
-          const keys = (await idbKeys(db)).filter((k) => typeof k === 'string' && k.indexOf(BACKUP_PREFIX) === 0).sort();
-          const old = keys.slice(0, Math.max(0, keys.length - this.BACKUP_DAYS));
-          for (const k of old) await idbDel(db, k);
+          await this._pruneBackups(db);
         }
       } catch (e) { /* không sao lưu được thì bỏ qua */ }
     },
 
-    /** Danh sách bản sao lưu tự động, mới nhất trước: [{ day, at, data, score }]. */
-    async listBackups() {
-      const db = await this._getDB();
-      if (!db) return [];
-      try {
-        const keys = (await idbKeys(db)).filter((k) => typeof k === 'string' && k.indexOf(BACKUP_PREFIX) === 0).sort().reverse();
-        const out = [];
-        for (const k of keys) {
-          const b = await idbGet(db, k);
-          if (b && b.data) out.push({ day: b.day, at: b.at, data: b.data, score: progressScore(b.data) });
-        }
-        return out;
-      } catch (e) { return []; }
+    async _pruneBackups(db) {
+      const all = await this.findCopies();
+      const backups = all.filter((c) => c.key.indexOf(BACKUP_PREFIX) === 0);
+      const days = Array.from(new Set(backups.map((c) => c.day))).sort().reverse();
+      const keepDays = new Set(days.slice(0, this.BACKUP_DAYS));
+      const best = backups.reduce((acc, c) => (!acc || learnScore(c.data) > learnScore(acc.data) ? c : acc), null);
+      for (const c of backups) {
+        if (keepDays.has(c.day) || (best && c.key === best.key)) continue;
+        await idbDel(db, c.key);
+      }
+      const alts = all.filter((c) => c.key.indexOf('alt:') === 0).sort((x, y) => y.at - x.at);
+      for (const c of alts.slice(10)) await idbDel(db, c.key);
     },
 
-    async restoreBackup(day) {
-      const b = (await this.listBackups()).find((x) => x.day === day);
-      if (!b) throw new Error('Không tìm thấy bản sao lưu');
-      return this.importObject(b.data);
+    /** MỌI bản lưu còn trong máy (chỉ đọc): bản chính IDB, bản localStorage, sao lưu hằng ngày, kho phụ. */
+    async findCopies() {
+      const out = [];
+      const push = (key, label, data, at) => {
+        if (!data || typeof data !== 'object') return;
+        const lessons = data.lessons && typeof data.lessons === 'object' ? Object.values(data.lessons).filter((l) => l && l.done).length : 0;
+        out.push({ key, label, data, at: at || Number(data.savedAt) || 0, day: todayKey(new Date(at || Number(data.savedAt) || 0)), score: learnScore(data),
+          lessons, words: cnt(data.words), studs: Number(data.studs) || 0, gold: Number(data.goldBricks) || 0 });
+      };
+      push('ls:state', 'Bản lưu nhanh (localStorage)', lsGet(LS_STATE));
+      const db = await this._getDB();
+      if (db) {
+        try {
+          const keys = await withTimeout(idbKeys(db), 5000);
+          for (const k of keys) {
+            if (typeof k !== 'string') continue;
+            const v = await withTimeout(idbGet(db, k), 5000);
+            if (k === STATE_KEY) push(k, 'Bản lưu chính', v);
+            else if (k.indexOf(BACKUP_PREFIX) === 0 && v && v.data) { push(k, 'Sao lưu ngày ' + v.day, v.data, v.at); out[out.length - 1].day = v.day; }
+            else if (k.indexOf('alt:') === 0 && v && v.data) push(k, 'Bản cất giữ ' + todayKey(new Date(v.at)), v.data, v.at);
+          }
+        } catch (e) { /* */ }
+      }
+      return out;
     },
+
+    /** Danh sách sao lưu (giữ cho tương thích): mọi bản trừ bản chính, nhiều tiến độ trước. */
+    async listBackups() {
+      return (await this.findCopies()).sort((a, b) => b.score - a.score || b.at - a.at);
+    },
+
+    /** Khôi phục một bản bất kỳ (bố mẹ chọn). Bản đang dùng được cất lại trước, nên luôn hoàn tác được. */
+    async restoreCopy(key) {
+      const c = (await this.findCopies()).find((x) => x.key === key);
+      if (!c) throw new Error('Không tìm thấy bản lưu này');
+      const cur = JSON.parse(JSON.stringify(this.state));
+      if (!isBlank(cur)) await this._stash('alt:' + Date.now(), cur);
+      return this.importObject(c.data);
+    },
+    async restoreBackup(day) { return this.restoreCopy(BACKUP_PREFIX + day); },
 
     /* ---------- Ví thưởng ---------- */
     addStuds(n) { this.state.studs = Math.max(0, this.state.studs + Math.round(n)); this.save(); },
@@ -668,8 +807,10 @@
     async importObject(obj) {
       const data = this.validate(obj);
       this.state = merge(defaults(), data);
+      this.state.sessionBase = Number(data.savedAt) || 0;
+      this.state.importedAt = Date.now();
       this._ready = true;
-      this._allowBlankWrite = true;
+      this._override = true;
       await this.saveNow();
       this._emit();
     },
@@ -692,7 +833,7 @@
       this.state.settings = keepSettings;
       this.state.customUnits = keepUnits;
       this.state.resetAt = Date.now();   // bố mẹ chủ động xóa → không tự khôi phục từ bản sao lưu
-      this._allowBlankWrite = true;
+      this._override = true;
       await this.saveNow();
       this._emit();
     }
